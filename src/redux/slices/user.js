@@ -187,11 +187,15 @@ const slice = createSlice({
     getTopAchiverSuccess(state, action) {
       state.isLoading = false;
       state.topAchivers = action.payload;
+    },
+    getPriceSuccess(state, action) {
+      state.isLoading = false;
+      state.tokenPrice = action.payload;
     }
   }
 });
 
-const baseUrl = process.env.PORT || 'https://digibot.co/api/v1/api';
+const baseUrl = process.env.PORT || 'http://localhost:8080/api';
 
 // Reducer
 export default slice.reducer;
@@ -211,6 +215,22 @@ export function getTeams() {
         headers
       });
       dispatch(slice.actions.getTeamsSuccess(response.data));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+export function getTokenPrice() {
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const accessToken = window.localStorage.getItem('accessToken');
+      const headers = { Authorization: `Bearer ${accessToken}` };
+      const response = await axios.get(`${baseUrl}/price/`, {
+        headers
+      });
+      console.log(response);
+      dispatch(slice.actions.getPriceSuccess(response.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }

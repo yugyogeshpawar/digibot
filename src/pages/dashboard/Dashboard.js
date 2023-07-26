@@ -53,10 +53,10 @@ export default function Dashboard() {
             <AppTotalActiveUsers totalEarning={user.total_earning} title="Team Business" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <WithoutUSD teamBusiness={user.team_business} title="Total Direct" />
+            <WithoutUSD teamBusiness={user.team_business} title="Total Direct Member" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <WithoutUSD teamBusiness={user.team_business} title="Total Member" />
+            <WithoutUSD teamBusiness={user.team_business} title="Total Team Member" />
           </Grid>
           <Grid item xs={12} md={4}>
             <MyRank teamBusiness={user.team_business} title="Direct Bonus" />
@@ -65,19 +65,19 @@ export default function Dashboard() {
             <MyRank teamBusiness={user.team_business} title="Level Bonus" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={user.team_business} title="Staking Bonus" />
+            <MyRank teamBusiness={user.team_business} title="Daily Trade Profit" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={user.team_business} title="Passive Bonus" />
+            <MyRank teamBusiness={user.team_business} title="Team Passive Bonus" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={user.team_business} title="Reward Bonus" />
+            <MyRank teamBusiness={user.team_business} title="Direct Matching Bonus" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={user.team_business} title="Matching Bonus" />
+            <MyRank teamBusiness={user.team_business} title="Team Matching Bonus" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={user.team_business} title="Monthly Bonus" />
+            <MyRank teamBusiness={user.team_business} title="Monthly Matching Bonus" />
           </Grid>
           <Grid item xs={12}>
             <EventsPosts />

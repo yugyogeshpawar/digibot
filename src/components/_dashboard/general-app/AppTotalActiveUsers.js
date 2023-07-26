@@ -22,7 +22,7 @@ export default function AppTotalActiveUsers({ totalEarning, title }) {
 
       <Box sx={{ flexGrow: 1 }}>
         <Typography variant="subtitle2">-</Typography>
-        <Typography variant="h5">{fNumber((totalEarning * 60) / 100)} USD</Typography>
+        <Typography variant="h5">${fNumber((totalEarning * 60) / 100)}</Typography>
       </Box>
     </Card>
   );

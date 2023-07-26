@@ -2,12 +2,13 @@ import { Icon } from '@iconify/react';
 import { useEffect, useState } from 'react';
 import { useSnackbar } from 'notistack5';
 import * as Yup from 'yup'; // Import Yup for form validation
-import { Grid, Button, Typography, Autocomplete, TextField } from '@material-ui/core';
+import { Grid, Button, Typography, Autocomplete, TextField, Box } from '@material-ui/core';
 import { Formik, Form, Field } from 'formik'; // Import Formik components
 import closeFill from '@iconify/icons-eva/close-fill';
-import { useDispatch } from '../../redux/store';
 import { Block } from '../Block';
+import { getTokenPrice } from '../../redux/slices/user';
 import { MIconButton } from '../../components/@material-extend';
+import { useDispatch, useSelector } from '../../redux/store';
 
 const options = ['Nano', 'Alpha', 'Beta', 'Delta'];
 const packageOptions = {
@@ -25,12 +26,13 @@ export default function StakingForm() {
   const [hashCode, setHashCode] = useState('');
   const [currentPrice, setCurrentPrice] = useState('');
   const [totalToken, setTotalToken] = useState('');
-  const [botCharge, setBotCharge] = useState('');
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const dispatch = useDispatch();
+  const { tokenPrice } = useSelector((state) => state.user);
+  console.log(tokenPrice);
 
   useEffect(() => {
-    // dispatch(getBoard());
+    dispatch(getTokenPrice());
   }, [dispatch]);
 
   const handleBotChange = (event, newValue) => {
@@ -93,7 +95,7 @@ export default function StakingForm() {
         <Form autoComplete="off">
           <div style={{ display: 'flex', flexWrap: 'wrap' }}>
             <Grid item xs={12} md={5} sx={{ mr: 2 }}>
-              <Block title="Stake" sx={{ flexDirection: 'column' }}>
+              <Block title="Enter Staking Details" sx={{ flexDirection: 'column' }}>
                 <Autocomplete
                   fullWidth
                   value={selectedBot}
@@ -116,9 +118,10 @@ export default function StakingForm() {
                   fullWidth
                   sx={{ mt: 2 }}
                   label="Current Price"
+                  focused
                   name="currentPrice"
-                  value={currentPrice}
-                  onChange={(e) => setCurrentPrice(e.target.value)}
+                  value={tokenPrice?.price}
+                  readonly
                   error={touched.currentPrice && Boolean(errors.currentPrice)}
                   helperText={touched.currentPrice && errors.currentPrice}
                 />
@@ -128,8 +131,8 @@ export default function StakingForm() {
                   sx={{ mt: 2 }}
                   label="Bot Charge"
                   name="botCharge"
-                  value={botCharge}
-                  onChange={(e) => setBotCharge(e.target.value)}
+                  value="$50"
+                  readonly
                   error={touched.botCharge && Boolean(errors.botCharge)}
                   helperText={touched.botCharge && errors.botCharge}
                 />
@@ -166,14 +169,27 @@ export default function StakingForm() {
                   error={touched.hashCode && Boolean(errors.hashCode)}
                   helperText={touched.hashCode && errors.hashCode}
                 />
-                <Button type="submit" variant="contained" color="primary">
+                <Button fullWidth type="submit" variant="contained" color="primary" style={{ marginTop: '16px' }}>
                   Submit
                 </Button>
               </Block>
             </Grid>
             <Grid item xs={12} md={6}>
-              <Block title="Qr Code" sx={{ flexDirection: 'column' }}>
-                helo
+              <Block title="Qr Code" sx={{ flexDirection: 'column', marginBottom: '8px' }}>
+                <img src="/qrcode/qr-code.png" alt="qr-code" style={{ maxWidth: '200px', borderRadius: '4px' }} />
+                <Box>
+                  <h1>Important</h1>
+                  <ol style={{ marginLeft: '16px' }}>
+                    <li>
+                      This address is only for <b> TRC-20</b>
+                    </li>
+                    <li>
+                      Deposit amount is fixed<b> 15 USDT </b>
+                    </li>
+                    <li>Sending any other coin or token to this address may result in the loss</li>
+                    <li>Deposits will automatically be processed after 3 network confirmations.</li>
+                  </ol>
+                </Box>
               </Block>
             </Grid>
           </div>
