@@ -16,6 +16,7 @@ import {
   EcommerceLatestProducts,
   EcommerceCurrentBalance,
   NextPosition,
+  ActiveVsInactive2,
   AllPositions
 } from '../../components/_dashboard/general-ecommerce';
 
@@ -67,6 +68,9 @@ export default function GeneralMyTeam() {
 
           <Grid item xs={12} md={6} lg={4}>
             <EcommerceLatestProducts />
+          </Grid>
+          <Grid item xs={12} md={6} lg={4}>
+            <ActiveVsInactive2 />
           </Grid>
         </Grid>
       </Container>

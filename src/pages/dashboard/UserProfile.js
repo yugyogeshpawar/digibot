@@ -10,15 +10,7 @@ import { styled } from '@material-ui/core/styles';
 import { Tab, Box, Card, Tabs, Container } from '@material-ui/core';
 // redux
 import { useDispatch, useSelector } from '../../redux/store';
-import {
-  getPosts,
-  getGallery,
-  getFriends,
-  getProfile,
-  getFollowers,
-  onToggleFollow,
-  getTeams
-} from '../../redux/slices/user';
+import { getGallery, getProfile, onToggleFollow, getTeams } from '../../redux/slices/user';
 // routes
 // import { PATH_DASHBOARD } from '../../routes/paths';
 // hooks
@@ -70,6 +62,7 @@ export default function UserProfile() {
   };
 
   if (!myProfile) {
+    // Handle the case when myProfile is not available or is null
     return null;
   }
 

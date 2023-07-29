@@ -2,20 +2,18 @@
 import { useEffect } from 'react';
 // material
 import { Box, Grid, Container, Typography } from '@material-ui/core';
+import userFill from '@iconify/icons-ph/user-fill';
+import moneyIcon from '@iconify/icons-fluent-mdl2/money';
+import usersIcon from '@iconify/icons-raphael/users';
+import moneyIcon2 from '@iconify/icons-grommet-icons/money';
 // hooks
 import { useDispatch, useSelector } from 'src/redux/store';
 import useSettings from '../../hooks/useSettings';
 import useAuth from '../../hooks/useAuth';
 // components
 import Page from '../../components/Page';
-import {
-  AnalyticsCurrentVisits,
-  MySponser,
-  MyDirects,
-  MyTeamsW,
-  StoneHolders
-} from '../../components/_dashboard/general-analytics';
-
+import { AnalyticsCurrentVisits, MySponser } from '../../components/_dashboard/general-analytics';
+import { ActiveVsInactive2 } from '../../components/_dashboard/general-ecommerce';
 import { getTeams } from '../../redux/slices/user';
 import { MyTeams } from '../../components/_dashboard/general-banking';
 import { MyTeamList } from '../../components/_dashboard/general-booking';
@@ -37,28 +35,49 @@ export default function GeneralAnalytics() {
         </Box>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={3}>
-            <MySponser mySponser={user?.sponcer_name} />
+            <MySponser
+              icon={userFill} // Pass the icon as a prop
+              backgroundColor="your_desired_background_color" // Pass the background color as a prop
+              title1="My Sponcers" // Pass the title1 as a prop
+              title2="80" // Pass the title2 as a prop
+            />
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
-            <MyDirects myDirct={user.direct_member} teamMember={user.team_member} />
+            <MySponser
+              icon={moneyIcon} // Pass the icon as a prop
+              backgroundColor="" // Pass the background color as a prop
+              title1="My Sponcers Business" // Pass the title1 as a prop
+              title2="$343000" // Pass the title2 as a prop
+            />
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
-            <MyTeamsW teamMember={user.team_member} />
+            <MySponser
+              icon={usersIcon} // Pass the icon as a prop
+              backgroundColor="" // Pass the background color as a prop
+              title1="My Teams" // Pass the title1 as a prop
+              title2="50" // Pass the title2 as a prop
+            />
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
-            <StoneHolders />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={8}>
-            <MyTeams />
-          </Grid>
-
-          <Grid item xs={12} md={6} lg={4}>
-            <AnalyticsCurrentVisits />
+            <MySponser
+              icon={moneyIcon2} // Pass the icon as a prop
+              backgroundColor="" // Pass the background color as a prop
+              title1="My Team Business" // Pass the title1 as a prop
+              title2="$3453000" // Pass the title2 as a prop
+            />
           </Grid>
 
           <Grid item xs={12}>
+            <MyTeams />
+          </Grid>
+          <Grid item xs={12}>
             <MyTeamList />
+          </Grid>
+          <Grid item xs={12} md={6} lg={4}>
+            <AnalyticsCurrentVisits />
+          </Grid>
+          <Grid item xs={12} md={6} lg={4}>
+            <ActiveVsInactive2 />
           </Grid>
         </Grid>
       </Container>

@@ -24,7 +24,6 @@ export default function StakingForm() {
   const [inputValue, setInputValue] = useState('');
   const [walletAddress, setWalletAddress] = useState('');
   const [hashCode, setHashCode] = useState('');
-  const [currentPrice, setCurrentPrice] = useState('');
   const [totalToken, setTotalToken] = useState('');
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const dispatch = useDispatch();

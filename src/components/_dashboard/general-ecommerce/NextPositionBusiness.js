@@ -43,11 +43,10 @@ export default function NextPositionBusiness({ myProfile }) {
   return (
     <Card sx={{ display: 'flex', alignItems: 'center', p: 3 }}>
       <Box sx={{ flexGrow: 1 }}>
-        <Typography variant="subtitle2">Next Position Requirement</Typography>
+        <Typography variant="subtitle2">Today's Profit</Typography>
         <Typography variant="h3" gutterBottom>
-          {fNumber(myProfile?.nextRank?.business)} USD
+          ${fNumber(myProfile?.nextRank?.business)}
         </Typography>
-
         <Stack direction="row" alignItems="center" flexWrap="wrap">
           <IconWrapperStyle
             sx={{

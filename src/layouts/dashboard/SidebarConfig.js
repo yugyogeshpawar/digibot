@@ -39,16 +39,16 @@ const sidebarConfig = [
         path: PATH_DASHBOARD.general.app,
         icon: ICONS.analytics
       },
-      { title: 'My Bot', path: PATH_DASHBOARD.general.mystone, icon: ICONS.robot },
+      { title: 'My Bot', path: PATH_DASHBOARD.general.mybot, icon: ICONS.robot },
       { title: 'My Team', path: PATH_DASHBOARD.general.analytics, icon: ICONS.teams },
-      { title: 'Our Events', path: PATH_DASHBOARD.general.events, icon: ICONS.banking }
+      { title: 'Events and News', path: PATH_DASHBOARD.general.events, icon: ICONS.banking }
     ]
   },
 
   // Bonuses
   // ----------------------------------------------------------------------
   {
-    subheader: 'Bonuses',
+    // subheader: 'Utilitise',
     items: [
       // MANAGEMENT : USER
       {

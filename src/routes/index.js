@@ -84,6 +84,7 @@ export default function Router() {
         { path: 'banking', element: <GeneralBanking /> },
         { path: 'booking', element: <GeneralBooking /> },
         { path: 'mystone', element: <MyStone /> },
+        { path: 'mybot', element: <MyBotDashboard /> },
         { path: 'events', element: <Events /> },
         {
           path: 'analytics',
@@ -302,12 +303,13 @@ const GeneralBooking = Loadable(lazy(() => import('../pages/dashboard/GeneralBoo
 const EcommerceShop = Loadable(lazy(() => import('../pages/dashboard/MaketplaceShop')));
 const EventsPosts = Loadable(lazy(() => import('../pages/dashboard/PromoMaterials')));
 const MyStone = Loadable(lazy(() => import('../pages/dashboard/MyStoneDashboard')));
+const MyBotDashboard = Loadable(lazy(() => import('../pages/dashboard/MyBotDashboard')));
 const EcommerceProductDetails = Loadable(lazy(() => import('../pages/dashboard/EcommerceProductDetails')));
 const EcommerceProductList = Loadable(lazy(() => import('../pages/dashboard/EcommerceProductList')));
 const EcommerceProductCreate = Loadable(lazy(() => import('../pages/dashboard/EcommerceProductCreate')));
 const EcommerceCheckout = Loadable(lazy(() => import('../pages/dashboard/NFTCheckout')));
 const EcommerceInvoice = Loadable(lazy(() => import('../pages/dashboard/EcommerceInvoice')));
-const Events = Loadable(lazy(() => import('../pages/dashboard/Events')));
+const Events = Loadable(lazy(() => import('../pages/dashboard/EventsAndNews')));
 const MaketplaceShop = Loadable(lazy(() => import('../pages/dashboard/PromoMaterials')));
 const BlogPosts = Loadable(lazy(() => import('../pages/dashboard/BlogPosts')));
 // const BonusDetails = Loadable(lazy(() => import('../pages/dashboard/BonusDetails')));

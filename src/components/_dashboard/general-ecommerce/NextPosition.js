@@ -36,17 +36,11 @@ export default function NextPosition({ myProfile }) {
       <Box sx={{ flexGrow: 1 }}>
         <Box sx={{ display: 'flex' }}>
           <Box sx={{ flexGrow: 1 }}>
-            <Typography variant="subtitle2">Next Position</Typography>
-            <Typography variant="h5" gutterBottom>
-              {myProfile?.nextRank?.nextRank}
+            <Typography variant="subtitle2">Deposit Amount</Typography>
+            <Typography variant="h3" gutterBottom>
+              $5000
             </Typography>
           </Box>
-          <Box
-            component="img"
-            src="/static/mock-images/avatars2/agent.png"
-            alt="position"
-            sx={{ width: 60, height: 60, borderRadius: 9999 }}
-          />
         </Box>
         <Stack direction="row" alignItems="center" flexWrap="wrap" sx={{ mt: 2 }}>
           <IconWrapperStyle

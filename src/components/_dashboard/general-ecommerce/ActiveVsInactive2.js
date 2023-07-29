@@ -89,7 +89,7 @@ export default function ActiveVsInactive({ myProfile }) {
 
   return (
     <Card>
-      <CardHeader title="Profit Chart" />
+      <CardHeader title="Active and Inactive Chart" />
       <ChartWrapperStyle dir="ltr">
         <ReactApexChart type="radialBar" series={CHART_DATA} options={chartOptions} height={310} />
       </ChartWrapperStyle>

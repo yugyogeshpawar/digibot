@@ -26,8 +26,29 @@ const RootStyle = styled(Card)(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 const CHART_DATA = {
-  labels: ['Level 1', 'Level 2', 'Level 3', 'Level 4', 'Level 5', 'Level 6', 'Level 7', 'Level 8', 'Level 9'],
-  data: [14, 23, 21, 17, 15, 10, 12, 17, 21]
+  labels: [
+    'Level 1',
+    'Level 2',
+    'Level 3',
+    'Level 4',
+    'Level 5',
+    'Level 6',
+    'Level 7',
+    'Level 8',
+    'Level 9',
+    'Level 10',
+    'Level 11',
+    'Level 12',
+    'Level 13',
+    'Level 14',
+    'Level 15',
+    'Level 16',
+    'Level 17',
+    'Level 18',
+    'Level 19',
+    'Level 20'
+  ],
+  data: [14, 23, 21, 17, 15, 10, 12, 17, 21, 14, 23, 21, 17, 15, 10, 12, 17, 21]
 };
 
 export default function MyTeams() {
@@ -42,7 +63,18 @@ export default function MyTeams() {
       theme.palette.chart.yellow[0],
       theme.palette.chart.blue[0],
       theme.palette.chart.red[0],
+      theme.palette.chart.blue[0],
+      theme.palette.chart.red[0],
       theme.palette.chart.violet[2],
+      theme.palette.chart.red[0],
+      theme.palette.chart.violet[2],
+      theme.palette.success.dark,
+      theme.palette.info.dark,
+      theme.palette.chart.violet[2],
+      theme.palette.success.dark,
+      theme.palette.chart.yellow[0],
+      theme.palette.success.dark,
+      theme.palette.info.dark,
       theme.palette.chart.violet[0],
       theme.palette.success.dark,
       theme.palette.chart.green[0]

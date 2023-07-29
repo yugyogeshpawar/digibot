@@ -27,7 +27,6 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 const PERCENT = 0.06;
-const TOTAL_SALES = 125;
 
 NextPosionReward.propTypes = {
   myProfile: PropTypes.object
@@ -39,9 +38,9 @@ export default function NextPosionReward({ myProfile }) {
   return (
     <Card sx={{ display: 'flex', alignItems: 'center', p: 3 }}>
       <Box sx={{ flexGrow: 1 }}>
-        <Typography variant="subtitle2">Reward</Typography>
+        <Typography variant="subtitle2">Total Profit</Typography>
         <Typography variant="h3" gutterBottom>
-          {myProfile?.nextRank?.rankIncome} USD
+          ${myProfile?.nextRank?.rankIncome}
         </Typography>
 
         <Stack direction="row" alignItems="center" flexWrap="wrap">

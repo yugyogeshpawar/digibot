@@ -1,4 +1,5 @@
 export { default as EcommerceWelcome } from './EcommerceWelcome';
+export { default as MybotWelcome } from './MybotWelcome';
 export { default as EcommerceNewProducts } from './EcommerceNewProducts';
 export { default as EcommerceProductSold } from './EcommerceProductSold';
 export { default as EcommerceSalesProfit } from './EcommerceSalesProfit';
@@ -16,3 +17,4 @@ export { default as NextPosionReward } from './NextPosionReward';
 export { default as AllPositions } from './AllPositions';
 export { default as AchivePositions } from './AchivePositions';
 export { default as ActiveVsInactive } from './ActiveVsInactive';
+export { default as ActiveVsInactive2 } from './ActiveVsInactive2';

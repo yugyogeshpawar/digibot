@@ -81,7 +81,6 @@ function CarouselItem({ item, isActive }) {
             textAlign: 'left',
             position: 'absolute',
             color: 'common.white',
-            bgcolor: '#171b0d2b',
             padding: '10px'
           }}
         >

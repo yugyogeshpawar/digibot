@@ -18,7 +18,7 @@ export default function Profile({ myProfile }) {
     <Grid container spacing={3}>
       <Grid item xs={12} md={6}>
         <Stack spacing={3}>
-          <ProfileFollowInfo profile={myProfile.row} />
+          <ProfileFollowInfo profile={myProfile?.row} />
           <ProfileAbout profile={myProfile} />
         </Stack>
       </Grid>

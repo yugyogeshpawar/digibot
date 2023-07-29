@@ -1,4 +1,5 @@
 import { Icon } from '@iconify/react';
+import PropTypes from 'prop-types';
 import androidFilled from '@iconify/icons-ant-design/android-filled';
 // material
 import { alpha, styled } from '@material-ui/core/styles';
@@ -31,17 +32,24 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
   )} 100%)`
 }));
 
+MySponser.propTypes = {
+  title1: PropTypes.string,
+  title2: PropTypes.string,
+  icon: PropTypes.string,
+  backgroundColor: PropTypes.object
+};
+
 // ------------------------
 
-export default function MySponser({ mySponser }) {
+export default function MySponser({ title1, title2, icon, backgroundColor }) {
   return (
-    <RootStyle>
+    <RootStyle style={{ backgroundColor }}>
       <IconWrapperStyle>
-        <Icon icon={androidFilled} width={24} height={24} />
+        <Icon icon={icon} width={24} height={24} />
       </IconWrapperStyle>
-      <Typography variant="h4">{mySponser}</Typography>
+      <Typography variant="h5">{title1}</Typography>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
-        My Sponcer
+        {title2}
       </Typography>
     </RootStyle>
   );

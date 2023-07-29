@@ -6,6 +6,7 @@ import { getProfile } from 'src/redux/slices/user';
 import { useDispatch, useSelector } from 'src/redux/store';
 import useAuth from '../../hooks/useAuth';
 import useSettings from '../../hooks/useSettings';
+import CryptoPriceMarquee from './CryptoPriceMarquee';
 // components
 import Page from '../../components/Page';
 import {
@@ -34,12 +35,16 @@ export default function Dashboard() {
     <Page title="General: App | Digibot">
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <Grid container spacing={3} sx={{ marginTop: '-48px ' }}>
+          <Grid item xs={12}>
+            <CryptoPriceMarquee />
+          </Grid>
           <Grid item xs={12} md={8} sx={{ pt: 0 }}>
             <AppWelcome displayName={user.member_name} memberUserId={user.member_user_id} />
           </Grid>
           <Grid item xs={12} md={4}>
             <AppFeatured nft3={myProfile?.nft3} />
           </Grid>
+
           <Grid item xs={12} md={4}>
             <AppTotalActiveUsers totalEarning={user.total_earning} title="Total Investment" />
           </Grid>
@@ -78,6 +83,12 @@ export default function Dashboard() {
           </Grid>
           <Grid item xs={12} md={4}>
             <MyRank teamBusiness={user.team_business} title="Monthly Matching Bonus" />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <MyRank teamBusiness={user.team_business} title="Left Business" />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <MyRank teamBusiness={user.team_business} title="Right Business" />
           </Grid>
           <Grid item xs={12}>
             <EventsPosts />

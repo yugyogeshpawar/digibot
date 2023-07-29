@@ -104,7 +104,7 @@ import PropTypes from 'prop-types';
 import Slider from 'react-slick';
 import { Link as RouterLink } from 'react-router-dom';
 // material
-import { alpha, useTheme, styled } from '@material-ui/core/styles';
+import { useTheme, styled } from '@material-ui/core/styles';
 import { Box, Card, Button, CardContent, Typography } from '@material-ui/core';
 // utils
 import mockData from '../../../utils/mock-data';

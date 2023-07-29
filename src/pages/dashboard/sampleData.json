@@ -1,0 +1,20 @@
+[
+  {
+    "id": "1",
+    "title": "Sample Title 1",
+    "image": "/thumbnail/cover_4.jpg",
+    "description": "This is a sample description for item 1."
+  },
+  {
+    "id": "2",
+    "title": "Sample Title 2",
+    "image": "/thumbnail/cover_4.jpg",
+    "description": "This is a sample description for item 2."
+  },
+  {
+    "id": "3",
+    "title": "Sample Title 3",
+    "image": "/thumbnail/cover_4.jpg",
+    "description": "This is a sample description for item 3."
+  }
+]
