@@ -15,7 +15,7 @@ import Page from '../../components/Page';
 import { AnalyticsCurrentVisits, MySponser } from '../../components/_dashboard/general-analytics';
 import { ActiveVsInactive2 } from '../../components/_dashboard/general-ecommerce';
 import { getTeams } from '../../redux/slices/user';
-import { MyTeams } from '../../components/_dashboard/general-banking';
+import { MyTeams, TeamBinary } from '../../components/_dashboard/general-banking';
 import { MyTeamList } from '../../components/_dashboard/general-booking';
 // ----------------------------------------------------------------------
 
@@ -67,6 +67,9 @@ export default function GeneralAnalytics() {
             />
           </Grid>
 
+          <Grid item xs={12}>
+            <TeamBinary />
+          </Grid>
           <Grid item xs={12}>
             <MyTeams />
           </Grid>
