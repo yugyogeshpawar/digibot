@@ -27,9 +27,12 @@ export default function ReferralList() {
   const { capitalBonus } = useSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(getCapitalBonus());
+    const values = {
+      incomeType: 'MATCHING BONUS'
+    };
+    dispatch(getCapitalBonus(values));
   }, [dispatch]);
-  const checkDataArr = capitalBonus?.output;
+  const checkDataArr = capitalBonus;
 
   return (
     <Card>
@@ -40,9 +43,10 @@ export default function ReferralList() {
             <TableHead>
               <TableRow>
                 <TableCell sx={{ minWidth: 120 }}>No.</TableCell>
-                <TableCell sx={{ minWidth: 120 }}>Date</TableCell>
-                <TableCell sx={{ minWidth: 120 }}>Income</TableCell>
-
+                <TableCell sx={{ minWidth: 160 }}>Date</TableCell>
+                <TableCell sx={{ minWidth: 200 }}>Income Amount</TableCell>
+                <TableCell sx={{ minWidth: 120 }}>Bonus Per</TableCell>
+                <TableCell sx={{ minWidth: 120 }}>Income Type</TableCell>
                 <TableCell />
               </TableRow>
             </TableHead>
@@ -56,14 +60,15 @@ export default function ReferralList() {
               ) : (
                 <>
                   {checkDataArr?.map((row, ind) => (
-                    <TableRow key={row.cnt}>
+                    <TableRow key={ind}>
                       <TableCell>
-                        <Typography variant="subtitle2">{row.cnt + 1}</Typography>
+                        <Typography variant="subtitle2">{ind + 1}</Typography>
                       </TableCell>
 
-                      <TableCell>{format(new Date(row.calculateDate), 'dd MMM yyyy')}</TableCell>
-
-                      <TableCell>{row.incomeAmt}</TableCell>
+                      <TableCell>{format(new Date(row.calculate_date), 'dd MMM yyyy')}</TableCell>
+                      <TableCell>{row.income_amt}</TableCell>
+                      <TableCell>{row.Bonus_percent}</TableCell>
+                      <TableCell sx={{ textTransform: 'capitalize' }}>{row.income_type}</TableCell>
                     </TableRow>
                   ))}
                 </>

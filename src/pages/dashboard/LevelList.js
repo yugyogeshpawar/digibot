@@ -10,13 +10,11 @@ import {
   TableHead,
   Typography,
   TableContainer,
-  Divider,
-  Box
+  Divider
 } from '@material-ui/core';
 import format from 'date-fns/format';
 import { useDispatch, useSelector } from '../../redux/store';
 import { getLevelBonus } from '../../redux/slices/user';
-// routes
 import Scrollbar from '../../components/Scrollbar';
 
 export default function LevelList() {
@@ -24,9 +22,20 @@ export default function LevelList() {
   const { levelBonus } = useSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(getLevelBonus());
+    const fetchData = async () => {
+      // Fetch data from the API
+      const values = {
+        incomeType: 'ROI BONUS'
+      };
+      dispatch(getLevelBonus(values));
+    };
+
+    fetchData();
   }, [dispatch]);
-  const CheckHasData = levelBonus?.output;
+
+  console.log(levelBonus);
+
+  const CheckHasData = levelBonus;
 
   return (
     <Card>
@@ -36,39 +45,35 @@ export default function LevelList() {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell sx={{ minWidth: 240 }}>No.</TableCell>
-                <TableCell sx={{ minWidth: 120 }}>income</TableCell>
-                <TableCell sx={{ minWidth: 160 }}>date</TableCell>
-                <TableCell sx={{ minWidth: 160 }}>level</TableCell>
-                <TableCell sx={{ minWidth: 200 }}>member id</TableCell>
-                <TableCell sx={{ minWidth: 120 }}>investment amount</TableCell>
-                <TableCell sx={{ minWidth: 120 }}>income per </TableCell>
+                <TableCell sx={{ minWidth: 60 }}>No.</TableCell>
+                <TableCell sx={{ minWidth: 160 }}>Date</TableCell>
+                <TableCell sx={{ minWidth: 160 }}>Income Level</TableCell>
+                <TableCell sx={{ minWidth: 200 }}>Member User Id</TableCell>
+                <TableCell sx={{ minWidth: 120 }}>Investment Type</TableCell>
+                <TableCell sx={{ minWidth: 120 }}>Income Member id</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {CheckHasData?.length < 1 ? (
-                <>
-                  <TableRow p={4} sx={{ width: 'fit-content' }}>
-                    <Typography variant="h6" p={4}>
-                      No Data Found
-                    </Typography>
-                  </TableRow>
-                </>
+                <TableRow>
+                  <TableCell colSpan={7}>
+                    <Typography variant="h6">No Data Found</Typography>
+                  </TableCell>
+                </TableRow>
               ) : (
                 <>
                   {CheckHasData?.map((row, ind) => (
                     <TableRow key={ind}>
                       <TableCell>
-                        <Typography variant="subtitle2">{row.cnt + 1}</Typography>
+                        <Typography variant="subtitle2">{ind + 1}</Typography>
                       </TableCell>
-                      <TableCell>{row.income_amt}</TableCell>
 
                       <TableCell>{format(new Date(row.calculate_date), 'dd MMM yyyy')}</TableCell>
                       <TableCell>{row.income_level}</TableCell>
 
-                      <TableCell>{row.income_member_id}</TableCell>
-                      <TableCell>{row.investment_amt}</TableCell>
-                      <TableCell sx={{ textTransform: 'capitalize' }}>{row.income_per}</TableCell>
+                      <TableCell>{row.member_user_id}</TableCell>
+                      <TableCell>{row.income_type}</TableCell>
+                      <TableCell sx={{ textTransform: 'capitalize' }}>{row.income_member_id}</TableCell>
                     </TableRow>
                   ))}
                 </>

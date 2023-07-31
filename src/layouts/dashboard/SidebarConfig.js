@@ -70,7 +70,7 @@ const sidebarConfig = [
           { title: 'Level Bonus', path: PATH_DASHBOARD.bonus.level },
           { title: 'Matching Bonus', path: PATH_DASHBOARD.bonus.matching },
           { title: 'Staking Bonus', path: PATH_DASHBOARD.bonus.stacking },
-          { title: 'Reward Bonus', path: PATH_DASHBOARD.bonus.reward },
+          { title: 'Matching Business', path: PATH_DASHBOARD.bonus.reward },
           { title: 'Passive Bonus', path: PATH_DASHBOARD.bonus.passive },
           { title: 'monthly Bonus', path: PATH_DASHBOARD.bonus.monthly }
         ]
