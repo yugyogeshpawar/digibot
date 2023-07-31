@@ -1,14 +1,10 @@
 import { Suspense, lazy } from 'react';
 import { Navigate, useRoutes, useLocation } from 'react-router-dom';
-// layouts
 import MainLayout from '../layouts/main';
 import DashboardLayout from '../layouts/dashboard';
 import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
-// guards
 import GuestGuard from '../guards/GuestGuard';
 import AuthGuard from '../guards/AuthGuard';
-// import RoleBasedGuard from '../guards/RoleBasedGuard';
-// components
 import LoadingScreen from '../components/LoadingScreen';
 
 // ----------------------------------------------------------------------
@@ -111,19 +107,6 @@ export default function Router() {
           ]
         },
         {
-          path: 'nft-marketplace',
-          children: [
-            { path: '/', element: <Navigate to="/dashboard/nft-market/shop" replace /> },
-            { path: 'shop', element: <EcommerceShop /> },
-            { path: 'product/:name', element: <EcommerceProductDetails /> },
-            { path: 'list', element: <EcommerceProductList /> },
-            { path: 'product/new', element: <EcommerceProductCreate /> },
-            { path: 'product/:name/edit', element: <EcommerceProductCreate /> },
-            { path: 'checkout', element: <EcommerceCheckout /> },
-            { path: 'invoice', element: <EcommerceInvoice /> }
-          ]
-        },
-        {
           path: 'promo-materials',
           children: [{ path: '/', element: <EventsPosts /> }]
         },
@@ -153,14 +136,7 @@ export default function Router() {
           path: 'payout',
           children: [
             { path: '/', element: <Navigate to="/dashboard/payouts/minting" replace /> },
-            { path: 'minting', element: <MintingPayouts /> },
-            { path: 'referral', element: <ReferralPayouts /> },
-            { path: 'capital', element: <CapitalPayouts /> },
-            { path: 'stone', element: <StonePayouts /> },
-            { path: 'reload', element: <ReloadPayouts /> },
-            { path: 'transactions', element: <Tractionsac /> },
-            { path: 'activation', element: <Activation /> },
-            { path: 'support', element: <UserList /> }
+            { path: 'minting', element: <MintingPayouts /> }
           ]
         },
         {
@@ -177,25 +153,6 @@ export default function Router() {
             { path: 'reward', element: <RewardBonusList /> },
             { path: 'annum', element: <AnnumBonusList /> },
             { path: 'monthly', element: <MonthlyPerRollList /> }
-          ]
-        },
-        {
-          path: 'blog',
-          children: [
-            { path: '/', element: <Navigate to="/dashboard/blog/posts" replace /> },
-            { path: 'posts', element: <BlogPosts /> },
-            { path: 'post/:title', element: <BlogPost /> },
-            { path: 'new-post', element: <BlogNewPost /> }
-          ]
-        },
-        {
-          path: 'mail',
-          children: [
-            { path: '/', element: <Navigate to="/dashboard/mail/all" replace /> },
-            { path: 'label/:customLabel', element: <Mail /> },
-            { path: 'label/:customLabel/:mailId', element: <Mail /> },
-            { path: ':systemLabel', element: <Mail /> },
-            { path: ':systemLabel/:mailId', element: <Mail /> }
           ]
         },
         { path: 'stake', element: <StakingForm /> }
@@ -311,8 +268,6 @@ const EcommerceCheckout = Loadable(lazy(() => import('../pages/dashboard/NFTChec
 const EcommerceInvoice = Loadable(lazy(() => import('../pages/dashboard/EcommerceInvoice')));
 const Events = Loadable(lazy(() => import('../pages/dashboard/EventsAndNews')));
 const MaketplaceShop = Loadable(lazy(() => import('../pages/dashboard/PromoMaterials')));
-const BlogPosts = Loadable(lazy(() => import('../pages/dashboard/BlogPosts')));
-// const BonusDetails = Loadable(lazy(() => import('../pages/dashboard/BonusDetails')));
 const CapitalList = Loadable(lazy(() => import('../pages/dashboard/CapitalList')));
 const AnnumBonusList = Loadable(lazy(() => import('../pages/dashboard/AnnumBonusList')));
 const MonthlyPerRollList = Loadable(lazy(() => import('../pages/dashboard/MonthlyPerRollList')));
@@ -321,8 +276,6 @@ const PassiveList = Loadable(lazy(() => import('../pages/dashboard/PassiveList')
 const RewardBonusList = Loadable(lazy(() => import('../pages/dashboard/RewardBonusList')));
 const LevelList = Loadable(lazy(() => import('../pages/dashboard/LevelList')));
 const ReferralList = Loadable(lazy(() => import('../pages/dashboard/ReferralList')));
-const BlogPost = Loadable(lazy(() => import('../pages/dashboard/BlogPost')));
-const BlogNewPost = Loadable(lazy(() => import('../pages/dashboard/BlogNewPost')));
 const UserProfile = Loadable(lazy(() => import('../pages/dashboard/UserProfile')));
 const Tractionsac = Loadable(lazy(() => import('../pages/dashboard/TractionsactionList')));
 const UserList = Loadable(lazy(() => import('../pages/dashboard/UserList')));
@@ -330,16 +283,8 @@ const Activation = Loadable(lazy(() => import('../pages/dashboard/Activation')))
 const MintingList = Loadable(lazy(() => import('../pages/dashboard/MintingList')));
 const UserAccount = Loadable(lazy(() => import('../pages/dashboard/UserAccount')));
 const UserCreate = Loadable(lazy(() => import('../pages/dashboard/UserCreate')));
-const Mail = Loadable(lazy(() => import('../pages/dashboard/Mail')));
-// const Kanban = Loadable(lazy(() => import('../pages/dashboard/Kanban')));
 const StakingForm = Loadable(lazy(() => import('../pages/dashboard/StakingForm')));
-// payout
 const MintingPayouts = Loadable(lazy(() => import('../pages/dashboard/MintingPayouts')));
-const ReferralPayouts = Loadable(lazy(() => import('../pages/dashboard/ReferralPayouts')));
-const CapitalPayouts = Loadable(lazy(() => import('../pages/dashboard/CapitalPayouts')));
-const StonePayouts = Loadable(lazy(() => import('../pages/dashboard/StonePayouts')));
-const ReloadPayouts = Loadable(lazy(() => import('../pages/dashboard/ReloadPayout')));
-// Main
 const LandingPage = Loadable(lazy(() => import('../pages/LandingPage')));
 const About = Loadable(lazy(() => import('../pages/About')));
 const Contact = Loadable(lazy(() => import('../pages/Contact')));

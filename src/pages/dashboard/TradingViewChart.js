@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardContent, Tabs, Tab, FormControl, InputLabel } from '@material-ui/core';
+import { Card, CardContent, Tabs, Tab, FormControl } from '@material-ui/core';
 
 const availableExchanges = ['Binance', 'Coinbase Pro', 'Kraken', 'Bitstamp', 'Bittrex', 'Gemini'];
 const defaultExchange = 'Binance';
@@ -26,7 +26,7 @@ const TradingViewChart = ({ theme }) => {
             scrollButtons="auto"
           >
             {availableExchanges.map((exchange) => (
-              <Tab key={exchange} label={exchange} />
+              <Tab key={exchange} label={exchange} disabled />
             ))}
           </Tabs>
         </FormControl>
