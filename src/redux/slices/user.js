@@ -403,16 +403,19 @@ export function getMintingBonus() {
   };
 }
 
-export function getRefBonus() {
+export function getRefBonus(values) {
   return async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
       const accessToken = window.localStorage.getItem('accessToken');
-      const headers = { Authorization: `Bearer ${accessToken}` };
-      const response = await axios.get(`${baseUrl}/users/incomes`, {
-        headers
+      const response = await axios({
+        method: 'post',
+        url: `${baseUrl}/users/incomes`,
+        headers: { authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
+        data: values
       });
-      dispatch(slice.actions.getRefBonusSucess(response.data.output));
+
+      dispatch(slice.actions.getRefBonusSucess(response.data.results));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }
@@ -453,32 +456,36 @@ export function getLevelBonus(values) {
     }
   };
 }
-export function getCapitalBonus() {
+export function getCapitalBonus(values) {
   return async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
       const accessToken = window.localStorage.getItem('accessToken');
-      const headers = { Authorization: `Bearer ${accessToken}` };
-      const response = await axios.get(`${baseUrl}/Earning/CapitalBonus`, {
-        headers
+      const response = await axios({
+        method: 'post',
+        url: `${baseUrl}/users/incomes`,
+        headers: { authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
+        data: values
       });
-      dispatch(slice.actions.getCapitalBonusSucess(response.data.data));
+      dispatch(slice.actions.getCapitalBonusSucess(response.data.results));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }
   };
 }
-export function getStoneBonus() {
+export function getStoneBonus(values) {
   return async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
       const accessToken = window.localStorage.getItem('accessToken');
-      const headers = { Authorization: `Bearer ${accessToken}` };
-      const response = await axios.get(`${baseUrl}/users/incomes`, {
-        headers
+      const response = await axios({
+        method: 'post',
+        url: `${baseUrl}/users/incomes`,
+        headers: { authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
+        data: values
       });
 
-      dispatch(slice.actions.getStoneBonusSucess(response.data.data));
+      dispatch(slice.actions.getStoneBonusSucess(response.data.results));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }
@@ -514,17 +521,19 @@ export function getAnnumBonus() {
     }
   };
 }
-export function getMonthlyPayrollBonus() {
+export function getMonthlyPayrollBonus(values) {
   return async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
       const accessToken = window.localStorage.getItem('accessToken');
-      const headers = { Authorization: `Bearer ${accessToken}` };
-      const response = await axios.get(`${baseUrl}/users/incomes`, {
-        headers
+      const response = await axios({
+        method: 'post',
+        url: `${baseUrl}/users/incomes`,
+        headers: { authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
+        data: values
       });
       console.log(response.data);
-      dispatch(slice.actions.getMonthlyPayrollBonusSucess(response.data.data));
+      dispatch(slice.actions.getMonthlyPayrollBonusSucess(response.data.results));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }

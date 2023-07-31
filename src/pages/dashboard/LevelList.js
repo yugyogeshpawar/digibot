@@ -45,12 +45,11 @@ export default function LevelList() {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell sx={{ minWidth: 240 }}>No.</TableCell>
-                <TableCell sx={{ minWidth: 120 }}>Income ID</TableCell>
+                <TableCell sx={{ minWidth: 60 }}>No.</TableCell>
                 <TableCell sx={{ minWidth: 160 }}>Date</TableCell>
                 <TableCell sx={{ minWidth: 160 }}>Income Level</TableCell>
                 <TableCell sx={{ minWidth: 200 }}>Member User Id</TableCell>
-                <TableCell sx={{ minWidth: 120 }}>Investment Amount</TableCell>
+                <TableCell sx={{ minWidth: 120 }}>Investment Type</TableCell>
                 <TableCell sx={{ minWidth: 120 }}>Income Member id</TableCell>
               </TableRow>
             </TableHead>
@@ -68,7 +67,6 @@ export default function LevelList() {
                       <TableCell>
                         <Typography variant="subtitle2">{ind + 1}</Typography>
                       </TableCell>
-                      <TableCell>{row.income_id}</TableCell>
 
                       <TableCell>{format(new Date(row.calculate_date), 'dd MMM yyyy')}</TableCell>
                       <TableCell>{row.income_level}</TableCell>
