@@ -1,4 +1,5 @@
 export { default as BankingIncome } from './BankingIncome';
+export { default as TeamBinary } from './TeamBinary';
 export { default as BankingExpenses } from './BankingExpenses';
 export { default as BankingContacts } from './BankingContacts';
 export { default as BankingQuickTransfer } from './BankingQuickTransfer';

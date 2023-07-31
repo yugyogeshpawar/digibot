@@ -435,17 +435,19 @@ export function mintingSummaryapi() {
   };
 }
 
-export function getLevelBonus() {
+export function getLevelBonus(values) {
   return async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
       const accessToken = window.localStorage.getItem('accessToken');
-      const headers = { Authorization: `Bearer ${accessToken}` };
-      const response = await axios.get(`${baseUrl}/users/incomes`, {
-        headers
+      const response = await axios({
+        method: 'post',
+        url: `${baseUrl}/users/incomes`,
+        headers: { authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
+        data: values
       });
-      console.log('Responce', response.data);
-      dispatch(slice.actions.getLevelBonusSucess(response.data.data));
+
+      dispatch(slice.actions.getLevelBonusSucess(response.data.results));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }
@@ -472,7 +474,7 @@ export function getStoneBonus() {
     try {
       const accessToken = window.localStorage.getItem('accessToken');
       const headers = { Authorization: `Bearer ${accessToken}` };
-      const response = await axios.get(`${baseUrl}/Earning/StoneBonus`, {
+      const response = await axios.get(`${baseUrl}/users/incomes`, {
         headers
       });
 
