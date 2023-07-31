@@ -46,25 +46,25 @@ export default function Dashboard() {
           </Grid>
 
           <Grid item xs={12} md={4}>
-            <AppTotalActiveUsers totalEarning={user.total_earning} title="Total Investment" />
+            <AppTotalActiveUsers totalEarning={user.topup_amount} title="Total Investment" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <AppTotalInstalled totalEarning={user.total_earning} />
+            <AppTotalInstalled totalEarning={user.direct_business} />
           </Grid>
           <Grid item xs={12} md={6} lg={4}>
             <TotalBonus totalEarning={user.total_earning} />
           </Grid>
           <Grid item xs={12} md={4}>
-            <AppTotalActiveUsers totalEarning={user.total_earning} title="Team Business" />
+            <AppTotalActiveUsers totalEarning={user.team_business} title="Team Business" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <WithoutUSD teamBusiness={user.team_business} title="Total Direct Member" />
+            <WithoutUSD teamBusiness={user.direct_member} title="Total Direct Member" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <WithoutUSD teamBusiness={user.team_business} title="Total Team Member" />
+            <WithoutUSD teamBusiness={user.team_member} title="Total Team Member" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={user.team_business} title="Direct Bonus" />
+            <MyRank teamBusiness={user.direct_business} title="Direct Bonus" />
           </Grid>
           <Grid item xs={12} md={4}>
             <MyRank teamBusiness={user.team_business} title="Level Bonus" />
@@ -85,10 +85,10 @@ export default function Dashboard() {
             <MyRank teamBusiness={user.team_business} title="Monthly Matching Bonus" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={user.team_business} title="Left Business" />
+            <MyRank teamBusiness={user.team_business_left} title="Left Business" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={user.team_business} title="Right Business" />
+            <MyRank teamBusiness={user.team_business_right} title="Right Business" />
           </Grid>
           <Grid item xs={12}>
             <EventsPosts />

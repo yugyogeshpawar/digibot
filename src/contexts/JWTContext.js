@@ -72,66 +72,13 @@ function AuthProvider({ children }) {
       try {
         const accessToken = window.localStorage.getItem('accessToken');
 
-        // if (accessToken && isValidToken(accessToken)) {
-        if (true) {
+        if (accessToken && isValidToken(accessToken)) {
+          // if (true) {
           setSession(accessToken);
-          // const headers = { Authorization: `Bearer ${accessToken}` };
-          // const response = await axios.get(`${baseUrl}/Account/MyProfile`, {
-          //   headers
-          // });
-          const response = {
-            data: {
-              status: true,
-              message: 'Login successfully',
-              token:
-                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzc0MjE0IiwiaWF0IjoxNjg5MDU4MDAyLCJleHAiOjE2ODkwNjE2MDJ9.uNGpQy-N9PmlVm-3JeKXn797oZ-xxy8c4UK4HByURj4',
-              user: {
-                member_user_id: '6774214',
-                member_name: 'User Name',
-                sponcer_id: '6873419',
-                sponcer_name: 'user1',
-                wallet_address: null,
-                promoter_id: null,
-                promoter_name: null,
-                contact: '3746534565',
-                email: 'znmd19744@gmail.com',
-                status: 0,
-                registration_date: '2023-07-08T05:54:52.000Z',
-                member_status: 0,
-                kyc_status: 0,
-                topup_amount: 0,
-                direct_member: 0,
-                wallet_amount: 0,
-                checked: 0,
-                withdrawal_amt: 0,
-                block_status: 0,
-                current_investment: 0,
-                direct_business: 0,
-                total_earning: 0,
-                isblock: 0,
-                team_business: 0,
-                expiry_date: null,
-                team_member: 0,
-                activation_date: null,
-                profile_image: null,
-                front_image: null,
-                back_image: null,
-                member_dob: null,
-                address: null,
-                pincod: 0,
-                gender: null,
-                country_code: 0,
-                state: null,
-                city: null,
-                calTeamStatus: 0,
-                updateWallet: 0,
-                royalPoolIncome: 0,
-                magicPoolIncome: 0,
-                net_income: 0,
-                direct_income: 0
-              }
-            }
-          };
+          const headers = { Authorization: `Bearer ${accessToken}` };
+          const response = await axios.get(`${baseUrl}/Account/MyProfile`, {
+            headers
+          });
 
           const { user } = response.data;
 
@@ -167,64 +114,11 @@ function AuthProvider({ children }) {
   }, []);
 
   const login = async (userId, password) => {
-    // const response = await axios.post(`${baseUrl}/Auth/Signin`, {
-    //   userId,
-    //   password
-    // });
+    const response = await axios.post(`${baseUrl}/auth/login`, {
+      userId,
+      password
+    });
     console.log(userId, password);
-    const response = {
-      data: {
-        status: true,
-        message: 'Login successfully',
-        token:
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2Nzc0MjE0IiwiaWF0IjoxNjg5MDU4MDAyLCJleHAiOjE2ODkwNjE2MDJ9.uNGpQy-N9PmlVm-3JeKXn797oZ-xxy8c4UK4HByURj4',
-        user: {
-          member_user_id: '6774214',
-          member_name: 'User Name',
-          sponcer_id: '6873419',
-          sponcer_name: 'user1',
-          wallet_address: null,
-          promoter_id: null,
-          promoter_name: null,
-          contact: '3746534565',
-          email: 'znmd19744@gmail.com',
-          status: 0,
-          registration_date: '2023-07-08T05:54:52.000Z',
-          member_status: 0,
-          kyc_status: 0,
-          topup_amount: 0,
-          direct_member: 0,
-          wallet_amount: 0,
-          checked: 0,
-          withdrawal_amt: 0,
-          block_status: 0,
-          current_investment: 0,
-          direct_business: 0,
-          total_earning: 0,
-          isblock: 0,
-          team_business: 0,
-          expiry_date: null,
-          team_member: 0,
-          activation_date: null,
-          profile_image: null,
-          front_image: null,
-          back_image: null,
-          member_dob: null,
-          address: null,
-          pincod: 0,
-          gender: null,
-          country_code: 0,
-          state: null,
-          city: null,
-          calTeamStatus: 0,
-          updateWallet: 0,
-          royalPoolIncome: 0,
-          magicPoolIncome: 0,
-          net_income: 0,
-          direct_income: 0
-        }
-      }
-    };
 
     const { token, user } = response.data;
 

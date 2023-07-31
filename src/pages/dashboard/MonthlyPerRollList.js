@@ -92,7 +92,7 @@ export default function ReferralList() {
 
                       <TableCell>{format(new Date(row.calculate_date), 'dd MMM yyyy')}</TableCell>
 
-                      <TableCell>{row.name}</TableCell>
+                      <TableCell>{row.member_user_id}</TableCell>
                       <TableCell sx={{ textTransform: 'capitalize' }}>{row.income_amt}</TableCell>
                     </TableRow>
                   ))}

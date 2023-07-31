@@ -261,11 +261,13 @@ export function getProfile() {
     try {
       const accessToken = window.localStorage.getItem('accessToken');
       const headers = { Authorization: `Bearer ${accessToken}` };
-      const response = await axios.get(`${baseUrl}/DashBoard/Home`, {
-        headers
-      });
-      localStorage.setItem('member_user_id', response.data.row.member_user_id);
-      dispatch(slice.actions.getProfileSuccess(response.data));
+      const [profileData, totalIncomesData] = await Promise.all([
+        axios.get(`${baseUrl}/users/Dashboard`, { headers }),
+        axios.get(`${baseUrl}/users/totalIncomes`, { headers })
+      ]);
+      localStorage.setItem('member_user_id', profileData.data.row.member_user_id);
+      dispatch(slice.actions.getProfileSuccess(profileData.data));
+      dispatch(slice.actions.getTotalIncomesSuccess(totalIncomesData.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }
@@ -373,7 +375,7 @@ export function getUserList() {
     try {
       const accessToken = window.localStorage.getItem('accessToken');
       const headers = { Authorization: `Bearer ${accessToken}` };
-      const response = await axios.get(`${baseUrl}/Team/MyTeam`, {
+      const response = await axios.get(`${baseUrl}/users/income`, {
         headers
       });
       console.log(response.data);
@@ -390,9 +392,10 @@ export function getMintingBonus() {
     try {
       const accessToken = window.localStorage.getItem('accessToken');
       const headers = { Authorization: `Bearer ${accessToken}` };
-      const response = await axios.get(`${baseUrl}/Earning/MintingBonus`, {
+      const response = await axios.get(`${baseUrl}/users/incomes`, {
         headers
       });
+      console.log(response);
       dispatch(slice.actions.getMintingBonusSucess(response.data.output));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
@@ -406,7 +409,7 @@ export function getRefBonus() {
     try {
       const accessToken = window.localStorage.getItem('accessToken');
       const headers = { Authorization: `Bearer ${accessToken}` };
-      const response = await axios.get(`${baseUrl}/Earning/ReferralBonus`, {
+      const response = await axios.get(`${baseUrl}/users/incomes`, {
         headers
       });
       dispatch(slice.actions.getRefBonusSucess(response.data.output));
@@ -438,9 +441,10 @@ export function getLevelBonus() {
     try {
       const accessToken = window.localStorage.getItem('accessToken');
       const headers = { Authorization: `Bearer ${accessToken}` };
-      const response = await axios.get(`${baseUrl}/Earning/LevelBonus`, {
+      const response = await axios.get(`${baseUrl}/users/incomes`, {
         headers
       });
+      console.log('Responce', response.data);
       dispatch(slice.actions.getLevelBonusSucess(response.data.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
@@ -514,9 +518,10 @@ export function getMonthlyPayrollBonus() {
     try {
       const accessToken = window.localStorage.getItem('accessToken');
       const headers = { Authorization: `Bearer ${accessToken}` };
-      const response = await axios.get(`${baseUrl}/Earning/MonthlyBonus`, {
+      const response = await axios.get(`${baseUrl}/users/incomes`, {
         headers
       });
+      console.log(response.data);
       dispatch(slice.actions.getMonthlyPayrollBonusSucess(response.data.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
