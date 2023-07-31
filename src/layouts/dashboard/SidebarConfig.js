@@ -80,30 +80,8 @@ const sidebarConfig = [
         title: 'staking',
         path: PATH_DASHBOARD.eCommerce.root,
         icon: ICONS.cart,
-        children: [
-          // { title: 'shop', path: PATH_DASHBOARD.nftMarket.shop },
-          // { title: 'list', path: PATH_DASHBOARD.eCommerce.list },
-          // { title: 'create', path: PATH_DASHBOARD.eCommerce.newProduct },
-          // { title: 'edit', path: PATH_DASHBOARD.eCommerce.editById },
-          { title: 'stake', path: PATH_DASHBOARD.eCommerce.stake }
-          // { title: 'checkout', path: PATH_DASHBOARD.eCommerce.checkout }
-          // { title: 'invoice', path: PATH_DASHBOARD.eCommerce.invoice }
-        ]
+        children: [{ title: 'stake', path: PATH_DASHBOARD.eCommerce.stake }]
       }
-      // NFT MaketPlace
-      // {
-      // title: 'nft-marketplace',
-      // path: PATH_DASHBOARD.eCommerce.root,
-      // icon: ICONS.cart,
-      // children: [
-      // { title: 'shop', path: PATH_DASHBOARD.nftMarket.shop },
-      // { title: 'list', path: PATH_DASHBOARD.eCommerce.list },
-      // { title: 'create', path: PATH_DASHBOARD.eCommerce.newProduct },
-      // { title: 'edit', path: PATH_DASHBOARD.eCommerce.editById },
-      // { title: 'checkout', path: PATH_DASHBOARD.eCommerce.checkout }
-      // { title: 'invoice', path: PATH_DASHBOARD.eCommerce.invoice }
-      // ]
-      // }
     ]
   },
 
@@ -116,16 +94,7 @@ const sidebarConfig = [
         title: 'payouts',
         path: PATH_DASHBOARD.personal.root,
         icon: ICONS.withdraw,
-        children: [
-          { title: 'minting', path: PATH_DASHBOARD.payout.minting },
-          { title: 'referral', path: PATH_DASHBOARD.payout.referral },
-          { title: 'capital', path: PATH_DASHBOARD.payout.capital },
-          // { title: 'month_pay', path: PATH_DASHBOARD.payout.month_pay },
-          { title: 'stone', path: PATH_DASHBOARD.payout.stone },
-          { title: 'reload', path: PATH_DASHBOARD.payout.reload },
-          { title: 'reward', path: PATH_DASHBOARD.payout.reward },
-          { title: 'summary', path: PATH_DASHBOARD.payout.summary }
-        ]
+        children: [{ title: 'minting', path: PATH_DASHBOARD.payout.minting }]
       },
       { title: 'transactions', path: PATH_DASHBOARD.personal.transactions, icon: ICONS.calendar },
       { title: 'activation', path: PATH_DASHBOARD.personal.activation, icon: ICONS.calendar }
