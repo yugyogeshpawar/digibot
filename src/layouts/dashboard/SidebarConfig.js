@@ -44,43 +44,59 @@ const sidebarConfig = [
       { title: 'Events and News', path: PATH_DASHBOARD.general.events, icon: ICONS.banking }
     ]
   },
-
+  {
+    subheader: 'staking',
+    items: [
+      {
+        title: 'staking',
+        path: PATH_DASHBOARD.eCommerce.root,
+        icon: ICONS.cart,
+        children: [
+          { title: 'stake', path: PATH_DASHBOARD.eCommerce.stake },
+          { title: 'stake summary', path: PATH_DASHBOARD.eCommerce.stakeSummary }
+          // { title: 'shop', path: PATH_DASHBOARD.nftMarket.shop },
+          // { title: 'list', path: PATH_DASHBOARD.eCommerce.list },
+        ]
+      }
+    ]
+  },
+  {
+    subheader: 'my team',
+    items: [
+      {
+        title: 'My Team',
+        path: PATH_DASHBOARD.personal.root,
+        icon: ICONS.cart,
+        children: [
+          { title: 'my genealogy', path: PATH_DASHBOARD.myteam.mygenealogy },
+          { title: 'my direct', path: PATH_DASHBOARD.myteam.mydirect },
+          { title: 'my downline', path: PATH_DASHBOARD.myteam.mydownline },
+          { title: 'left downlines ', path: PATH_DASHBOARD.myteam.leftdownLine },
+          { title: 'righ downlines', path: PATH_DASHBOARD.myteam.rightdownline }
+          // { title: 'checkout', path: PATH_DASHBOARD.eCommerce.checkout }
+          // { title: 'invoice', path: PATH_DASHBOARD.eCommerce.invoice }
+        ]
+      }
+    ]
+  },
   // Bonuses
   // ----------------------------------------------------------------------
   {
-    // subheader: 'Utilitise',
+    subheader: 'Bonuses',
     items: [
-      // MANAGEMENT : USER
-      {
-        title: 'user',
-        path: PATH_DASHBOARD.user.root,
-        icon: ICONS.user,
-        children: [
-          { title: 'profile', path: PATH_DASHBOARD.user.profile },
-          { title: 'Team list', path: PATH_DASHBOARD.user.list },
-          { title: 'account', path: PATH_DASHBOARD.user.account }
-        ]
-      },
       {
         title: 'bonus',
         path: PATH_DASHBOARD.bonus.root,
         icon: ICONS.bonus,
         children: [
           { title: 'Direct Bonus', path: PATH_DASHBOARD.bonus.direct },
-          { title: 'ROI Bonus', path: PATH_DASHBOARD.bonus.level },
+          { title: 'Level Bonus', path: PATH_DASHBOARD.bonus.level },
           { title: 'Matching Bonus', path: PATH_DASHBOARD.bonus.matching },
           { title: 'Staking Bonus', path: PATH_DASHBOARD.bonus.stacking },
-          { title: 'Matching Business', path: PATH_DASHBOARD.bonus.reward },
-          { title: 'Level Bonus', path: PATH_DASHBOARD.bonus.passive },
+          { title: 'Reward Bonus', path: PATH_DASHBOARD.bonus.reward },
+          { title: 'Passive Bonus', path: PATH_DASHBOARD.bonus.passive },
           { title: 'monthly Bonus', path: PATH_DASHBOARD.bonus.monthly }
         ]
-      },
-      // NFT MaketPlace
-      {
-        title: 'staking',
-        path: PATH_DASHBOARD.eCommerce.root,
-        icon: ICONS.cart,
-        children: [{ title: 'stake', path: PATH_DASHBOARD.eCommerce.stake }]
       }
     ]
   },

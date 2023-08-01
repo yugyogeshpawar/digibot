@@ -59,11 +59,7 @@ export default function Dashboard() {
             <AppFeatured nft3={myProfile?.nft3} />
           </Grid>
           <Grid item xs={12} md={4}>
-            <AppTotalActiveUsers
-              curruntInvestment={user.current_investment}
-              totalEarning={user.investment_busd}
-              title="My Package"
-            />
+            <MyRank teamBusiness={user.investment_busd} title="My Package" />
           </Grid>
           <Grid item xs={12} md={4}>
             <WithoutUSD teamBusiness={user.team_member} title="My Downline" />
@@ -81,7 +77,7 @@ export default function Dashboard() {
             <WithoutUSD teamBusiness={user.direct_member} title=" Direct Member" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <WithoutUSD teamBusiness="0 : 0" title=" First Pair" />
+            <WithoutUSD teamBusiness={`${user.left_pair} : ${user.right_pair}`} title=" First Pair" />
           </Grid>
           <Grid item xs={12} md={4}>
             <MyRank teamBusiness={incomeDash?.stake} title="Staking Bonus" />

@@ -103,6 +103,7 @@ export default function Router() {
             { path: 'invoice', element: <EcommerceInvoice /> }
           ]
         },
+
         {
           path: 'promo-materials',
           children: [{ path: '/', element: <EventsPosts /> }]
@@ -137,6 +138,17 @@ export default function Router() {
           ]
         },
         {
+          path: 'myteam',
+          children: [
+            { path: '/', element: <Navigate to="/dashboard/my-team/mydownlines" replace /> },
+            { path: 'mydownline', element: <MyDownline /> },
+            { path: 'mydirect', element: <MyDirect /> },
+            { path: 'mygenealogy', element: <MyGenealogy /> },
+            { path: 'leftdownLine', element: <LeftDownLine /> },
+            { path: 'rightdownline', element: <RightDownLine /> }
+          ]
+        },
+        {
           path: 'bonus',
           children: [
             { path: '/', element: <Navigate to="/dashboard/bonus/minting" replace /> },
@@ -152,7 +164,8 @@ export default function Router() {
             { path: 'monthly', element: <MonthlyPerRollList /> }
           ]
         },
-        { path: 'stake', element: <StakingForm /> }
+        { path: 'stake', element: <StakingForm /> },
+        { path: 'stakeSummary', element: <StackingSummary /> }
       ]
     },
 
@@ -278,6 +291,8 @@ const MintingList = Loadable(lazy(() => import('../pages/dashboard/MintingList')
 const UserAccount = Loadable(lazy(() => import('../pages/dashboard/UserAccount')));
 const UserCreate = Loadable(lazy(() => import('../pages/dashboard/UserCreate')));
 const StakingForm = Loadable(lazy(() => import('../pages/dashboard/StakingForm')));
+const StackingSummary = Loadable(lazy(() => import('../pages/dashboard/StackingSummary')));
+
 const MintingPayouts = Loadable(lazy(() => import('../pages/dashboard/MintingPayouts')));
 const LandingPage = Loadable(lazy(() => import('../pages/LandingPage')));
 const About = Loadable(lazy(() => import('../pages/About')));
@@ -289,6 +304,11 @@ const Pricing = Loadable(lazy(() => import('../pages/Pricing')));
 const Payment = Loadable(lazy(() => import('../pages/Payment')));
 const Page500 = Loadable(lazy(() => import('../pages/Page500')));
 const NotFound = Loadable(lazy(() => import('../pages/Page404')));
+const MyDownline = Loadable(lazy(() => import('../pages/dashboard/MyDownline')));
+const MyDirect = Loadable(lazy(() => import('../pages/dashboard/MyDirect')));
+const MyGenealogy = Loadable(lazy(() => import('../pages/dashboard/MyGenealogy')));
+const LeftDownLine = Loadable(lazy(() => import('../pages/dashboard/LeftDownLine')));
+const RightDownLine = Loadable(lazy(() => import('../pages/dashboard/RightDownLine')));
 // Components
 const ComponentsOverview = Loadable(lazy(() => import('../pages/ComponentsOverview')));
 const Color = Loadable(lazy(() => import('../pages/components-overview/foundations/FoundationColors')));
@@ -327,6 +347,7 @@ const Tooltip = Loadable(lazy(() => import('../pages/components-overview/materia
 const TransferList = Loadable(lazy(() => import('../pages/components-overview/material-ui/transfer-list')));
 const TreeView = Loadable(lazy(() => import('../pages/components-overview/material-ui/TreeView')));
 const DataGrid = Loadable(lazy(() => import('../pages/components-overview/material-ui/data-grid')));
+
 //
 const Charts = Loadable(lazy(() => import('../pages/components-overview/extra/Charts')));
 const Map = Loadable(lazy(() => import('../pages/components-overview/extra/Map')));

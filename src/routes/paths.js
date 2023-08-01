@@ -85,8 +85,15 @@ export const PATH_DASHBOARD = {
     monthly: path(ROOTS_DASHBOARD, '/bonus/monthly')
   },
   eCommerce: {
-    invoice: path(ROOTS_DASHBOARD, '/e-commerce/invoice'),
-    stake: path(ROOTS_DASHBOARD, '/stake')
+    stake: path(ROOTS_DASHBOARD, '/stake'),
+    stakeSummary: path(ROOTS_DASHBOARD, '/stakeSummary')
+  },
+  myteam: {
+    mydownline: path(ROOTS_DASHBOARD, '/myteam/mydownline'),
+    mydirect: path(ROOTS_DASHBOARD, '/myteam/mydirect'),
+    mygenealogy: path(ROOTS_DASHBOARD, '/myteam/mygenealogy'),
+    leftdownLine: path(ROOTS_DASHBOARD, '/myteam/leftdownLine'),
+    rightdownline: path(ROOTS_DASHBOARD, '/myteam/rightdownline')
   },
   nftMarket: {
     root: path(ROOTS_DASHBOARD, '/nft-marketplace'),
@@ -131,6 +138,7 @@ export const PATH_DASHBOARD = {
     postById: path(ROOTS_DASHBOARD, '/blog/post/apply-these-7-secret-techniques-to-improve-event'),
     newPost: path(ROOTS_DASHBOARD, '/blog/new-post')
   },
+
   events: { root: path(ROOTS_DASHBOARD, '/events') }
 };
 
