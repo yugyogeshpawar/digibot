@@ -67,11 +67,11 @@ const sidebarConfig = [
         icon: ICONS.bonus,
         children: [
           { title: 'Direct Bonus', path: PATH_DASHBOARD.bonus.direct },
-          { title: 'Level Bonus', path: PATH_DASHBOARD.bonus.level },
+          { title: 'ROI Bonus', path: PATH_DASHBOARD.bonus.level },
           { title: 'Matching Bonus', path: PATH_DASHBOARD.bonus.matching },
           { title: 'Staking Bonus', path: PATH_DASHBOARD.bonus.stacking },
           { title: 'Matching Business', path: PATH_DASHBOARD.bonus.reward },
-          { title: 'Passive Bonus', path: PATH_DASHBOARD.bonus.passive },
+          { title: 'Level Bonus', path: PATH_DASHBOARD.bonus.passive },
           { title: 'monthly Bonus', path: PATH_DASHBOARD.bonus.monthly }
         ]
       },

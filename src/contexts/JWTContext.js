@@ -79,6 +79,7 @@ function AuthProvider({ children }) {
           const response = await axios.get(`${baseUrl}/users/dashboard`, {
             headers
           });
+          console.log(response.data);
 
           const { user } = response.data;
 

@@ -39,7 +39,7 @@ export default function LevelList() {
 
   return (
     <Card>
-      <CardHeader title="My Level Bonus " sx={{ mb: 3 }} />
+      <CardHeader title="My ROI Bonus " sx={{ mb: 3 }} />
       <Scrollbar>
         <TableContainer sx={{ minWidth: 720 }}>
           <Table>
@@ -48,9 +48,9 @@ export default function LevelList() {
                 <TableCell sx={{ minWidth: 60 }}>No.</TableCell>
                 <TableCell sx={{ minWidth: 160 }}>Date</TableCell>
                 <TableCell sx={{ minWidth: 160 }}>Income Level</TableCell>
-                <TableCell sx={{ minWidth: 200 }}>Member User Id</TableCell>
+                <TableCell sx={{ minWidth: 200 }}>Bonus per</TableCell>
                 <TableCell sx={{ minWidth: 120 }}>Investment Type</TableCell>
-                <TableCell sx={{ minWidth: 120 }}>Income Member id</TableCell>
+                <TableCell sx={{ minWidth: 120 }}>Net amount</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -71,9 +71,9 @@ export default function LevelList() {
                       <TableCell>{format(new Date(row.calculate_date), 'dd MMM yyyy')}</TableCell>
                       <TableCell>{row.income_level}</TableCell>
 
-                      <TableCell>{row.member_user_id}</TableCell>
+                      <TableCell>{row.Bonus_percent}</TableCell>
                       <TableCell>{row.income_type}</TableCell>
-                      <TableCell sx={{ textTransform: 'capitalize' }}>{row.income_member_id}</TableCell>
+                      <TableCell>{row.investment_amt}</TableCell>
                     </TableRow>
                   ))}
                 </>

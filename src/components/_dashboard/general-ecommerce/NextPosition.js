@@ -32,9 +32,9 @@ NextPosition.propTypes = {
 
 export default function NextPosition({ myProfile }) {
   return (
-    <Card sx={{ display: 'flex', alignItems: 'center', p: 3 }}>
+    <Card sx={{ display: 'flex', alignItems: 'center', p: 2 }}>
       <Box sx={{ flexGrow: 1 }}>
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Box sx={{ flexGrow: 1 }}>
             <Typography variant="subtitle2">Deposit Amount</Typography>
             <Typography variant="h3" gutterBottom>
@@ -43,7 +43,7 @@ export default function NextPosition({ myProfile }) {
           </Box>
         </Box>
         <Stack direction="row" alignItems="center" flexWrap="wrap" sx={{ mt: 2 }}>
-          <IconWrapperStyle
+          {/* <IconWrapperStyle
             sx={{
               ...(PERCENT < 0 && {
                 color: 'error.main',
@@ -52,11 +52,11 @@ export default function NextPosition({ myProfile }) {
             }}
           >
             <Icon width={16} height={16} icon={PERCENT >= 0 ? trendingUpFill : trendingDownFill} />
-          </IconWrapperStyle>
+          </IconWrapperStyle> */}
           <Box>
-            <Typography variant="body2" component="span" sx={{ color: 'text.secondary' }}>
+            {/* <Typography variant="body2" component="span" sx={{ color: 'text.secondary' }}>
               Next Stone
-            </Typography>
+            </Typography> */}
             <Typography variant="subtitle2" component="span" sx={{ marginLeft: '4px', color: 'primary.main' }}>
               {myProfile?.nextRank?.nextStone}
             </Typography>

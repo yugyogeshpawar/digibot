@@ -22,7 +22,7 @@ import { MyTeamList } from '../../components/_dashboard/general-booking';
 export default function GeneralAnalytics() {
   const { themeStretch } = useSettings();
   const { user } = useAuth();
-  const { output } = useSelector((state) => state.user);
+  // const { output } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getTeams());
@@ -39,15 +39,15 @@ export default function GeneralAnalytics() {
               icon={userFill} // Pass the icon as a prop
               backgroundColor="your_desired_background_color" // Pass the background color as a prop
               title1="My Sponcers" // Pass the title1 as a prop
-              title2="80" // Pass the title2 as a prop
+              title2={user.sponcer_name} // Pass the title2 as a prop
             />
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
             <MySponser
               icon={moneyIcon} // Pass the icon as a prop
               backgroundColor="" // Pass the background color as a prop
-              title1="My Sponcers Business" // Pass the title1 as a prop
-              title2="$343000" // Pass the title2 as a prop
+              title1="My Direct Business" // Pass the title1 as a prop
+              title2={user.direct_business} // Pass the title2 as a prop
             />
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
@@ -55,7 +55,7 @@ export default function GeneralAnalytics() {
               icon={usersIcon} // Pass the icon as a prop
               backgroundColor="" // Pass the background color as a prop
               title1="My Teams" // Pass the title1 as a prop
-              title2="50" // Pass the title2 as a prop
+              title2={user.direct_member} // Pass the title2 as a prop
             />
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
@@ -63,7 +63,7 @@ export default function GeneralAnalytics() {
               icon={moneyIcon2} // Pass the icon as a prop
               backgroundColor="" // Pass the background color as a prop
               title1="My Team Business" // Pass the title1 as a prop
-              title2="$3453000" // Pass the title2 as a prop
+              title2={user.team_business} // Pass the title2 as a prop
             />
           </Grid>
 
@@ -73,9 +73,7 @@ export default function GeneralAnalytics() {
           <Grid item xs={12}>
             <MyTeams />
           </Grid>
-          <Grid item xs={12}>
-            <MyTeamList />
-          </Grid>
+
           <Grid item xs={12} md={6} lg={4}>
             <AnalyticsCurrentVisits />
           </Grid>

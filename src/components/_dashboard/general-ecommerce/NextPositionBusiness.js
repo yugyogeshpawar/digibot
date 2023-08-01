@@ -41,14 +41,14 @@ export default function NextPositionBusiness({ myProfile }) {
   const theme = useTheme();
 
   return (
-    <Card sx={{ display: 'flex', alignItems: 'center', p: 3 }}>
+    <Card sx={{ display: 'flex', alignItems: 'center', p: 4 }}>
       <Box sx={{ flexGrow: 1 }}>
         <Typography variant="subtitle2">Today's Profit</Typography>
         <Typography variant="h3" gutterBottom>
           ${fNumber(myProfile?.nextRank?.business)}
         </Typography>
         <Stack direction="row" alignItems="center" flexWrap="wrap">
-          <IconWrapperStyle
+          {/* <IconWrapperStyle
             sx={{
               ...(PERCENT < 0 && {
                 color: 'error.main',
@@ -60,9 +60,9 @@ export default function NextPositionBusiness({ myProfile }) {
           </IconWrapperStyle>
           <Typography variant="body2" component="span" sx={{ color: 'text.secondary' }}>
             Need Min
-          </Typography>
+          </Typography> */}
           <Typography variant="subtitle2" component="span" sx={{ marginLeft: '4px', color: 'primary.main' }}>
-            {myProfile?.nextRank?.direct} Direct
+            {myProfile?.nextRank?.direct}
           </Typography>
         </Stack>
       </Box>

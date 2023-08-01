@@ -30,12 +30,15 @@ export default function ReferralList() {
   const { stoneBonus } = useSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(getStoneBonus());
+    const values = {
+      incomeType: 'LEVEL BONUS'
+    };
+    dispatch(getStoneBonus(values));
   }, [dispatch]);
-  const stoneArr = stoneBonus?.output;
+  const stoneArr = stoneBonus;
   return (
     <Card>
-      <CardHeader title="Passive Bonus" sx={{ mb: 3 }} />
+      <CardHeader title="LEVEL Bonus" sx={{ mb: 3 }} />
       <Scrollbar>
         <TableContainer sx={{ minWidth: 720 }}>
           <Table>
@@ -44,6 +47,8 @@ export default function ReferralList() {
                 <TableCell sx={{ minWidth: 120 }}>No.</TableCell>
                 <TableCell sx={{ minWidth: 120 }}>Date</TableCell>
                 <TableCell sx={{ minWidth: 120 }}>Income</TableCell>
+                <TableCell sx={{ minWidth: 120 }}>Bonus Per</TableCell>
+                <TableCell sx={{ minWidth: 120 }}>Bot Type</TableCell>
 
                 <TableCell />
               </TableRow>
@@ -68,6 +73,8 @@ export default function ReferralList() {
                       <TableCell>{format(new Date(row.calculateDate), 'dd MMM yyyy')}</TableCell>
 
                       <TableCell>{row.incomeAmt}</TableCell>
+                      <TableCell>{row.Bonus_percent}</TableCell>
+                      <TableCell>{row.b_type}</TableCell>
                     </TableRow>
                   ))}
                 </>

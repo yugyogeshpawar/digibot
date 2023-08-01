@@ -36,7 +36,7 @@ export default function NextPosionReward({ myProfile }) {
   const theme = useTheme();
 
   return (
-    <Card sx={{ display: 'flex', alignItems: 'center', p: 3 }}>
+    <Card sx={{ display: 'flex', alignItems: 'center', p: 4 }}>
       <Box sx={{ flexGrow: 1 }}>
         <Typography variant="subtitle2">Total Profit</Typography>
         <Typography variant="h3" gutterBottom>
@@ -44,7 +44,7 @@ export default function NextPosionReward({ myProfile }) {
         </Typography>
 
         <Stack direction="row" alignItems="center" flexWrap="wrap">
-          <IconWrapperStyle
+          {/* <IconWrapperStyle
             sx={{
               ...(PERCENT < 0 && {
                 color: 'error.main',
@@ -53,14 +53,14 @@ export default function NextPosionReward({ myProfile }) {
             }}
           >
             <Icon width={16} height={16} icon={PERCENT >= 0 ? trendingUpFill : trendingDownFill} />
-          </IconWrapperStyle>
+          </IconWrapperStyle> */}
 
           <Typography variant="subtitle2" component="span" sx={{ color: 'primary.main' }}>
             {myProfile?.nextRank?.stoneIncome}
           </Typography>
-          <Typography variant="body2" component="span" sx={{ color: 'text.secondary', ml: '3px' }}>
+          {/* <Typography variant="body2" component="span" sx={{ color: 'text.secondary', ml: '3px' }}>
             Stone Income
-          </Typography>
+          </Typography> */}
         </Stack>
       </Box>
     </Card>
