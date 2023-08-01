@@ -264,14 +264,12 @@ export function getProfile() {
     dispatch(slice.actions.startLoading());
     try {
       const accessToken = window.localStorage.getItem('accessToken');
-      const headers = { Authorization: `Bearer ${accessToken}` };
-      const [profileData, totalIncomesData] = await Promise.all([
-        axios.get(`${baseUrl}/users/Dashboard`, { headers }),
-        axios.get(`${baseUrl}/users/totalIncomes`, { headers })
-      ]);
-      localStorage.setItem('member_user_id', profileData.data.row.member_user_id);
-      dispatch(slice.actions.getProfileSuccess(profileData.data));
-      dispatch(slice.actions.getTotalIncomesSuccess(totalIncomesData.data));
+      const headers = { authorization: `Bearer ${accessToken}` };
+      const response = await axios.get(`${baseUrl}/users/Dashboard`, {
+        headers
+      });
+
+      dispatch(slice.actions.getProfileSuccess(response.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }

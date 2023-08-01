@@ -1,30 +1,7 @@
 /* eslint-disable import/no-unresolved */
 import PropTypes from 'prop-types';
-// import { merge } from 'lodash';
-import { Icon } from '@iconify/react';
-// import ReactApexChart from 'react-apexcharts';
-import trendingUpFill from '@iconify/icons-eva/trending-up-fill';
-import trendingDownFill from '@iconify/icons-eva/trending-down-fill';
-// material
-import { alpha, styled } from '@material-ui/core/styles';
 import { Box, Card, Typography, Stack } from '@material-ui/core';
 // ----------------------------------------------------------------------
-
-const IconWrapperStyle = styled('div')(({ theme }) => ({
-  width: 24,
-  height: 24,
-  display: 'flex',
-  borderRadius: '50%',
-  alignItems: 'center',
-  justifyContent: 'center',
-  marginRight: theme.spacing(1),
-  color: theme.palette.success.main,
-  backgroundColor: alpha(theme.palette.success.main, 0.16)
-}));
-
-// ----------------------------------------------------------------------
-
-const PERCENT = 2.6;
 
 NextPosition.propTypes = {
   myProfile: PropTypes.object
