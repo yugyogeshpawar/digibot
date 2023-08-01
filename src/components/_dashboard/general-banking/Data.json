@@ -3,8 +3,20 @@
   "message": "users fetched successfully",
   "users": [
     {
+      "member_user_id": "6873419",
+      "member_name": "root",
+      "position": "LEFT",
+      "position_parent": "0",
+      "sponcer_id": "0",
+      "registration_date": "2023-07-28T11:20:33.000Z",
+      "status": 1,
+      "topup_amount": 100,
+      "assigned_bot_id": "1",
+      "isblock": 0
+    },
+    {
       "member_user_id": "4854754",
-      "member_name": "arcader",
+      "member_name": "user1",
       "position": "LEFT",
       "position_parent": "6873419",
       "sponcer_id": "6873419",
@@ -16,7 +28,7 @@
     },
     {
       "member_user_id": "9569612",
-      "member_name": "arcader",
+      "member_name": "user2",
       "position": "RIGHT",
       "position_parent": "6873419",
       "sponcer_id": "6873419",
@@ -28,7 +40,7 @@
     },
     {
       "member_user_id": "8355224",
-      "member_name": "arcader",
+      "member_name": "user3",
       "position": "RIGHT",
       "position_parent": "9569612",
       "sponcer_id": "6873419",
@@ -40,7 +52,7 @@
     },
     {
       "member_user_id": "6059633",
-      "member_name": "arcader",
+      "member_name": "user4",
       "position": "LEFT",
       "position_parent": "9569612",
       "sponcer_id": "9569612",
@@ -52,7 +64,7 @@
     },
     {
       "member_user_id": "3004545",
-      "member_name": "arcader",
+      "member_name": "user5",
       "position": "RIGHT",
       "position_parent": "8355224",
       "sponcer_id": "6873419",
@@ -64,7 +76,7 @@
     },
     {
       "member_user_id": "9109916",
-      "member_name": "arcader",
+      "member_name": "user6",
       "position": "LEFT",
       "position_parent": "8355224",
       "sponcer_id": "8355224",
@@ -76,7 +88,7 @@
     },
     {
       "member_user_id": "7525807",
-      "member_name": "arcader",
+      "member_name": "user7",
       "position": "RIGHT",
       "position_parent": "3004545",
       "sponcer_id": "6873419",
@@ -88,7 +100,7 @@
     },
     {
       "member_user_id": "7731296",
-      "member_name": "arcader",
+      "member_name": "user8",
       "position": "LEFT",
       "position_parent": "3004545",
       "sponcer_id": "3004545",
@@ -100,7 +112,7 @@
     },
     {
       "member_user_id": "9217170",
-      "member_name": "arcader",
+      "member_name": "user11",
       "position": "RIGHT",
       "position_parent": "7525807",
       "sponcer_id": "9569612",
@@ -112,7 +124,7 @@
     },
     {
       "member_user_id": "1651028",
-      "member_name": "arcader",
+      "member_name": "user13",
       "position": "LEFT",
       "position_parent": "7525807",
       "sponcer_id": "7525807",
@@ -124,7 +136,7 @@
     },
     {
       "member_user_id": "7429552",
-      "member_name": "arcader",
+      "member_name": "user14",
       "position": "RIGHT",
       "position_parent": "9217170",
       "sponcer_id": "8355224",
@@ -136,7 +148,7 @@
     },
     {
       "member_user_id": "9173203",
-      "member_name": "arcader",
+      "member_name": "user15",
       "position": "LEFT",
       "position_parent": "9217170",
       "sponcer_id": "9217170",
@@ -148,7 +160,7 @@
     },
     {
       "member_user_id": "8396256",
-      "member_name": "arcader",
+      "member_name": "user156",
       "position": "LEFT",
       "position_parent": "9173203",
       "sponcer_id": "9217170",
@@ -160,7 +172,7 @@
     },
     {
       "member_user_id": "6182383",
-      "member_name": "arcader",
+      "member_name": "user144",
       "position": "RIGHT",
       "position_parent": "7429552",
       "sponcer_id": "3004545",
@@ -172,7 +184,7 @@
     },
     {
       "member_user_id": "4696435",
-      "member_name": "arcader",
+      "member_name": "user12345",
       "position": "LEFT",
       "position_parent": "7429552",
       "sponcer_id": "7429552",
@@ -184,7 +196,7 @@
     },
     {
       "member_user_id": "9080242",
-      "member_name": "arcader",
+      "member_name": "user12343",
       "position": "LEFT",
       "position_parent": "4696435",
       "sponcer_id": "7429552",
@@ -196,7 +208,7 @@
     },
     {
       "member_user_id": "1088962",
-      "member_name": "arcader",
+      "member_name": "user124",
       "position": "LEFT",
       "position_parent": "9080242",
       "sponcer_id": "7429552",
@@ -208,7 +220,7 @@
     },
     {
       "member_user_id": "4904156",
-      "member_name": "arcader",
+      "member_name": "user126",
       "position": "RIGHT",
       "position_parent": "6182383",
       "sponcer_id": "7429552",
@@ -220,7 +232,7 @@
     },
     {
       "member_user_id": "2293806",
-      "member_name": "arcader",
+      "member_name": "user127",
       "position": "LEFT",
       "position_parent": "6182383",
       "sponcer_id": "6182383",
@@ -232,7 +244,7 @@
     },
     {
       "member_user_id": "2240154",
-      "member_name": "arcader",
+      "member_name": "user122",
       "position": "RIGHT",
       "position_parent": "4904156",
       "sponcer_id": "7429552",
@@ -244,7 +256,7 @@
     },
     {
       "member_user_id": "3626564",
-      "member_name": "arcader",
+      "member_name": "user120",
       "position": "LEFT",
       "position_parent": "4904156",
       "sponcer_id": "4904156",
@@ -256,7 +268,7 @@
     },
     {
       "member_user_id": "1027027",
-      "member_name": "arcader",
+      "member_name": "user1201",
       "position": "RIGHT",
       "position_parent": "2240154",
       "sponcer_id": "2240154",
@@ -268,7 +280,7 @@
     },
     {
       "member_user_id": "6554067",
-      "member_name": "arcader",
+      "member_name": "user12013",
       "position": "LEFT",
       "position_parent": "2240154",
       "sponcer_id": "2240154",
@@ -280,7 +292,7 @@
     },
     {
       "member_user_id": "1144618",
-      "member_name": "arcader",
+      "member_name": "user120134",
       "position": "RIGHT",
       "position_parent": "1027027",
       "sponcer_id": "2240154",
@@ -292,7 +304,7 @@
     },
     {
       "member_user_id": "4569683",
-      "member_name": "arcader",
+      "member_name": "user1201345",
       "position": "LEFT",
       "position_parent": "1027027",
       "sponcer_id": "1027027",
@@ -304,7 +316,7 @@
     },
     {
       "member_user_id": "8815116",
-      "member_name": "arcader",
+      "member_name": "user12013456",
       "position": "RIGHT",
       "position_parent": "1144618",
       "sponcer_id": "2240154",
@@ -316,7 +328,7 @@
     },
     {
       "member_user_id": "1544429",
-      "member_name": "arcader",
+      "member_name": "user120134567",
       "position": "LEFT",
       "position_parent": "1144618",
       "sponcer_id": "1144618",
@@ -328,7 +340,7 @@
     },
     {
       "member_user_id": "8392187",
-      "member_name": "arcader",
+      "member_name": "user1201345678",
       "position": "RIGHT",
       "position_parent": "8815116",
       "sponcer_id": "1144618",
@@ -340,7 +352,7 @@
     },
     {
       "member_user_id": "6912403",
-      "member_name": "arcader",
+      "member_name": "user12013456789",
       "position": "LEFT",
       "position_parent": "8815116",
       "sponcer_id": "8815116",
@@ -352,7 +364,7 @@
     },
     {
       "member_user_id": "7415992",
-      "member_name": "arcader",
+      "member_name": "user120134567894",
       "position": "RIGHT",
       "position_parent": "8392187",
       "sponcer_id": "8815116",
@@ -364,7 +376,7 @@
     },
     {
       "member_user_id": "6739886",
-      "member_name": "arcader",
+      "member_name": "user1201345678942",
       "position": "LEFT",
       "position_parent": "8392187",
       "sponcer_id": "8392187",
@@ -376,7 +388,7 @@
     },
     {
       "member_user_id": "1887325",
-      "member_name": "arcader",
+      "member_name": "user0",
       "position": "RIGHT",
       "position_parent": "7415992",
       "sponcer_id": "8392187",
@@ -388,7 +400,7 @@
     },
     {
       "member_user_id": "7521935",
-      "member_name": "arcader",
+      "member_name": "user09",
       "position": "LEFT",
       "position_parent": "4854754",
       "sponcer_id": "4854754",
@@ -400,7 +412,7 @@
     },
     {
       "member_user_id": "9912280",
-      "member_name": "arcader",
+      "member_name": "user098",
       "position": "RIGHT",
       "position_parent": "4854754",
       "sponcer_id": "4854754",
@@ -412,7 +424,7 @@
     },
     {
       "member_user_id": "8355016",
-      "member_name": "arcader",
+      "member_name": "user0987",
       "position": "RIGHT",
       "position_parent": "9912280",
       "sponcer_id": "4854754",
