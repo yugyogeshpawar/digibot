@@ -9,6 +9,7 @@ import { useFormik, Form, FormikProvider } from 'formik';
 import eyeFill from '@iconify/icons-eva/eye-fill';
 import closeFill from '@iconify/icons-eva/close-fill';
 import eyeOffFill from '@iconify/icons-eva/eye-off-fill';
+
 // material
 import {
   Stack,
@@ -27,7 +28,12 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  DialogContentText
+  DialogContentText,
+  Box,
+  MenuItem,
+  Select,
+  InputLabel,
+  FormControl
 } from '@material-ui/core';
 import { LoadingButton } from '@material-ui/lab';
 // hooks
@@ -35,8 +41,8 @@ import useAuth from '../../../hooks/useAuth';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
 //
 import { MIconButton } from '../../@material-extend';
-
-const options = ['Left', 'Right'];
+// eslint-disable-next-line import/order, import/no-unresolved
+import { getSponcerNameByUplineID } from 'src/redux/slices/user';
 
 // ----------------------------------------------------------------------
 
@@ -47,15 +53,15 @@ export default function RegisterForm() {
   const [isScrolledToEnd, setIsScrolledToEnd] = useState(false);
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [succefullyRegisterdUserId, setRegisterdUserId] = useState('');
-  const [value, setValue] = useState(options[0]);
-  const [inputValue, setInputValue] = useState('');
-
+  // const [value, setValue] = useState(options[0]);
+  // const [inputValue, setInputValue] = useState('');
+  const [sponcerName, setSponcerName] = useState(null);
   const isMountedRef = useIsMountedRef();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [showPassword, setShowPassword] = useState(false);
   // eslint-disable-next-line new-cap
   const queryParams = new queryString.parse(window.location.search);
-
+  const [selectedPackage, setSelectedPackage] = useState('');
   useEffect(() => {
     if (queryParams.UplineId === undefined) {
       enqueueSnackbar('Sponcer ID is required', {
@@ -67,9 +73,32 @@ export default function RegisterForm() {
         )
       });
       window.location.replace('/digibotUApp/login');
+    } else {
+      // If UplineId is available, fetch the sponsor name
+      getSponcerNameByUplineIDFunc();
     }
   }, []);
 
+  const getSponcerNameByUplineIDFunc = async () => {
+    try {
+      const res = await getSponcerNameByUplineID(queryParams.UplineId);
+
+      if (res.sponcer_name === undefined) {
+        window.location.replace('/digibotUApp/login');
+      } else {
+        formik.setValues((values) => ({
+          ...values,
+          sponsorName: res.sponcer_name
+        }));
+      }
+    } catch (error) {
+      setSponcerName(null); // Clear the sponsor name on error
+    }
+  };
+
+  useEffect(() => {
+    getSponcerNameByUplineIDFunc();
+  }, []);
   const RegisterSchema = Yup.object().shape({
     memberName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Full name required'),
     contactNo: Yup.string().min(10, 'Short!').max(11, 'Too Long!').required('Contact Number required'),
@@ -81,7 +110,7 @@ export default function RegisterForm() {
       .max(20, 'Too Long!')
       .required('Password id is required')
       .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,20}$/,
+        /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%?&])[A-Za-z\d@$!%?&]{6,20}$/,
         'Password must contain at least one uppercase letter, one lowercase letter, one numeric value, and one special character.'
       ),
     checkbox: Yup.boolean().oneOf([true], 'Terms and conditions must be agreed').required('Checkbox must be checked')
@@ -98,12 +127,14 @@ export default function RegisterForm() {
   const formik = useFormik({
     initialValues: {
       sponsorId: queryParams.UplineId,
-      sponsorName: queryParams.UplineId,
+      sponsorName: sponcerName,
       memberName: '',
       email: '',
       contactNo: '',
       password: '',
       cpassword: '',
+      // eslint-disable-next-line object-shorthand
+      selectedPackage: selectedPackage,
       checkbox: false
     },
     validationSchema: RegisterSchema,
@@ -127,9 +158,12 @@ export default function RegisterForm() {
           values.email,
           values.contactNo,
           values.password,
-          values.cpassword
+          values.cpassword,
+          selectedPackage
         );
+
         setRegisterdUserId(response.data.userId);
+
         enqueueSnackbar('Register success', {
           variant: 'success',
           action: (key) => (
@@ -138,6 +172,7 @@ export default function RegisterForm() {
             </MIconButton>
           )
         });
+
         setShowSuccessDialog(true);
         if (isMountedRef.current) {
           setSubmitting(false);
@@ -155,13 +190,11 @@ export default function RegisterForm() {
   const { errors, touched, handleSubmit, isSubmitting, getFieldProps } = formik;
 
   const handleClickOpen = () => {
-    console.log(formik.isValid);
     if (formik.isValid) {
       setOpen(true);
       setScroll('paper');
     }
     if (formik.isValid && open) {
-      console.log('submit form');
       formik.submitForm(); // Trigger form submission to display validation errors
     }
   };
@@ -192,6 +225,10 @@ export default function RegisterForm() {
 
   const handlePrivacyClick = () => {
     console.log('called');
+  };
+
+  const navigateTologin = () => {
+    window.location.replace('/digibotUApp/login');
   };
 
   return (
@@ -292,20 +329,19 @@ export default function RegisterForm() {
               />
             </Grid>
           </Grid>
-          <Autocomplete
-            sx={{ mt: 2 }}
-            fullWidth
-            value={value}
-            options={options}
-            onChange={(event, newValue) => {
-              setValue(newValue);
-            }}
-            inputValue={inputValue}
-            onInputChange={(event, newInputValue) => {
-              setInputValue(newInputValue);
-            }}
-            renderInput={(params) => <TextField {...params} label="Select Package" />}
-          />
+          <FormControl fullWidth variant="outlined">
+            <InputLabel id="package-label">Select Package</InputLabel>
+            <Select
+              labelId="package-label"
+              id="package"
+              value={selectedPackage}
+              onChange={(e) => setSelectedPackage(e.target.value)}
+              label="Select Package"
+            >
+              <MenuItem value="LEFT">LEFT</MenuItem>
+              <MenuItem value="RIGHT">RIGHT</MenuItem>
+            </Select>
+          </FormControl>
           <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mt: 3 }}>
             <FormControlLabel
               control={<Checkbox {...getFieldProps('checkbox')} checked={formik.values.checkbox} color="primary" />}
@@ -412,6 +448,13 @@ export default function RegisterForm() {
                 Your UserId is :{' '}
                 <span style={{ color: 'white', fontWeight: 'bold' }}> {succefullyRegisterdUserId}</span>
               </DialogContentText>
+              <Box m={1}>
+                <Box height={50} display="flex" justifyContent="center" alignItems="center">
+                  <Button onClick={navigateTologin} variant="contained">
+                    Login
+                  </Button>
+                </Box>
+              </Box>
             </DialogContent>
             <DialogActions sx={{ p: 2 }}>
               <Button onClick={handleSuccessDialogClose} color="primary">

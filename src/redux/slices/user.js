@@ -191,6 +191,10 @@ const slice = createSlice({
     getPriceSuccess(state, action) {
       state.isLoading = false;
       state.tokenPrice = action.payload;
+    },
+    getIncomeDashRouteSucces(state, action) {
+      state.isLoading = false;
+      state.incomeDash = action.payload;
     }
   }
 });
@@ -449,6 +453,7 @@ export function getLevelBonus(values) {
         headers: { authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
         data: values
       });
+      console.log(response);
 
       dispatch(slice.actions.getLevelBonusSucess(response.data.results));
     } catch (error) {
@@ -674,6 +679,65 @@ export function refer(values) {
         data: values
       });
       dispatch(slice.actions.postDepositeSuccess(response.data));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
+export async function postStacking(payload, accessToken) {
+  console.log('payload :', payload);
+  try {
+    const headers = {
+      Authorization: `Bearer ${accessToken}`
+    };
+    const Url = `${baseUrl}/deposit/`;
+
+    const response = await axios.post(Url, payload, { headers });
+    //  console.log('Response:', response.data);
+    return response.data;
+  } catch (error) {
+    console.log('Error data:', error.response ? error.response.data : 'No data available');
+
+    if (error.response) {
+      console.log(error.response);
+      return error.response.data;
+    }
+    return 'Something went wrong!';
+  }
+}
+
+export async function getSponcerNameByUplineID(UplineId) {
+  try {
+    const response = await axios.get(`${baseUrl}/auth/register?UplineId=${UplineId}`);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+}
+
+export async function getBotData() {
+  try {
+    const response = await axios.get(`${baseUrl}/users/bots`);
+    console.log('bot =====', response);
+    return response.data;
+  } catch (error) {
+    console.log('err bot =====>', error);
+    return error;
+  }
+}
+
+export function getIncomeDashRoute() {
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const accessToken = window.localStorage.getItem('accessToken');
+      const headers = { Authorization: `Bearer ${accessToken}` };
+      const urlApi = `${baseUrl}/users/totalIncomes`;
+      const response = await axios.get(urlApi, {
+        headers
+      });
+      dispatch(slice.actions.getIncomeDashRouteSucces(response.data.result));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }

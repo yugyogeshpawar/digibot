@@ -2,20 +2,18 @@
 import { useEffect } from 'react';
 import { Container, Grid, Stack } from '@material-ui/core';
 // hooks
-import { getProfile } from 'src/redux/slices/user';
+import { getIncomeDashRoute, getProfile } from 'src/redux/slices/user';
 import { useDispatch, useSelector } from 'src/redux/store';
+
 import useAuth from '../../hooks/useAuth';
 import useSettings from '../../hooks/useSettings';
-import CryptoPriceMarquee from './CryptoPriceMarquee';
 // components
 import Page from '../../components/Page';
 import {
   AppWelcome,
   AppFeatured,
   AppAreaInstalled,
-  AppTotalInstalled,
   AppTotalActiveUsers,
-  TotalBonus,
   MyRank,
   WithoutUSD
 } from '../../components/_dashboard/general-app';
@@ -26,69 +24,94 @@ import { EventsPosts } from '../../components/_dashboard/general-booking';
 export default function Dashboard() {
   const { themeStretch } = useSettings();
   const { user } = useAuth();
+
   const { myProfile } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProfile());
   }, [dispatch]);
+
+  const { incomeDash } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    dispatch(getIncomeDashRoute());
+  }, [dispatch]);
+
+  const totalBonusData =
+    incomeDash?.stake +
+    incomeDash?.roi +
+    incomeDash?.direct +
+    incomeDash?.withdraw +
+    incomeDash?.match +
+    incomeDash?.business +
+    incomeDash?.monthly;
   return (
     <Page title="General: App | Digibot">
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <Grid container spacing={3} sx={{ marginTop: '-48px ' }}>
-          <Grid item xs={12}>
-            <CryptoPriceMarquee />
-          </Grid>
           <Grid item xs={12} md={8} sx={{ pt: 0 }}>
             <AppWelcome displayName={user.member_name} memberUserId={user.member_user_id} />
           </Grid>
           <Grid item xs={12} md={4}>
             <AppFeatured nft3={myProfile?.nft3} />
           </Grid>
-
           <Grid item xs={12} md={4}>
-            <AppTotalActiveUsers totalEarning={user.topup_amount} title="Total Investment" />
+            <AppTotalActiveUsers
+              curruntInvestment={user.current_investment}
+              totalEarning={user.investment_busd}
+              title="My Package"
+            />
           </Grid>
           <Grid item xs={12} md={4}>
-            <AppTotalInstalled totalEarning={user.direct_business} />
-          </Grid>
-          <Grid item xs={12} md={6} lg={4}>
-            <TotalBonus totalEarning={user.total_earning} />
+            <WithoutUSD teamBusiness={user.team_member} title="My Downline" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <AppTotalActiveUsers totalEarning={user.team_business} title="Team Business" />
+            <WithoutUSD teamBusiness={user.left_member + user.right_member} title="Total Active" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <WithoutUSD teamBusiness={user.direct_member} title="Total Direct Member" />
+            <AppTotalActiveUsers totalEarning={user?.left_member} title="Left Active" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <WithoutUSD teamBusiness={user.team_member} title="Total Team Member" />
+            <AppTotalActiveUsers totalEarning={user?.right_member} title="Right Active" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={user.direct_business} title="Direct Bonus" />
+            <WithoutUSD teamBusiness={user.direct_member} title=" Direct Member" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={user.team_business} title="Level Bonus" />
+            <WithoutUSD teamBusiness="0 : 0" title=" First Pair" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={user.team_business} title="Daily Trade Profit" />
+            <MyRank teamBusiness={incomeDash?.stake} title="Staking Bonus" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={user.team_business} title="Team Passive Bonus" />
+            <MyRank teamBusiness={incomeDash?.roi} title="Passive Bonus" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={user.team_business} title="Direct Matching Bonus" />
+            <MyRank teamBusiness={incomeDash?.direct} title="Direct Bonus" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={user.team_business} title="Team Matching Bonus" />
+            <MyRank teamBusiness={incomeDash?.match + incomeDash?.withdraw} title="Level Bonus" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={user.team_business} title="Monthly Matching Bonus" />
+            <MyRank teamBusiness={incomeDash?.bonus} title="Matching Bonus" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={user.team_business_left} title="Left Business" />
+            <MyRank teamBusiness={incomeDash?.business} title="Matching Bussiness Bonus" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={user.team_business_right} title="Right Business" />
+            <MyRank teamBusiness={incomeDash?.monthly} title="Monthly Bonus" />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <MyRank teamBusiness={0} title="Daily Trade Profit" />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <WithoutUSD teamBusiness={totalBonusData.toFixed(2)} title="Total Bonus" />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <WithoutUSD teamBusiness={user?.wallet_amount} title="My Wallet " />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <WithoutUSD teamBusiness={user?.withdrawal_amt} title="Withdraw Amount" />
           </Grid>
           <Grid item xs={12}>
             <EventsPosts />

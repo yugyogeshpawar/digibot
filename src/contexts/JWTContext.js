@@ -86,7 +86,7 @@ function AuthProvider({ children }) {
             type: 'INITIALIZE',
             payload: {
               isAuthenticated: true,
-              user
+              user: user[0]
             }
           });
         } else {
@@ -118,7 +118,6 @@ function AuthProvider({ children }) {
       userId,
       password
     });
-    console.log(userId, password);
 
     const { token, user } = response.data;
 
@@ -152,12 +151,21 @@ function AuthProvider({ children }) {
     return response.data;
   };
 
-  const register = async (sponsorId, memberName, email, contactNo, password, cpassword) => {
+  const register = async (sponsorId, memberName, email, contactNo, password, cpassword, selectedPackage) => {
     const response = await axios({
       method: 'post',
-      url: `${baseUrl}/Auth/Signup`,
-      data: { sponsorId, memberName, email, contactNo, password, cpassword }
+      url: `${baseUrl}/Auth/register`,
+      data: {
+        sponcerid: sponsorId,
+        member_name: memberName,
+        email,
+        contactNumber: contactNo,
+        password,
+        cpassword,
+        position: selectedPackage
+      }
     });
+
     const { accessToken, user } = response.data;
 
     window.localStorage.setItem('accessToken', accessToken);
@@ -167,6 +175,7 @@ function AuthProvider({ children }) {
         user
       }
     });
+    return response;
   };
 
   const logout = async () => {

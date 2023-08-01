@@ -98,9 +98,7 @@ export default function PayoutCart({ checkoutType, setWithdrawSummary }) {
           <Grid item xs={12} md={8}>
             <Card sx={{ mb: 3, pb: 2, px: 2 }}>
               <CardHeader
-                title={
-                  <Typography variant="h6">Withdraw {capitalizeFirstLetter(checkoutType)} Request XPIC PLUS</Typography>
-                }
+                title={<Typography variant="h6">Withdraw {capitalizeFirstLetter(checkoutType)} Request</Typography>}
                 sx={{ mb: 3 }}
               />
 
