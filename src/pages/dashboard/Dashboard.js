@@ -4,7 +4,7 @@ import { Container, Grid, Stack } from '@material-ui/core';
 // hooks
 import { getIncomeDashRoute, getProfile } from 'src/redux/slices/user';
 import { useDispatch, useSelector } from 'src/redux/store';
-
+import CryptoPriceMarquee from './CryptoPriceMarquee';
 import useAuth from '../../hooks/useAuth';
 import useSettings from '../../hooks/useSettings';
 // components
@@ -49,6 +49,9 @@ export default function Dashboard() {
     <Page title="General: App | Digibot">
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <Grid container spacing={3} sx={{ marginTop: '-48px ' }}>
+          <Grid item xs={12}>
+            <CryptoPriceMarquee />
+          </Grid>
           <Grid item xs={12} md={8} sx={{ pt: 0 }}>
             <AppWelcome displayName={user.member_name} memberUserId={user.member_user_id} />
           </Grid>

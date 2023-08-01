@@ -3,8 +3,8 @@ import axios from 'axios';
 import './style.css';
 
 const CryptoPriceMarquee = () => {
-  const [cryptoPrices, setCryptoPrices] = useState([]);
-  const [exchangeImages, setExchangeImages] = useState({});
+  const [cryptoPrices, setCryptoPrices] = useState(() => JSON.parse(localStorage.getItem('cryptoPrices')) || []);
+  const [exchangeImages, setExchangeImages] = useState(() => JSON.parse(localStorage.getItem('exchangeImages')) || {});
   const marqueeRef = useRef(null);
   const isVisibleRef = useRef(false);
 
@@ -29,6 +29,7 @@ const CryptoPriceMarquee = () => {
         };
       });
 
+      localStorage.setItem('exchangeImages', JSON.stringify(exchangeImages));
       setExchangeImages(exchangeImages);
     } catch (error) {
       console.error('Error fetching exchanges:', error);
@@ -41,6 +42,7 @@ const CryptoPriceMarquee = () => {
       const prices = response.data.tickers;
 
       if (isVisibleRef.current) {
+        localStorage.setItem('cryptoPrices', JSON.stringify(prices));
         setCryptoPrices(prices);
       }
     } catch (error) {
@@ -49,7 +51,9 @@ const CryptoPriceMarquee = () => {
   };
 
   useEffect(() => {
-    fetchExchanges();
+    if (!exchangeImages.length) {
+      fetchExchanges();
+    }
 
     const handleVisibilityChange = (entries) => {
       const isVisible = entries[0].isIntersecting;
@@ -68,7 +72,9 @@ const CryptoPriceMarquee = () => {
     }
 
     const interval = setInterval(fetchCryptoPrices, 240000);
-    fetchCryptoPrices();
+    if (!cryptoPrices.length) {
+      fetchCryptoPrices();
+    }
 
     return () => {
       clearInterval(interval);

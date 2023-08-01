@@ -77,8 +77,6 @@ export default function Router() {
         { path: '/', element: <Navigate to="/dashboard/app" replace /> },
         { path: 'app', element: <GeneralApp /> },
         { path: 'ecommerce', element: <GeneralEcommerce /> },
-        { path: 'banking', element: <GeneralBanking /> },
-        { path: 'booking', element: <GeneralBooking /> },
         { path: 'mystone', element: <MyStone /> },
         { path: 'mybot', element: <MyBotDashboard /> },
         { path: 'events', element: <Events /> },
@@ -97,7 +95,6 @@ export default function Router() {
           path: 'e-commerce',
           children: [
             { path: '/', element: <Navigate to="/dashboard/e-commerce/shop" replace /> },
-            { path: 'shop', element: <EcommerceShop /> },
             { path: 'product/:name', element: <EcommerceProductDetails /> },
             { path: 'list', element: <EcommerceProductList /> },
             { path: 'product/new', element: <EcommerceProductCreate /> },
@@ -255,9 +252,6 @@ const ChangePassword = Loadable(lazy(() => import('../pages/authentication/Chang
 const GeneralApp = Loadable(lazy(() => import('../pages/dashboard/Dashboard')));
 const GeneralEcommerce = Loadable(lazy(() => import('../pages/dashboard/GeneralEcommerce')));
 const GeneralAnalytics = Loadable(lazy(() => import('../pages/dashboard/MyteamDashboard')));
-const GeneralBanking = Loadable(lazy(() => import('../pages/dashboard/GeneralBanking')));
-const GeneralBooking = Loadable(lazy(() => import('../pages/dashboard/GeneralBooking')));
-const EcommerceShop = Loadable(lazy(() => import('../pages/dashboard/MaketplaceShop')));
 const EventsPosts = Loadable(lazy(() => import('../pages/dashboard/PromoMaterials')));
 const MyStone = Loadable(lazy(() => import('../pages/dashboard/MyStoneDashboard')));
 const MyBotDashboard = Loadable(lazy(() => import('../pages/dashboard/MyBotDashboard')));

@@ -64,7 +64,6 @@ export default function ReferralList() {
                       <TableCell>
                         <Typography variant="subtitle2">{ind + 1}</Typography>
                       </TableCell>
-
                       <TableCell>{format(new Date(row.calculate_date), 'dd MMM yyyy')}</TableCell>
                       <TableCell>{row.income_amt}</TableCell>
                       <TableCell>{row.Bonus_percent}</TableCell>

@@ -112,15 +112,9 @@ import mockData from '../../../utils/mock-data';
 import { CarouselControlsPaging1 } from '../../carousel';
 
 // ----------------------------------------------------------------------
-const NAMES = [
-  'Nike Air Max 97',
-  'Nike Zoom Gravity',
-  'Nike DBreak-Type',
-  'Kyrie Flytrap 3 EP Basketball Shoe',
-  'Nike Air Max Fusion Men'
-];
+const NAMES = ['Nano Bot', 'Alpha Bot', 'Beta Bot', 'Delta Bot'];
 
-const PRODUCTS = [...Array(5)].map((_, index) => ({
+const PRODUCTS = [...Array(4)].map((_, index) => ({
   id: mockData.id(index),
   name: NAMES[index],
   image: mockData.image.product(index)
@@ -168,9 +162,6 @@ function CarouselItem({ item }) {
           color: 'common.white'
         }}
       >
-        <Typography variant="overline" sx={{ opacity: 0.48 }}>
-          New
-        </Typography>
         <Typography noWrap variant="h5" sx={{ mt: 1, mb: 3 }}>
           {name}
         </Typography>

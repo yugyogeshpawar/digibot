@@ -20,7 +20,7 @@ export default function StakingForm() {
   const [hashCode, setHashCode] = useState('');
   const [countdownStarted, setCountdownStarted] = useState(false);
   const [remainingTime, setRemainingTime] = useState(120); // Initial countdown duration in seconds
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
   const { tokenPrice } = useSelector((state) => state.user);
   const { user } = useAuth();

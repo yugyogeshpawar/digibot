@@ -14,7 +14,9 @@ const TreeCard = ({ binaryTree, onChildClick }) => {
       <Box className="img" style={styleObject} onClick={() => onChildClick(user.member_user_id)}>
         <img src="/bot/NanoBot.png" className="App-logo" alt="logo" style={{ maxWidth: '100px' }} />
         <h6 className="text-center" style={{ textAlign: 'center' }}>
-          {user.member_user_id} - {user.position} - {user.position_parent}
+          {user.member_name}
+          <br />
+          {user.member_user_id}
         </h6>
       </Box>
     </Grid>
@@ -27,7 +29,8 @@ const TreeCard = ({ binaryTree, onChildClick }) => {
           <Box className="img" style={styleObject} onClick={() => onChildClick(user.member_user_id)}>
             <img src="/bot/NanoBot.png" className="App-logo" alt="logo" style={{ maxWidth: '100px' }} />
             <h6 className="text-center" style={{ textAlign: 'center' }}>
-              {user.member_user_id} - {user.position} - {user.position_parent}
+              {user.member_name} <br />
+              {user.member_user_id}
             </h6>
           </Box>
         </Grid>
@@ -44,22 +47,6 @@ const TreeCard = ({ binaryTree, onChildClick }) => {
     );
 
     return <>{userNodes}</>;
-  };
-
-  const sortChildren = (a, b) => {
-    const parentA = binaryTree.children.find((child) => child.member_user_id === a.position_parent);
-    const parentB = binaryTree.children.find((child) => child.member_user_id === b.position_parent);
-
-    // Compare parent's position
-    if (parentA.position < parentB.position) {
-      return -1;
-    }
-    if (parentA.position > parentB.position) {
-      return 1;
-    }
-
-    // If parents have the same position, compare the child's position
-    return a.position.localeCompare(b.position);
   };
 
   // Sort children and grandchildren based on their positions and their parent's position
@@ -158,8 +145,8 @@ const RootStyle = styled(Card)(({ theme }) => ({
 }));
 
 function TeamBinary() {
-  const initialRootUserId = '6873419';
-  const [rootUserId, setRootUserId] = React.useState('6873419'); // Move rootUserId to state
+  const initialRootUserId = Data.users[0].member_user_id; // Get the first user as the root
+  const [rootUserId, setRootUserId] = React.useState(initialRootUserId); // Move rootUserId to state
   const [openSnackbar, setOpenSnackbar] = React.useState(false); // state to handle snackbar visibility
   const [loading, setLoading] = React.useState(false); // Add loading state
 
@@ -197,8 +184,8 @@ function TeamBinary() {
     <RootStyle>
       <TreeCard binaryTree={binaryTree} onChildClick={handleChildClick} />
 
-      <Button onClick={handleBackClick} variant="outlined" size="medium">
-        Back
+      <Button onClick={handleBackClick} variant="outlined" size="medium" style={{ marginLeft: '10px' }}>
+        Root user
       </Button>
 
       <Snackbar

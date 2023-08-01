@@ -7,7 +7,7 @@ import moneyIcon from '@iconify/icons-fluent-mdl2/money';
 import usersIcon from '@iconify/icons-raphael/users';
 import moneyIcon2 from '@iconify/icons-grommet-icons/money';
 // hooks
-import { useDispatch, useSelector } from 'src/redux/store';
+import { useDispatch } from 'src/redux/store';
 import useSettings from '../../hooks/useSettings';
 import useAuth from '../../hooks/useAuth';
 // components
@@ -16,13 +16,11 @@ import { AnalyticsCurrentVisits, MySponser } from '../../components/_dashboard/g
 import { ActiveVsInactive2 } from '../../components/_dashboard/general-ecommerce';
 import { getTeams } from '../../redux/slices/user';
 import { MyTeams, TeamBinary } from '../../components/_dashboard/general-banking';
-import { MyTeamList } from '../../components/_dashboard/general-booking';
 // ----------------------------------------------------------------------
 
 export default function GeneralAnalytics() {
   const { themeStretch } = useSettings();
   const { user } = useAuth();
-  // const { output } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getTeams());
