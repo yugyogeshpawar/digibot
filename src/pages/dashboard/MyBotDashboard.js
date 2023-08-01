@@ -44,7 +44,7 @@ export default function MyStone() {
           </Grid>
 
           <Grid item xs={12} md={4}>
-            <NextPosition myProfile={myProfile} />
+            <NextPosition myProfile={myProfile?.topup_amount} />
           </Grid>
           <Grid item xs={12} md={4}>
             <NextPositionBusiness myProfile={myProfile} />

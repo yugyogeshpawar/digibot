@@ -211,7 +211,7 @@ export function getTeams() {
     try {
       const accessToken = window.localStorage.getItem('accessToken');
       const headers = { Authorization: `Bearer ${accessToken}` };
-      const response = await axios.get(`${baseUrl}/Team/MyTeam`, {
+      const response = await axios.get(`${baseUrl}/users/dashboard`, {
         headers
       });
       dispatch(slice.actions.getTeamsSuccess(response.data));
