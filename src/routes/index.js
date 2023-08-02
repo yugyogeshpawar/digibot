@@ -149,6 +149,17 @@ export default function Router() {
           ]
         },
         {
+          path: 'myprofile',
+          children: [
+            { path: '/', element: <Navigate to="/dashboard/my-profile/myprofile" replace /> },
+            { path: 'viewprofile', element: <ViewProfile /> }
+            // { path: 'mydirect', element: <MyDirect /> },
+            // { path: 'mygenealogy', element: <MyGenealogy /> },
+            // { path: 'leftdownLine', element: <LeftDownLine /> },
+            // { path: 'rightdownline', element: <RightDownLine /> }
+          ]
+        },
+        {
           path: 'bonus',
           children: [
             { path: '/', element: <Navigate to="/dashboard/bonus/minting" replace /> },
@@ -309,6 +320,8 @@ const MyDirect = Loadable(lazy(() => import('../pages/dashboard/MyDirect')));
 const MyGenealogy = Loadable(lazy(() => import('../pages/dashboard/MyGenealogy')));
 const LeftDownLine = Loadable(lazy(() => import('../pages/dashboard/LeftDownLine')));
 const RightDownLine = Loadable(lazy(() => import('../pages/dashboard/RightDownLine')));
+const ViewProfile = Loadable(lazy(() => import('../pages/dashboard/ViewProfile')));
+
 // Components
 const ComponentsOverview = Loadable(lazy(() => import('../pages/ComponentsOverview')));
 const Color = Loadable(lazy(() => import('../pages/components-overview/foundations/FoundationColors')));

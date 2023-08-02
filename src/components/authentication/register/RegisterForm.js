@@ -105,14 +105,11 @@ export default function RegisterForm() {
     sponsorId: Yup.string().min(6, 'Too Short!').max(50, 'Too Long!').required('Sponcer id is required'),
     sponsorName: Yup.string().min(1, 'Too Short!').max(50, 'Too Long!').required('Sponcer Name is required'),
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
-    password: Yup.string()
-      .min(6, 'Too Short!')
-      .max(20, 'Too Long!')
-      .required('Password id is required')
-      .matches(
-        /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%?&])[A-Za-z\d@$!%?&]{6,20}$/,
-        'Password must contain at least one uppercase letter, one lowercase letter, one numeric value, and one special character.'
-      ),
+    password: Yup.string().min(6, 'Too Short!').max(20, 'Too Long!').required('Password id is required'),
+    // .matches(
+    //   /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%?&])[A-Za-z\d@$!%?&]{6,20}$/,
+    //   'Password must contain at least one uppercase letter, one lowercase letter, one numeric value, and one special character.'
+    // ),
     checkbox: Yup.boolean().oneOf([true], 'Terms and conditions must be agreed').required('Checkbox must be checked')
   });
 

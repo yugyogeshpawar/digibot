@@ -88,6 +88,10 @@ export const PATH_DASHBOARD = {
     stake: path(ROOTS_DASHBOARD, '/stake'),
     stakeSummary: path(ROOTS_DASHBOARD, '/stakeSummary')
   },
+  myprofile: {
+    viewprofile: path(ROOTS_DASHBOARD, '/viewprofile'),
+    stakeSummary: path(ROOTS_DASHBOARD, '/stakeSummary')
+  },
   myteam: {
     mydownline: path(ROOTS_DASHBOARD, '/myteam/mydownline'),
     mydirect: path(ROOTS_DASHBOARD, '/myteam/mydirect'),

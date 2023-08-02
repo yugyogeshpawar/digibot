@@ -13,7 +13,8 @@ import {
   TableContainer,
   Divider,
   Box,
-  Stack
+  Stack,
+  Button
 } from '@material-ui/core';
 
 import format from 'date-fns/format';
@@ -21,7 +22,7 @@ import format from 'date-fns/format';
 
 import { useDispatch, useSelector } from '../../redux/store';
 // eslint-disable-next-line import/named
-import { mintingSummaryapi } from '../../redux/slices/user';
+import { getStackingSummary, mintingSummaryapi } from '../../redux/slices/user';
 
 // components
 
@@ -32,7 +33,6 @@ import Scrollbar from '../../components/Scrollbar';
 // ----------------------------------------------------------------------
 
 export default function StackingSummary() {
-  let count = 1;
   const dispatch = useDispatch();
   const { mintingSummary } = useSelector((state) => state.user);
 
@@ -40,6 +40,12 @@ export default function StackingSummary() {
     dispatch(mintingSummaryapi());
   }, [dispatch]);
 
+  const { stackingsummary } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    dispatch(getStackingSummary());
+  }, [dispatch]);
+  console.log('=======> :', stackingsummary);
   return (
     <Card>
       <CardHeader title="Stacking Summary" sx={{ mb: 3 }} />
@@ -53,12 +59,13 @@ export default function StackingSummary() {
                 <TableCell sx={{ minWidth: 120 }}>Type</TableCell>
                 <TableCell sx={{ minWidth: 120 }}>Minting USDT</TableCell>
                 <TableCell sx={{ minWidth: 120 }}>Minting digibot</TableCell>
-
+                <TableCell sx={{ minWidth: 120 }}>Transaction Hash</TableCell>
+                <TableCell sx={{ minWidth: 120 }}>Status</TableCell>
                 <TableCell />
               </TableRow>
             </TableHead>
             <TableBody>
-              {mintingSummary?.length === 0 ? (
+              {stackingsummary?.length === 0 ? (
                 <>
                   <Box m={4} display="flex" justifyContent="center" alignItems="center" sx={{ width: 'fit-content' }}>
                     <Typography variant="h6">No Data Found</Typography>
@@ -66,19 +73,26 @@ export default function StackingSummary() {
                 </>
               ) : (
                 <>
-                  {mintingSummary?.map((row) => (
+                  {stackingsummary?.map((row, ind) => (
                     <TableRow key={row.date}>
                       <TableCell>
                         <Stack direction="row" alignItems="center" spacing={2}>
-                          <Typography variant="subtitle2">{count++}</Typography>
+                          <Typography variant="subtitle2">{ind + 1}</Typography>
                         </Stack>
                       </TableCell>
-
-                      <TableCell>{format(new Date(row.date * 1000), 'dd MMM yyyy')}</TableCell>
-
-                      <TableCell>{row.invest_package}</TableCell>
-                      <TableCell>{row.mintingGUSD}</TableCell>
-                      <TableCell>{row.mintingdigibot}</TableCell>
+                      <TableCell>{format(new Date(row?.date * 1000), 'dd MMM yyyy')}</TableCell>
+                      <TableCell>{row?.investType}</TableCell>
+                      <TableCell>{row?.mintingGUSD}</TableCell>
+                      <TableCell>{Number(row?.mintingDGB).toFixed(2)}</TableCell>
+                      <TableCell>
+                        <a href={`https://digiexplorer.info/tx/${row?.hash}`} target="_blank" rel="noreferrer">
+                          {' '}
+                          <Button variant="contained">Show Transaction</Button>{' '}
+                        </a>
+                      </TableCell>
+                      <TableCell>
+                        {row?.status === 1 ? <Box color="green"> Active </Box> : <Box color="red"> Inactive </Box>}
+                      </TableCell>
                     </TableRow>
                   ))}
                 </>

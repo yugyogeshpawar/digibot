@@ -17,23 +17,59 @@ import {
 import format from 'date-fns/format';
 
 import { useDispatch, useSelector } from '../../redux/store';
-import { getRefBonus } from '../../redux/slices/user';
+import { getMyDownLineData, getRefBonus } from '../../redux/slices/user';
 import Scrollbar from '../../components/Scrollbar';
 
 // ----------------------------------------------------------------------
 
 export default function LeftDownLine() {
+  // const dispatch = useDispatch();
+  // const { refbonus } = useSelector((state) => state.user);
+
+  // useEffect(() => {
+  //   const values = {
+  //     incomeType: 'DIRECT BONUS'
+  //   };
+  //   dispatch(getRefBonus(values));
+  // }, [dispatch]);
+  // const refarr = refbonus;
   const dispatch = useDispatch();
-  const { refbonus } = useSelector((state) => state.user);
+  const { myDownLineData } = useSelector((state) => state.user);
 
   useEffect(() => {
-    const values = {
-      incomeType: 'DIRECT BONUS'
-    };
-    dispatch(getRefBonus(values));
+    dispatch(getMyDownLineData());
   }, [dispatch]);
-  const refarr = refbonus;
+  const downlineApisData = myDownLineData?.left;
+  function formatDate(inputDate) {
+    const monthNames = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ];
 
+    const parsedDate = new Date(inputDate);
+    const day = parsedDate.getDate();
+    const month = monthNames[parsedDate.getMonth()];
+    const year = parsedDate.getFullYear();
+
+    const formattedDate = `${day} ${month} ${year}`;
+    return formattedDate;
+  }
+
+  const inputDate = '2023-07-28T11:43:05.000Z';
+  const formattedDate = formatDate(inputDate);
+  console.log(formattedDate); // Output: 28 July 2023
+
+  console.log(downlineApisData, downlineApisData?.length, 'downlineApisData ======<');
   return (
     <Card>
       <CardHeader title="My Left Downline" sx={{ mb: 3 }} />
@@ -57,7 +93,7 @@ export default function LeftDownLine() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {refarr?.length === 0 ? (
+              {downlineApisData?.length === 0 ? (
                 <>
                   <Box m={4} display="flex" justifyContent="center" alignItems="center" sx={{ width: 'fit-content' }}>
                     <Typography variant="h6">No Data Found</Typography>
@@ -65,20 +101,24 @@ export default function LeftDownLine() {
                 </>
               ) : (
                 <>
-                  {refarr?.map((row, ind) => (
+                  {downlineApisData?.map((row, ind) => (
                     <TableRow key={ind}>
                       <TableCell>
                         <Typography variant="subtitle2">{ind + 1}</Typography>
                       </TableCell>
 
-                      <TableCell>{format(new Date(row.calculate_date), 'dd MMM yyyy')}</TableCell>
-                      <TableCell>{row.income_amt}</TableCell>
-                      <TableCell>{row.Bonus_percent}</TableCell>
-                      <TableCell sx={{ textTransform: 'capitalize' }}>{row.income_type}</TableCell>
-                      <TableCell sx={{ textTransform: 'capitalize' }}>{row.income_type}</TableCell>
-                      <TableCell sx={{ textTransform: 'capitalize' }}>{row.income_type}</TableCell>
-                      <TableCell sx={{ textTransform: 'capitalize' }}>{row.income_type}</TableCell>
-                      <TableCell sx={{ textTransform: 'capitalize' }}>{row.income_type}</TableCell>
+                      <TableCell>{row?.member_user_id}</TableCell>
+                      <TableCell>{row?.member_name}</TableCell>
+                      <TableCell>{row?.position_parent}</TableCell>
+                      <TableCell sx={{ textTransform: 'capitalize' }}>
+                        {row?.promoter_name === null ? 'Not Defined' : row?.promoter_name}
+                      </TableCell>
+                      <TableCell sx={{ textTransform: 'capitalize' }}>{row?.position}</TableCell>
+                      <TableCell sx={{ textTransform: 'capitalize' }}>{formatDate(row?.registration_date)}</TableCell>
+                      <TableCell sx={{ textTransform: 'capitalize' }}>{row?.investment_busd}</TableCell>
+                      <TableCell sx={{ textTransform: 'capitalize' }}>
+                        {row?.status === 1 ? <Box color="green"> Active </Box> : <Box color="red"> Inactive </Box>}
+                      </TableCell>
                     </TableRow>
                   ))}
                 </>
