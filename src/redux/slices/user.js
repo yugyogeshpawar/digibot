@@ -195,6 +195,18 @@ const slice = createSlice({
     getIncomeDashRouteSucces(state, action) {
       state.isLoading = false;
       state.incomeDash = action.payload;
+    },
+    getMyDownLinesucces(state, action) {
+      state.isLoading = false;
+      state.myDownLineData = action.payload;
+    },
+    getDownlinesucces(state, action) {
+      state.isLoading = false;
+      state.downLineData = action.payload;
+    },
+    getStackingSummarysuccess(state, action) {
+      state.isLoading = false;
+      state.stackingsummary = action.payload;
     }
   }
 });
@@ -736,6 +748,56 @@ export function getIncomeDashRoute() {
         headers
       });
       dispatch(slice.actions.getIncomeDashRouteSucces(response.data.result));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
+export function getMyDownLineData() {
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const accessToken = window.localStorage.getItem('accessToken');
+      const headers = { Authorization: `Bearer ${accessToken}` };
+      const urlApi = `${baseUrl}/users/pair`;
+      const response = await axios.get(urlApi, {
+        headers
+      });
+      dispatch(slice.actions.getMyDownLinesucces(response.data.pairData));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+export function getDownline() {
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const accessToken = window.localStorage.getItem('accessToken');
+      const headers = { Authorization: `Bearer ${accessToken}` };
+      const urlApi = `${baseUrl}/users/team`;
+      const response = await axios.get(urlApi, {
+        headers
+      });
+      dispatch(slice.actions.getDownlinesucces(response.data.users));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
+export function getStackingSummary() {
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const accessToken = window.localStorage.getItem('accessToken');
+      const headers = { Authorization: `Bearer ${accessToken}` };
+      const urlApi = `${baseUrl}/deposit/stakingSummary`;
+      const response = await axios.get(urlApi, {
+        headers
+      });
+      dispatch(slice.actions.getStackingSummarysuccess(response.data.output));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }

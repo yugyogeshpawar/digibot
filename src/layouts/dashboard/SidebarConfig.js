@@ -37,11 +37,27 @@ const sidebarConfig = [
       {
         title: 'Dashboard',
         path: PATH_DASHBOARD.general.app,
-        icon: ICONS.analytics
+        icon: ICONS.teams
       },
       { title: 'My Bot', path: PATH_DASHBOARD.general.mybot, icon: ICONS.robot },
       { title: 'My Team', path: PATH_DASHBOARD.general.analytics, icon: ICONS.teams },
       { title: 'Events and News', path: PATH_DASHBOARD.general.events, icon: ICONS.banking }
+    ]
+  },
+  {
+    subheader: 'my profile',
+    items: [
+      {
+        title: 'my profile',
+        path: PATH_DASHBOARD.eCommerce.root,
+        icon: ICONS.user,
+        children: [
+          { title: 'view profile', path: PATH_DASHBOARD.myprofile.viewprofile },
+          { title: 'edit profile', path: PATH_DASHBOARD.eCommerce.stakeSummary }
+          // { title: 'shop', path: PATH_DASHBOARD.nftMarket.shop },
+          // { title: 'list', path: PATH_DASHBOARD.eCommerce.list },
+        ]
+      }
     ]
   },
   {
@@ -50,7 +66,7 @@ const sidebarConfig = [
       {
         title: 'staking',
         path: PATH_DASHBOARD.eCommerce.root,
-        icon: ICONS.cart,
+        icon: ICONS.lable,
         children: [
           { title: 'stake', path: PATH_DASHBOARD.eCommerce.stake },
           { title: 'stake summary', path: PATH_DASHBOARD.eCommerce.stakeSummary }
