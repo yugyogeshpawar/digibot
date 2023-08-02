@@ -101,7 +101,7 @@ export default function Dashboard() {
             <MyRank teamBusiness={incomeDash?.monthly} title="Monthly Bonus" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={0} title="Daily Trade Profit" />
+            <MyRank teamBusiness={user?.daily_profit} title="Daily Trade Profit" />
           </Grid>
           <Grid item xs={12} md={4}>
             <WithoutUSD teamBusiness={totalBonusData.toFixed(2)} title="Total Bonus" />

@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 // utils
 import axios from 'axios';
 import axios1 from '../../utils/axios';
+// import { log } from 'console';
 // ----------------------------------------------------------------------
 
 const initialState = {
@@ -164,6 +165,10 @@ const slice = createSlice({
       state.isLoading = false;
       state.refbonus = action.payload;
     },
+    getDirectMemberSucess(state, action) {
+      state.isLoading = false;
+      state.directM = action.payload;
+    },
     getChangePassword(state, action) {
       state.isLoading = false;
       state.changePassStatus = action.payload;
@@ -175,6 +180,10 @@ const slice = createSlice({
     getMintingSummarySucess(state, action) {
       state.isLoading = false;
       state.mintingSummary = action.payload;
+    },
+    getwithdawSummarySucess(state, action) {
+      state.isLoading = false;
+      state.withdawS = action.payload;
     },
     getNextrankSuccess(state, action) {
       state.isLoading = false;
@@ -199,7 +208,7 @@ const slice = createSlice({
   }
 });
 
-const baseUrl = process.env.PORT || 'http://43.205.125.194:8080/api';
+const baseUrl = process.env.PORT || 'http://localhost:8080/api';
 
 // Reducer
 export default slice.reducer;
@@ -434,6 +443,38 @@ export function mintingSummaryapi() {
         headers
       });
       dispatch(slice.actions.getMintingSummarySucess(response.data));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+export function withdawSummaryapi() {
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const accessToken = window.localStorage.getItem('accessToken');
+      const headers = { Authorization: `Bearer ${accessToken}` };
+      const response = await axios.get(`${baseUrl}/withdraw/Summary`, {
+        headers
+      });
+      console.log(response);
+      dispatch(slice.actions.getwithdawSummarySucess(response.data.detail));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+export function directMember() {
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const accessToken = window.localStorage.getItem('accessToken');
+      const headers = { Authorization: `Bearer ${accessToken}` };
+      const response = await axios.get(`${baseUrl}/users/directMember`, {
+        headers
+      });
+      console.log(response);
+      dispatch(slice.actions.getDirectMemberSucess(response.data.user));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }

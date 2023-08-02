@@ -17,22 +17,19 @@ import {
 import format from 'date-fns/format';
 
 import { useDispatch, useSelector } from '../../redux/store';
-import { getRefBonus } from '../../redux/slices/user';
+import { directMember } from '../../redux/slices/user';
 import Scrollbar from '../../components/Scrollbar';
 
 // ----------------------------------------------------------------------
 
 export default function MyDirect() {
   const dispatch = useDispatch();
-  const { refbonus } = useSelector((state) => state.user);
+  const { directM } = useSelector((state) => state.user);
 
   useEffect(() => {
-    const values = {
-      incomeType: 'DIRECT BONUS'
-    };
-    dispatch(getRefBonus(values));
+    dispatch(directMember());
   }, [dispatch]);
-  const refarr = refbonus;
+  const refarr = directM;
 
   return (
     <Card>
@@ -43,7 +40,7 @@ export default function MyDirect() {
             <TableHead>
               <TableRow>
                 <TableCell sx={{ minWidth: 120 }}>No.</TableCell>
-                <TableCell sx={{ minWidth: 160 }}>Associate Id </TableCell>
+                <TableCell sx={{ minWidth: 160 }}>Member Id </TableCell>
                 <TableCell sx={{ minWidth: 160 }}>Associate Name</TableCell>
                 <TableCell sx={{ minWidth: 160 }}>Reg. Date</TableCell>
                 <TableCell sx={{ minWidth: 200 }}>Position</TableCell>
@@ -66,13 +63,12 @@ export default function MyDirect() {
                       <TableCell>
                         <Typography variant="subtitle2">{ind + 1}</Typography>
                       </TableCell>
-
-                      <TableCell>{format(new Date(row.calculate_date), 'dd MMM yyyy')}</TableCell>
-                      <TableCell>{row.income_amt}</TableCell>
-                      <TableCell>{row.Bonus_percent}</TableCell>
-                      <TableCell sx={{ textTransform: 'capitalize' }}>{row.income_type}</TableCell>
-                      <TableCell sx={{ textTransform: 'capitalize' }}>{row.income_type}</TableCell>
-                      <TableCell sx={{ textTransform: 'capitalize' }}>{row.income_type}</TableCell>
+                      <TableCell>{row.member_user_id}</TableCell>
+                      <TableCell>{row.member_name}</TableCell>
+                      <TableCell>{format(new Date(row.registration_date), 'dd MMM yyyy')}</TableCell>
+                      <TableCell sx={{ textTransform: 'capitalize' }}>{row.position}</TableCell>
+                      <TableCell sx={{ textTransform: 'capitalize' }}>{row.assigned_bot_id}</TableCell>
+                      <TableCell sx={{ textTransform: 'capitalize' }}>{row.status}</TableCell>
                     </TableRow>
                   ))}
                 </>

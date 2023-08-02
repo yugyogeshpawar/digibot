@@ -13,7 +13,8 @@ import {
   TableContainer,
   Divider,
   Box,
-  Stack
+  Stack,
+  Button
 } from '@material-ui/core';
 
 import format from 'date-fns/format';
@@ -21,7 +22,7 @@ import format from 'date-fns/format';
 
 import { useDispatch, useSelector } from '../../redux/store';
 // eslint-disable-next-line import/named
-import { mintingSummaryapi } from '../../redux/slices/user';
+import { withdawSummaryapi } from '../../redux/slices/user';
 
 // components
 
@@ -31,36 +32,36 @@ import Scrollbar from '../../components/Scrollbar';
 
 // ----------------------------------------------------------------------
 
-export default function ReferralList() {
+export default function TractionsactionList() {
   let count = 1;
   const dispatch = useDispatch();
-  const { mintingSummary } = useSelector((state) => state.user);
+  const { withdawS } = useSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(mintingSummaryapi());
+    dispatch(withdawSummaryapi());
   }, [dispatch]);
-
+  const withs = withdawS;
   return (
     <Card>
-      <CardHeader title="Minting Summary" sx={{ mb: 3 }} />
+      <CardHeader title="Withdaw Summary" sx={{ mb: 3 }} />
       <Scrollbar>
         <TableContainer sx={{ minWidth: 720 }}>
           <Table>
             <TableHead>
               <TableRow>
                 <TableCell sx={{ minWidth: 120 }}>No.</TableCell>
+                <TableCell sx={{ minWidth: 120 }}>Withdraw Ref</TableCell>
                 <TableCell sx={{ minWidth: 120 }}>Date</TableCell>
-                <TableCell sx={{ minWidth: 120 }}>Invest Amount</TableCell>
-                <TableCell sx={{ minWidth: 120 }}>Minting GUSD</TableCell>
-                <TableCell sx={{ minWidth: 120 }}>Minting digibot</TableCell>
-                <TableCell sx={{ minWidth: 120 }}>Nft Status</TableCell>
-                <TableCell sx={{ minWidth: 200 }}>Autostack Status</TableCell>
+                <TableCell sx={{ minWidth: 120 }}>Withdaw Amount</TableCell>
+                <TableCell sx={{ minWidth: 120 }}>Withdraw GUSD</TableCell>
+                <TableCell sx={{ minWidth: 120 }}>Wallet Address</TableCell>
+                <TableCell sx={{ minWidth: 200 }}>Transaction Id </TableCell>
 
                 <TableCell />
               </TableRow>
             </TableHead>
             <TableBody>
-              {mintingSummary?.length === 0 ? (
+              {withs?.length === 0 ? (
                 <>
                   <Box m={4} display="flex" justifyContent="center" alignItems="center" sx={{ width: 'fit-content' }}>
                     <Typography variant="h6">No Data Found</Typography>
@@ -68,7 +69,7 @@ export default function ReferralList() {
                 </>
               ) : (
                 <>
-                  {mintingSummary?.map((row) => (
+                  {withs?.map((row) => (
                     <TableRow key={row.date}>
                       <TableCell>
                         <Stack direction="row" alignItems="center" spacing={2}>
@@ -76,13 +77,18 @@ export default function ReferralList() {
                         </Stack>
                       </TableCell>
 
-                      <TableCell>{format(new Date(row.date * 1000), 'dd MMM yyyy')}</TableCell>
+                      <TableCell>{row.with_referrance}</TableCell>
+                      <TableCell>{format(new Date(row.with_date), 'dd MMM yyyy')}</TableCell>
 
-                      <TableCell>{row.invest_package}</TableCell>
-                      <TableCell>{row.mintingGUSD}</TableCell>
-                      <TableCell>{row.mintingdigibot}</TableCell>
-                      <TableCell>{row.nftStatus}</TableCell>
-                      <TableCell>{row.autostackStatus === 0 ? 'Off' : 'On'}</TableCell>
+                      <TableCell>{row.with_amt}</TableCell>
+                      <TableCell>{row.total_gusd_amt}</TableCell>
+                      <TableCell>{row.wallet_address}</TableCell>
+                      <TableCell>
+                        <a href={`https://bscscan.com/tx/${row?.transaction_id}`} target="_blank" rel="noreferrer">
+                          {' '}
+                          <Button variant="contained">Show Transaction</Button>{' '}
+                        </a>
+                      </TableCell>
                     </TableRow>
                   ))}
                 </>
