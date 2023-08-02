@@ -6,7 +6,7 @@ import arrowIosBackFill from '@iconify/icons-eva/arrow-ios-back-fill';
 import { useEffect, useState } from 'react';
 import BigNumber from 'bignumber.js';
 // material
-import { Grid, Card, Button, CardHeader, Typography, Stack, TextField } from '@material-ui/core';
+import { Grid, Card, Button, CardHeader, Typography, Stack, TextField, Box } from '@material-ui/core';
 // redux
 import { useDispatch, useSelector } from '../../../../redux/store';
 import { onNextStep, applyDiscount } from '../../../../redux/slices/product';
@@ -75,17 +75,17 @@ export default function PayoutCart({ checkoutType, setWithdrawSummary }) {
   const [wallet, setSubtotal] = useState({ ...getFieldProps(checkoutType) }.value);
   const [XPICPrice, setXPICPPrice] = useState(0);
 
-  const fetchXpicPrice = async () => {
-    // const xpicBalance = await XPIC_CONTRACT.methods.balanceOf('0xb0DBDDE3C4c790514c77B84Dd272501d4962F1B4').call();
-    const XpicPlusPrice = await MLM_CONTRACT.methods.XpicPlusPrice().call();
-    const x = new BigNumber(XpicPlusPrice);
-    const y = BigNumber(1000000000000000000);
-    setXPICPPrice(Number(x.dividedBy(y).toString()));
-    return Number(x.dividedBy(y).toString());
-  };
+  // const fetchXpicPrice = async () => {
+  //   // const xpicBalance = await XPIC_CONTRACT.methods.balanceOf('0xb0DBDDE3C4c790514c77B84Dd272501d4962F1B4').call();
+  //   const XpicPlusPrice = await MLM_CONTRACT.methods.XpicPlusPrice().call();
+  //   const x = new BigNumber(XpicPlusPrice);
+  //   const y = BigNumber(1000000000000000000);
+  //   setXPICPPrice(Number(x.dividedBy(y).toString()));
+  //   return Number(x.dividedBy(y).toString());
+  // };
 
   useEffect(() => {
-    fetchXpicPrice();
+    // fetchXpicPrice();
     setWithdrawSummary();
   }, []);
 
@@ -97,80 +97,30 @@ export default function PayoutCart({ checkoutType, setWithdrawSummary }) {
         <Grid container spacing={3}>
           <Grid item xs={12} md={8}>
             <Card sx={{ mb: 3, pb: 2, px: 2 }}>
-              <CardHeader
-                title={<Typography variant="h6">Withdraw {capitalizeFirstLetter(checkoutType)} Request</Typography>}
-                sx={{ mb: 3 }}
-              />
+              <CardHeader title={<Typography variant="h6">Withdraw </Typography>} sx={{ mb: 3 }} />
 
-              {!isEmptyCart ? (
-                <Scrollbar sx={{ pt: 3 }}>
-                  <Stack spacing={{ xs: 2, md: 3, mt: 3 }}>
-                    <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
-                      <TextField fullWidth disabled label="Wallet Address" {...getFieldProps('walletAddress')} />
-                    </Stack>
-
-                    <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
-                      <TextField
-                        fullWidth
-                        disabled
-                        label={capitalizeFirstLetter(checkoutType).concat(' Wallet Balance')}
-                        {...getFieldProps(checkoutType)}
-                      />
-                    </Stack>
-
-                    <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
-                      <TextField
-                        fullWidth
-                        type="number"
-                        placeholder="GUSD Value"
-                        label={GUSD === 0 ? capitalizeFirstLetter(checkoutType).concat(' Withdrawal Amount') : ''}
-                        value={GUSD === 0 ? '' : GUSD}
-                        onChange={(e) => {
-                          setGUSD(e.target.value);
-                          const gusdPrice = e.target.value / XPICPrice;
-                          console.log('price', XPICPrice);
-                          setXPICP(gusdPrice.toFixed(4));
-                          setWithdrawSummary((prevState) => ({
-                            ...prevState,
-                            XPICP: gusdPrice.toFixed(4),
-                            GUSD: e.target.value,
-                            total: GUSD + XPICP
-                          }));
-                        }}
-                      />
-                    </Stack>
-
-                    <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
-                      <TextField
-                        fullWidth
-                        type="number"
-                        placeholder="XPICP Value"
-                        label={XPICP === 0 ? 'Withdrawal Amount XPICP' : ''}
-                        value={XPICP === 0 ? '' : XPICP}
-                        onChange={(e) => {
-                          setXPICP(e.target.value);
-                          setWithdrawSummary((prevState) => ({
-                            ...prevState,
-                            XPICP: e.target.value,
-                            GUSD: xpicPrice.toFixed(4),
-                            total: GUSD + XPICP
-                          }));
-                          // setWithdrawSummary({ XPICP: e.target.value });
-                          const xpicPrice = e.target.value * XPICPrice;
-                          setGUSD(xpicPrice.toFixed(4));
-                          setWithdrawSummary({ GUSD: xpicPrice.toFixed(4) });
-                        }}
-                      />
-                    </Stack>
+              <Scrollbar sx={{ pt: 3 }}>
+                <Stack spacing={{ xs: 2, md: 3, mt: 3 }}>
+                  <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
+                    <TextField
+                      fullWidth
+                      disabled
+                      aria-readonly
+                      label=" Wallet Balance"
+                      {...getFieldProps(checkoutType)}
+                    />
                   </Stack>
-                </Scrollbar>
-              ) : (
-                <EmptyContent
-                  title="Cant Withdraw Right now"
-                  description="Withdrawal Allow only Monday from 12 AM TO 12 PM"
-                  img="/static/illustrations/illustration_empty_cart.svg"
-                />
-              )}
+
+                  <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
+                    <TextField fullWidth type="number" placeholder="GUSD Value" label=" Withdrawal Amount" />
+                  </Stack>
+                  <Box>
+                    <Box display="flex" justifyContent="center" mb="5">
+                      <Button variant="contained">Withdaw</Button>
+                    </Box>
+                  </Box>
+                </Stack>
+              </Scrollbar>
             </Card>
 
             <Button

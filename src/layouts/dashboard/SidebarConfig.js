@@ -126,7 +126,7 @@ const sidebarConfig = [
         title: 'payouts',
         path: PATH_DASHBOARD.personal.root,
         icon: ICONS.withdraw,
-        children: [{ title: 'minting', path: PATH_DASHBOARD.payout.minting }]
+        children: [{ title: 'Withdraw', path: PATH_DASHBOARD.payout.minting }]
       },
       { title: 'transactions', path: PATH_DASHBOARD.personal.transactions, icon: ICONS.calendar },
       { title: 'activation', path: PATH_DASHBOARD.personal.activation, icon: ICONS.calendar }

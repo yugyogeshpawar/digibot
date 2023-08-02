@@ -821,6 +821,7 @@ export function getDownline() {
       const response = await axios.get(urlApi, {
         headers
       });
+
       dispatch(slice.actions.getDownlinesucces(response.data.users));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
