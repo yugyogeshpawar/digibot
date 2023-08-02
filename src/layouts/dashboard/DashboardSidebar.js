@@ -96,7 +96,6 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
   const { pathname } = useLocation();
   const { user } = useAuth();
   const [memberName, setMemberName] = useState(user?.curentRank === null ? 'Member' : user?.curentRank);
-  console.log(user, '====>');
   const { isCollapse, collapseClick, collapseHover, onToggleCollapse, onHoverEnter, onHoverLeave } =
     useCollapseDrawer();
 

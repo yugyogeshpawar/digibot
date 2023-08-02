@@ -216,11 +216,15 @@ const slice = createSlice({
     getStackingSummarysuccess(state, action) {
       state.isLoading = false;
       state.stackingsummary = action.payload;
+    },
+    postwithdrawsucces(state, action) {
+      state.isLoading = false;
+      state.withdrawpost = action.payload;
     }
   }
 });
 
-const baseUrl = process.env.PORT || 'http://localhost:8080/api';
+const baseUrl = process.env.PORT || 'http://52.66.191.12:8080/api';
 
 // Reducer
 export default slice.reducer;
@@ -842,6 +846,29 @@ export function getStackingSummary() {
       dispatch(slice.actions.getStackingSummarysuccess(response.data.output));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
+// Import necessary dependencies (axios and Redux slice)
+
+export function postWithdraw(values) {
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    // eslint-disable-next-line no-useless-catch
+    try {
+      const accessToken = window.localStorage.getItem('accessToken');
+      const response = await axios.post(`${baseUrl}/withdraw`, values, {
+        headers: { Authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' }
+      });
+      dispatch(slice.actions.postwithdrawsucces(response.data));
+
+      // Return the response data so it can be accessed in the calling code
+      return response.data;
+    } catch (error) {
+      // If there's an error, throw it so it can be caught in the calling code
+      console.log(error, 'res from qpi errrrrr');
+      throw error;
     }
   };
 }
