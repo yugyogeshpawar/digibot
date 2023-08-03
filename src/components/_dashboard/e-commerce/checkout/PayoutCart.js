@@ -11,7 +11,7 @@ import BigNumber from 'bignumber.js';
 import { Grid, Card, Button, CardHeader, Typography, Stack, TextField, Box } from '@material-ui/core';
 // redux
 // eslint-disable-next-line import/no-unresolved
-import { postWithdraw } from 'src/redux/slices/user';
+import { getTeams, postWithdraw } from 'src/redux/slices/user';
 import { useSnackbar } from 'notistack5';
 import { PATH_DASHBOARD } from '../../../../routes/paths';
 import useAuth from '../../../../hooks/useAuth';
@@ -38,8 +38,10 @@ export default function PayoutCart({ checkoutType, setWithdrawSummary }) {
   const handleNextStep = async (values) => {
     try {
       const response = await dispatch(postWithdraw(values));
-      console.log('API Response:', response); // Log the actual API response
-      enqueueSnackbar('Withdrawal successful', { variant: 'success' });
+      console.log('API Response:', response);
+      dispatch(getTeams());
+      // Log the actual API response
+      enqueueSnackbar(withdrawpost, { variant: 'info' });
       // Handle any other actions or success scenarios
     } catch (error) {
       console.error('API Error:', error);
@@ -89,7 +91,7 @@ export default function PayoutCart({ checkoutType, setWithdrawSummary }) {
   }, []);
 
   const hasWalletAddress = user?.wallet_address !== null;
-  console.log(hasWalletAddress, 'hasWalletAddress[[[[[[[[[');
+
   return (
     <FormikProvider value={formik}>
       <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
@@ -146,7 +148,23 @@ export default function PayoutCart({ checkoutType, setWithdrawSummary }) {
               Continue Dashboard
             </Button>
           </Grid>
+          <Grid item xs={12} md={4}>
+            <WithdrawSummary bal={user?.investment_busd} />
+          </Grid>
         </Grid>
+        <Card>
+          <Grid xs={1} md={8}>
+            <Box m={2}>Note * :</Box>
+            <Box m={4}>
+              <Box>
+                <ul>
+                  <li>Minimum Amount should be greater than 25 </li>
+                  <li>Your entered amount should be less than your wallet balance</li>
+                </ul>
+              </Box>
+            </Box>
+          </Grid>
+        </Card>
       </Form>
     </FormikProvider>
   );

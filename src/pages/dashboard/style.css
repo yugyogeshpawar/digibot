@@ -84,4 +84,8 @@
   .exchange-link {
     font-size: 12px;
   }
+  .mediaForTimerAndMarquee {
+    display: flex;
+    flex-direction: column;
+  }
 }

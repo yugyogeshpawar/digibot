@@ -84,6 +84,7 @@ export default function SearchEvents({ sx }) {
         ...sx
       }}
     >
+      vvvv
       <Autocomplete
         open
         size="small"

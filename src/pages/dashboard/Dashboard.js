@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unresolved */
 import { useEffect } from 'react';
-import { Container, Grid, Stack } from '@material-ui/core';
+import { Box, Container, Grid, Stack } from '@material-ui/core';
 // hooks
 import { getIncomeDashRoute, getProfile } from 'src/redux/slices/user';
 import { useDispatch, useSelector } from 'src/redux/store';
@@ -19,6 +19,7 @@ import {
 } from '../../components/_dashboard/general-app';
 import { BankingInviteFriends } from '../../components/_dashboard/general-banking';
 import { EventsPosts } from '../../components/_dashboard/general-booking';
+import TimerAndMarquee from './TimerAndMarquee';
 // ----------------------------------------------------------------------
 
 export default function Dashboard() {
@@ -51,6 +52,9 @@ export default function Dashboard() {
         <Grid container spacing={3} sx={{ marginTop: '-48px ' }}>
           <Grid item xs={12}>
             <CryptoPriceMarquee />
+          </Grid>
+          <Grid item xs={12} md={8} sx={{ pt: 0 }}>
+            <TimerAndMarquee />
           </Grid>
           <Grid item xs={12} md={8} sx={{ pt: 0 }}>
             <AppWelcome displayName={user.member_name} memberUserId={user.member_user_id} />

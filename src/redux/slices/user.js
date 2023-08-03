@@ -225,7 +225,8 @@ const slice = createSlice({
 });
 
 const baseUrl = process.env.PORT || 'http://52.66.191.12:8080/api';
-
+// http://52.66.191.12:8080/api
+// http://localhost:8080/api
 // Reducer
 export default slice.reducer;
 
@@ -852,23 +853,50 @@ export function getStackingSummary() {
 
 // Import necessary dependencies (axios and Redux slice)
 
+// export function postWithdraw(values) {
+//   return async (dispatch) => {
+//     dispatch(slice.actions.startLoading());
+//     // eslint-disable-next-line no-useless-catch
+//     try {
+//       const accessToken = window.localStorage.getItem('accessToken');
+//       const response = await axios.post(`${baseUrl}/withdraw`, values, {
+//         headers: { Authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' }
+//       });
+//       dispatch(slice.actions.postwithdrawsucces(response.data.message));
+
+//       // Return the response data so it can be accessed in the calling code
+//       return response.data.message;
+//     } catch (error) {
+//       // If there's an error, throw it so it can be caught in the calling code
+//       console.log(error, 'res from qpi errrrrr');
+//       dispatch(slice.actions.hasError(error));
+//       throw error;
+//     }
+//   };
+// }
 export function postWithdraw(values) {
   return async (dispatch) => {
     dispatch(slice.actions.startLoading());
-    // eslint-disable-next-line no-useless-catch
     try {
       const accessToken = window.localStorage.getItem('accessToken');
       const response = await axios.post(`${baseUrl}/withdraw`, values, {
         headers: { Authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' }
       });
-      dispatch(slice.actions.postwithdrawsucces(response.data));
 
-      // Return the response data so it can be accessed in the calling code
-      return response.data;
+      // Assuming the API response contains a "success" field to indicate success
+      if (response.data.success) {
+        dispatch(slice.actions.postwithdrawsucces(response.data.message));
+        return response.data.message;
+      }
+      const error = new Error(response.data.message || 'Request failed');
+      error.response = response;
+      throw error;
     } catch (error) {
-      // If there's an error, throw it so it can be caught in the calling code
-      console.log(error, 'res from qpi errrrrr');
+      console.log(error, 'res from api error');
+      dispatch(slice.actions.hasError(error));
       throw error;
     }
   };
 }
+
+// Reducer implementation remains the same

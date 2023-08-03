@@ -7,34 +7,26 @@ import { Box, Card, Stack, Button, Divider, CardHeader, Typography, CardContent 
 import { fCurrency } from '../../../../utils/formatNumber';
 // ----------------------------------------------------------------------
 
-WithdrawSummary.propTypes = {
-  total: PropTypes.number,
-  GUSD: PropTypes.number,
-  digibotP: PropTypes.number,
-  onEdit: PropTypes.func,
-  enableEdit: PropTypes.bool
-};
-
-export default function WithdrawSummary({ GUSD, digibotP, onEdit, bal, payoutType }) {
+export default function WithdrawSummary({ bal }) {
   return (
     <Card sx={{ mb: 3 }}>
-      <CardHeader title="Withdraw Summary" />
+      <CardHeader title="Withdraw" />
 
       <CardContent>
         <Stack spacing={2}>
           <Stack direction="row" justifyContent="space-between">
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              {payoutType[0].toUpperCase() + payoutType.substring(1)} Wallet Balance
+            <Typography variant="h5" sx={{ color: 'text.secondary' }}>
+              Your Investment :
             </Typography>
-            <Typography variant="subtitle2">{fCurrency(bal)}</Typography>
+            <Typography variant="h5">{fCurrency(bal)}</Typography>
           </Stack>
 
-          <Stack direction="row" justifyContent="space-between">
+          {/**  <Stack direction="row" justifyContent="space-between">
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
               Withdraw Amount GUSD
             </Typography>
             <Typography variant="subtitle2">{GUSD && GUSD}</Typography>
-          </Stack>
+          </Stack> 
           <Stack direction="row" justifyContent="space-between">
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
               Withdraw Amount digibotP
@@ -55,6 +47,7 @@ export default function WithdrawSummary({ GUSD, digibotP, onEdit, bal, payoutTyp
               </Typography>
             </Box>
           </Stack>
+          */}
         </Stack>
       </CardContent>
     </Card>

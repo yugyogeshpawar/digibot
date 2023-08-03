@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import { Typography, Link } from '@material-ui/core';
 import './style.css';
 
 const CryptoPriceMarquee = () => {
@@ -93,7 +94,7 @@ const CryptoPriceMarquee = () => {
             exchangeImages[crypto.market.identifier] &&
             exchangeImages[crypto.market.identifier].loaded && (
               <div className="marquee-item" key={crypto.id}>
-                <a href={crypto.trade_url} target="_blank" rel="noopener noreferrer" className="exchange-link">
+                <Link href={crypto.trade_url} target="_blank" rel="noopener noreferrer" className="exchange-link">
                   <div className="crypto-logo-container">
                     <li>
                       <img
@@ -101,16 +102,18 @@ const CryptoPriceMarquee = () => {
                         alt={crypto.market.name}
                         className="exchange-logo"
                       />
-                      {`${crypto.market.name}`}
+                      <Typography>{`${crypto.market.name}`}</Typography>
                     </li>
                   </div>
                   <li>
-                    {`${crypto.base}/${crypto.target}: `}
-                    <span className={`crypto-price ${crypto.trust_score === 'green' ? 'green' : ''}`}>
-                      ${parseFloat(crypto.last).toFixed(5)}
-                    </span>
+                    <Typography variant="caption2">
+                      {`${crypto.base}/${crypto.target}: `}
+                      <span className={`crypto-price ${crypto.trust_score === 'green' ? 'green' : ''}`}>
+                        ${parseFloat(crypto.last).toFixed(5)}
+                      </span>
+                    </Typography>
                   </li>
-                </a>
+                </Link>
               </div>
             )
         )}
