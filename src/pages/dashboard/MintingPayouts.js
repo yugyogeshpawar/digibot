@@ -115,10 +115,9 @@ export default function MintingPayouts() {
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
             {
-              name: 'Withdraw Payout',
+              name: 'Withdraw',
               href: PATH_DASHBOARD.payout.minting
-            },
-            { name: 'Minting' }
+            }
           ]}
         />
 

@@ -96,7 +96,6 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
   const { pathname } = useLocation();
   const { user } = useAuth();
   const [memberName, setMemberName] = useState(user?.curentRank === null ? 'Member' : user?.curentRank);
-
   const { isCollapse, collapseClick, collapseHover, onToggleCollapse, onHoverEnter, onHoverLeave } =
     useCollapseDrawer();
 
@@ -151,13 +150,13 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
                 <MyAvatar />
                 <Box sx={{ ml: 2 }}>
                   <Typography variant="subtitle2" sx={{ color: 'text.primary', textTransform: 'capitalize' }}>
-                    {user?.member_name}
+                    {user?.member_user_id}
                   </Typography>
                   <Typography
                     variant="caption"
                     sx={{ color: 'primary.main', textTransform: 'capitalize', whiteSpace: 'nowrap' }}
                   >
-                    {memberName != null ? memberName : 'Member'}
+                    {user?.member_name}
                   </Typography>
                 </Box>
               </Box>
