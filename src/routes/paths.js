@@ -89,8 +89,9 @@ export const PATH_DASHBOARD = {
     stakeSummary: path(ROOTS_DASHBOARD, '/stakeSummary')
   },
   myprofile: {
-    viewprofile: path(ROOTS_DASHBOARD, '/viewprofile'),
-    stakeSummary: path(ROOTS_DASHBOARD, '/stakeSummary')
+    viewprofile: path(ROOTS_DASHBOARD, '/myprofile/viewprofile'),
+    editprofile: path(ROOTS_DASHBOARD, '/myprofile/editprofile'),
+    UserKYC: path(ROOTS_DASHBOARD, '/myprofile/UserKYC')
   },
   myteam: {
     mydownline: path(ROOTS_DASHBOARD, '/myteam/mydownline'),

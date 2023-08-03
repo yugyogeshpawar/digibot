@@ -49,11 +49,12 @@ const sidebarConfig = [
     items: [
       {
         title: 'my profile',
-        path: PATH_DASHBOARD.eCommerce.root,
+        path: PATH_DASHBOARD.myprofile.root,
         icon: ICONS.user,
         children: [
           { title: 'view profile', path: PATH_DASHBOARD.myprofile.viewprofile },
-          { title: 'edit profile', path: PATH_DASHBOARD.eCommerce.stakeSummary }
+          { title: 'edit profile', path: PATH_DASHBOARD.myprofile.editprofile }
+          // { title: 'KYC profile', path: PATH_DASHBOARD.myprofile.UserKYC }
           // { title: 'shop', path: PATH_DASHBOARD.nftMarket.shop },
           // { title: 'list', path: PATH_DASHBOARD.eCommerce.list },
         ]
@@ -126,7 +127,7 @@ const sidebarConfig = [
         title: 'payouts',
         path: PATH_DASHBOARD.personal.root,
         icon: ICONS.withdraw,
-        children: [{ title: 'minting', path: PATH_DASHBOARD.payout.minting }]
+        children: [{ title: 'Withdraw', path: PATH_DASHBOARD.payout.minting }]
       },
       { title: 'transactions', path: PATH_DASHBOARD.personal.transactions, icon: ICONS.calendar },
       { title: 'activation', path: PATH_DASHBOARD.personal.activation, icon: ICONS.calendar }

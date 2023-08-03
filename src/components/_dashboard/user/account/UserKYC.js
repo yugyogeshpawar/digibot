@@ -3,7 +3,7 @@ import { useSnackbar } from 'notistack5';
 import { useCallback } from 'react';
 import { Form, FormikProvider, useFormik } from 'formik';
 // material
-import { Box, Grid, Card, Stack, TextField, Typography, FormHelperText } from '@material-ui/core';
+import { Box, Grid, Card, Stack, TextField, Typography } from '@material-ui/core';
 import { LoadingButton } from '@material-ui/lab';
 // hooks
 import useAuth from '../../../../hooks/useAuth';
@@ -11,8 +11,6 @@ import useIsMountedRef from '../../../../hooks/useIsMountedRef';
 import { UploadAvatar } from '../../../upload';
 // utils
 import { fData } from '../../../../utils/formatNumber';
-//
-import countries from '../countries';
 
 // ----------------------------------------------------------------------
 
@@ -27,17 +25,7 @@ export default function AccountGeneral() {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      displayName: user.member_name == null ? '' : user.member_name,
-      email: user.email == null ? '' : user.email,
-      photoURL: user.photoURL,
-      phoneNumber: user.phoneNumber == null ? '' : user.phoneNumber,
-      country: user.country == null ? '' : user.country,
-      address: user.address == null ? '' : user.address,
-      state: user.state == null ? '' : user.state,
-      city: user.city == null ? '' : user.city,
-      zipCode: user.zipCode == null ? '' : user.zipCode,
-      about: user.displayName == null ? '' : user.displayName,
-      isPublic: user.isPublic
+      address: user.address == null ? '' : user.address
     },
 
     validationSchema: UpdateUserSchema,
@@ -100,9 +88,9 @@ export default function AccountGeneral() {
                 }
               />
 
-              <FormHelperText error sx={{ px: 2, textAlign: 'center' }}>
+              {/* <FormHelperText error sx={{ px: 2, textAlign: 'center' }}>
                 {touched.photoURL && errors.photoURL}
-              </FormHelperText>
+              </FormHelperText> */}
             </Card>
           </Grid>
 
@@ -110,56 +98,23 @@ export default function AccountGeneral() {
             <Card sx={{ p: 3 }}>
               <Stack spacing={{ xs: 2, md: 3 }}>
                 <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
-                  <TextField fullWidth label="Full Name" {...getFieldProps('displayName')} />
-                  <TextField fullWidth disabled label="Email Address" {...getFieldProps('email')} />
+                  <TextField fullWidth label="Wallet Address" {...getFieldProps('address')} />
                 </Stack>
-
-                <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
-                  <TextField fullWidth label="Mobile Number" {...getFieldProps('phoneNumber')} />
-                  <TextField fullWidth label="Address" {...getFieldProps('address')} />
-                </Stack>
-
-                <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
-                  <TextField
-                    select
-                    fullWidth
-                    label="Country"
-                    placeholder="undefined"
-                    {...getFieldProps('country')}
-                    SelectProps={{ native: true }}
-                    error={Boolean(touched.country && errors.country)}
-                    helperText={touched.country && errors.country}
-                  >
-                    <option value="" />
-                    {countries.map((option) => (
-                      <option key={option.code} value={option.label}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </TextField>
-                  <TextField fullWidth label="State/Region" {...getFieldProps('state')} />
-                </Stack>
-
-                <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
-                  <TextField fullWidth label="City" {...getFieldProps('city')} />
-                  <TextField fullWidth label="Zip/Code" {...getFieldProps('zipCode')} />
-                </Stack>
-
-                <TextField
-                  {...getFieldProps('about')}
-                  fullWidth
-                  multiline
-                  minRows={4}
-                  maxRows={4}
-                  label="About"
-                  placeholder="Write something about you"
-                />
               </Stack>
 
               <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
                 <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-                  Save Changes
+                  Save Wallet Address
                 </LoadingButton>
+              </Box>
+              <Box>
+                <h1>Important </h1>
+                <ol style={{ marginLeft: '16px' }}>
+                  <li>Your wallet should be Metamask register</li>
+                  <li>Wallet address should be at least 30 characters long.</li>
+                  <li>Sending any other wallet address may result in the loss</li>
+                  <li>Withdraw will automatically be processed after 3 network confirmations.</li>
+                </ol>
               </Box>
             </Card>
           </Grid>

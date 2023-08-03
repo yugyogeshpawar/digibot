@@ -75,17 +75,17 @@ export default function PayoutCart({ checkoutType, setWithdrawSummary }) {
   const [wallet, setSubtotal] = useState({ ...getFieldProps(checkoutType) }.value);
   const [XPICPrice, setXPICPPrice] = useState(0);
 
-  const fetchXpicPrice = async () => {
-    // const xpicBalance = await XPIC_CONTRACT.methods.balanceOf('0xb0DBDDE3C4c790514c77B84Dd272501d4962F1B4').call();
-    const XpicPlusPrice = await MLM_CONTRACT.methods.XpicPlusPrice().call();
-    const x = new BigNumber(XpicPlusPrice);
-    const y = BigNumber(1000000000000000000);
-    setXPICPPrice(Number(x.dividedBy(y).toString()));
-    return Number(x.dividedBy(y).toString());
-  };
+  // const fetchXpicPrice = async () => {
+  //   // const xpicBalance = await XPIC_CONTRACT.methods.balanceOf('0xb0DBDDE3C4c790514c77B84Dd272501d4962F1B4').call();
+  //   const XpicPlusPrice = await MLM_CONTRACT.methods.XpicPlusPrice().call();
+  //   const x = new BigNumber(XpicPlusPrice);
+  //   const y = BigNumber(1000000000000000000);
+  //   setXPICPPrice(Number(x.dividedBy(y).toString()));
+  //   return Number(x.dividedBy(y).toString());
+  // };
 
   useEffect(() => {
-    fetchXpicPrice();
+    // fetchXpicPrice();
     setWithdrawSummary();
   }, []);
 
