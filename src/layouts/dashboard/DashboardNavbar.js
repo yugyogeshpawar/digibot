@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 // import PropTypes from 'prop-types';
 // import { Icon } from '@iconify/react';
 // import menu2Fill from '@iconify/icons-eva/menu-2-fill';
@@ -221,6 +222,7 @@ import { Box, Stack, AppBar, Toolbar, IconButton, Typography } from '@material-u
 // eslint-disable-next-line import/no-unresolved
 import useAuth from 'src/hooks/useAuth';
 import { makeStyles } from '@mui/styles';
+import DashNavHero from 'src/pages/dashboard/DashNavHero';
 import useCollapseDrawer from '../../hooks/useCollapseDrawer';
 // components
 import { MHidden } from '../../components/@material-extend';
@@ -306,6 +308,7 @@ export default function DashboardNavbar({ onOpenSidebar }) {
           <TimerStyle variant="body2">{timeRemaining || 'Timer'}</TimerStyle>
         </Box> */}
 
+        <DashNavHero />
         <Box sx={{ flexGrow: 1 }} />
         <Stack direction="row" alignItems="center" spacing={{ xs: 0.5, sm: 1.5 }}>
           <LanguagePopover />

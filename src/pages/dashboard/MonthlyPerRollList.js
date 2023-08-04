@@ -33,7 +33,7 @@ export default function MonthlyPayrollBonus() {
     dispatch(getMonthlyPayrollBonus(values));
   }, [dispatch]);
   const refarr = monthlyPayrollBonus;
-  console.log(refarr);
+
   return (
     <Card>
       <CardHeader title="Monthly Bonus List" sx={{ mb: 3 }} />

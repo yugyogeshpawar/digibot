@@ -107,7 +107,7 @@ const sidebarConfig = [
         icon: ICONS.bonus,
         children: [
           { title: 'Direct Bonus', path: PATH_DASHBOARD.bonus.direct },
-          { title: 'Level Bonus', path: PATH_DASHBOARD.bonus.level },
+          // { title: 'Level Bonus', path: PATH_DASHBOARD.bonus.level },
           { title: 'Matching Bonus', path: PATH_DASHBOARD.bonus.matching },
           { title: 'Staking Bonus', path: PATH_DASHBOARD.bonus.stacking },
           { title: 'Reward Bonus', path: PATH_DASHBOARD.bonus.reward },

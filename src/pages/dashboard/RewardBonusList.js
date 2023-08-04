@@ -11,7 +11,8 @@ import {
   Container,
   Typography,
   TableContainer,
-  TablePagination
+  TablePagination,
+  CardHeader
 } from '@material-ui/core';
 // redux
 import { useDispatch, useSelector } from '../../redux/store';
@@ -118,16 +119,8 @@ export default function ReferralList() {
   return (
     <Page title="User: List | Digibot">
       <Container maxWidth={themeStretch ? false : 'lg'}>
-        <HeaderBreadcrumbs
-          heading="User List"
-          links={[
-            { name: 'Dashboard', href: PATH_DASHBOARD.root },
-            { name: 'User', href: PATH_DASHBOARD.user.root },
-            { name: 'List' }
-          ]}
-        />
-
         <Card>
+          <CardHeader title="Reward Bonus List" sx={{ mb: 3 }} />
           <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
           <Scrollbar>
             <TableContainer sx={{ minWidth: 800 }}>

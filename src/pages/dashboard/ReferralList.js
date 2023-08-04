@@ -32,8 +32,8 @@ export default function ReferralList() {
     };
     dispatch(getRefBonus(values));
   }, [dispatch]);
-  const refarr = refbonus;
-
+  const refarr = refbonus?.results;
+  console.log(refbonus);
   return (
     <Card>
       <CardHeader title="Direct Bonus List" sx={{ mb: 3 }} />

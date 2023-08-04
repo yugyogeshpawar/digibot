@@ -14,7 +14,9 @@
   animation: marquee 30s linear infinite;
   display: flex;
 }
-
+.mainDasNavhero {
+  border: 4px solod red;
+}
 @media (max-width: 768px) {
   .marquee {
     animation: marquee 10s linear infinite;
