@@ -33,7 +33,7 @@ export default function Dashboard() {
   }, [dispatch]);
 
   const { incomeDash } = useSelector((state) => state.user);
-  console.log(incomeDash, 'incomeDash =========>>>');
+
   useEffect(() => {
     dispatch(getIncomeDashRoute());
   }, [dispatch]);
@@ -54,7 +54,7 @@ export default function Dashboard() {
             <CryptoPriceMarquee />
           </Grid>
           <Grid item xs={12} md={8} sx={{ pt: 0 }}>
-            {user?.status === 0 ? <TimerAndMarquee /> : ''}
+            {user?.status === 0 ? <TimerAndMarquee /> : null}
           </Grid>
           <Grid item xs={12} md={8} sx={{ pt: 0 }}>
             <AppWelcome displayName={user.member_name} memberUserId={user.member_user_id} />

@@ -240,26 +240,6 @@ const COLLAPSE_WIDTH = 102;
 const APPBAR_MOBILE = 64;
 const APPBAR_DESKTOP = 92;
 
-const TimerContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  border: `1px solid ${theme.palette.primary.main}`,
-  borderRadius: theme.spacing(1),
-  padding: theme.spacing(1),
-  background: theme.palette.secondary.success,
-  color: theme.palette.primary.contrastText,
-  fontSize: 10,
-  '& > *': {
-    margin: theme.spacing(0, 1)
-  }
-}));
-
-const TimerDigit = styled(Box)({
-  opacity: 100,
-  color: 'white',
-  animation: '$fadeIn 1s ease-in-out forwards'
-});
 const RootStyle = styled(AppBar)(({ theme }) => ({
   boxShadow: 'none',
   backdropFilter: 'blur(6px)',
@@ -300,13 +280,7 @@ export default function DashboardNavbar({ onOpenSidebar }) {
             <Icon icon={menu2Fill} />
           </IconButton>
         </MHidden>
-        <Searchbar />
-        {/** <Box display="flex" alignItems="center">
-          <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
-            Remaining Time:
-          </Typography>
-          <TimerStyle variant="body2">{timeRemaining || 'Timer'}</TimerStyle>
-        </Box> */}
+        {/**  <Searchbar /> */}
 
         <DashNavHero />
         <Box sx={{ flexGrow: 1 }} />

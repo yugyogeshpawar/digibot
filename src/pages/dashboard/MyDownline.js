@@ -77,7 +77,7 @@ export default function MyDownLine() {
               <TableRow>
                 <TableCell sx={{ minWidth: 120 }}>No.</TableCell>
                 <TableCell sx={{ minWidth: 160 }}>Associate Id </TableCell>
-                <TableCell sx={{ minWidth: 160 }}>Associate Name</TableCell>
+
                 <TableCell sx={{ minWidth: 160 }}>Promoter Id</TableCell>
                 <TableCell sx={{ minWidth: 160 }}>Promoter Name</TableCell>
 
@@ -105,7 +105,7 @@ export default function MyDownLine() {
                       </TableCell>
 
                       <TableCell> {row?.member_user_id} </TableCell>
-                      <TableCell>{row?.member_name}</TableCell>
+
                       <TableCell>{row?.position_parent}</TableCell>
                       <TableCell sx={{ textTransform: 'capitalize' }}>{row?.promoter_name}</TableCell>
                       <TableCell sx={{ textTransform: 'capitalize' }}>{row?.position}</TableCell>

@@ -18,7 +18,7 @@ export default function WithoutUSD({ teamBusiness, title }) {
       <Card sx={{ display: 'flex', padding: '24px', flexDirection: 'column' }}>
         <Box sx={{ flexGrow: 1, textAlign: 'center' }}>
           <Typography variant="subtitle2">{title}</Typography>
-          <Typography variant="h4">{teamBusiness}</Typography>
+          <Typography variant="h4">{teamBusiness} </Typography>
         </Box>
       </Card>
     </Box>

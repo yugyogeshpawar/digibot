@@ -80,7 +80,7 @@ export default function LeftDownLine() {
               <TableRow>
                 <TableCell sx={{ minWidth: 120 }}>No.</TableCell>
                 <TableCell sx={{ minWidth: 160 }}>Associate Id </TableCell>
-                <TableCell sx={{ minWidth: 160 }}>Associate Name</TableCell>
+
                 <TableCell sx={{ minWidth: 160 }}>Promoter Id</TableCell>
                 <TableCell sx={{ minWidth: 160 }}>Promoter Name</TableCell>
 
@@ -108,7 +108,7 @@ export default function LeftDownLine() {
                       </TableCell>
 
                       <TableCell>{row?.member_user_id}</TableCell>
-                      <TableCell>{row?.member_name}</TableCell>
+
                       <TableCell>{row?.position_parent}</TableCell>
                       <TableCell sx={{ textTransform: 'capitalize' }}>
                         {row?.promoter_name === null ? 'Not Defined' : row?.promoter_name}
@@ -117,7 +117,14 @@ export default function LeftDownLine() {
                       <TableCell sx={{ textTransform: 'capitalize' }}>{formatDate(row?.registration_date)}</TableCell>
                       <TableCell sx={{ textTransform: 'capitalize' }}>{row?.investment_busd}</TableCell>
                       <TableCell sx={{ textTransform: 'capitalize' }}>
-                        {row?.status === 1 ? <Box color="green"> Active </Box> : <Box color="red"> Inactive </Box>}
+                        {row?.status === 1 ? (
+                          <Box color="green" fontWeight={500}>
+                            {' '}
+                            Active{' '}
+                          </Box>
+                        ) : (
+                          <Box color="red"> Inactive </Box>
+                        )}
                       </TableCell>
                     </TableRow>
                   ))}

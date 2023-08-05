@@ -110,7 +110,7 @@ export default function AppWelcome({ displayName, memberUserId }) {
             Welcome back,
           </Typography>
           <Typography gutterBottom variant="h3">
-            {!displayName ? '...' : displayName}!
+            {!memberUserId ? '...' : memberUserId}
           </Typography>
         </Box>
 

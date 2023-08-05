@@ -29,7 +29,7 @@ export default function MyDirect() {
   useEffect(() => {
     dispatch(directMember());
   }, [dispatch]);
-  console.log(directM, 'directM +++++++++++++');
+
   const refarr = directM;
   function formatDate(inputDate) {
     const monthNames = [
@@ -65,7 +65,7 @@ export default function MyDirect() {
               <TableRow>
                 <TableCell sx={{ minWidth: 120 }}>No.</TableCell>
                 <TableCell sx={{ minWidth: 160 }}>Member Id </TableCell>
-                <TableCell sx={{ minWidth: 160 }}>Associate Name</TableCell>
+
                 <TableCell sx={{ minWidth: 160 }}>Reg. Date</TableCell>
                 <TableCell sx={{ minWidth: 200 }}>Position</TableCell>
                 <TableCell sx={{ minWidth: 120 }}>Package</TableCell>
@@ -88,12 +88,14 @@ export default function MyDirect() {
                         <Typography variant="subtitle2">{ind + 1}</Typography>
                       </TableCell>
                       <TableCell>{row?.member_user_id}</TableCell>
-                      <TableCell>{row?.member_name}</TableCell>
+
                       <TableCell sx={{ textTransform: 'capitalize' }}>{formatDate(row?.registration_date)}</TableCell>
 
                       <TableCell sx={{ textTransform: 'capitalize' }}>{row?.position}</TableCell>
                       <TableCell sx={{ textTransform: 'capitalize' }}>{row?.investment_busd}</TableCell>
-                      <TableCell sx={{ textTransform: 'capitalize' }}>{row?.status}</TableCell>
+                      <TableCell sx={{ textTransform: 'capitalize' }}>
+                        {row?.status === 1 ? <Box color="green"> Active </Box> : <Box color="red"> Inactive </Box>}
+                      </TableCell>
                     </TableRow>
                   ))}
                 </>
