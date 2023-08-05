@@ -43,6 +43,30 @@ export default function MyDownLine() {
   const downlineApisData = downLineData;
   console.log(downlineApisData, downlineApisData?.length, 'downlineApis ======<');
 
+  function formatDate(inputDate) {
+    const monthNames = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ];
+
+    const parsedDate = new Date(inputDate);
+    const day = parsedDate.getDate();
+    const month = monthNames[parsedDate.getMonth()];
+    const year = parsedDate.getFullYear();
+
+    const formattedDate = `${day} ${month} ${year}`;
+    return formattedDate;
+  }
   return (
     <Card>
       <CardHeader title="My Downline" sx={{ mb: 3 }} />
@@ -53,7 +77,7 @@ export default function MyDownLine() {
               <TableRow>
                 <TableCell sx={{ minWidth: 120 }}>No.</TableCell>
                 <TableCell sx={{ minWidth: 160 }}>Associate Id </TableCell>
-                <TableCell sx={{ minWidth: 160 }}>Associate Name</TableCell>
+
                 <TableCell sx={{ minWidth: 160 }}>Promoter Id</TableCell>
                 <TableCell sx={{ minWidth: 160 }}>Promoter Name</TableCell>
 
@@ -81,13 +105,11 @@ export default function MyDownLine() {
                       </TableCell>
 
                       <TableCell> {row?.member_user_id} </TableCell>
-                      <TableCell>{row?.member_name}</TableCell>
+
                       <TableCell>{row?.position_parent}</TableCell>
                       <TableCell sx={{ textTransform: 'capitalize' }}>{row?.promoter_name}</TableCell>
                       <TableCell sx={{ textTransform: 'capitalize' }}>{row?.position}</TableCell>
-                      <TableCell sx={{ textTransform: 'capitalize' }}>
-                        {format(new Date(row?.registration_date), 'dd MMM yyyy')}
-                      </TableCell>
+                      <TableCell sx={{ textTransform: 'capitalize' }}>{formatDate(row?.registration_date)}</TableCell>
                       <TableCell sx={{ textTransform: 'capitalize' }}>{row?.investment_busd}</TableCell>
                       <TableCell sx={{ textTransform: 'capitalize' }}>
                         {row?.status === 1 ? <Box color="green"> Active </Box> : <Box color="red"> Inactive </Box>}

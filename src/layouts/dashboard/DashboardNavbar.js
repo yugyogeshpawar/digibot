@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 // import PropTypes from 'prop-types';
 // import { Icon } from '@iconify/react';
 // import menu2Fill from '@iconify/icons-eva/menu-2-fill';
@@ -221,6 +222,7 @@ import { Box, Stack, AppBar, Toolbar, IconButton, Typography } from '@material-u
 // eslint-disable-next-line import/no-unresolved
 import useAuth from 'src/hooks/useAuth';
 import { makeStyles } from '@mui/styles';
+import DashNavHero from 'src/pages/dashboard/DashNavHero';
 import useCollapseDrawer from '../../hooks/useCollapseDrawer';
 // components
 import { MHidden } from '../../components/@material-extend';
@@ -238,26 +240,6 @@ const COLLAPSE_WIDTH = 102;
 const APPBAR_MOBILE = 64;
 const APPBAR_DESKTOP = 92;
 
-const TimerContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  border: `1px solid ${theme.palette.primary.main}`,
-  borderRadius: theme.spacing(1),
-  padding: theme.spacing(1),
-  background: theme.palette.secondary.success,
-  color: theme.palette.primary.contrastText,
-  fontSize: 10,
-  '& > *': {
-    margin: theme.spacing(0, 1)
-  }
-}));
-
-const TimerDigit = styled(Box)({
-  opacity: 100,
-  color: 'white',
-  animation: '$fadeIn 1s ease-in-out forwards'
-});
 const RootStyle = styled(AppBar)(({ theme }) => ({
   boxShadow: 'none',
   backdropFilter: 'blur(6px)',
@@ -298,14 +280,9 @@ export default function DashboardNavbar({ onOpenSidebar }) {
             <Icon icon={menu2Fill} />
           </IconButton>
         </MHidden>
-        <Searchbar />
-        {/** <Box display="flex" alignItems="center">
-          <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
-            Remaining Time:
-          </Typography>
-          <TimerStyle variant="body2">{timeRemaining || 'Timer'}</TimerStyle>
-        </Box> */}
+        {/**  <Searchbar /> */}
 
+        <DashNavHero />
         <Box sx={{ flexGrow: 1 }} />
         <Stack direction="row" alignItems="center" spacing={{ xs: 0.5, sm: 1.5 }}>
           <LanguagePopover />

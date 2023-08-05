@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unresolved */
 import { useEffect } from 'react';
-import { Box, Container, Grid, Stack } from '@material-ui/core';
+import { Container, Grid, Stack } from '@material-ui/core';
 // hooks
 import { getIncomeDashRoute, getProfile } from 'src/redux/slices/user';
 import { useDispatch, useSelector } from 'src/redux/store';
@@ -37,7 +37,7 @@ export default function Dashboard() {
   useEffect(() => {
     dispatch(getIncomeDashRoute());
   }, [dispatch]);
-
+  // user?.status === 0 ? <TimerAndMarquee /> : ''
   const totalBonusData =
     incomeDash?.stake +
     incomeDash?.roi +
@@ -54,7 +54,7 @@ export default function Dashboard() {
             <CryptoPriceMarquee />
           </Grid>
           <Grid item xs={12} md={8} sx={{ pt: 0 }}>
-            {user?.status === 0 ? <TimerAndMarquee /> : ''}
+            {user?.status === 0 ? <TimerAndMarquee /> : null}
           </Grid>
           <Grid item xs={12} md={8} sx={{ pt: 0 }}>
             <AppWelcome displayName={user.member_name} memberUserId={user.member_user_id} />
@@ -76,6 +76,12 @@ export default function Dashboard() {
           </Grid>
           <Grid item xs={12} md={4}>
             <AppTotalActiveUsers totalEarning={user?.right_member} title="Right Active" />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <MyRank teamBusiness={user?.team_business_left} title="Left business" />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <MyRank teamBusiness={user?.team_business_right} title="Right business" />
           </Grid>
           <Grid item xs={12} md={4}>
             <WithoutUSD teamBusiness={user.direct_member} title=" Direct Member" />

@@ -1,24 +1,19 @@
 /* eslint-disable jsx-a11y/no-distracting-elements */
-import PropTypes from 'prop-types';
-import { useState, useEffect, useRef } from 'react';
-import QRCodeStyling from 'qr-code-styling';
-import { useSnackbar } from 'notistack5';
-import { Link, Link as RouterLink } from 'react-router-dom';
+// /* eslint-disable jsx-a11y/no-distracting-elements */
 
-// material
-import closeFill from '@iconify/icons-eva/close-fill';
-import { Icon } from '@iconify/react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { styled } from '@material-ui/core/styles';
 import { Box, Typography, Button, Card, CardContent } from '@material-ui/core';
+import { useSnackbar } from 'notistack5';
+
+import closeFill from '@iconify/icons-eva/close-fill';
+import { Icon } from '@iconify/react';
+
 // eslint-disable-next-line import/no-unresolved
 import useAuth from 'src/hooks/useAuth';
-// eslint-disable-next-line import/no-unresolved
 import './style.css';
-
-// import CopyClipboard from '../../../components/CopyClipboard';
-// eslint-disable-next-line import/no-unresolved
-
-// ----------------------------------------------------------------------
 
 const RootStyle = styled(Card)(({ theme }) => ({
   boxShadow: 'none',
@@ -46,9 +41,6 @@ const TimerContainer = styled(Box)(({ theme }) => ({
     margin: theme.spacing(0, 1)
   }
 }));
-const currentDate = new Date();
-const currentISOTime = currentDate.toISOString();
-console.log(currentISOTime);
 
 const TimerDigit = styled(Box)({
   color: 'grey.800',
@@ -56,19 +48,22 @@ const TimerDigit = styled(Box)({
   animation: '$fadeIn 1s ease-in-out forwards'
 });
 
-// ----------------------------------------------------------------------
-
 export default function AppWelcome() {
   const { user } = useAuth();
+  const { enqueueSnackbar } = useSnackbar(); // Initialize the notistack
+
   const [timerSecond, setTimerSecond] = useState(null);
   const [timerMinutes, setTimerMinutes] = useState(null);
   const [timerHour, setTimerHour] = useState(null);
   const registrationDateAndTime = user?.registration_date;
   // const registrationDateAndTime = '2023-08-03T11:45:30.120Z';
   const [timeRemaining, setTimeRemaining] = useState(null);
-
+  // const registrationDateAndTime = '2023-08-04T05:29:12.548Z';
+  const [sawNotification, setSawNotification] = useState(false);
+  const registrationDateAndTime = user?.registration_date;
   useEffect(() => {
     let timerInterval;
+    let notificationInterval;
 
     if (registrationDateAndTime) {
       const targetTime = new Date(registrationDateAndTime);
@@ -89,18 +84,33 @@ export default function AppWelcome() {
             .toString()
             .padStart(2, '0')} : ${seconds.toString().padStart(2, '0')}`;
           setTimeRemaining(formattedTime);
+
+          // Show popup every 30 seconds
+          if (diff % 30000 === 0) {
+            setSawNotification(true);
+          }
         } else {
           setTimeRemaining('Time Expired');
           clearInterval(timerInterval);
+          clearInterval(notificationInterval);
         }
       };
 
       updateTimer();
       timerInterval = setInterval(updateTimer, 10);
+
+      // Show initial notification when component mounts
+      setSawNotification(true);
+
+      // Show notification every 30 seconds
+      notificationInterval = setInterval(() => {
+        setSawNotification(true);
+      }, 30000);
     }
 
     return () => {
       clearInterval(timerInterval);
+      clearInterval(notificationInterval);
     };
   }, [registrationDateAndTime]);
 
@@ -108,20 +118,26 @@ export default function AppWelcome() {
   const formatedMinutes = timerMinutes < 10 ? `0${timerMinutes}` : timerMinutes;
   const formatedSecond = timerSecond < 10 ? `0${timerSecond}` : timerSecond;
 
+  // Show the notification if sawNotification is true
+  useEffect(() => {
+    if (sawNotification) {
+      enqueueSnackbar('Please Activate Your Id before countdown expires!', {
+        variant: 'warning' // You can change the variant to 'success', 'error', 'warning', etc.
+      });
+      setSawNotification(false);
+    }
+  }, [sawNotification, enqueueSnackbar]);
+
   return (
     <RootStyle>
-      <CardContent
-        sx={{
-          color: 'red'
-        }}
-      >
+      <CardContent sx={{ color: 'red' }}>
         <Box className="mediaForTimerAndMarquee" justifyContent="center" display="flex">
           <Box width={565}>
             <Box justifyContent="center" display="flex" alignItems="center" mt={1}>
               <marquee behavior="scroll" direction="left" scrollamount="10">
                 <Link to="/dashboard/stake">
                   <Typography color="red" variant="h5">
-                    Please Activate Your Id before countdown expired !{' '}
+                    Please Activate Your Id before countdown expired!{' '}
                   </Typography>
                 </Link>
               </marquee>
@@ -130,7 +146,7 @@ export default function AppWelcome() {
           <Box>
             <Box>
               {formatedHour === null ? (
-                'Timer Expired '
+                'Timer Expired'
               ) : (
                 <TimerContainer>
                   <TimerDigit color="grey.800">

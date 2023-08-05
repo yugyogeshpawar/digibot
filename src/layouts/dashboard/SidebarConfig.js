@@ -38,10 +38,10 @@ const sidebarConfig = [
         title: 'Dashboard',
         path: PATH_DASHBOARD.general.app,
         icon: ICONS.teams
-      },
-      { title: 'My Bot', path: PATH_DASHBOARD.general.mybot, icon: ICONS.robot },
-      { title: 'My Team', path: PATH_DASHBOARD.general.analytics, icon: ICONS.teams },
-      { title: 'Events and News', path: PATH_DASHBOARD.general.events, icon: ICONS.banking }
+      }
+      // { title: 'My Bot', path: PATH_DASHBOARD.general.mybot, icon: ICONS.robot },
+      // { title: 'My Team', path: PATH_DASHBOARD.general.analytics, icon: ICONS.teams },
+      // { title: 'Events and News', path: PATH_DASHBOARD.general.events, icon: ICONS.banking }
     ]
   },
   {
@@ -107,7 +107,7 @@ const sidebarConfig = [
         icon: ICONS.bonus,
         children: [
           { title: 'Direct Bonus', path: PATH_DASHBOARD.bonus.direct },
-          { title: 'Level Bonus', path: PATH_DASHBOARD.bonus.level },
+          // { title: 'Level Bonus', path: PATH_DASHBOARD.bonus.level },
           { title: 'Matching Bonus', path: PATH_DASHBOARD.bonus.matching },
           { title: 'Staking Bonus', path: PATH_DASHBOARD.bonus.stacking },
           { title: 'Reward Bonus', path: PATH_DASHBOARD.bonus.reward },

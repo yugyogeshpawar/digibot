@@ -41,6 +41,7 @@ export default function TractionsactionList() {
     dispatch(withdawSummaryapi());
   }, [dispatch]);
   const withs = withdawS;
+  console.log('yyyyyyyyy======> :', withs);
   return (
     <Card>
       <CardHeader title="Withdaw Summary" sx={{ mb: 3 }} />

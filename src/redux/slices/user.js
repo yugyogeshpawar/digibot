@@ -443,7 +443,7 @@ export function getRefBonus(values) {
         data: values
       });
 
-      dispatch(slice.actions.getRefBonusSucess(response.data.results));
+      dispatch(slice.actions.getRefBonusSucess(response.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }
@@ -593,7 +593,7 @@ export function getMonthlyPayrollBonus(values) {
         headers: { authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
         data: values
       });
-      console.log(response.data);
+
       dispatch(slice.actions.getMonthlyPayrollBonusSucess(response.data.results));
     } catch (error) {
       dispatch(slice.actions.hasError(error));

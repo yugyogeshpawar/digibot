@@ -33,13 +33,13 @@ import Scrollbar from '../../components/Scrollbar';
 // ----------------------------------------------------------------------
 
 export default function StackingSummary() {
+  // const dispatch = useDispatch();
+  // const { mintingSummary } = useSelector((state) => state.user);
+
+  // useEffect(() => {
+  //   dispatch(mintingSummaryapi());
+  // }, [dispatch]);
   const dispatch = useDispatch();
-  const { mintingSummary } = useSelector((state) => state.user);
-
-  useEffect(() => {
-    dispatch(mintingSummaryapi());
-  }, [dispatch]);
-
   const { stackingsummary } = useSelector((state) => state.user);
 
   useEffect(() => {

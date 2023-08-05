@@ -29,8 +29,32 @@ export default function MyDirect() {
   useEffect(() => {
     dispatch(directMember());
   }, [dispatch]);
-  const refarr = directM;
 
+  const refarr = directM;
+  function formatDate(inputDate) {
+    const monthNames = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ];
+
+    const parsedDate = new Date(inputDate);
+    const day = parsedDate.getDate();
+    const month = monthNames[parsedDate.getMonth()];
+    const year = parsedDate.getFullYear();
+
+    const formattedDate = `${day} ${month} ${year}`;
+    return formattedDate;
+  }
   return (
     <Card>
       <CardHeader title="My Direct" sx={{ mb: 3 }} />
@@ -41,7 +65,7 @@ export default function MyDirect() {
               <TableRow>
                 <TableCell sx={{ minWidth: 120 }}>No.</TableCell>
                 <TableCell sx={{ minWidth: 160 }}>Member Id </TableCell>
-                <TableCell sx={{ minWidth: 160 }}>Associate Name</TableCell>
+
                 <TableCell sx={{ minWidth: 160 }}>Reg. Date</TableCell>
                 <TableCell sx={{ minWidth: 200 }}>Position</TableCell>
                 <TableCell sx={{ minWidth: 120 }}>Package</TableCell>
@@ -63,12 +87,15 @@ export default function MyDirect() {
                       <TableCell>
                         <Typography variant="subtitle2">{ind + 1}</Typography>
                       </TableCell>
-                      <TableCell>{row.member_user_id}</TableCell>
-                      <TableCell>{row.member_name}</TableCell>
-                      <TableCell>{format(new Date(row.registration_date), 'dd MMM yyyy')}</TableCell>
-                      <TableCell sx={{ textTransform: 'capitalize' }}>{row.position}</TableCell>
-                      <TableCell sx={{ textTransform: 'capitalize' }}>{row.assigned_bot_id}</TableCell>
-                      <TableCell sx={{ textTransform: 'capitalize' }}>{row.status}</TableCell>
+                      <TableCell>{row?.member_user_id}</TableCell>
+
+                      <TableCell sx={{ textTransform: 'capitalize' }}>{formatDate(row?.registration_date)}</TableCell>
+
+                      <TableCell sx={{ textTransform: 'capitalize' }}>{row?.position}</TableCell>
+                      <TableCell sx={{ textTransform: 'capitalize' }}>{row?.investment_busd}</TableCell>
+                      <TableCell sx={{ textTransform: 'capitalize' }}>
+                        {row?.status === 1 ? <Box color="green"> Active </Box> : <Box color="red"> Inactive </Box>}
+                      </TableCell>
                     </TableRow>
                   ))}
                 </>
