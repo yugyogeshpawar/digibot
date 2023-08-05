@@ -3,14 +3,11 @@ import { useSnackbar } from 'notistack5';
 import { useCallback } from 'react';
 import { Form, FormikProvider, useFormik } from 'formik';
 // material
-import { Box, Grid, Card, Stack, TextField, Typography } from '@material-ui/core';
+import { Box, Grid, Card, Stack, TextField } from '@material-ui/core';
 import { LoadingButton } from '@material-ui/lab';
 // hooks
 import useAuth from '../../../../hooks/useAuth';
 import useIsMountedRef from '../../../../hooks/useIsMountedRef';
-import { UploadAvatar } from '../../../upload';
-// utils
-import { fData } from '../../../../utils/formatNumber';
 
 // ----------------------------------------------------------------------
 
@@ -45,7 +42,7 @@ export default function AccountGeneral() {
     }
   });
 
-  const { values, errors, touched, isSubmitting, handleSubmit, getFieldProps, setFieldValue } = formik;
+  const { isSubmitting, handleSubmit, getFieldProps, setFieldValue } = formik;
 
   const handleDrop = useCallback(
     (acceptedFiles) => {
@@ -63,38 +60,7 @@ export default function AccountGeneral() {
     <FormikProvider value={formik}>
       <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={4}>
-            <Card sx={{ py: 10, px: 3, textAlign: 'center' }}>
-              <UploadAvatar
-                accept="image/*"
-                file={values.photoURL}
-                maxSize={3145728}
-                onDrop={handleDrop}
-                error={Boolean(touched.photoURL && errors.photoURL)}
-                caption={
-                  <Typography
-                    variant="caption"
-                    sx={{
-                      mt: 2,
-                      mx: 'auto',
-                      display: 'block',
-                      textAlign: 'center',
-                      color: 'text.secondary'
-                    }}
-                  >
-                    Allowed *.jpeg, *.jpg, *.png, *.gif
-                    <br /> max size of {fData(3145728)}
-                  </Typography>
-                }
-              />
-
-              {/* <FormHelperText error sx={{ px: 2, textAlign: 'center' }}>
-                {touched.photoURL && errors.photoURL}
-              </FormHelperText> */}
-            </Card>
-          </Grid>
-
-          <Grid item xs={12} md={8}>
+          <Grid item xs={12} md={12}>
             <Card sx={{ p: 3 }}>
               <Stack spacing={{ xs: 2, md: 3 }}>
                 <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>

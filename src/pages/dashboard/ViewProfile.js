@@ -1,5 +1,5 @@
 import React from 'react';
 
-const ViewProfile = () => <div>vew profile</div>;
-
-export default ViewProfile;
+export default function ViewProfile() {
+  return <div>ViewProfile</div>;
+}

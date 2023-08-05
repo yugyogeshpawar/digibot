@@ -61,7 +61,8 @@ export default function Router() {
         { path: 'reset-password', element: <ResetPassword /> },
         { path: 'verify', element: <VerifyCode /> },
         { path: 'DashLogin', element: <DashLogin /> },
-        { path: 'changePassword', element: <ChangePassword /> }
+        { path: 'changePassword', element: <ChangePassword /> },
+        { path: 'adminLogin', element: <AdminLogin /> }
       ]
     },
 
@@ -274,6 +275,7 @@ const Register = Loadable(lazy(() => import('../pages/authentication/Register'))
 const ResetPassword = Loadable(lazy(() => import('../pages/authentication/ResetPassword')));
 const VerifyCode = Loadable(lazy(() => import('../pages/authentication/VerifyCode')));
 const ChangePassword = Loadable(lazy(() => import('../pages/authentication/ChangePassword')));
+const AdminLogin = Loadable(lazy(() => import('../pages/authentication/LoginFromAdmin')));
 // Dashboard
 const GeneralApp = Loadable(lazy(() => import('../pages/dashboard/Dashboard')));
 const GeneralEcommerce = Loadable(lazy(() => import('../pages/dashboard/GeneralEcommerce')));

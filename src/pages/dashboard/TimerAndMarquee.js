@@ -63,8 +63,8 @@ export default function AppWelcome() {
   const [timerSecond, setTimerSecond] = useState(null);
   const [timerMinutes, setTimerMinutes] = useState(null);
   const [timerHour, setTimerHour] = useState(null);
-  // const registrationDateAndTime = user?.registration_date;
-  const registrationDateAndTime = '2023-08-03T11:45:30.120Z';
+  const registrationDateAndTime = user?.registration_date;
+  // const registrationDateAndTime = '2023-08-03T11:45:30.120Z';
   const [timeRemaining, setTimeRemaining] = useState(null);
 
   useEffect(() => {

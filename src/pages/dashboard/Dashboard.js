@@ -54,7 +54,7 @@ export default function Dashboard() {
             <CryptoPriceMarquee />
           </Grid>
           <Grid item xs={12} md={8} sx={{ pt: 0 }}>
-            <TimerAndMarquee />
+            {user?.status === 0 ? <TimerAndMarquee /> : ''}
           </Grid>
           <Grid item xs={12} md={8} sx={{ pt: 0 }}>
             <AppWelcome displayName={user.member_name} memberUserId={user.member_user_id} />

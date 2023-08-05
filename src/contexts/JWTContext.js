@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 // utils
 import axios from 'axios';
 import { isValidToken, setSession } from '../utils/jwt';
+import { getProfile } from '../redux/slices/user';
 // ----------------------------------------------------------------------
 
-const baseUrl = process.env.PORT || 'http://52.66.191.12:8080/api';
+const baseUrl = process.env.PORT || 'http://localhost:8080/api';
 
 const initialState = {
   isAuthenticated: false,
@@ -68,6 +69,7 @@ function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
+    console.log('WTF');
     const initialize = async () => {
       try {
         const accessToken = window.localStorage.getItem('accessToken');
@@ -79,15 +81,12 @@ function AuthProvider({ children }) {
           const response = await axios.get(`${baseUrl}/users/dashboard`, {
             headers
           });
-          console.log(response.data);
-
           const { user } = response.data;
-
           dispatch({
             type: 'INITIALIZE',
             payload: {
               isAuthenticated: true,
-              user: user[0]
+              user
             }
           });
         } else {
