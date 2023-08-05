@@ -75,9 +75,8 @@ export default function RightDownLine() {
               <TableRow>
                 <TableCell sx={{ minWidth: 120 }}>No.</TableCell>
                 <TableCell sx={{ minWidth: 160 }}>Associate Id </TableCell>
-                <TableCell sx={{ minWidth: 160 }}>Associate Name</TableCell>
+
                 <TableCell sx={{ minWidth: 160 }}>Promoter Id</TableCell>
-                <TableCell sx={{ minWidth: 160 }}>Promoter Name</TableCell>
 
                 <TableCell sx={{ minWidth: 200 }}>Position</TableCell>
                 <TableCell sx={{ minWidth: 120 }}>Reg. Date</TableCell>
@@ -103,11 +102,9 @@ export default function RightDownLine() {
                       </TableCell>
 
                       <TableCell>{row?.member_user_id}</TableCell>
-                      <TableCell>{row?.member_name}</TableCell>
+
                       <TableCell>{row?.position_parent}</TableCell>
-                      <TableCell sx={{ textTransform: 'capitalize' }}>
-                        {row?.promoter_name === null ? 'Not Defined' : row?.promoter_name}
-                      </TableCell>
+
                       <TableCell sx={{ textTransform: 'capitalize' }}>{row?.position}</TableCell>
                       <TableCell sx={{ textTransform: 'capitalize' }}>{formatDate(row?.registration_date)}</TableCell>
                       <TableCell sx={{ textTransform: 'capitalize' }}>{row?.investment_busd}</TableCell>

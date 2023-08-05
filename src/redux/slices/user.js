@@ -1,3 +1,4 @@
+/* eslint-disable no-else-return */
 import { map, filter } from 'lodash';
 import { createSlice } from '@reduxjs/toolkit';
 // utils
@@ -851,52 +852,65 @@ export function getStackingSummary() {
   };
 }
 
-// Import necessary dependencies (axios and Redux slice)
-
-// export function postWithdraw(values) {
+// export function postWithdraw(value) {
 //   return async (dispatch) => {
 //     dispatch(slice.actions.startLoading());
-//     // eslint-disable-next-line no-useless-catch
 //     try {
 //       const accessToken = window.localStorage.getItem('accessToken');
-//       const response = await axios.post(`${baseUrl}/withdraw`, values, {
-//         headers: { Authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' }
-//       });
-//       dispatch(slice.actions.postwithdrawsucces(response.data.message));
+//       if (!accessToken) {
+//         throw new Error('Access token not found. Please log in again.');
+//       }
 
-//       // Return the response data so it can be accessed in the calling code
-//       return response.data.message;
+//       const headers = { Authorization: `Bearer ${accessToken}` };
+//       const urlApi = `${baseUrl}/withdraw`;
+//       const response = await axios.post(urlApi, value, { headers });
+
+//       if (response.status === 200) {
+//         console.log(response.data, 'API response');
+//         dispatch(slice.actions.postwithdrawsucces(response.data));
+//         return response.data;
+//       } else {
+//         throw new Error(`API request failed with status code ${response.status}`);
+//       }
 //     } catch (error) {
-//       // If there's an error, throw it so it can be caught in the calling code
-//       console.log(error, 'res from qpi errrrrr');
-//       dispatch(slice.actions.hasError(error));
-//       throw error;
+//       console.log(error, 'API error');
+//       if (error.response) {
+//         console.log(error.response);
+//         return error.response.data;
+//       }
+//       return 'Something went wrong!';
 //     }
 //   };
 // }
-export function postWithdraw(values) {
+/// //////////////////////////////////////
+
+export function postWithdraw(value) {
   return async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
       const accessToken = window.localStorage.getItem('accessToken');
-      const response = await axios.post(`${baseUrl}/withdraw`, values, {
-        headers: { Authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' }
-      });
-
-      // Assuming the API response contains a "success" field to indicate success
-      if (response.data.success) {
-        dispatch(slice.actions.postwithdrawsucces(response.data.message));
-        return response.data.message;
+      if (!accessToken) {
+        throw new Error('Access token not found. Please log in again.');
       }
-      const error = new Error(response.data.message || 'Request failed');
-      error.response = response;
-      throw error;
+
+      const headers = { Authorization: `Bearer ${accessToken}` };
+      const urlApi = `${baseUrl}/withdraw`;
+      const response = await axios.post(urlApi, value, { headers });
+
+      if (response.status === 200) {
+        console.log(response.data, 'API response');
+        dispatch(slice.actions.postwithdrawsucces(response.data));
+        return response;
+      } else {
+        throw new Error(`API request failed with status code ${response.status}`);
+      }
     } catch (error) {
-      console.log(error, 'res from api error');
-      dispatch(slice.actions.hasError(error));
-      throw error;
+      console.log(error, 'API error');
+      if (error.response) {
+        console.log(error.response);
+        return error.response;
+      }
+      return 'Something went wrong!';
     }
   };
 }
-
-// Reducer implementation remains the same

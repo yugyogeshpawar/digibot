@@ -30,21 +30,23 @@ PayoutCart.propTypes = {
 export default function PayoutCart({ checkoutType, setWithdrawSummary }) {
   const dispatch = useDispatch();
   const { user } = useAuth();
-  const { withdrawpost } = useSelector((state) => state.user);
+
   // const { cart } = checkout;
 
   const { enqueueSnackbar } = useSnackbar(); // Initialize notistack
 
   const handleNextStep = async (values) => {
     try {
+      // Assuming 'dispatch' is a function that makes an API call
       const response = await dispatch(postWithdraw(values));
       console.log('API Response:', response);
-      dispatch(getTeams());
       // Log the actual API response
-      enqueueSnackbar(withdrawpost, { variant: 'info' });
+      const isErr = response?.status === 200 ? 'success' : 'error';
+      console.log(isErr, 'isErrisErr');
+      enqueueSnackbar(response.data.message, { variant: isErr });
       // Handle any other actions or success scenarios
     } catch (error) {
-      console.error('API Error:', error);
+      console.error('API Error:', error.message);
       enqueueSnackbar('Withdrawal failed', { variant: 'error' }); // Show error notification
       // Handle any other error scenarios
     }
@@ -83,7 +85,7 @@ export default function PayoutCart({ checkoutType, setWithdrawSummary }) {
       }
     }
   });
-  console.log('withdrawpost =====>>>>>. : ', withdrawpost);
+
   const { values, handleSubmit, getFieldProps, errors, touched, isSubmitting } = formik;
 
   useEffect(() => {
