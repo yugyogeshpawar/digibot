@@ -62,6 +62,11 @@ export const PATH_DASHBOARD = {
     activation: path(ROOTS_DASHBOARD, '/personal/activation'),
     support: path(ROOTS_DASHBOARD, '/personal/support')
   },
+  ticket: {
+    createTicket: path(ROOTS_DASHBOARD, '/tickets/create-ticket'),
+    openTicket: path(ROOTS_DASHBOARD, '/tickets/open-ticket'),
+    support: path(ROOTS_DASHBOARD, '/tickets/support')
+  },
   user: {
     root: path(ROOTS_DASHBOARD, '/user'),
     profile: path(ROOTS_DASHBOARD, '/user/profile'),

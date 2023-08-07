@@ -65,7 +65,6 @@ export default function Router() {
         { path: 'adminLogin', element: <AdminLogin /> }
       ]
     },
-
     // Dashboard Routes
     {
       path: 'dashboard',
@@ -125,7 +124,6 @@ export default function Router() {
           path: 'personal',
           children: [
             { path: '/', element: <Navigate to="/dashboard/personal/payouts" replace /> },
-            { path: 'payouts', element: <MintingPayouts /> },
             { path: 'transactions', element: <Tractionsac /> },
             { path: 'activation', element: <Activation /> },
             { path: 'support', element: <UserList /> }
@@ -136,6 +134,15 @@ export default function Router() {
           children: [
             { path: '/', element: <Navigate to="/dashboard/payouts/minting" replace /> },
             { path: 'minting', element: <MintingPayouts /> }
+          ]
+        },
+        {
+          path: 'tickets',
+          children: [
+            { path: '/', element: <Navigate to="/dashboard/personal/payouts" replace /> },
+            { path: 'create-ticket', element: <CreateTicket /> },
+            { path: 'open-ticket', element: <OpenTicket /> },
+            { path: 'support', element: <UserList /> }
           ]
         },
         {
@@ -156,10 +163,6 @@ export default function Router() {
             { path: 'viewprofile', element: <ViewProfile /> },
             { path: 'editprofile', element: <UserAccount /> },
             { path: 'UserKYC', element: <UserKYC /> }
-            // { path: 'mydirect', element: <MyDirect /> },
-            // { path: 'mygenealogy', element: <MyGenealogy /> },
-            // { path: 'leftdownLine', element: <LeftDownLine /> },
-            // { path: 'rightdownline', element: <RightDownLine /> }
           ]
         },
         {
@@ -300,6 +303,8 @@ const LevelList = Loadable(lazy(() => import('../pages/dashboard/LevelList')));
 const ReferralList = Loadable(lazy(() => import('../pages/dashboard/ReferralList')));
 const UserProfile = Loadable(lazy(() => import('../pages/dashboard/UserProfile')));
 const Tractionsac = Loadable(lazy(() => import('../pages/dashboard/TractionsactionList')));
+const CreateTicket = Loadable(lazy(() => import('../pages/dashboard/CreateTicket')));
+const OpenTicket = Loadable(lazy(() => import('../pages/dashboard/OpenTicket')));
 const UserList = Loadable(lazy(() => import('../pages/dashboard/UserList')));
 const Activation = Loadable(lazy(() => import('../pages/dashboard/Activation')));
 const MintingList = Loadable(lazy(() => import('../pages/dashboard/MintingList')));

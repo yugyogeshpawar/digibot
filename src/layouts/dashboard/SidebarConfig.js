@@ -38,8 +38,8 @@ const sidebarConfig = [
         title: 'Dashboard',
         path: PATH_DASHBOARD.general.app,
         icon: ICONS.teams
-      }
-      // { title: 'My Bot', path: PATH_DASHBOARD.general.mybot, icon: ICONS.robot },
+      },
+      { title: 'My Bot', path: PATH_DASHBOARD.general.mybot, icon: ICONS.robot }
       // { title: 'My Team', path: PATH_DASHBOARD.general.analytics, icon: ICONS.teams },
       // { title: 'Events and News', path: PATH_DASHBOARD.general.events, icon: ICONS.banking }
     ]
@@ -131,6 +131,13 @@ const sidebarConfig = [
       },
       { title: 'transactions', path: PATH_DASHBOARD.personal.transactions, icon: ICONS.calendar },
       { title: 'activation', path: PATH_DASHBOARD.personal.activation, icon: ICONS.calendar }
+    ]
+  },
+  {
+    subheader: 'tickets',
+    items: [
+      { title: 'create ticket', path: PATH_DASHBOARD.ticket.createTicket, icon: ICONS.calendar },
+      { title: 'open ticket', path: PATH_DASHBOARD.ticket.openTicket, icon: ICONS.calendar }
     ]
   }
 ];
