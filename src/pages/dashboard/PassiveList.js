@@ -72,7 +72,6 @@ export default function ReferralList() {
                 <TableCell sx={{ minWidth: 120 }}>Date</TableCell>
                 <TableCell sx={{ minWidth: 120 }}>Income</TableCell>
                 <TableCell sx={{ minWidth: 120 }}>Bonus Per</TableCell>
-                <TableCell sx={{ minWidth: 120 }}>Bot Type</TableCell>
 
                 <TableCell />
               </TableRow>
@@ -98,7 +97,6 @@ export default function ReferralList() {
 
                       <TableCell>{row?.income_amt}</TableCell>
                       <TableCell>{row?.Bonus_percent}</TableCell>
-                      <TableCell>{row?.b_type === null ? 'Not Defined ' : row?.b_type}</TableCell>
                     </TableRow>
                   ))}
                 </>

@@ -776,10 +776,9 @@ export async function getSponcerNameByUplineID(UplineId) {
 export async function getBotData() {
   try {
     const response = await axios.get(`${baseUrl}/users/bots`);
-    console.log('bot =====', response);
+
     return response.data;
   } catch (error) {
-    console.log('err bot =====>', error);
     return error;
   }
 }
@@ -851,38 +850,6 @@ export function getStackingSummary() {
     }
   };
 }
-
-// export function postWithdraw(value) {
-//   return async (dispatch) => {
-//     dispatch(slice.actions.startLoading());
-//     try {
-//       const accessToken = window.localStorage.getItem('accessToken');
-//       if (!accessToken) {
-//         throw new Error('Access token not found. Please log in again.');
-//       }
-
-//       const headers = { Authorization: `Bearer ${accessToken}` };
-//       const urlApi = `${baseUrl}/withdraw`;
-//       const response = await axios.post(urlApi, value, { headers });
-
-//       if (response.status === 200) {
-//         console.log(response.data, 'API response');
-//         dispatch(slice.actions.postwithdrawsucces(response.data));
-//         return response.data;
-//       } else {
-//         throw new Error(`API request failed with status code ${response.status}`);
-//       }
-//     } catch (error) {
-//       console.log(error, 'API error');
-//       if (error.response) {
-//         console.log(error.response);
-//         return error.response.data;
-//       }
-//       return 'Something went wrong!';
-//     }
-//   };
-// }
-/// //////////////////////////////////////
 
 export function postWithdraw(value) {
   return async (dispatch) => {
