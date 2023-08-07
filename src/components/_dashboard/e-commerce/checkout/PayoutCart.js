@@ -48,8 +48,8 @@ export default function PayoutCart({ checkoutType, setWithdrawSummary }) {
       // Handle any other actions or success scenarios
       if (response?.status === 200) {
         setTimeout(() => {
-          window.location.reload(); // Reload the page after 1 seconds (1000 milliseconds)
-        }, 1000);
+          window.location.reload(); // Reload the page after 3 seconds (3000 milliseconds)
+        }, 3000);
       }
     } catch (error) {
       console.error('API Error:', error.message);
