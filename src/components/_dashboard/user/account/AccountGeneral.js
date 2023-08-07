@@ -80,7 +80,7 @@ export default function AccountGeneral() {
               <UploadAvatar
                 accept="image/*"
                 file={values.photoURL}
-                maxSize={3145728}
+                maxSize={1000000}
                 onDrop={handleDrop}
                 error={Boolean(touched.photoURL && errors.photoURL)}
                 caption={
@@ -94,8 +94,8 @@ export default function AccountGeneral() {
                       color: 'text.secondary'
                     }}
                   >
-                    Allowed *.jpeg, *.jpg, *.png, *.gif
-                    <br /> max size of {fData(3145728)}
+                    Allowed *.jpg, *.png,
+                    <br /> max size of {fData(1000000)}
                   </Typography>
                 }
               />
@@ -110,8 +110,12 @@ export default function AccountGeneral() {
             <Card sx={{ p: 3 }}>
               <Stack spacing={{ xs: 2, md: 3 }}>
                 <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
-                  <TextField fullWidth label="Full Name" {...getFieldProps('displayName')} />
+                  <TextField fullWidth label="User Name" {...getFieldProps('displayName')} />
                   <TextField fullWidth disabled label="Email Address" {...getFieldProps('email')} />
+                </Stack>
+                <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
+                  <TextField fullWidth label="Full Name" />
+                  <TextField fullWidth label="Country code" />
                 </Stack>
 
                 <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
@@ -144,16 +148,6 @@ export default function AccountGeneral() {
                   <TextField fullWidth label="City" {...getFieldProps('city')} />
                   <TextField fullWidth label="Zip/Code" {...getFieldProps('zipCode')} />
                 </Stack>
-
-                <TextField
-                  {...getFieldProps('about')}
-                  fullWidth
-                  multiline
-                  minRows={4}
-                  maxRows={4}
-                  label="About"
-                  placeholder="Write something about you"
-                />
               </Stack>
 
               <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>

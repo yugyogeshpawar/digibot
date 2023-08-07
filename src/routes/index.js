@@ -324,7 +324,7 @@ const MyDirect = Loadable(lazy(() => import('../pages/dashboard/MyDirect')));
 const MyGenealogy = Loadable(lazy(() => import('../pages/dashboard/MyGenealogy')));
 const LeftDownLine = Loadable(lazy(() => import('../pages/dashboard/LeftDownLine')));
 const RightDownLine = Loadable(lazy(() => import('../pages/dashboard/RightDownLine')));
-const ViewProfile = Loadable(lazy(() => import('../pages/dashboard/ViewProfile')));
+const ViewProfile = Loadable(lazy(() => import('../components/_dashboard/user/account/ViewProfile')));
 const UserKYC = Loadable(lazy(() => import('../components/_dashboard/user/account/UserKYC')));
 // Components
 const ComponentsOverview = Loadable(lazy(() => import('../pages/ComponentsOverview')));
