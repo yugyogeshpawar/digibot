@@ -124,7 +124,7 @@ export default function AppWelcome({ displayName, memberUserId }) {
             ml: { xs: 'auto', md: '0' }
           }}
         >
-          Referral link <br /> https://digibot.co/digibotUApp/Signup?UplineId={memberUserId}
+          Referral link <br /> http://app.digibot.trade/digibotUApp/Signup?UplineId={memberUserId}
         </Typography>
         <Button variant="contained" to="#" component={RouterLink} sx={{ mt: 1 }} onClick={() => onCopyClick()}>
           Copy
