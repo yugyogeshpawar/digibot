@@ -1,6 +1,5 @@
-/* eslint-disable no-plusplus */
-import { useEffect } from 'react';
-
+/* eslint-disable prefer-const */
+import { useEffect, useState } from 'react';
 import {
   Card,
   Table,
@@ -14,34 +13,37 @@ import {
   Divider,
   Box,
   Stack,
-  Button
+  Button,
+  Tooltip,
+  IconButton
 } from '@material-ui/core';
-
+import { FileCopyOutlined as FileCopyOutlinedIcon } from '@material-ui/icons';
 import format from 'date-fns/format';
-// eslint-disable-next-line import/no-unresolved
-
+import { useSnackbar } from 'notistack5';
 import { useDispatch, useSelector } from '../../redux/store';
-// eslint-disable-next-line import/named
 import { withdawSummaryapi } from '../../redux/slices/user';
-
-// components
-
 import Scrollbar from '../../components/Scrollbar';
 
-// ----------------------------------------------------------------------
-
-// ----------------------------------------------------------------------
-
 export default function TractionsactionList() {
-  let count = 1;
   const dispatch = useDispatch();
   const { withdawS } = useSelector((state) => state.user);
-
+  const { enqueueSnackbar } = useSnackbar();
   useEffect(() => {
     dispatch(withdawSummaryapi());
   }, [dispatch]);
-  const withs = withdawS;
-  console.log('yyyyyyyyy======> :', withs);
+
+  const walletAddressSort = (inputString) => {
+    const firstFiveDigits = inputString.substring(0, 5);
+    const lastFiveDigits = inputString.substring(inputString.length - 5);
+    let totalString = `${firstFiveDigits}...${lastFiveDigits}`;
+    return totalString;
+  };
+
+  const copyToClipboard = (address) => {
+    navigator.clipboard.writeText(address);
+    enqueueSnackbar('Copy to clipboard', { variant: 'success' }); // Show error notification
+  };
+
   return (
     <Card>
       <CardHeader title="Withdaw Summary" sx={{ mb: 3 }} />
@@ -56,13 +58,12 @@ export default function TractionsactionList() {
                 <TableCell sx={{ minWidth: 120 }}>Withdaw Amount</TableCell>
                 <TableCell sx={{ minWidth: 120 }}>Withdraw GUSD</TableCell>
                 <TableCell sx={{ minWidth: 120 }}>Wallet Address</TableCell>
-                <TableCell sx={{ minWidth: 200 }}>Transaction Id </TableCell>
-
+                <TableCell sx={{ minWidth: 200 }}>Transaction Id</TableCell>
                 <TableCell />
               </TableRow>
             </TableHead>
             <TableBody>
-              {withs?.length === 0 ? (
+              {withdawS?.length === 0 ? (
                 <>
                   <Box m={4} display="flex" justifyContent="center" alignItems="center" sx={{ width: 'fit-content' }}>
                     <Typography variant="h6">No Data Found</Typography>
@@ -70,11 +71,11 @@ export default function TractionsactionList() {
                 </>
               ) : (
                 <>
-                  {withs?.map((row) => (
+                  {withdawS?.map((row, ind) => (
                     <TableRow key={row.date}>
                       <TableCell>
                         <Stack direction="row" alignItems="center" spacing={2}>
-                          <Typography variant="subtitle2">{count++}</Typography>
+                          <Typography variant="subtitle2">{ind}</Typography>
                         </Stack>
                       </TableCell>
 
@@ -83,7 +84,16 @@ export default function TractionsactionList() {
 
                       <TableCell>{row.with_amt}</TableCell>
                       <TableCell>{row.total_gusd_amt}</TableCell>
-                      <TableCell>{row.wallet_address}</TableCell>
+                      <TableCell>
+                        <Tooltip title={row?.wallet_address} arrow placement="top">
+                          <span>
+                            {walletAddressSort(row?.wallet_address)}
+                            <IconButton size="small" onClick={() => copyToClipboard(row?.wallet_address)}>
+                              <FileCopyOutlinedIcon fontSize="inherit" />
+                            </IconButton>
+                          </span>
+                        </Tooltip>
+                      </TableCell>
                       <TableCell>
                         <a href={`https://bscscan.com/tx/${row?.transaction_id}`} target="_blank" rel="noreferrer">
                           {' '}

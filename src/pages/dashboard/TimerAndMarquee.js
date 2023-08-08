@@ -2,18 +2,16 @@
 // /* eslint-disable jsx-a11y/no-distracting-elements */
 
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+
+import { Link, useNavigate } from 'react-router-dom';
 import { styled } from '@material-ui/core/styles';
 import { Box, Typography, Button, Card, CardContent } from '@material-ui/core';
 import { useSnackbar } from 'notistack5';
 
-import closeFill from '@iconify/icons-eva/close-fill';
-import { Icon } from '@iconify/react';
-
 // eslint-disable-next-line import/no-unresolved
 import useAuth from 'src/hooks/useAuth';
 import './style.css';
+import { CheckCircleOutline } from '@material-ui/icons';
 
 const RootStyle = styled(Card)(({ theme }) => ({
   boxShadow: 'none',
@@ -59,6 +57,7 @@ export default function AppWelcome() {
   // const registrationDateAndTime = '2023-08-04T05:29:12.548Z';
   const [sawNotification, setSawNotification] = useState(false);
   const registrationDateAndTime = user?.registration_date;
+  const navigate = useNavigate();
   useEffect(() => {
     let timerInterval;
     let notificationInterval;
@@ -84,7 +83,7 @@ export default function AppWelcome() {
           setTimeRemaining(formattedTime);
 
           // Show popup every 30 seconds
-          if (diff % 30000 === 0) {
+          if (diff % 60000 === 0) {
             setSawNotification(true);
           }
         } else {
@@ -115,13 +114,33 @@ export default function AppWelcome() {
   const formatedHour = timerHour < 10 ? `0${timerHour}` : timerHour;
   const formatedMinutes = timerMinutes < 10 ? `0${timerMinutes}` : timerMinutes;
   const formatedSecond = timerSecond < 10 ? `0${timerSecond}` : timerSecond;
+  const handleNavigate = () => {
+    navigate('/dashboard/stake');
+  };
 
   // Show the notification if sawNotification is true
   useEffect(() => {
     if (sawNotification) {
       enqueueSnackbar('Please Activate Your Id before countdown expires!', {
-        variant: 'warning' // You can change the variant to 'success', 'error', 'warning', etc.
+        variant: 'warning',
+        anchorOrigin: {
+          vertical: 'top',
+          horizontal: 'center'
+        },
+        autoHideDuration: 10000, // 10 seconds
+        style: {
+          width: '600px', // Adjust the width as needed
+          fontSize: '1.25rem' // Adjust the font size as needed
+        },
+        action: (
+          <>
+            <Button color="secondary" size="large" startIcon={<CheckCircleOutline />} onClick={handleNavigate}>
+              Activate Your ID
+            </Button>
+          </>
+        )
       });
+
       setSawNotification(false);
     }
   }, [sawNotification, enqueueSnackbar]);
@@ -147,15 +166,7 @@ export default function AppWelcome() {
                 'Timer Expired'
               ) : (
                 <TimerContainer>
-                  <TimerDigit color="grey.800">
-                    <Box> {formatedHour}</Box>
-                  </TimerDigit>
-                  <TimerDigit color="grey.800">
-                    <Box> {formatedMinutes}</Box>
-                  </TimerDigit>
-                  <TimerDigit color="grey.800">
-                    <Box> {formatedSecond}</Box>
-                  </TimerDigit>
+                  <TimerDigit color="grey.800">{timeRemaining}</TimerDigit>
                 </TimerContainer>
               )}
             </Box>

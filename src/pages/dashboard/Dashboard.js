@@ -46,6 +46,7 @@ export default function Dashboard() {
     incomeDash?.match +
     incomeDash?.business +
     incomeDash?.monthly;
+
   return (
     <Page title="General: App | Digibot">
       <Container maxWidth={themeStretch ? false : 'xl'}>

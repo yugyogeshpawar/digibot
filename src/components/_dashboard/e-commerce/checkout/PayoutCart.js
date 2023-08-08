@@ -1,15 +1,30 @@
 /* eslint-disable import/no-unresolved */
 import { Icon } from '@iconify/react';
 import PropTypes from 'prop-types';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useFormik, Form, FormikProvider } from 'formik';
 import * as Yup from 'yup'; // Import Yup for validation
 import arrowIosBackFill from '@iconify/icons-eva/arrow-ios-back-fill';
-import { useEffect, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import BigNumber from 'bignumber.js';
 // material
-import { Grid, Card, Button, CardHeader, Typography, Stack, TextField, Box } from '@material-ui/core';
+import {
+  Grid,
+  Slide,
+  Dialog,
+  DialogTitle,
+  DialogActions,
+  DialogContentText,
+  DialogContent,
+  Card,
+  Button,
+  CardHeader,
+  Typography,
+  Stack,
+  TextField,
+  Box
+} from '@material-ui/core';
 // redux
 // eslint-disable-next-line import/no-unresolved
 import { postWithdraw } from 'src/redux/slices/user';
@@ -29,11 +44,19 @@ PayoutCart.propTypes = {
 };
 
 export default function PayoutCart({ checkoutType, setWithdrawSummary }) {
+  const Transition = forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
   const dispatch = useDispatch();
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
   // const { cart } = checkout;
 
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+    navigate('/dashboard/myprofile/UserKYC');
+  };
+  const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar(); // Initialize notistack
 
   const handleNextStep = async (values) => {
@@ -97,9 +120,15 @@ export default function PayoutCart({ checkoutType, setWithdrawSummary }) {
   useEffect(() => {
     setWithdrawSummary();
     setIsLoading(false);
-  }, []);
 
+    if (!isKycSuccesUser) {
+      setOpen(true);
+    }
+  }, [navigate]);
+
+  console.log('user +++++++ :', user);
   const hasWalletAddress = user?.wallet_address !== null;
+  const isKycSuccesUser = user?.kyc_status !== 0;
 
   return (
     <div>
@@ -197,6 +226,26 @@ export default function PayoutCart({ checkoutType, setWithdrawSummary }) {
           </Form>
         </FormikProvider>
       )}
+      <Dialog
+        open={open}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-slide-title"
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle id="alert-dialog-slide-title">Add Wallet Address</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            please add your wallet address for withdraw . without wallet address you can't withdraw
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button variant="contained" onClick={handleClose}>
+            Add your wallet address
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }
