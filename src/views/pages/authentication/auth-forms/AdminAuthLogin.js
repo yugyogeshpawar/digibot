@@ -1,5 +1,6 @@
 import { useState } from 'react';
 // import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import {
@@ -64,8 +65,8 @@ const FirebaseLogin = ({ ...others }) => {
 
       <Formik
         initialValues={{
-          username: '3477311',
-          password: 'Admin@123',
+          username: '1234567',
+          password: 'Digibot@123',
           submit: null
         }}
         validationSchema={Yup.object().shape({
@@ -150,6 +151,15 @@ const FirebaseLogin = ({ ...others }) => {
                 }
                 label="Remember me"
               />
+              <Typography
+                variant="subtitle1"
+                color="secondary"
+                sx={{ textDecoration: 'none', cursor: 'pointer' }}
+                component={Link}
+                to="/forgot-password"
+              >
+                Forgot Password?
+              </Typography>
             </Stack>
             {errors.submit && (
               <Box sx={{ mt: 3 }}>

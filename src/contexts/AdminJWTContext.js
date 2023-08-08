@@ -5,7 +5,7 @@ import axios from 'axios';
 import { setSession } from '../utils/adminjwt';
 // ----------------------------------------------------------------------
 
-const baseUrl = process.env.ADMINPORT || 'http://localhost:8080/api';
+const baseUrl = process.env.ADMINPORT || 'http://52.66.191.12:8080/api';
 
 const initialState = {
   isInitialized: false,
@@ -41,6 +41,7 @@ const handlers = {
       user
     };
   },
+
   LOGOUT: (state) => ({
     ...state,
     isAdminAuthenticated: false,
@@ -123,6 +124,27 @@ function AdminAuthProvider({ children }) {
       }
     });
   };
+  const forgotPassword = async (values) => {
+    const accessToken = window.localStorage.getItem('accessToken');
+    const response = await axios({
+      method: 'post',
+      url: `${baseUrl}/admin/forgot-password`,
+      headers: { authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
+      data: { email: values }
+    });
+    return response.data;
+  };
+  const confirmOptPassword = async (otp, password, confirmPassword, email) => {
+    console.log(otp, password, confirmPassword, email);
+    const accessToken = window.localStorage.getItem('accessToken');
+    const response = await axios({
+      method: 'post',
+      url: `${baseUrl}/admin/confirm-otp`,
+      headers: { authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
+      data: { token: otp, newPassword: password, verifyPassword: confirmPassword, email }
+    });
+    return response.data;
+  };
 
   const logout = async () => {
     setSession(null);
@@ -137,7 +159,9 @@ function AdminAuthProvider({ children }) {
         ...state,
         method: 'jwt',
         logout,
-        login
+        login,
+        forgotPassword,
+        confirmOptPassword
       }}
     >
       {children}

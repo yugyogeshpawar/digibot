@@ -36,7 +36,7 @@ export default function ActiveUsers() {
     }
     const res = await getSearchDashboard(userID);
     setSession(res.token);
-    window.open(`http://localhost:3001/digibotuapp/adminlogin?token=${res.token}`);
+    window.open(`http://localhost:3000/digibotuapp/adminlogin?token=${res.token}`);
   };
 
   const columns = [

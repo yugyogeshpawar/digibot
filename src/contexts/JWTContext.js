@@ -5,7 +5,7 @@ import axios from 'axios';
 import { setSession } from '../utils/jwt';
 // ----------------------------------------------------------------------
 
-const baseUrl = process.env.PORT || 'http://localhost:8080/api/admin';
+const baseUrl = process.env.PORT || 'http://52.66.191.12:8080/api';
 
 const initialState = {
   isAuthenticated: false,
@@ -143,7 +143,7 @@ function AuthProvider({ children }) {
     const accessToken = window.localStorage.getItem('accessToken');
     const response = await axios({
       method: 'post',
-      url: `${baseUrl}/auth/forgot-password`,
+      url: `${baseUrl}/admin/forgot-password`,
       headers: { authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
       data: { email: values }
     });
@@ -165,7 +165,7 @@ function AuthProvider({ children }) {
     const accessToken = window.localStorage.getItem('accessToken');
     const response = await axios({
       method: 'post',
-      url: `${baseUrl}/auth/confirm-otp`,
+      url: `${baseUrl}/admin/confirm-otp`,
       headers: { authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
       data: { token: otp, newPassword: password, verifyPassword: confirmPassword, email }
     });

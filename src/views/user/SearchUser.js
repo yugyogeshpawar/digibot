@@ -70,7 +70,7 @@ const SearchSection = () => {
     }
     const res = await getSearchDashboard(userID);
     setSession(res.token);
-    window.open(`http://localhost:3001/digibotuapp/adminlogin?token=${res.token}`);
+    window.open(`http://localhost:3000/digibotuapp/adminlogin?token=${res.token}`);
     // userWindow.postMessage({ data: "Surprise!!" }, "http://localhost:3001");
     // window.location.replace('wwww.app.digibot.trade/dashboard/app');
   };

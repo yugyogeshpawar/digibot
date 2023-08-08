@@ -60,7 +60,7 @@ const slice = createSlice({
   }
 });
 
-const baseUrl = process.env.PORT || 'http://localhost:8080/api/admin';
+const baseUrl = process.env.PORT || 'http://52.66.191.12:8080/api/admin';
 
 // Reducer
 export default slice.reducer;
@@ -195,45 +195,61 @@ export async function getMatchingBonus() {
 }
 // ----------------------------------------------------------------------
 export async function getWithdrawReqSummary() {
-  if (!initializer.WithdrawSucess) {
-    try {
-      const accessToken = window.localStorage.getItem('adminAccessToken');
-      const headers = {
-        Authorization: `Bearer ${accessToken}`
-      };
-      const response = await axios.get(`${baseUrl}/withdrawRequest`, {
-        headers
-      });
-      console.log(response.data);
-      Withdraw = response.data;
-      initializer.WithdrawSucess = true;
-    } catch (error) {
-      console.log(error);
-      initializer.WithdrawSucess = false;
-      Withdraw = error;
-    }
+  try {
+    const accessToken = window.localStorage.getItem('adminAccessToken');
+    const headers = {
+      Authorization: `Bearer ${accessToken}`
+    };
+    const response = await axios.get(`${baseUrl}/withdrawRequest`, {
+      headers
+    });
+    Withdraw = response.data;
+    initializer.WithdrawSucess = true;
+  } catch (error) {
+    console.log(error);
+    initializer.WithdrawSucess = false;
+    Withdraw = error;
   }
   return Withdraw;
 }
 // ----------------------------------------------------------------------
 export async function getWithdrawSummary() {
-  if (!initializer.WithdrawSucess) {
-    try {
-      const accessToken = window.localStorage.getItem('adminAccessToken');
-      const headers = {
-        Authorization: `Bearer ${accessToken}`
-      };
-      const response = await axios.get(`${baseUrl}/withdrawRequest`, {
-        headers
-      });
-      console.log(response.data);
-      Withdraw = response.data;
-      initializer.WithdrawSucess = true;
-    } catch (error) {
-      console.log(error);
-      initializer.WithdrawSucess = false;
-      Withdraw = error;
-    }
+  try {
+    const accessToken = window.localStorage.getItem('adminAccessToken');
+    const headers = {
+      Authorization: `Bearer ${accessToken}`
+    };
+    const response = await axios.get(`${baseUrl}/withdrawRequest`, {
+      headers
+    });
+    console.log(response.data);
+    Withdraw = response.data;
+    initializer.WithdrawSucess = true;
+  } catch (error) {
+    console.log(error);
+    initializer.WithdrawSucess = false;
+    Withdraw = error;
+  }
+  return Withdraw;
+}
+// ----------------------------------------------------------------------
+export async function getWithdrawConfi() {
+  try {
+    const accessToken = window.localStorage.getItem('adminAccessToken');
+    const headers = {
+      Authorization: `Bearer ${accessToken}`
+    };
+    const response = await axios.get(`${baseUrl}/withdrawSummary`, {
+      headers
+    });
+    console.log('res'.response);
+    Withdraw = response.data;
+    console.log(Withdraw);
+    initializer.WithdrawSucess = true;
+  } catch (error) {
+    console.log(error);
+    initializer.WithdrawSucess = false;
+    Withdraw = error;
   }
   return Withdraw;
 }

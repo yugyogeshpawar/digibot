@@ -18,7 +18,7 @@ export default function InvestmentSummary() {
           contact: item.contact,
           walletAddress: item.walletAddress,
           invest_type: item.invest_type,
-          topup_amount: item.invest_package,
+          with_amt: item.with_amt,
           checked: item.checked ? 'Yes' : 'No'
         }));
         setRows(mappedData);
@@ -49,14 +49,8 @@ export default function InvestmentSummary() {
       width: 250
     },
     {
-      field: 'topup_amount',
-      headerName: 'Topup Amount',
-      sortable: false,
-      width: 160
-    },
-    {
-      field: 'checked',
-      headerName: 'Checked',
+      field: 'with_amt',
+      headerName: 'Withdraw Amount',
       sortable: false,
       width: 160
     }

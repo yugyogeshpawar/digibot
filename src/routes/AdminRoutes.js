@@ -12,9 +12,12 @@ const ActiveUser = Loadable(lazy(() => import('views/user/ActiveUser')));
 const InactiveUser = Loadable(lazy(() => import('views/user/InactiveUser')));
 const BlockUser = Loadable(lazy(() => import('views/user/BlockUser')));
 const SearchUser = Loadable(lazy(() => import('views/user/SearchUser')));
-
+// const forgotPassword = Loadable(lazy(() => import('views/pages/authentication/auth-forms/ForgotPassword')));
 const Monthly = Loadable(lazy(() => import('views/Rewards/Monthly')));
 const Dailyrewards = Loadable(lazy(() => import('views/Rewards/DailyRewards')));
+
+const Pending = Loadable(lazy(() => import('views/support/pandingTicket')));
+const Replaye = Loadable(lazy(() => import('views/support/replyTicket')));
 
 const UtilsColor = Loadable(lazy(() => import('views/utilities/Color')));
 const UtilsShadow = Loadable(lazy(() => import('views/utilities/Shadow')));
@@ -85,6 +88,19 @@ const MainRoutes = {
         {
           path: 'dailyrewards',
           element: <Dailyrewards />
+        }
+      ]
+    },
+    {
+      path: 'admin/support',
+      children: [
+        {
+          path: 'pending-ticket',
+          element: <Pending />
+        },
+        {
+          path: 'replaye-ticket',
+          element: <Replaye />
         }
       ]
     },

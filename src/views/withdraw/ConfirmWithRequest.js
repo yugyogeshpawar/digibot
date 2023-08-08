@@ -1,102 +1,81 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
+import { useEffect, useState } from 'react';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import { useDemoData } from '@mui/x-data-grid-generator';
-import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
-const VISIBLE_FIELDS = ['id', 'name', 'rating', 'email', 'country', 'city', 'dateCreated', 'isAdmin', 'phone', 'position'];
+import { getWithdrawConfi } from '../../redux/admin';
+import { format } from 'date-fns';
 
-export default function QuickFilteringGrid() {
-  const navigate = useNavigate();
-  const { data } = useDemoData({
-    dataSet: 'Employee',
-    visibleFields: VISIBLE_FIELDS,
-    rowLength: 100
-  });
+export default function InvestmentSummary() {
+  const [rows, setRows] = useState([]);
 
-  const User = {
-    initialState: {
-      columns: {
-        columnVisibilityModel: {
-          ActionButton: false,
-          date: false,
-          member_user_id: false,
-          member_name: false,
-          wallet_addres: false,
-          Wallet_amount: false
-        }
+  useEffect(() => {
+    const fetchData = async () => {
+      // Fetch data from the API
+      const res = await getWithdrawConfi(); // Replace with your API call
+      if (Array.isArray(res?.data)) {
+        const mappedData = res.data.map((item, index) => ({
+          id: index + 1,
+          member_user_id: item.member_user_id,
+          member_name: item.member_name,
+          contact: item.contact,
+          wallet_address: item.wallet_address,
+          with_referrance: item.with_referrance,
+          with_amt: item.with_amt,
+          with_date: format(new Date(item.with_date), 'dd-MM-yyyy')
+        }));
+        setRows(mappedData);
       }
-    },
-    columns: [],
-    rows: [
-      {
-        id: 1,
-        date: '20-5-2023',
-        memberUserId: '6873419',
-        memberName: 'User23',
-        walletAddres: '0x54554fhef0dfg',
-        walletAmount: 2000
-      }
-    ]
-  };
+    };
 
-  // Otherwise filter will be applied on fields such as the hidden column id
-
-  const newcolumn = [
+    fetchData();
+  }, []);
+  const columns = [
+    { field: 'id', headerName: 'No.', width: 50 },
     {
-      field: 'id',
-      headerName: 'Id'
-    },
-    {
-      field: 'date',
-      headerName: 'Date'
-    },
-
-    {
-      field: 'memberUserId',
-      headerName: 'User Id',
-      hide: true
-    },
-    {
-      field: 'memberName',
-      headerName: 'Name',
-      width: 120
-    },
-    {
-      field: 'walletAddres',
-      headerName: 'Wallet Address',
-      width: 200
-    },
-    {
-      field: 'walletAmount',
-      headerName: 'Wallet Amount',
-      width: 120
-    },
-    {
-      field: 'action',
-      headerName: 'Action',
-      sortable: false,
+      field: 'member_user_id',
+      headerName: 'Member User Id',
       width: 150,
-      renderCell: (param) => {
-        const onClick = (e) => {
-          e.stopPropagation(); // don't select this row after clicking
-
-          navigate(`/${param.id}`);
-        };
-
-        return <Button onClick={onClick}>Show Transaction</Button>;
-      }
+      editable: true
+    },
+    {
+      field: 'member_name',
+      headerName: 'Member Name',
+      width: 150,
+      editable: true
+    },
+    {
+      field: 'wallet_address',
+      headerName: 'Wallet Address',
+      sortable: false,
+      width: 250
+    },
+    {
+      field: 'with_referrance',
+      headerName: 'With Referrance',
+      sortable: false,
+      width: 160
+    },
+    {
+      field: 'with_amt',
+      headerName: 'Withdraw Amount',
+      sortable: false,
+      width: 160
+    },
+    {
+      field: 'with_date',
+      headerName: 'Withdraw Date',
+      sortable: false,
+      width: 160
     }
   ];
-  console.log(newcolumn);
-  console.log(data);
 
   return (
-    <Box sx={{ height: '82vh', width: 1 }}>
+    <div style={{ height: '80vh', width: '100%' }}>
       <DataGrid
-        {...User}
-        columns={newcolumn}
-        slots={{ toolbar: GridToolbar }}
+        rows={rows}
+        columns={columns}
+        components={{ Toolbar: GridToolbar }}
+        autoPageSize
+        showToolbar
         slotProps={{
           toolbar: {
             showQuickFilter: true,
@@ -105,6 +84,6 @@ export default function QuickFilteringGrid() {
         }}
         sx={{ background: '#fff', padding: 2, borderRadius: 4 }}
       />
-    </Box>
+    </div>
   );
 }

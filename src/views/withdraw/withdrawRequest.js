@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { getWithdrawReqSummary } from '../../redux/admin';
-
+import { format } from 'date-fns';
 export default function InvestmentSummary() {
   const [rows, setRows] = useState([]);
 
@@ -16,11 +16,10 @@ export default function InvestmentSummary() {
           member_user_id: item.member_user_id,
           member_name: item.member_name,
           contact: item.contact,
-          walletAddress: item.walletAddress,
-          invest_type: item.invest_type,
-          topup_amount: item.invest_package,
-          with_date: format(new Date(element.tr_date), 'dd-MM-yyyy'),
-          checked: item.checked ? 'Yes' : 'No'
+          wallet_address: item.wallet_address,
+          with_referrance: item.with_referrance,
+          with_amt: item.with_amt,
+          with_date: format(new Date(item.with_date), 'dd-MM-yyyy')
         }));
         setRows(mappedData);
       }
@@ -28,7 +27,6 @@ export default function InvestmentSummary() {
 
     fetchData();
   }, []);
-
   const columns = [
     { field: 'id', headerName: 'No.', width: 50 },
     {
@@ -44,20 +42,26 @@ export default function InvestmentSummary() {
       editable: true
     },
     {
-      field: 'walletAddress',
+      field: 'wallet_address',
       headerName: 'Wallet Address',
       sortable: false,
       width: 250
     },
     {
-      field: 'with_date',
-      headerName: 'Date',
+      field: 'with_referrance',
+      headerName: 'With Referrance',
       sortable: false,
       width: 160
     },
     {
-      field: 'topup_amount',
-      headerName: 'Topup Amount',
+      field: 'with_amt',
+      headerName: 'Withdraw Amount',
+      sortable: false,
+      width: 160
+    },
+    {
+      field: 'with_date',
+      headerName: 'Withdraw Date',
       sortable: false,
       width: 160
     }

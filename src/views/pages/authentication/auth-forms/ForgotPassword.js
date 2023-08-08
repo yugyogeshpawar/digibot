@@ -121,7 +121,7 @@ const ForgotPassword = ({ ...others }) => {
 
       <Formik
         initialValues={{
-          email: 'info@royalmagic.live',
+          email: 'metaxland@gmail.com',
           submit: null
         }}
         validationSchema={Yup.object().shape({

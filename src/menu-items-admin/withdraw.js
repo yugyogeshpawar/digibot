@@ -12,13 +12,6 @@ const withdraw = {
   type: 'group',
   children: [
     {
-      id: 'withdraw',
-      title: 'Withdraw List',
-      type: 'item',
-      url: 'admin/withdraw/list',
-      icon: icons.IconCash
-    },
-    {
       id: 'withdraw-request',
       title: 'Withdraw Request',
       type: 'item',

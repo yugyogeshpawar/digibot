@@ -6,20 +6,25 @@ import MinimalLayout from 'layout/MinimalLayout';
 import AdminGuestGuard from '../guards/AdminGuestGuard';
 // login option 3 routing
 const AdminLogin = Loadable(lazy(() => import('views/pages/authentication/authentication/AdminLogin')));
+const ForgotPassword = Loadable(lazy(() => import('views/pages/authentication/auth-forms/ForgotPassword')));
 
 // ==============================|| AUTHENTICATION ROUTING ||============================== //
 
 const AuthenticationRoutes = {
   path: '/',
-  element: <MinimalLayout />,
+  element: (
+    <AdminGuestGuard>
+      <MinimalLayout />{' '}
+    </AdminGuestGuard>
+  ),
   children: [
     {
-      path: '/admin/login',
-      element: (
-        <AdminGuestGuard>
-          <AdminLogin />
-        </AdminGuestGuard>
-      )
+      path: '/login',
+      element: <AdminLogin />
+    },
+    {
+      path: '/forgot-password',
+      element: <ForgotPassword />
     }
   ]
 };
