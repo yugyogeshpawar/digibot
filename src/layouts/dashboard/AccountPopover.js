@@ -4,6 +4,7 @@ import { useRef, useState } from 'react';
 import homeFill from '@iconify/icons-eva/home-fill';
 import personFill from '@iconify/icons-eva/person-fill';
 import settings2Fill from '@iconify/icons-eva/settings-2-fill';
+import roundVpnKey from '@iconify/icons-ic/round-vpn-key';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // material
 import { alpha } from '@material-ui/core/styles';
@@ -30,6 +31,11 @@ const MENU_OPTIONS = [
     label: 'Profile',
     icon: personFill,
     linkTo: PATH_DASHBOARD.user.profile
+  },
+  {
+    label: 'Change Password',
+    icon: roundVpnKey,
+    linkTo: PATH_DASHBOARD.user.password
   },
   {
     label: 'Settings',
