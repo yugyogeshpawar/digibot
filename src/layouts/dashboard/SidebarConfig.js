@@ -39,19 +39,12 @@ const sidebarConfig = [
         path: PATH_DASHBOARD.general.app,
         icon: ICONS.teams
       },
-      { title: 'My Bot', path: PATH_DASHBOARD.general.mybot, icon: ICONS.robot }
-      // { title: 'My Team', path: PATH_DASHBOARD.general.analytics, icon: ICONS.teams },
-      // { title: 'Events and News', path: PATH_DASHBOARD.general.events, icon: ICONS.banking }
-    ]
-  },
-  {
-    items: [
+      { title: 'My Bot', path: PATH_DASHBOARD.general.mybot, icon: ICONS.robot },
       {
         title: 'My Profile',
         path: PATH_DASHBOARD.myprofile.editprofile,
         icon: ICONS.user
       }
-      // { title: 'My Bot', path: PATH_DASHBOARD.general.mybot, icon: ICONS.robot },
       // { title: 'My Team', path: PATH_DASHBOARD.general.analytics, icon: ICONS.teams },
       // { title: 'Events and News', path: PATH_DASHBOARD.general.events, icon: ICONS.banking }
     ]
