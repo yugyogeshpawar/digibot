@@ -1,23 +1,49 @@
 /* eslint-disable no-unneeded-ternary */
 // Frontend Component: AccountGeneral.js
-import React, { useEffect } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import * as Yup from 'yup';
 import { useSnackbar } from 'notistack5';
 import { Form, FormikProvider, useFormik } from 'formik';
-import { Box, Grid, Card, Stack, TextField } from '@material-ui/core';
+import {
+  Box,
+  Grid,
+  Card,
+  Stack,
+  TextField,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Slide,
+  Button
+} from '@material-ui/core';
 import { LoadingButton } from '@material-ui/lab';
 // eslint-disable-next-line import/no-unresolved
 // Import your API function
 // eslint-disable-next-line import/no-unresolved
 import { patchUpdateWalletAddress } from 'src/redux/slices/user';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 import useAuth from '../../../../hooks/useAuth';
 import useIsMountedRef from '../../../../hooks/useIsMountedRef';
 
 export default function AccountGeneral() {
   const isMountedRef = useIsMountedRef();
   const { enqueueSnackbar } = useSnackbar();
+  const [resMsg, setResMsg] = useState(null);
   // const { user, updateProfile } = useAuth();
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+
+  const handleCloseGotoDashboard = () => {
+    setOpen(false);
+    navigate('/dashboard/aap');
+  };
+  const handleClose = () => {
+    setOpen(false);
+    navigate('/dashboard/payout/minting');
+  };
   const dispatch = useDispatch(); // Add dispatch here
   const { updateWalletAddressRes } = useSelector((state) => state.user);
   const UpdateUserSchema = Yup.object().shape({
@@ -46,6 +72,9 @@ export default function AccountGeneral() {
           const statusRes = response.status === 200 ? 'success' : 'info';
           enqueueSnackbar(response.data.message, { variant: statusRes });
           // You can update your Redux store or take any other action here
+          // redirect to withdraw
+          setResMsg(response.data.message);
+          setOpen(true);
         }
       } catch (error) {
         // Handle API call error
@@ -56,6 +85,8 @@ export default function AccountGeneral() {
   });
   const { isSubmitting, handleSubmit, getFieldProps, setFieldValue } = formik;
   // console.log('updateWalletAddressRes ::::::::++++>>>> ', updateWalletAddressRes);
+  const Transition = forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
+
   return (
     <FormikProvider value={formik}>
       <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
@@ -100,6 +131,27 @@ export default function AccountGeneral() {
           </Grid>
         </Grid>
       </Form>
+      <Dialog
+        open={open}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-slide-title"
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle id="alert-dialog-slide-title">Add Wallet Address</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">{resMsg}</DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button variant="contained" onClick={handleClose}>
+            Go to Withdraw
+          </Button>
+          <Button variant="contained" onClick={handleCloseGotoDashboard}>
+            Go to dashboard
+          </Button>
+        </DialogActions>
+      </Dialog>
     </FormikProvider>
   );
 }

@@ -109,23 +109,27 @@ const DashNavHero = () => {
   const classes = useStyles();
 
   return (
-    <Grid container>
+    <Grid container display="flex" justifyContent="center">
       <Grid item>
         <div className={classes.mainDasNavhero}>
           <Box display="flex" p={2} alignItems="center">
             <Box display="flex" p={2}>
               <Box mr={1}>
-                <Typography noWrap>
+                <Typography noWrap color="secondary">
                   Total Investment: <span> {user?.investment_busd} </span>
                 </Typography>
               </Box>
             </Box>
             <Box display="flex" className="hiddenOnMobile">
               <div>
-                <Box style={{ display: 'flex' }}>
+                <Box style={{ display: 'flex', color: '#3366FF' }}>
                   UTC Time :{' '}
                   <span style={{ marginLeft: '5px' }}>
-                    {!isSmallScreen && <Typography variant="subtitle1">{formattedUTCTime(currentTime)}</Typography>}
+                    {!isSmallScreen && (
+                      <Typography color="secondary" variant="subtitle1">
+                        {formattedUTCTime(currentTime)}
+                      </Typography>
+                    )}
                   </span>
                 </Box>
               </div>
@@ -138,7 +142,7 @@ const DashNavHero = () => {
                   <Box>
                     <TimerContainer>
                       <TimerDigit color="white">
-                        <Box> {timeRemaining}</Box>
+                        <Box style={{ color: '#3366FF' }}> {timeRemaining}</Box>
                       </TimerDigit>
                     </TimerContainer>
                   </Box>

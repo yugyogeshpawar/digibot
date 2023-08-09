@@ -886,32 +886,6 @@ export function postWithdraw(value) {
   };
 }
 
-// export const patchUpdateWalletAddress = (values) => async (dispatch) => {
-//   console.log('ttttttttttt', values);
-//   dispatch(slice.actions.startLoading());
-//   try {
-//     const accessToken = window.localStorage.getItem('accessToken');
-
-//     const response = await axios.patch(
-//       `${baseUrl}/users/updateWallet`,
-//       values, // Convert value to JSON string
-//       {
-//         headers: {
-//           Authorization: `Bearer ${accessToken}`, // Use 'Authorization' with capital 'A'
-//           'Content-Type': 'application/json'
-//         }
-//       }
-//     );
-
-//     dispatch(slice.actions.patchUpdateWalletAddressSuccess(response.data));
-//     console.log('Response from API:', response.data);
-//     return response.data;
-//   } catch (error) {
-//     dispatch(slice.actions.hasError(error));
-//     return error; // Rethrow the error so that it can be caught in the component
-//   }
-// };
-
 export function patchUpdateWalletAddress(values) {
   const sendVal = {
     walletAddress: values

@@ -5,6 +5,7 @@ import { Form, FormikProvider, useFormik } from 'formik';
 // material
 import { Box, Grid, Card, Stack, TextField, Typography, FormHelperText } from '@material-ui/core';
 import { LoadingButton } from '@material-ui/lab';
+import MyAvatar from '../../../MyAvatar';
 // hooks
 import useAuth from '../../../../hooks/useAuth';
 import useIsMountedRef from '../../../../hooks/useIsMountedRef';
@@ -76,8 +77,11 @@ export default function AccountGeneral2() {
       <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={4}>
-            <Card sx={{ py: 10, px: 3, textAlign: 'center' }}>
-              <img src="" alt="profile-pic" />
+            <Card
+              style={{ display: 'flex', justifyContent: 'center', height: '22.77rem', alignItems: 'center' }}
+              sx={{ py: 10, px: 3, textAlign: 'center' }}
+            >
+              <MyAvatar style={{ scale: '1.5' }} />
               {/* <UploadAvatar
                 accept="image/*"
                 file={values.photoURL}
