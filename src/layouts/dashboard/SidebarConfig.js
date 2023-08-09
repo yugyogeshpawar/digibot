@@ -44,21 +44,16 @@ const sidebarConfig = [
       // { title: 'Events and News', path: PATH_DASHBOARD.general.events, icon: ICONS.banking }
     ]
   },
-  {
-    subheader: 'my profile',
+   {
     items: [
       {
-        title: 'my profile',
-        path: PATH_DASHBOARD.myprofile.root,
-        icon: ICONS.user,
-        children: [
-          { title: 'view profile', path: PATH_DASHBOARD.myprofile.viewprofile },
-          { title: 'edit profile', path: PATH_DASHBOARD.myprofile.editprofile }
-          // { title: 'KYC profile', path: PATH_DASHBOARD.myprofile.UserKYC }
-          // { title: 'shop', path: PATH_DASHBOARD.nftMarket.shop },
-          // { title: 'list', path: PATH_DASHBOARD.eCommerce.list },
-        ]
+        title: 'My Profile',
+        path: PATH_DASHBOARD.myprofile.editprofile,
+        icon: ICONS.user
       }
+      // { title: 'My Bot', path: PATH_DASHBOARD.general.mybot, icon: ICONS.robot },
+      // { title: 'My Team', path: PATH_DASHBOARD.general.analytics, icon: ICONS.teams },
+      // { title: 'Events and News', path: PATH_DASHBOARD.general.events, icon: ICONS.banking }
     ]
   },
   {
