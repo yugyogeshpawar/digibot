@@ -6,6 +6,7 @@ import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
 import GuestGuard from '../guards/GuestGuard';
 import AuthGuard from '../guards/AuthGuard';
 import LoadingScreen from '../components/LoadingScreen';
+import { AccountChangePassword } from '../components/_dashboard/user/account';
 
 // ----------------------------------------------------------------------
 
@@ -117,7 +118,8 @@ export default function Router() {
             { path: 'list', element: <UserList /> },
             { path: 'new', element: <UserCreate /> },
             { path: '/:name/edit', element: <UserCreate /> },
-            { path: 'account', element: <UserAccount /> }
+            { path: 'account', element: <UserAccount /> },
+            { path: 'password', element: <AccountChangePassword /> }
           ]
         },
         {
