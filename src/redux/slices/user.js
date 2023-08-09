@@ -881,3 +881,38 @@ export function postWithdraw(value) {
     }
   };
 }
+
+export function patchUpdateWalletAddress(values) {
+  const sendVal = {
+    walletAddress: values
+  };
+  return async (dispatch) => {
+    console.log(values);
+    dispatch(slice.actions.startLoading());
+    try {
+      const accessToken = window.localStorage.getItem('accessToken');
+      if (!accessToken) {
+        throw new Error('Access token not found. Please log in again.');
+      }
+
+      const headers = { Authorization: `Bearer ${accessToken}` };
+      const urlApi = `${baseUrl}/users/updateWallet`;
+      const response = await axios.patch(urlApi, sendVal, { headers });
+
+      if (response.status === 200) {
+        console.log(response.data, 'API response');
+        dispatch(slice.actions.patchUpdateWalletAddressSuccess(response.data));
+        return response;
+      } else {
+        throw new Error(`API request failed with status code ${response.status}`);
+      }
+    } catch (error) {
+      console.log(error, 'API error');
+      if (error.response) {
+        console.log(error.response);
+        return error.response;
+      }
+      return 'Something went wrong!';
+    }
+  };
+}

@@ -1,23 +1,27 @@
+/* eslint-disable no-unneeded-ternary */
+// Frontend Component: AccountGeneral.js
+import React, { useEffect } from 'react';
 import * as Yup from 'yup';
 import { useSnackbar } from 'notistack5';
-import { useCallback } from 'react';
 import { Form, FormikProvider, useFormik } from 'formik';
-// material
 import { Box, Grid, Card, Stack, TextField } from '@material-ui/core';
 import { LoadingButton } from '@material-ui/lab';
-// hooks
+// eslint-disable-next-line import/no-unresolved
+// Import your API function
+// eslint-disable-next-line import/no-unresolved
+import { patchUpdateWalletAddress } from 'src/redux/slices/user';
+import { useDispatch, useSelector } from 'react-redux';
 import useAuth from '../../../../hooks/useAuth';
 import useIsMountedRef from '../../../../hooks/useIsMountedRef';
-
-// ----------------------------------------------------------------------
 
 export default function AccountGeneral() {
   const isMountedRef = useIsMountedRef();
   const { enqueueSnackbar } = useSnackbar();
-  const { user, updateProfile } = useAuth();
+  // const { user, updateProfile } = useAuth();
+  const dispatch = useDispatch(); // Add dispatch here
+  const { updateWalletAddressRes } = useSelector((state) => state.user);
   const UpdateUserSchema = Yup.object().shape({
-    displayName: Yup.string().required('Name is required'),
-    address: Yup.string()
+    walletAddress: Yup.string()
       .min(30, 'Wallet address should be at least 30 characters long')
       .required('Wallet address is required')
   });
@@ -25,40 +29,33 @@ export default function AccountGeneral() {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      address: ''
+      walletAddress: ''
     },
     validationSchema: UpdateUserSchema,
     onSubmit: async (values, { setErrors, setSubmitting }) => {
       try {
-        await updateProfile({ ...values });
-        enqueueSnackbar('Update success', { variant: 'success' });
-        if (isMountedRef.current) {
-          setSubmitting(false);
+        // Make the API call here
+        const response = await dispatch(patchUpdateWalletAddress(values.walletAddress));
+        console.log(response);
+        // Handle the response as needed
+        if (response.error) {
+          // Handle error
+          enqueueSnackbar('Error updating wallet address', { variant: 'error' });
+        } else {
+          // Handle success
+          const statusRes = response.status === 200 ? 'success' : 'info';
+          enqueueSnackbar(response.data.message, { variant: statusRes });
+          // You can update your Redux store or take any other action here
         }
       } catch (error) {
-        if (isMountedRef.current) {
-          setErrors({ afterSubmit: error.code });
-          setSubmitting(false);
-        }
+        // Handle API call error
+        console.error('Error updating wallet address:', error);
+        enqueueSnackbar('An error occurred while updating wallet address', { variant: 'error' });
       }
     }
   });
-
   const { isSubmitting, handleSubmit, getFieldProps, setFieldValue } = formik;
-
-  const handleDrop = useCallback(
-    (acceptedFiles) => {
-      const file = acceptedFiles[0];
-      if (file) {
-        setFieldValue('photoURL', {
-          ...file,
-          preview: URL.createObjectURL(file)
-        });
-      }
-    },
-    [setFieldValue]
-  );
-
+  // console.log('updateWalletAddressRes ::::::::++++>>>> ', updateWalletAddressRes);
   return (
     <FormikProvider value={formik}>
       <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
@@ -70,10 +67,11 @@ export default function AccountGeneral() {
                   <TextField
                     fullWidth
                     label="Wallet Address"
-                    {...getFieldProps('address')}
-                    // eslint-disable-next-line no-unneeded-ternary
-                    error={formik.touched.address && formik.errors.address ? true : false}
-                    helperText={formik.touched.address && formik.errors.address ? formik.errors.address : null}
+                    {...getFieldProps('walletAddress')}
+                    error={formik.touched.walletAddress && formik.errors.walletAddress ? true : false}
+                    helperText={
+                      formik.touched.walletAddress && formik.errors.walletAddress ? formik.errors.walletAddress : null
+                    }
                   />
                 </Stack>
               </Stack>
@@ -84,17 +82,19 @@ export default function AccountGeneral() {
                 </LoadingButton>
               </Box>
               <Box>
-                <h1>Important </h1>
-                <ol style={{ marginLeft: '16px' }}>
-                  <li>Your wallet should be Metamask register</li>
-                  <li>Wallet address should be at least 30 characters long.</li>
-                  <li>Sending any other wallet address may result in the loss</li>
-                  <li>
-                    Please check your wallet carefully before add , once you add then you can't change your wallet
-                    address{' '}
-                  </li>
-                  <li>Withdraw will automatically be processed after 3 network confirmations.</li>
-                </ol>
+                <Box>
+                  <h1>Important </h1>
+                  <ol style={{ marginLeft: '16px' }}>
+                    <li>Your wallet should be Metamask register</li>
+                    <li>Wallet address should be at least 30 characters long.</li>
+                    <li>Sending any other wallet address may result in the loss</li>{' '}
+                    <li>
+                      Please check your wallet carefully before add , once you add then you can't change your wallet //
+                      address{' '}
+                    </li>
+                    <li>Withdraw will automatically be processed after 3 network confirmations.</li>
+                  </ol>
+                </Box>
               </Box>
             </Card>
           </Grid>

@@ -128,7 +128,7 @@ export default function PayoutCart({ checkoutType, setWithdrawSummary }) {
 
   console.log('user +++++++ :', user);
   const hasWalletAddress = user?.wallet_address !== null;
-  const isKycSuccesUser = user?.kyc_status !== 0;
+  const isKycSuccesUser = user?.wallet_address !== null;
 
   return (
     <div>
