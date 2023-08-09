@@ -5,4 +5,5 @@ export { default as AccountBillingPaymentMethod } from './AccountBillingPaymentM
 export { default as AccountChangePassword } from './AccountChangePassword';
 export { default as AccountGeneral } from './AccountGeneral';
 export { default as AccountNotifications } from './AccountNotifications';
+export { default as AccountGeneral2 } from './AccountGeneral2';
 export { default as AccountSocialLinks } from './AccountSocialLinks';
