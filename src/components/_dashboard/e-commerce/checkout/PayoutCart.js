@@ -124,6 +124,7 @@ export default function PayoutCart({ checkoutType, setWithdrawSummary }) {
     if (!isKycSuccesUser) {
       setOpen(true);
     }
+    // window.location.reload();
   }, [navigate]);
 
   console.log('user +++++++ :', user);
