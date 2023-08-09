@@ -44,7 +44,7 @@ const sidebarConfig = [
       // { title: 'Events and News', path: PATH_DASHBOARD.general.events, icon: ICONS.banking }
     ]
   },
-   {
+  {
     items: [
       {
         title: 'My Profile',
