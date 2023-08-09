@@ -1,12 +1,29 @@
 /* eslint-disable jsx-a11y/no-distracting-elements */
 // /* eslint-disable jsx-a11y/no-distracting-elements */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, forwardRef } from 'react';
 
 import { Link, useNavigate } from 'react-router-dom';
-import { styled } from '@material-ui/core/styles';
-import { Box, Typography, Button, Card, CardContent } from '@material-ui/core';
 import { useSnackbar } from 'notistack5';
+
+import {
+  Box,
+  Typography,
+  styled,
+  Button,
+  Card,
+  CardContent,
+  Grid,
+  Slide,
+  Dialog,
+  DialogTitle,
+  DialogActions,
+  DialogContentText,
+  DialogContent,
+  CardHeader,
+  Stack,
+  TextField
+} from '@material-ui/core';
 
 // eslint-disable-next-line import/no-unresolved
 import useAuth from 'src/hooks/useAuth';
@@ -47,18 +64,26 @@ const TimerDigit = styled(Box)({
 });
 
 export default function AppWelcome() {
+  // const Transition = forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
   const { user } = useAuth();
   const { enqueueSnackbar } = useSnackbar(); // Initialize the notistack
 
   const [timerSecond, setTimerSecond] = useState(null);
   const [timerMinutes, setTimerMinutes] = useState(null);
   const [timerHour, setTimerHour] = useState(null);
+  const [open, setOpen] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(null);
   // const registrationDateAndTime = '2023-08-04T05:29:12.548Z';
   const [sawNotification, setSawNotification] = useState(false);
   const registrationDateAndTime = user?.registration_date;
   const navigate = useNavigate();
+
   useEffect(() => {
+    // setOpen(true);
+    // setTimeout(() => {
+    //   setOpen(false);
+    // }, 4000);
+
     let timerInterval;
     let notificationInterval;
 
@@ -82,9 +107,15 @@ export default function AppWelcome() {
             .padStart(2, '0')} : ${seconds.toString().padStart(2, '0')}`;
           setTimeRemaining(formattedTime);
 
-          // Show popup every 30 seconds
-          if (diff % 60000 === 0) {
-            setSawNotification(true);
+          if (diff - 5400000 >= 0 && diff - 5400000 <= 10) {
+            setOpen(true);
+            console.log('ASAS');
+          } else if (diff - 3600000 >= 0 && diff - 3600000 <= 10) {
+            setOpen(true);
+            console.log('ASAS');
+          } else if (diff - 1800000 >= 0 && diff - 1800000 <= 10) {
+            setOpen(true);
+            console.log('ASAS');
           }
         } else {
           setTimeRemaining('Time Expired');
@@ -97,12 +128,13 @@ export default function AppWelcome() {
       timerInterval = setInterval(updateTimer, 10);
 
       // Show initial notification when component mounts
-      setSawNotification(true);
+      // setSawNotification(true);
 
       // Show notification every 30 seconds
-      notificationInterval = setInterval(() => {
-        setSawNotification(true);
-      }, 30000);
+      // notificationInterval = setInterval(() => {
+      // setSawNotification(true);
+      //   setOpen(true);
+      // }, 30000);
     }
 
     return () => {
@@ -111,11 +143,16 @@ export default function AppWelcome() {
     };
   }, [registrationDateAndTime]);
 
+  const handleClose = () => {
+    setOpen(false);
+    // navigate('/dashboard/myprofile/UserKYC');
+  };
+
   const formatedHour = timerHour < 10 ? `0${timerHour}` : timerHour;
   const formatedMinutes = timerMinutes < 10 ? `0${timerMinutes}` : timerMinutes;
   const formatedSecond = timerSecond < 10 ? `0${timerSecond}` : timerSecond;
   const handleNavigate = () => {
-    navigate('/dashboard/stake');
+    setOpen(true);
   };
 
   // Show the notification if sawNotification is true
@@ -173,6 +210,27 @@ export default function AppWelcome() {
           </Box>
         </Box>
       </CardContent>
+
+      <Dialog
+        open={open}
+        // TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-slide-title"
+        aria-describedby="alert-dialog-slide-description"
+      >
+        <DialogTitle id="alert-dialog-slide-title">Add Wallet Address</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            please add your wallet address for withdraw . without wallet address you can't withdraw
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button variant="contained" onClick={handleClose}>
+            Add your wallet address
+          </Button>
+        </DialogActions>
+      </Dialog>
     </RootStyle>
   );
 }
