@@ -36,13 +36,9 @@ export default function AccountGeneral() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
-  const handleCloseGotoDashboard = () => {
-    setOpen(false);
-    navigate('/dashboard/aap');
-  };
   const handleClose = () => {
     setOpen(false);
-    navigate('/dashboard/payout/minting');
+    navigate('/dashboard/app');
   };
   const dispatch = useDispatch(); // Add dispatch here
   const { updateWalletAddressRes } = useSelector((state) => state.user);
@@ -139,15 +135,12 @@ export default function AccountGeneral() {
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle id="alert-dialog-slide-title">Add Wallet Address</DialogTitle>
+        <DialogTitle id="alert-dialog-slide-title">Your wallet address status : </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">{resMsg}</DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button variant="contained" onClick={handleClose}>
-            Go to Withdraw
-          </Button>
-          <Button variant="contained" onClick={handleCloseGotoDashboard}>
             Go to dashboard
           </Button>
         </DialogActions>

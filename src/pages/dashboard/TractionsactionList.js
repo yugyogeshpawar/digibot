@@ -75,7 +75,7 @@ export default function TractionsactionList() {
                     <TableRow key={row.date}>
                       <TableCell>
                         <Stack direction="row" alignItems="center" spacing={2}>
-                          <Typography variant="subtitle2">{ind}</Typography>
+                          <Typography variant="subtitle2">{ind + 1}</Typography>
                         </Stack>
                       </TableCell>
 
