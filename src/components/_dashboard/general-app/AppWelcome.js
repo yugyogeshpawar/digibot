@@ -74,10 +74,9 @@ export default function AppWelcome({ displayName, memberUserId }) {
       });
     } catch (error) {
       const tempItem = document.createElement('input');
-
       tempItem.setAttribute('type', 'text');
       tempItem.setAttribute('display', 'none');
-      const content = `https://digibot.co/digibotUApp/Signup?UplineId=${memberUserId}`;
+      const content = `http://app.digibot.trade/digibotUApp/Signup?UplineId=${memberUserId}`;
       tempItem.setAttribute('value', content);
       document.body.appendChild(tempItem);
 

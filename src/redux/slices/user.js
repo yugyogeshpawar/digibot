@@ -221,6 +221,10 @@ const slice = createSlice({
     postwithdrawsucces(state, action) {
       state.isLoading = false;
       state.withdrawpost = action.payload;
+    },
+    patchUpdateWalletAddressSuccess(state, action) {
+      state.isLoading = false;
+      state.updateWalletAddressRes = action.payload;
     }
   }
 });
@@ -867,6 +871,67 @@ export function postWithdraw(value) {
       if (response.status === 200) {
         console.log(response.data, 'API response');
         dispatch(slice.actions.postwithdrawsucces(response.data));
+        return response;
+      } else {
+        throw new Error(`API request failed with status code ${response.status}`);
+      }
+    } catch (error) {
+      console.log(error, 'API error');
+      if (error.response) {
+        console.log(error.response);
+        return error.response;
+      }
+      return 'Something went wrong!';
+    }
+  };
+}
+
+// export const patchUpdateWalletAddress = (values) => async (dispatch) => {
+//   console.log('ttttttttttt', values);
+//   dispatch(slice.actions.startLoading());
+//   try {
+//     const accessToken = window.localStorage.getItem('accessToken');
+
+//     const response = await axios.patch(
+//       `${baseUrl}/users/updateWallet`,
+//       values, // Convert value to JSON string
+//       {
+//         headers: {
+//           Authorization: `Bearer ${accessToken}`, // Use 'Authorization' with capital 'A'
+//           'Content-Type': 'application/json'
+//         }
+//       }
+//     );
+
+//     dispatch(slice.actions.patchUpdateWalletAddressSuccess(response.data));
+//     console.log('Response from API:', response.data);
+//     return response.data;
+//   } catch (error) {
+//     dispatch(slice.actions.hasError(error));
+//     return error; // Rethrow the error so that it can be caught in the component
+//   }
+// };
+
+export function patchUpdateWalletAddress(values) {
+  const sendVal = {
+    walletAddress: values
+  };
+  return async (dispatch) => {
+    console.log(values);
+    dispatch(slice.actions.startLoading());
+    try {
+      const accessToken = window.localStorage.getItem('accessToken');
+      if (!accessToken) {
+        throw new Error('Access token not found. Please log in again.');
+      }
+
+      const headers = { Authorization: `Bearer ${accessToken}` };
+      const urlApi = `${baseUrl}/users/updateWallet`;
+      const response = await axios.patch(urlApi, sendVal, { headers });
+
+      if (response.status === 200) {
+        console.log(response.data, 'API response');
+        dispatch(slice.actions.patchUpdateWalletAddressSuccess(response.data));
         return response;
       } else {
         throw new Error(`API request failed with status code ${response.status}`);

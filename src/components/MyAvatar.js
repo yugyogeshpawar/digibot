@@ -11,12 +11,12 @@ export default function MyAvatar({ ...other }) {
 
   return (
     <MAvatar
-      src={user.status ? `https://beta.digibot.co/kycImage/${user.profile_image}` : ''}
+      src={user?.status ? `https://beta.digibot.co/kycImage/${user?.profile_image}` : ''}
       alt={user?.member_name}
-      color={user.photoURL ? 'default' : createAvatar(user.displayName).color}
+      color={user?.photoURL ? 'default' : createAvatar(user?.displayName).color}
       {...other}
     >
-      {createAvatar(user.member_name).name}
+      {createAvatar(user?.member_name).name}
     </MAvatar>
   );
 }

@@ -58,19 +58,19 @@ export default function Dashboard() {
             {user?.status === 0 ? <TimerAndMarquee /> : null}
           </Grid>
           <Grid item xs={12} md={8} sx={{ pt: 0 }}>
-            <AppWelcome displayName={user.member_name} memberUserId={user.member_user_id} />
+            <AppWelcome displayName={user?.member_name} memberUserId={user?.member_user_id} />
           </Grid>
           <Grid item xs={12} md={4}>
             <AppFeatured nft3={myProfile?.nft3} />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={user.investment_busd} title="My Package" />
+            <MyRank teamBusiness={user?.investment_busd} title="My Package" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <WithoutUSD teamBusiness={user.team_member} title="My Downline" />
+            <WithoutUSD teamBusiness={user?.team_member} title="My Downline" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <WithoutUSD teamBusiness={user.left_member + user.right_member} title="Total Active" />
+            <WithoutUSD teamBusiness={user?.left_member + user?.right_member} title="Total Active" />
           </Grid>
           <Grid item xs={12} md={4}>
             <AppTotalActiveUsers totalEarning={user?.left_member} title="Left Active" />
@@ -85,10 +85,10 @@ export default function Dashboard() {
             <MyRank teamBusiness={user?.team_business_right} title="Right business" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <WithoutUSD teamBusiness={user.direct_member} title=" Direct Member" />
+            <WithoutUSD teamBusiness={user?.direct_member} title=" Direct Member" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <WithoutUSD teamBusiness={`${user.left_pair} : ${user.right_pair}`} title=" First Pair" />
+            <WithoutUSD teamBusiness={`${user?.left_pair} : ${user?.right_pair}`} title=" First Pair" />
           </Grid>
           <Grid item xs={12} md={4}>
             <MyRank teamBusiness={incomeDash?.stake} title="Staking Bonus" />

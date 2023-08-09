@@ -13,6 +13,8 @@ import roundBusinessCenter from '@iconify/icons-ic/round-business-center';
 // material
 import { styled } from '@material-ui/core/styles';
 import { Link, Card, Typography, CardHeader, Stack } from '@material-ui/core';
+// eslint-disable-next-line import/no-unresolved
+import useAuth from 'src/hooks/useAuth';
 
 // ----------------------------------------------------------------------
 
@@ -32,16 +34,18 @@ ProfileAbout.propTypes = {
 
 export default function ProfileAbout({ profile }) {
   const { row } = profile;
-  const memberName = row.member_name;
-  const memberWalletAddress = row.wallet_address;
-  const memberEmail = row.email;
-  const memberAddress = row.address;
-  const memeberContact = row.contact;
-  const memeberUserId = row.member_user_id;
-  const memberState = row.state;
-  const memberDob = row.member_dob;
-  const memberPincode = row.pincode;
-  const memberGender = row.gender;
+  const { user } = useAuth();
+  console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>', user);
+  const memberName = user?.member_name;
+  const memberWalletAddress = user.wallet_address;
+  const memberEmail = user.email;
+  const memberAddress = user.address;
+  const memeberContact = user.contact;
+  const memeberUserId = user.member_user_id;
+  const memberState = user.state;
+  const memberDob = user.member_dob;
+  const memberPincode = user.pincode;
+  const memberGender = user.gender;
 
   const wltAddress = memberWalletAddress?.slice(0, 26);
 
