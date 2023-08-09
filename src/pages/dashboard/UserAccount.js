@@ -24,12 +24,13 @@ import {
   AccountNotifications,
   AccountChangePassword
 } from '../../components/_dashboard/user/account';
+import AccountGeneral2 from '../../components/_dashboard/user/account/AccountGeneral2';
 
 // ----------------------------------------------------------------------
 
 export default function UserAccount() {
   const { themeStretch } = useSettings();
-  const [currentTab, setCurrentTab] = useState('general');
+  const [currentTab, setCurrentTab] = useState('View Profile');
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -43,30 +44,30 @@ export default function UserAccount() {
 
   const ACCOUNT_TABS = [
     {
-      value: 'general',
+      value: 'View Profile',
+      icon: <Icon icon={roundVpnKey} width={20} height={20} />,
+      component: <AccountGeneral2 />
+    },
+    {
+      value: 'Edit Profile',
       icon: <Icon icon={roundAccountBox} width={20} height={20} />,
       component: <AccountGeneral />
-    },
+    }
     // {
     //   value: 'billing',
     //   icon: <Icon icon={roundReceipt} width={20} height={20} />,
     //   component: <AccountBilling />
     // },
-    {
-      value: 'notifications',
-      icon: <Icon icon={bellFill} width={20} height={20} />,
-      component: <AccountNotifications />
-    },
-    {
-      value: 'social_links',
-      icon: <Icon icon={shareFill} width={20} height={20} />,
-      component: <AccountSocialLinks />
-    },
-    {
-      value: 'change_password',
-      icon: <Icon icon={roundVpnKey} width={20} height={20} />,
-      component: <AccountChangePassword />
-    }
+    // {
+    //   value: 'notifications',
+    //   icon: <Icon icon={bellFill} width={20} height={20} />,
+    //   component: <AccountNotifications />
+    // },
+    // {
+    //   value: 'social_links',
+    //   icon: <Icon icon={shareFill} width={20} height={20} />,
+    //   component: <AccountSocialLinks />
+    // },
   ];
 
   const handleChangeTab = (event, newValue) => {
@@ -77,7 +78,7 @@ export default function UserAccount() {
     <Page title="User: Account Settings | Digibot">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading="Edite Account"
+          heading="Edit Account"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
             { name: 'User', href: PATH_DASHBOARD.user.root },
@@ -86,7 +87,7 @@ export default function UserAccount() {
         />
 
         <Stack spacing={5}>
-          {/* <Tabs
+          <Tabs
             value={currentTab}
             scrollButtons="auto"
             variant="scrollable"
@@ -96,7 +97,7 @@ export default function UserAccount() {
             {ACCOUNT_TABS.map((tab) => (
               <Tab disableRipple key={tab.value} label={capitalCase(tab.value)} icon={tab.icon} value={tab.value} />
             ))}
-          </Tabs> */}
+          </Tabs>
 
           {ACCOUNT_TABS.map((tab) => {
             const isMatched = tab.value === currentTab;
