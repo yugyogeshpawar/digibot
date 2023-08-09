@@ -145,7 +145,10 @@ export default function AppWelcome() {
 
   const handleClose = () => {
     setOpen(false);
-    // navigate('/dashboard/myprofile/UserKYC');
+    navigate('/dashboard/stake');
+  };
+  const handleClose1 = () => {
+    setOpen(false);
   };
 
   const formatedHour = timerHour < 10 ? `0${timerHour}` : timerHour;
@@ -197,7 +200,7 @@ export default function AppWelcome() {
               </marquee>
             </Box>
           </Box>
-          <Box>
+          {/* <Box>
             <Box>
               {formatedHour === null ? (
                 'Timer Expired'
@@ -207,7 +210,7 @@ export default function AppWelcome() {
                 </TimerContainer>
               )}
             </Box>
-          </Box>
+          </Box> */}
         </Box>
       </CardContent>
 
@@ -215,19 +218,22 @@ export default function AppWelcome() {
         open={open}
         // TransitionComponent={Transition}
         keepMounted
-        onClose={handleClose}
+        // onClose={handleClose}
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle id="alert-dialog-slide-title">Add Wallet Address</DialogTitle>
+        <DialogTitle id="alert-dialog-slide-title"> Activate Your ID</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            please add your wallet address for withdraw . without wallet address you can't withdraw
+            Please Activate Your Id before countdown expires!
           </DialogContentText>
         </DialogContent>
         <DialogActions>
+          <Button variant="Secondary" onClick={handleClose1}>
+            Cancel
+          </Button>
           <Button variant="contained" onClick={handleClose}>
-            Add your wallet address
+            Activate Your ID
           </Button>
         </DialogActions>
       </Dialog>
