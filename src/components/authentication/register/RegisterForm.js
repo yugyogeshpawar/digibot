@@ -202,7 +202,8 @@ export default function RegisterForm() {
 
   const handleDialogContentScroll = (event) => {
     const { scrollTop, scrollHeight, clientHeight } = event.target;
-    const isScrolledToEnd = scrollTop + clientHeight === scrollHeight;
+    console.log(scrollTop + clientHeight - (scrollHeight - 10));
+    const isScrolledToEnd = scrollTop + clientHeight >= scrollHeight - 20;
     setIsScrolledToEnd(isScrolledToEnd);
   };
 
