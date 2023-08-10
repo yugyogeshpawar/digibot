@@ -17,6 +17,7 @@ export default function InactiveUsers() {
           member_name: item.member_name,
           contact: item.contact,
           email: item.email,
+          r_date: item.registration_date,
           wallet_amount: item.wallet_amount
         }));
         setRows(mappedData);
@@ -32,7 +33,7 @@ export default function InactiveUsers() {
       field: 'member_user_id',
       headerName: 'Member User Id',
       width: 150,
-      editable: true
+      editable: false
     },
     {
       field: 'member_name',
@@ -49,6 +50,12 @@ export default function InactiveUsers() {
     {
       field: 'email',
       headerName: 'Email',
+      sortable: false,
+      width: 160
+    },
+    {
+      field: 'r_date',
+      headerName: 'Registration Date',
       sortable: false,
       width: 160
     },

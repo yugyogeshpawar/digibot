@@ -18,8 +18,11 @@ export default function ActiveUsers() {
           id: index + 1,
           member_user_id: item.member_user_id,
           member_name: item.member_name,
-          contact: item.contact,
+          Sponcer: item.sponcer_id,
+          Sponcer_name: item.sponcer_name,
           email: item.email,
+          contact: item.contact,
+          r_date: item.registration_date,
           topup_amount: item.topup_amount
         }));
         setRows(mappedData);
@@ -36,7 +39,7 @@ export default function ActiveUsers() {
     }
     const res = await getSearchDashboard(userID);
     setSession(res.token);
-    window.open(`http://localhost:3000/digibotuapp/adminlogin?token=${res.token}`);
+    window.open(`http://app.digibot.trade/digibotuapp/adminlogin?token=${res.token}`);
   };
 
   const columns = [
@@ -46,11 +49,29 @@ export default function ActiveUsers() {
       field: 'member_user_id',
       headerName: 'Member User Id',
       width: 150,
-      editable: true
+      editable: false
     },
     {
       field: 'member_name',
       headerName: 'Member Name',
+      sortable: false,
+      width: 160
+    },
+    {
+      field: 'Sponcer',
+      headerName: 'Sponcer ID',
+      sortable: false,
+      width: 160
+    },
+    {
+      field: 'Sponcer_name',
+      headerName: 'Sponcer Name',
+      sortable: false,
+      width: 160
+    },
+    {
+      field: 'email',
+      headerName: 'Email',
       sortable: false,
       width: 160
     },
@@ -61,8 +82,8 @@ export default function ActiveUsers() {
       width: 160
     },
     {
-      field: 'email',
-      headerName: 'Email',
+      field: 'r_date',
+      headerName: 'Registration Date',
       sortable: false,
       width: 160
     },
