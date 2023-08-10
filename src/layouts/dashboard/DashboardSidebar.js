@@ -95,6 +95,7 @@ DashboardSidebar.propTypes = {
 export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
   const { pathname } = useLocation();
   const { user } = useAuth();
+  console.log('user ==++==+++==+++==+++===+++>>> : ', user);
   const [memberName, setMemberName] = useState(user?.curentRank === null ? 'Member' : user?.curentRank);
   const { isCollapse, collapseClick, collapseHover, onToggleCollapse, onHoverEnter, onHoverLeave } =
     useCollapseDrawer();
@@ -108,7 +109,8 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
-
+  const styleColor = user?.kyc_status === 1 ? 'green' : 'red';
+  console.log(styleColor, '++++++++++++++++++++++');
   const renderContent = (
     <Scrollbar
       sx={{
@@ -161,8 +163,8 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
                 </Box>
               </Box>
               <Box sx={{ mt: 1, textAlign: 'center' }}>
-                <Lable variant="filled" sx={{ color: user?.kyc_status === 2 ? 'primary.main' : 'error' }}>
-                  {user?.kyc_status === 2 ? '(Verified)' : '(Not Verified)'}
+                <Lable variant="filled">
+                  <Box color={styleColor}>{user?.kyc_status === 1 ? '(Verified)' : '(Not Verified)'}</Box>
                 </Lable>
                 <Typography variant="body2" sx={{ color: 'text.secondary', mt: 2 }}>
                   {user?.status === 1 ? 'Active' : 'Inactive'}

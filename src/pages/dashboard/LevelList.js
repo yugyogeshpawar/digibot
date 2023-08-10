@@ -25,7 +25,7 @@ export default function LevelList() {
     const fetchData = async () => {
       // Fetch data from the API
       const values = {
-        incomeType: 'ROI BONUS'
+        incomeType: 'LEVEL BONUS'
       };
       dispatch(getLevelBonus(values));
     };
@@ -36,10 +36,10 @@ export default function LevelList() {
   console.log(levelBonus);
 
   const CheckHasData = levelBonus;
-
+  console.log(levelBonus, 'ffffffffffff');
   return (
     <Card>
-      <CardHeader title="My ROI Bonus " sx={{ mb: 3 }} />
+      <CardHeader title="My Level Bonus " sx={{ mb: 3 }} />
       <Scrollbar>
         <TableContainer sx={{ minWidth: 720 }}>
           <Table>

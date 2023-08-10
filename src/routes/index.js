@@ -155,7 +155,8 @@ export default function Router() {
             { path: 'mydirect', element: <MyDirect /> },
             { path: 'mygenealogy', element: <MyGenealogy /> },
             { path: 'leftdownLine', element: <LeftDownLine /> },
-            { path: 'rightdownline', element: <RightDownLine /> }
+            { path: 'rightdownline', element: <RightDownLine /> },
+            { path: 'mylevel', element: <MyLevel /> }
           ]
         },
         {
@@ -314,7 +315,6 @@ const UserAccount = Loadable(lazy(() => import('../pages/dashboard/UserAccount')
 const UserCreate = Loadable(lazy(() => import('../pages/dashboard/UserCreate')));
 const StakingForm = Loadable(lazy(() => import('../pages/dashboard/StakingForm')));
 const StackingSummary = Loadable(lazy(() => import('../pages/dashboard/StackingSummary')));
-
 const MintingPayouts = Loadable(lazy(() => import('../pages/dashboard/MintingPayouts')));
 const LandingPage = Loadable(lazy(() => import('../pages/LandingPage')));
 const About = Loadable(lazy(() => import('../pages/About')));
@@ -333,6 +333,7 @@ const LeftDownLine = Loadable(lazy(() => import('../pages/dashboard/LeftDownLine
 const RightDownLine = Loadable(lazy(() => import('../pages/dashboard/RightDownLine')));
 const ViewProfile = Loadable(lazy(() => import('../components/_dashboard/user/account/ViewProfile')));
 const UserKYC = Loadable(lazy(() => import('../components/_dashboard/user/account/UserKYC')));
+const MyLevel = Loadable(lazy(() => import('../pages/dashboard/MyLevel')));
 // Components
 const ComponentsOverview = Loadable(lazy(() => import('../pages/ComponentsOverview')));
 const Color = Loadable(lazy(() => import('../pages/components-overview/foundations/FoundationColors')));
