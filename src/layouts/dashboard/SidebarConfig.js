@@ -77,8 +77,8 @@ const sidebarConfig = [
           { title: 'my direct', path: PATH_DASHBOARD.myteam.mydirect },
           { title: 'my downline', path: PATH_DASHBOARD.myteam.mydownline },
           { title: 'left downlines ', path: PATH_DASHBOARD.myteam.leftdownLine },
-          { title: 'righ downlines', path: PATH_DASHBOARD.myteam.rightdownline }
-          // { title: 'checkout', path: PATH_DASHBOARD.eCommerce.checkout }
+          { title: 'righ downlines', path: PATH_DASHBOARD.myteam.rightdownline },
+          { title: 'my level', path: PATH_DASHBOARD.myteam.mylevel }
           // { title: 'invoice', path: PATH_DASHBOARD.eCommerce.invoice }
         ]
       }
@@ -94,12 +94,13 @@ const sidebarConfig = [
         path: PATH_DASHBOARD.bonus.root,
         icon: ICONS.bonus,
         children: [
-          { title: 'Direct Bonus', path: PATH_DASHBOARD.bonus.direct },
-          // { title: 'Level Bonus', path: PATH_DASHBOARD.bonus.level },
-          { title: 'Matching Bonus', path: PATH_DASHBOARD.bonus.matching },
           { title: 'Staking Bonus', path: PATH_DASHBOARD.bonus.stacking },
-          { title: 'Reward Bonus', path: PATH_DASHBOARD.bonus.reward },
           { title: 'Passive Bonus', path: PATH_DASHBOARD.bonus.passive },
+
+          { title: 'Direct Bonus', path: PATH_DASHBOARD.bonus.direct },
+          { title: 'Level Bonus', path: PATH_DASHBOARD.bonus.level },
+          { title: 'Matching Bonus', path: PATH_DASHBOARD.bonus.matching },
+          { title: 'Reward Bonus', path: PATH_DASHBOARD.bonus.reward },
           { title: 'monthly Bonus', path: PATH_DASHBOARD.bonus.monthly }
         ]
       }

@@ -105,7 +105,8 @@ export const PATH_DASHBOARD = {
     mydirect: path(ROOTS_DASHBOARD, '/myteam/mydirect'),
     mygenealogy: path(ROOTS_DASHBOARD, '/myteam/mygenealogy'),
     leftdownLine: path(ROOTS_DASHBOARD, '/myteam/leftdownLine'),
-    rightdownline: path(ROOTS_DASHBOARD, '/myteam/rightdownline')
+    rightdownline: path(ROOTS_DASHBOARD, '/myteam/rightdownline'),
+    mylevel: path(ROOTS_DASHBOARD, '/myteam/mylevel')
   },
   nftMarket: {
     root: path(ROOTS_DASHBOARD, '/nft-marketplace'),
