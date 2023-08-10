@@ -141,6 +141,9 @@ export const PATH_DASHBOARD = {
     reward: path(ROOTS_DASHBOARD, '/payout/reward'),
     summary: path(ROOTS_DASHBOARD, '/payout/summary')
   },
+  notification: {
+    allnotification: path(ROOTS_DASHBOARD, '/notification/allnotification')
+  },
   promoMaterials: {
     root: path(ROOTS_DASHBOARD, '/promo-materials')
   },

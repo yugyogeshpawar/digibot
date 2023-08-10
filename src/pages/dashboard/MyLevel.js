@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-
+import React, { useState, useEffect } from 'react';
 import {
   Card,
   Table,
@@ -11,16 +10,14 @@ import {
   Typography,
   TableContainer,
   Divider,
-  Box
+  Box,
+  TextField,
+  Pagination
 } from '@material-ui/core';
-
-import format from 'date-fns/format';
 
 import { useDispatch, useSelector } from '../../redux/store';
 import { directMember } from '../../redux/slices/user';
 import Scrollbar from '../../components/Scrollbar';
-
-// ----------------------------------------------------------------------
 
 export default function MyLevel() {
   const dispatch = useDispatch();
@@ -30,7 +27,19 @@ export default function MyLevel() {
     dispatch(directMember());
   }, [dispatch]);
 
-  const refarr = directM;
+  const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 10;
+
+  const filteredRefArr = directM?.filter((row) => row.member_user_id.toLowerCase().includes(searchQuery.toLowerCase()));
+
+  const totalPages = Math.ceil(filteredRefArr?.length / rowsPerPage);
+
+  const paginatedData = filteredRefArr?.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
   function formatDate(inputDate) {
     const monthNames = [
       'January',
@@ -58,37 +67,45 @@ export default function MyLevel() {
   return (
     <Card>
       <CardHeader title="My Level" sx={{ mb: 3 }} />
+
+      <Box p={2} display="flex" justifyContent="flex-end">
+        <TextField
+          label="Search"
+          variant="outlined"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+      </Box>
+
       <Scrollbar>
         <TableContainer eContainer sx={{ minWidth: 720 }}>
           <Table>
             <TableHead>
               <TableRow>
                 <TableCell sx={{ minWidth: 120 }}>No.</TableCell>
-                <TableCell sx={{ minWidth: 160 }}>Member Id </TableCell>
+                <TableCell sx={{ minWidth: 160 }}>Member Id</TableCell>
                 <TableCell sx={{ minWidth: 160 }}>Sponser Id </TableCell>
                 <TableCell sx={{ minWidth: 160 }}>Reg. Date</TableCell>
                 <TableCell sx={{ minWidth: 120 }}>Package</TableCell>
 
                 <TableCell sx={{ minWidth: 120 }}>Status</TableCell>
-                <TableCell />
               </TableRow>
             </TableHead>
             <TableBody>
-              {refarr?.length === 0 ? (
-                <>
-                  <Box m={4} display="flex" justifyContent="center" alignItems="center" sx={{ width: 'fit-content' }}>
+              {paginatedData?.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={6} align="center">
                     <Typography variant="h6">No Data Found</Typography>
-                  </Box>
-                </>
+                  </TableCell>
+                </TableRow>
               ) : (
                 <>
-                  {refarr?.map((row, ind) => (
+                  {paginatedData?.map((row, ind) => (
                     <TableRow key={ind}>
                       <TableCell>
-                        <Typography variant="subtitle2">{ind + 1}</Typography>
+                        <Typography variant="subtitle2">{(currentPage - 1) * rowsPerPage + ind + 1}</Typography>
                       </TableCell>
                       <TableCell>{row?.member_user_id}</TableCell>
-
                       <TableCell sx={{ textTransform: 'capitalize' }}>{formatDate(row?.registration_date)}</TableCell>
 
                       <TableCell sx={{ textTransform: 'capitalize' }}>{row?.position}</TableCell>
@@ -104,6 +121,15 @@ export default function MyLevel() {
           </Table>
         </TableContainer>
       </Scrollbar>
+
+      <Box p={2} display="flex" justifyContent="center">
+        <Pagination
+          count={totalPages}
+          page={currentPage}
+          onChange={(event, newPage) => handlePageChange(newPage)}
+          color="primary"
+        />
+      </Box>
 
       <Divider />
     </Card>

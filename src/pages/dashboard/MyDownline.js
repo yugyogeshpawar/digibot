@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-
+import React, { useEffect, useState } from 'react';
 import {
   Card,
   Table,
@@ -11,37 +10,32 @@ import {
   Typography,
   TableContainer,
   Divider,
-  Box
+  Box,
+  TextField,
+  Paper,
+  Pagination
 } from '@material-ui/core';
-
-import format from 'date-fns/format';
 
 import { useDispatch, useSelector } from '../../redux/store';
 import { getDownline, getRefBonus } from '../../redux/slices/user';
 import Scrollbar from '../../components/Scrollbar';
 
-// ----------------------------------------------------------------------
-
 export default function MyDownLine() {
   const dispatch = useDispatch();
   const { refbonus } = useSelector((state) => state.user);
+  const { downLineData } = useSelector((state) => state.user);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage] = useState(10);
+  const [searchMemberId, setSearchMemberId] = useState('');
 
   useEffect(() => {
     const values = {
       incomeType: 'DIRECT BONUS'
     };
     dispatch(getRefBonus(values));
-  }, [dispatch]);
-  const refarr = refbonus;
-
-  // const dispatch = useDispatch();
-  const { downLineData } = useSelector((state) => state.user);
-
-  useEffect(() => {
     dispatch(getDownline());
   }, [dispatch]);
-  const downlineApisData = downLineData;
-  console.log(downlineApisData, downlineApisData?.length, 'downlineApis ======<');
 
   function formatDate(inputDate) {
     const monthNames = [
@@ -67,13 +61,38 @@ export default function MyDownLine() {
     const formattedDate = `${day} ${month} ${year}`;
     return formattedDate;
   }
+  const refarr = refbonus;
+  const downlineApisData = downLineData;
+
+  const filteredData = downlineApisData?.filter((row) =>
+    row?.member_user_id.toLowerCase().includes(searchMemberId.toLowerCase())
+  );
+
+  const handlePageChange = (event, newPage) => {
+    setCurrentPage(newPage);
+  };
+
+  const startIndex = (currentPage - 1) * rowsPerPage;
+  const endIndex = startIndex + rowsPerPage;
+
   return (
     <Card>
       <CardHeader title="My Downline" sx={{ mb: 3 }} />
       <Scrollbar>
-        <TableContainer eContainer sx={{ minWidth: 720 }}>
+        <Box sx={{ m: 2 }}>
+          <Box width={250} m={1} display="flex" justifyContent="flex-end">
+            <TextField
+              label="Search by Member ID"
+              fullWidth
+              value={searchMemberId}
+              onChange={(e) => setSearchMemberId(e.target.value)}
+            />
+          </Box>
+        </Box>
+        <TableContainer component={Paper} sx={{ minWidth: 720 }}>
           <Table>
             <TableHead>
+              {' '}
               <TableRow>
                 <TableCell sx={{ minWidth: 120 }}>No.</TableCell>
                 <TableCell sx={{ minWidth: 160 }}>Associate Id </TableCell>
@@ -89,46 +108,42 @@ export default function MyDownLine() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {downlineApisData?.length === 0 ? (
-                <>
-                  <Box m={4} display="flex" justifyContent="center" alignItems="center" sx={{ width: 'fit-content' }}>
-                    <Typography variant="h6">No Data Found</Typography>
-                  </Box>
-                </>
-              ) : (
-                <>
-                  {downlineApisData?.map((row, ind) => (
-                    <TableRow key={ind}>
-                      <TableCell>
-                        <Typography variant="subtitle2">{ind + 1}</Typography>
-                      </TableCell>
+              {filteredData?.slice(startIndex, endIndex).map((row, index) => (
+                <TableRow key={index}>
+                  <TableCell>
+                    <Typography variant="subtitle2">{index + 1}</Typography>
+                  </TableCell>
 
-                      <TableCell> {row?.member_user_id} </TableCell>
+                  <TableCell> {row?.member_user_id} </TableCell>
 
-                      <TableCell>{row?.position_parent}</TableCell>
+                  <TableCell>{row?.position_parent}</TableCell>
 
-                      <TableCell sx={{ textTransform: 'capitalize' }}>{row?.position}</TableCell>
-                      <TableCell sx={{ textTransform: 'capitalize' }}>{formatDate(row?.registration_date)}</TableCell>
-                      <TableCell sx={{ textTransform: 'capitalize' }}>{row?.investment_busd}</TableCell>
-                      <TableCell sx={{ textTransform: 'capitalize' }}>
-                        {row?.status === 1 ? (
-                          <Box color="green" fontWeight={500}>
-                            {' '}
-                            Active{' '}
-                          </Box>
-                        ) : (
-                          <Box color="red"> Inactive </Box>
-                        )}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </>
-              )}
+                  <TableCell sx={{ textTransform: 'capitalize' }}>{row?.position}</TableCell>
+                  <TableCell sx={{ textTransform: 'capitalize' }}>{formatDate(row?.registration_date)}</TableCell>
+                  <TableCell sx={{ textTransform: 'capitalize' }}>{row?.investment_busd}</TableCell>
+                  <TableCell sx={{ textTransform: 'capitalize' }}>
+                    {row?.status === 1 ? (
+                      <Box color="green" fontWeight={500}>
+                        {' '}
+                        Active{' '}
+                      </Box>
+                    ) : (
+                      <Box color="red"> Inactive </Box>
+                    )}
+                  </TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         </TableContainer>
+        <Box sx={{ my: 2, display: 'flex', justifyContent: 'center' }}>
+          <Pagination
+            count={Math.ceil(filteredData?.length / rowsPerPage)}
+            page={currentPage}
+            onChange={handlePageChange}
+          />
+        </Box>
       </Scrollbar>
-
       <Divider />
     </Card>
   );

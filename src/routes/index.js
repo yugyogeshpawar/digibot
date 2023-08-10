@@ -139,6 +139,13 @@ export default function Router() {
           ]
         },
         {
+          path: 'notification',
+          children: [
+            { path: '/', element: <Navigate to="/dashboard/notification/allnotification" replace /> },
+            { path: 'allnotification', element: <NotificationLIst /> }
+          ]
+        },
+        {
           path: 'tickets',
           children: [
             { path: '/', element: <Navigate to="/dashboard/personal/payouts" replace /> },
@@ -334,6 +341,7 @@ const RightDownLine = Loadable(lazy(() => import('../pages/dashboard/RightDownLi
 const ViewProfile = Loadable(lazy(() => import('../components/_dashboard/user/account/ViewProfile')));
 const UserKYC = Loadable(lazy(() => import('../components/_dashboard/user/account/UserKYC')));
 const MyLevel = Loadable(lazy(() => import('../pages/dashboard/MyLevel')));
+const NotificationLIst = Loadable(lazy(() => import('../pages/dashboard/NotificationLIst')));
 // Components
 const ComponentsOverview = Loadable(lazy(() => import('../pages/ComponentsOverview')));
 const Color = Loadable(lazy(() => import('../pages/components-overview/foundations/FoundationColors')));

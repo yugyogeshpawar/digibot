@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-
+import React, { useState, useEffect } from 'react';
 import {
   Card,
   Table,
@@ -11,16 +10,16 @@ import {
   Typography,
   TableContainer,
   Divider,
-  Box
+  Box,
+  TextField,
+  Button,
+  Pagination
+  // eslint-disable-next-line import/no-unresolved
 } from '@material-ui/core';
-
 import format from 'date-fns/format';
-
 import { useDispatch, useSelector } from '../../redux/store';
 import { directMember } from '../../redux/slices/user';
 import Scrollbar from '../../components/Scrollbar';
-
-// ----------------------------------------------------------------------
 
 export default function MyDirect() {
   const dispatch = useDispatch();
@@ -30,7 +29,20 @@ export default function MyDirect() {
     dispatch(directMember());
   }, [dispatch]);
 
-  const refarr = directM;
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
+  const [searchMemberId, setSearchMemberId] = useState('');
+
+  const handleChangePage = (event, newPage) => {
+    setCurrentPage(newPage);
+  };
+
+  const filteredData = directM?.filter((row) => row?.member_user_id.includes(searchMemberId));
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredData?.slice(indexOfFirstItem, indexOfLastItem);
+
   function formatDate(inputDate) {
     const monthNames = [
       'January',
@@ -59,13 +71,21 @@ export default function MyDirect() {
     <Card>
       <CardHeader title="My Direct" sx={{ mb: 3 }} />
       <Scrollbar>
+        <Box m={1}>
+          <TextField
+            label="Search by Member ID"
+            variant="outlined"
+            margin="normal"
+            value={searchMemberId}
+            onChange={(e) => setSearchMemberId(e.target.value)}
+          />
+        </Box>
         <TableContainer eContainer sx={{ minWidth: 720 }}>
           <Table>
             <TableHead>
               <TableRow>
                 <TableCell sx={{ minWidth: 120 }}>No.</TableCell>
-                <TableCell sx={{ minWidth: 160 }}>Member Id </TableCell>
-
+                <TableCell sx={{ minWidth: 160 }}>Member Id</TableCell>
                 <TableCell sx={{ minWidth: 160 }}>Reg. Date</TableCell>
                 <TableCell sx={{ minWidth: 200 }}>Position</TableCell>
                 <TableCell sx={{ minWidth: 120 }}>Package</TableCell>
@@ -74,23 +94,23 @@ export default function MyDirect() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {refarr?.length === 0 ? (
-                <>
-                  <Box m={4} display="flex" justifyContent="center" alignItems="center" sx={{ width: 'fit-content' }}>
-                    <Typography variant="h6">No Data Found</Typography>
-                  </Box>
-                </>
+              {currentItems?.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={7}>
+                    <Box m={4} display="flex" justifyContent="center" alignItems="center" sx={{ width: 'fit-content' }}>
+                      <Typography variant="h6">No Data Found</Typography>
+                    </Box>
+                  </TableCell>
+                </TableRow>
               ) : (
                 <>
-                  {refarr?.map((row, ind) => (
+                  {currentItems?.map((row, ind) => (
                     <TableRow key={ind}>
                       <TableCell>
                         <Typography variant="subtitle2">{ind + 1}</Typography>
                       </TableCell>
                       <TableCell>{row?.member_user_id}</TableCell>
-
                       <TableCell sx={{ textTransform: 'capitalize' }}>{formatDate(row?.registration_date)}</TableCell>
-
                       <TableCell sx={{ textTransform: 'capitalize' }}>{row?.position}</TableCell>
                       <TableCell sx={{ textTransform: 'capitalize' }}>{row?.investment_busd}</TableCell>
                       <TableCell sx={{ textTransform: 'capitalize' }}>
@@ -103,8 +123,14 @@ export default function MyDirect() {
             </TableBody>
           </Table>
         </TableContainer>
+        <Box mt={2} display="flex" justifyContent="center">
+          <Pagination
+            count={Math.ceil(filteredData?.length / itemsPerPage)}
+            page={currentPage}
+            onChange={handleChangePage}
+          />
+        </Box>
       </Scrollbar>
-
       <Divider />
     </Card>
   );

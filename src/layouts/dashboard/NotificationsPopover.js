@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { noCase } from 'change-case';
 import { useRef, useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link, Link as RouterLink } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import bellFill from '@iconify/icons-eva/bell-fill';
 import clockFill from '@iconify/icons-eva/clock-fill';
@@ -65,6 +65,57 @@ const MOCK_NOTIFICATIONS = [...Array(5)].map((_, index) => ({
 }));
 
 // ----------------------------------------------------------------------
+const mockNotificationData = [
+  {
+    id: 1,
+    title: 'Login Successful',
+    description: 'You have successfully logged in to your account.',
+    avatar: 'user_avatar.jpg',
+    type: 'login',
+    createdAt: '2023-08-10T09:00:00Z',
+    isUnRead: true
+  },
+  {
+    id: 2,
+    title: 'Profile Update',
+    description: 'Your profile information has been updated.',
+    avatar: 'user_avatar.jpg',
+    type: 'update',
+    createdAt: '2023-08-09T14:30:00Z',
+    isUnRead: false
+  },
+  {
+    id: 3,
+    title: 'New Message',
+    description: 'You have received a new message from shushil.',
+    avatar: 'john_avatar.jpg',
+    type: 'message',
+    createdAt: '2023-08-08T20:15:00Z',
+    isUnRead: true
+  },
+  {
+    id: 4,
+    title: 'Password Change',
+    description: 'Your account password has been successfully changed.',
+    avatar: 'user_avatar.jpg',
+    type: 'update',
+    createdAt: '2023-08-07T10:45:00Z',
+    isUnRead: false
+  },
+  {
+    id: 5,
+    title: 'New Friend Request',
+    description: 'You have received a friend request from Jane Smith.',
+    avatar: 'jane_avatar.jpg',
+    type: 'request',
+    createdAt: '2023-08-06T18:30:00Z',
+    isUnRead: true
+  }
+  // Add more mock data entries as needed
+];
+
+// Example of how to use the mockNotificationData
+console.log(mockNotificationData);
 
 function renderContent(notification) {
   const title = (
@@ -154,7 +205,7 @@ function NotificationItem({ notification }) {
 export default function NotificationsPopover() {
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
-  const [notifications, setNotifications] = useState(MOCK_NOTIFICATIONS);
+  const [notifications, setNotifications] = useState(mockNotificationData);
   const totalUnRead = notifications.filter((item) => item.isUnRead === true).length;
 
   const handleOpen = () => {
@@ -195,7 +246,7 @@ export default function NotificationsPopover() {
       <MenuPopover open={open} onClose={handleClose} anchorEl={anchorRef.current} sx={{ width: 360 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', py: 2, px: 2.5 }}>
           <Box sx={{ flexGrow: 1 }}>
-            <Typography variant="subtitle1">Notifications</Typography>
+            <Typography variant="subtitle1">Notifications </Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
               You have {totalUnRead} unread messages
             </Typography>
@@ -243,9 +294,11 @@ export default function NotificationsPopover() {
         <Divider />
 
         <Box sx={{ p: 1 }}>
-          <Button fullWidth disableRipple component={RouterLink} to="#">
-            View All
-          </Button>
+          <Link to="/dashboard/notification/allnotification">
+            <Button fullWidth disableRipple to="#">
+              View All
+            </Button>
+          </Link>
         </Box>
       </MenuPopover>
     </>
