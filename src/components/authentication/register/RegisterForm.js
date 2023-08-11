@@ -59,6 +59,7 @@ export default function RegisterForm() {
   const isMountedRef = useIsMountedRef();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [showPassword, setShowPassword] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   // eslint-disable-next-line new-cap
   const queryParams = new queryString.parse(window.location.search);
   const [selectedPackage, setSelectedPackage] = useState('');
@@ -136,6 +137,8 @@ export default function RegisterForm() {
     },
     validationSchema: RegisterSchema,
     onSubmit: async (values, { setErrors, setSubmitting }) => {
+      setDisabled(true);
+
       if (values.password !== values.cpassword) {
         enqueueSnackbar('Please Confirm Password first', {
           variant: 'error',
@@ -170,6 +173,8 @@ export default function RegisterForm() {
           )
         });
 
+        setDisabled(false);
+
         setShowSuccessDialog(true);
         if (isMountedRef.current) {
           setSubmitting(false);
@@ -182,6 +187,7 @@ export default function RegisterForm() {
           setOpen(false);
         }
       }
+      setDisabled(false);
     }
   });
   const { errors, touched, handleSubmit, isSubmitting, getFieldProps } = formik;
@@ -424,17 +430,17 @@ export default function RegisterForm() {
               <Button fullWidth onClick={handleClose}>
                 Cancel
               </Button>
-              <Button
+              <LoadingButton
                 fullWidth
                 size="large"
                 variant="contained"
-                loading={isSubmitting}
+                loading={disabled}
                 onClick={handleClickOpen}
-                disabled={!isScrolledToEnd}
+                disabled={!isScrolledToEnd || disabled}
                 style={{ whiteSpace: 'nowrap' }}
               >
                 Register Now
-              </Button>
+              </LoadingButton>
             </DialogActions>
           </Dialog>
           <Dialog open={showSuccessDialog} onClose={handleSuccessDialogClose}>
