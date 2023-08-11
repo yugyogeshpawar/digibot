@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import { Button } from '@mui/material';
+import { FormControl, NativeSelect } from '@mui/material';
 import { getActiveUsers } from '../../redux/admin';
 import { getSearchDashboard } from '../../redux/admin';
 import { setSession } from '../../utils/jwt';
+import { format } from 'date-fns';
 
 export default function ActiveUsers() {
   const [rows, setRows] = useState([]);
@@ -20,10 +21,11 @@ export default function ActiveUsers() {
           member_name: item.member_name,
           Sponcer: item.sponcer_id,
           Sponcer_name: item.sponcer_name,
+          position: item.position,
+          r_date: format(new Date(item.registration_date), 'dd-MM-yyyy hh-mm-ss'),
+          topup_amount: item.topup_amount,
           email: item.email,
-          contact: item.contact,
-          r_date: item.registration_date,
-          topup_amount: item.topup_amount
+          contact: item.contact
         }));
         setRows(mappedData);
       }
@@ -43,6 +45,28 @@ export default function ActiveUsers() {
   };
 
   const columns = [
+    {
+      field: 'action',
+      headerName: 'Action',
+      sortable: false,
+      width: 120,
+      renderCell: (params) => (
+        <FormControl fullWidth>
+          <NativeSelect
+            id={`dashboard-select-${params.row.id}`}
+            onChange={(event) => {
+              const selectedValue = event.target.value;
+              if (selectedValue === 'dashboard') {
+                handleDashboard(params.row.member_user_id);
+              }
+            }}
+          >
+            <option value="">Action</option>
+            <option value="dashboard">Dashboard</option>
+          </NativeSelect>
+        </FormControl>
+      )
+    },
     { field: 'id', headerName: 'No.', width: 90 },
 
     {
@@ -70,17 +94,12 @@ export default function ActiveUsers() {
       width: 160
     },
     {
-      field: 'email',
-      headerName: 'Email',
+      field: 'position',
+      headerName: 'Position ',
       sortable: false,
       width: 160
     },
-    {
-      field: 'contact',
-      headerName: 'Contact',
-      sortable: false,
-      width: 160
-    },
+
     {
       field: 'r_date',
       headerName: 'Registration Date',
@@ -94,15 +113,16 @@ export default function ActiveUsers() {
       width: 160
     },
     {
-      field: 'action',
-      headerName: 'Action',
+      field: 'email',
+      headerName: 'Email',
       sortable: false,
-      width: 120,
-      renderCell: (params) => (
-        <Button variant="contained" color="primary" onClick={() => handleDashboard(params.row.member_user_id)}>
-          Show ID
-        </Button>
-      )
+      width: 160
+    },
+    {
+      field: 'contact',
+      headerName: 'Contact',
+      sortable: false,
+      width: 160
     }
   ];
 

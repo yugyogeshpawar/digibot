@@ -2,6 +2,9 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { getBlockedUsers } from '../../redux/admin';
+import { postUnBlockUser } from '../../redux/admin';
+import { FormControl, NativeSelect } from '@mui/material';
+import { format } from 'date-fns';
 
 export default function BlockUsers() {
   const [rows, setRows] = useState([]);
@@ -15,9 +18,11 @@ export default function BlockUsers() {
           id: index + 1,
           member_user_id: item.member_user_id,
           member_name: item.member_name,
+          Sponcer: item.sponcer_id,
+          Sponcer_name: item.sponcer_name,
           contact: item.contact,
           email: item.email,
-          r_date: item.registration_date,
+          r_date: format(new Date(item.registration_date), 'dd-MM-yyyy hh-mm-ss'),
           wallet_amount: item.wallet_amount
         }));
         setRows(mappedData);
@@ -26,6 +31,15 @@ export default function BlockUsers() {
 
     fetchData();
   }, []);
+  const handleUnBlock = async (userID) => {
+    if (!userID) {
+      setError.unBlockError('User ID is empty or undefined.');
+      console.log(userID);
+      return;
+    }
+    const res = await postUnBlockUser(userID);
+    console.log(res);
+  };
 
   const columns = [
     { field: 'id', headerName: 'No.', width: 90 },
@@ -38,6 +52,18 @@ export default function BlockUsers() {
     {
       field: 'member_name',
       headerName: 'Member Name',
+      sortable: false,
+      width: 160
+    },
+    {
+      field: 'Sponcer',
+      headerName: 'Sponcer ID',
+      sortable: false,
+      width: 160
+    },
+    {
+      field: 'Sponcer_name',
+      headerName: 'Sponcer Name',
       sortable: false,
       width: 160
     },
@@ -64,6 +90,28 @@ export default function BlockUsers() {
       headerName: 'Wallet Amount',
       sortable: false,
       width: 160
+    },
+    {
+      field: 'action',
+      headerName: 'Action',
+      sortable: false,
+      width: 120,
+      renderCell: (params) => (
+        <FormControl fullWidth>
+          <NativeSelect
+            id={`dashboard-select-${params.row.id}`}
+            onChange={(event) => {
+              const selectedValue = event.target.value;
+              if (selectedValue === 'dashboard') {
+                handleUnBlock(params.row.member_user_id);
+              }
+            }}
+          >
+            <option value="">Action</option>
+            <option value="dashboard">Unblock User</option>
+          </NativeSelect>
+        </FormControl>
+      )
     }
   ];
 

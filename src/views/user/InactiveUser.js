@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { getInactiveUsers } from '../../redux/admin';
+import { format } from 'date-fns';
 
 export default function InactiveUsers() {
   const [rows, setRows] = useState([]);
@@ -15,9 +16,11 @@ export default function InactiveUsers() {
           id: index + 1,
           member_user_id: item.member_user_id,
           member_name: item.member_name,
+          Sponcer: item.sponcer_id,
+          Sponcer_name: item.sponcer_name,
           contact: item.contact,
           email: item.email,
-          r_date: item.registration_date,
+          r_date: format(new Date(item.registration_date), 'dd-MM-yyyy hh-mm-ss'),
           wallet_amount: item.wallet_amount
         }));
         setRows(mappedData);
@@ -38,6 +41,18 @@ export default function InactiveUsers() {
     {
       field: 'member_name',
       headerName: 'Member Name',
+      sortable: false,
+      width: 160
+    },
+    {
+      field: 'Sponcer',
+      headerName: 'Sponcer ID',
+      sortable: false,
+      width: 160
+    },
+    {
+      field: 'Sponcer_name',
+      headerName: 'Sponcer Name',
       sortable: false,
       width: 160
     },
