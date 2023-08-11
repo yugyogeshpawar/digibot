@@ -39,13 +39,13 @@ NextPositionBusiness.propTypes = {
 
 export default function NextPositionBusiness({ myProfile }) {
   const theme = useTheme();
-
+  const myProfileData = myProfile?.user;
   return (
     <Card sx={{ display: 'flex', alignItems: 'center', p: 4 }}>
       <Box sx={{ flexGrow: 1 }}>
         <Typography variant="subtitle2">Today's Profit</Typography>
         <Typography variant="h3" gutterBottom>
-          ${fNumber(myProfile?.nextRank?.business)}
+          $ {myProfileData?.daily_profit}
         </Typography>
         <Stack direction="row" alignItems="center" flexWrap="wrap">
           {/* <IconWrapperStyle

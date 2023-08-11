@@ -34,6 +34,10 @@ MybotWelcome.propTypes = {
 };
 
 export default function MybotWelcome({ displayTitle, totalBusiness }) {
+  console.log(
+    displayTitle,
+    'displayTitledisplayTitledisplayTitledisplayTitledisplayTitledisplayTitledisplayTitledisplayTitle'
+  );
   return (
     <RootStyle>
       <CardContent

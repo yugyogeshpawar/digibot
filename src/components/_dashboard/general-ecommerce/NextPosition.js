@@ -8,6 +8,7 @@ NextPosition.propTypes = {
 };
 
 export default function NextPosition({ myProfile }) {
+  const myProfileData = myProfile?.user;
   return (
     <Card sx={{ display: 'flex', alignItems: 'center', p: 2 }}>
       <Box sx={{ flexGrow: 1 }}>
@@ -15,25 +16,12 @@ export default function NextPosition({ myProfile }) {
           <Box sx={{ flexGrow: 1 }}>
             <Typography variant="subtitle2">Deposit Amount</Typography>
             <Typography variant="h3" gutterBottom>
-              $5000
+              {myProfileData?.topup_amount} $
             </Typography>
           </Box>
         </Box>
         <Stack direction="row" alignItems="center" flexWrap="wrap" sx={{ mt: 2 }}>
-          {/* <IconWrapperStyle
-            sx={{
-              ...(PERCENT < 0 && {
-                color: 'error.main',
-                bgcolor: (theme) => alpha(theme.palette.error.main, 0.16)
-              })
-            }}
-          >
-            <Icon width={16} height={16} icon={PERCENT >= 0 ? trendingUpFill : trendingDownFill} />
-          </IconWrapperStyle> */}
           <Box>
-            {/* <Typography variant="body2" component="span" sx={{ color: 'text.secondary' }}>
-              Next Stone
-            </Typography> */}
             <Typography variant="subtitle2" component="span" sx={{ marginLeft: '4px', color: 'primary.main' }}>
               {myProfile?.nextRank?.nextStone}
             </Typography>

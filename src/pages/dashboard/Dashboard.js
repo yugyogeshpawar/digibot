@@ -46,7 +46,8 @@ export default function Dashboard() {
     incomeDash?.match +
     incomeDash?.business +
     incomeDash?.monthly;
-
+  console.log(user, '++++++++++++++++++++++++++++++++++++++++++++++++');
+  console.log(incomeDash, 'KKKKK');
   return (
     <Page title="General: App | Digibot">
       <Container maxWidth={themeStretch ? false : 'xl'}>
@@ -100,8 +101,9 @@ export default function Dashboard() {
             <MyRank teamBusiness={incomeDash?.direct} title="Direct Bonus" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={incomeDash?.match + incomeDash?.withdraw} title="Level Bonus" />
+            <MyRank teamBusiness={incomeDash?.level} title="Level Bonus" />
           </Grid>
+
           <Grid item xs={12} md={4}>
             <MyRank teamBusiness={incomeDash?.bonus} title="Matching Bonus" />
           </Grid>

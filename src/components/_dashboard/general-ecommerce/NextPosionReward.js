@@ -6,6 +6,10 @@ import trendingDownFill from '@iconify/icons-eva/trending-down-fill';
 import { alpha, useTheme, styled } from '@material-ui/core/styles';
 import { Box, Card, Typography, Stack } from '@material-ui/core';
 // utils
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+// eslint-disable-next-line import/no-unresolved
+import { getIncomeDashRoute } from 'src/redux/slices/user';
 import { fNumber } from '../../../utils/formatNumber';
 //
 // import { BaseOptionChart } from '../../charts';
@@ -34,13 +38,27 @@ NextPosionReward.propTypes = {
 
 export default function NextPosionReward({ myProfile }) {
   const theme = useTheme();
+  const dispatch = useDispatch();
+  const { incomeDash } = useSelector((state) => state.user);
 
+  useEffect(() => {
+    dispatch(getIncomeDashRoute());
+  }, [dispatch]);
+  // user?.status === 0 ? <TimerAndMarquee /> : ''
+  const totalBonusData =
+    incomeDash?.stake +
+    incomeDash?.roi +
+    incomeDash?.direct +
+    incomeDash?.withdraw +
+    incomeDash?.match +
+    incomeDash?.business +
+    incomeDash?.monthly;
   return (
     <Card sx={{ display: 'flex', alignItems: 'center', p: 4 }}>
       <Box sx={{ flexGrow: 1 }}>
         <Typography variant="subtitle2">Total Profit</Typography>
         <Typography variant="h3" gutterBottom>
-          ${myProfile?.nextRank?.rankIncome}
+          $ {totalBonusData}
         </Typography>
 
         <Stack direction="row" alignItems="center" flexWrap="wrap">

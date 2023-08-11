@@ -26,7 +26,7 @@ export default function MyStone() {
   console.log('themeStretch', themeMode);
   const { user } = useAuth();
   const { myProfile } = useSelector((state) => state.user);
-  console.log(myProfile);
+  console.log(myProfile, 'vvvvvvvvvvvvvvvvvvvvvvvvv');
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProfile());
@@ -36,7 +36,7 @@ export default function MyStone() {
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <Grid container spacing={3} sx={{ marginTop: '-48px ' }}>
           <Grid item xs={12} md={8}>
-            <MybotWelcome displayTitle="Delta Bot" totalBusiness={user.team_business} />
+            <MybotWelcome displayTitle={user?.assigned_bot_id} totalBusiness={user?.team_business} />
           </Grid>
 
           <Grid item xs={12} md={4}>
@@ -44,7 +44,7 @@ export default function MyStone() {
           </Grid>
 
           <Grid item xs={12} md={4}>
-            <NextPosition myProfile={myProfile?.topup_amount} />
+            <NextPosition myProfile={myProfile} />
           </Grid>
           <Grid item xs={12} md={4}>
             <NextPositionBusiness myProfile={myProfile} />
