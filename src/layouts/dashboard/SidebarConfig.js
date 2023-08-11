@@ -50,15 +50,15 @@ const sidebarConfig = [
     ]
   },
   {
-    subheader: 'staking',
+    subheader: 'Trading',
     items: [
       {
-        title: 'staking',
+        title: 'Trading',
         path: PATH_DASHBOARD.eCommerce.root,
         icon: ICONS.lable,
         children: [
-          { title: 'stake', path: PATH_DASHBOARD.eCommerce.stake },
-          { title: 'stake summary', path: PATH_DASHBOARD.eCommerce.stakeSummary }
+          { title: 'Trade', path: PATH_DASHBOARD.eCommerce.stake },
+          { title: 'Trade summary', path: PATH_DASHBOARD.eCommerce.stakeSummary }
           // { title: 'shop', path: PATH_DASHBOARD.nftMarket.shop },
           // { title: 'list', path: PATH_DASHBOARD.eCommerce.list },
         ]
@@ -94,14 +94,16 @@ const sidebarConfig = [
         path: PATH_DASHBOARD.bonus.root,
         icon: ICONS.bonus,
         children: [
-          { title: 'Staking Bonus', path: PATH_DASHBOARD.bonus.stacking },
-          { title: 'Passive Bonus', path: PATH_DASHBOARD.bonus.passive },
+          { title: 'Trade Bonus', path: PATH_DASHBOARD.bonus.stacking },
+          { title: 'Trade Passive Bonus', path: PATH_DASHBOARD.bonus.passive },
 
           { title: 'Direct Bonus', path: PATH_DASHBOARD.bonus.direct },
           { title: 'Level Bonus', path: PATH_DASHBOARD.bonus.level },
           { title: 'Matching Bonus', path: PATH_DASHBOARD.bonus.matching },
           { title: 'Reward Bonus', path: PATH_DASHBOARD.bonus.reward },
-          { title: 'monthly Bonus', path: PATH_DASHBOARD.bonus.monthly }
+          { title: 'Monthly Performance Bonus', path: PATH_DASHBOARD.bonus.monthly },
+          { title: 'Global Community Pool', path: PATH_DASHBOARD.bonus.globalcommunitypool },
+          { title: 'Global Leader Pool', path: PATH_DASHBOARD.bonus.globallederpool }
         ]
       }
     ]

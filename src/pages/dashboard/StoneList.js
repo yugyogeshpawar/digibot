@@ -46,7 +46,7 @@ export default function StoneList() {
 
   return (
     <Card>
-      <CardHeader title="Stacking Bonus" sx={{ mb: 3 }} />
+      <CardHeader title="Trade Bonus" sx={{ mb: 3 }} />
       <Box>
         <Box width={250} m={1} display="flex" justifyContent="flex-end">
           <TextField

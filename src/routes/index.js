@@ -188,7 +188,9 @@ export default function Router() {
             { path: 'passive', element: <PassiveList /> },
             { path: 'reward', element: <RewardBonusList /> },
             { path: 'annum', element: <AnnumBonusList /> },
-            { path: 'monthly', element: <MonthlyPerRollList /> }
+            { path: 'monthly', element: <MonthlyPerRollList /> },
+            { path: 'globalcommunitypool', element: <GlobalCommunityPool /> },
+            { path: 'globallederpool', element: <GlobalLeaderPool /> }
           ]
         },
         { path: 'stake', element: <StakingForm /> },
@@ -342,6 +344,8 @@ const ViewProfile = Loadable(lazy(() => import('../components/_dashboard/user/ac
 const UserKYC = Loadable(lazy(() => import('../components/_dashboard/user/account/UserKYC')));
 const MyLevel = Loadable(lazy(() => import('../pages/dashboard/MyLevel')));
 const NotificationLIst = Loadable(lazy(() => import('../pages/dashboard/NotificationLIst')));
+const GlobalCommunityPool = Loadable(lazy(() => import('../pages/dashboard/GlobalCommunityPool')));
+const GlobalLeaderPool = Loadable(lazy(() => import('../pages/dashboard/GlobalLeaderPool')));
 // Components
 const ComponentsOverview = Loadable(lazy(() => import('../pages/ComponentsOverview')));
 const Color = Loadable(lazy(() => import('../pages/components-overview/foundations/FoundationColors')));

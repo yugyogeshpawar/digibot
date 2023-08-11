@@ -89,7 +89,9 @@ export const PATH_DASHBOARD = {
     annum: path(ROOTS_DASHBOARD, '/bonus/annum'),
     stacking: path(ROOTS_DASHBOARD, '/bonus/stacking'),
     passive: path(ROOTS_DASHBOARD, '/bonus/passive'),
-    monthly: path(ROOTS_DASHBOARD, '/bonus/monthly')
+    monthly: path(ROOTS_DASHBOARD, '/bonus/monthly'),
+    globalcommunitypool: path(ROOTS_DASHBOARD, '/bonus/globalcommunitypool'),
+    globallederpool: path(ROOTS_DASHBOARD, '/bonus/globallederpool')
   },
   eCommerce: {
     stake: path(ROOTS_DASHBOARD, '/stake'),

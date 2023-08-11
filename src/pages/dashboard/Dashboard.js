@@ -20,6 +20,7 @@ import {
 import { BankingInviteFriends } from '../../components/_dashboard/general-banking';
 import { EventsPosts } from '../../components/_dashboard/general-booking';
 import TimerAndMarquee from './TimerAndMarquee';
+import NoLevelOpen from './NoLevelOpen';
 // ----------------------------------------------------------------------
 
 export default function Dashboard() {
@@ -89,13 +90,16 @@ export default function Dashboard() {
             <WithoutUSD teamBusiness={user?.direct_member} title=" Direct Member" />
           </Grid>
           <Grid item xs={12} md={4}>
+            <NoLevelOpen teamBusiness={user?.qualify_level} title=" Level Open" />
+          </Grid>
+          <Grid item xs={12} md={4}>
             <WithoutUSD teamBusiness={`${user?.left_pair} : ${user?.right_pair}`} title=" First Pair" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={incomeDash?.stake} title="Staking Bonus" />
+            <MyRank teamBusiness={incomeDash?.stake} title="Trade Bonus" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={incomeDash?.roi} title="Passive Bonus" />
+            <MyRank teamBusiness={incomeDash?.roi} title=" Trade Passive Bonus" />
           </Grid>
           <Grid item xs={12} md={4}>
             <MyRank teamBusiness={incomeDash?.direct} title="Direct Bonus" />
@@ -108,10 +112,16 @@ export default function Dashboard() {
             <MyRank teamBusiness={incomeDash?.bonus} title="Matching Bonus" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={incomeDash?.business} title="Matching Bussiness Bonus" />
+            <MyRank teamBusiness={incomeDash?.business} title="Reward Bonus" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={incomeDash?.monthly} title="Monthly Bonus" />
+            <MyRank teamBusiness={incomeDash?.monthly} title="Monthly Performance Bonus" />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <MyRank teamBusiness={incomeDash?.monthly} title="Global Community Pool" />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <MyRank teamBusiness={incomeDash?.monthly} title="Global Leadership Pool" />
           </Grid>
           <Grid item xs={12} md={4}>
             <MyRank teamBusiness={user?.daily_profit} title="Daily Trade Profit" />

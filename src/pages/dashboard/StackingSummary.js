@@ -53,7 +53,7 @@ export default function StackingSummary() {
 
   return (
     <Card>
-      <CardHeader title="Stacking Summary" sx={{ mb: 3 }} />
+      <CardHeader title="Trading Summary" sx={{ mb: 3 }} />
       <TextField
         label="Search by Type"
         value={searchTerm}

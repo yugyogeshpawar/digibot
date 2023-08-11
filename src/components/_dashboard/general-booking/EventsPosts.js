@@ -129,7 +129,8 @@ export default function EventsPosts() {
 
   return (
     <Box sx={{ py: 2 }}>
-      <CardHeader
+      {/**
+         <CardHeader
         title="Our Events"
         action={
           <CarouselControlsArrowsBasic1
@@ -148,12 +149,15 @@ export default function EventsPosts() {
           '& .MuiCardHeader-action': { alignSelf: 'center' }
         }}
       />
-
+         */}
+      {/**
+        
       <Slider ref={carouselRef} {...settings}>
         {MOCK_BOOKINGS.map((item) => (
           <BookingItem key={item.id} item={item} />
         ))}
       </Slider>
+         */}
     </Box>
   );
 }

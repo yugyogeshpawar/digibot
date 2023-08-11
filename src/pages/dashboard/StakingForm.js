@@ -139,7 +139,7 @@ export default function StakingForm() {
     <form autoComplete="off" onSubmit={handleSubmit}>
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         <Grid item xs={12} md={5} sx={{ mr: 2 }}>
-          <Block title="Enter Staking Details" sx={{ flexDirection: 'column' }}>
+          <Block title="Trading Details" sx={{ flexDirection: 'column' }}>
             <Autocomplete
               fullWidth
               value={selectedBot}
