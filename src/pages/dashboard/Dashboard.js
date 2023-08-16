@@ -46,7 +46,8 @@ export default function Dashboard() {
     incomeDash?.withdraw +
     incomeDash?.match +
     incomeDash?.business +
-    incomeDash?.monthly;
+    incomeDash?.monthly +
+    incomeDash?.bonus;
   console.log(user, '++++++++++++++++++++++++++++++++++++++++++++++++');
   console.log(incomeDash, 'KKKKK');
   return (
