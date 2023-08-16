@@ -4,6 +4,7 @@ import { Container, Grid, Stack } from '@material-ui/core';
 // hooks
 import { getIncomeDashRoute, getProfile } from 'src/redux/slices/user';
 import { useDispatch, useSelector } from 'src/redux/store';
+import ActiveVsInactive from 'src/components/_dashboard/general-ecommerce/ActiveVsInactive2';
 import CryptoPriceMarquee from './CryptoPriceMarquee';
 import useAuth from '../../hooks/useAuth';
 import useSettings from '../../hooks/useSettings';
@@ -136,6 +137,10 @@ export default function Dashboard() {
           <Grid item xs={12} md={4}>
             <WithoutUSD teamBusiness={user?.withdrawal_amt} title="Withdraw Amount" />
           </Grid>
+          <Grid item xs={12} md={4}>
+            <MyRank teamBusiness={user?.daily_profit} title="Pool Wallet" />
+          </Grid>
+
           <Grid item xs={12}>
             <EventsPosts />
           </Grid>
@@ -143,8 +148,14 @@ export default function Dashboard() {
             <AppAreaInstalled />
           </Grid>
           <Grid item xs={12} md={4}>
-            <Stack>
+            {/**
+           <Stack>
               <BankingInviteFriends />
+            </Stack>
+          */}
+
+            <Stack>
+              <ActiveVsInactive />
             </Stack>
           </Grid>
         </Grid>

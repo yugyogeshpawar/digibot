@@ -45,7 +45,7 @@ export default function ActiveVsInactive({ myProfile }) {
   const theme = useTheme();
 
   const chartOptions = merge(BaseOptionChart(), {
-    labels: ['Active', 'Inactive'],
+    labels: ['4X', '2X'],
     legend: { floating: true, horizontalAlign: 'center' },
     fill: {
       type: 'gradient',
@@ -89,7 +89,7 @@ export default function ActiveVsInactive({ myProfile }) {
 
   return (
     <Card>
-      <CardHeader title="Active and Inactive Chart" />
+      <CardHeader title="2X and 4X Chart" />
       <ChartWrapperStyle dir="ltr">
         <ReactApexChart type="radialBar" series={CHART_DATA} options={chartOptions} height={310} />
       </ChartWrapperStyle>

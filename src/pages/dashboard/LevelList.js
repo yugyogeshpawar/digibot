@@ -44,7 +44,10 @@ export default function LevelList() {
     setSearchText(event.target.value);
     setPage(0);
   };
-
+  console.log(
+    levelBonus,
+    'levelBonuslevelBonuslevelBonuslevelBonuslevelBonuslevelBonuslevelBonuslevelBonuslevelBonuslevelBonuslevelBonuslevelBonus'
+  );
   const filteredData = levelBonus?.filter(
     (row) =>
       searchText === '' ||
@@ -77,10 +80,10 @@ export default function LevelList() {
               <TableRow>
                 <TableCell sx={{ minWidth: 60 }}>No.</TableCell>
                 <TableCell sx={{ minWidth: 160 }}>Date</TableCell>
-                <TableCell sx={{ minWidth: 160 }}>Income Level</TableCell>
-                <TableCell sx={{ minWidth: 200 }}>Bonus per</TableCell>
-                <TableCell sx={{ minWidth: 120 }}>Investment Type</TableCell>
-                <TableCell sx={{ minWidth: 120 }}>Net amount</TableCell>
+                <TableCell sx={{ minWidth: 160 }}> Level Bonus</TableCell>
+                <TableCell sx={{ minWidth: 200 }}>From User</TableCell>
+                <TableCell sx={{ minWidth: 200 }}>Level</TableCell>
+                <TableCell sx={{ minWidth: 120 }}>Percentage ( % )</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -99,17 +102,11 @@ export default function LevelList() {
                     </TableCell>
                     <TableCell>{format(new Date(row?.calculate_date), 'dd MMM yyyy')}</TableCell>
                     <TableCell>{row?.income_level}</TableCell>
-                    <TableCell>{row?.Bonus_percent}</TableCell>
-                    <TableCell>{row?.income_type}</TableCell>
+                    <TableCell>{row?.Bonus_percent} % </TableCell>
+
                     <TableCell>{row?.investment_amt}</TableCell>
                   </TableRow>
                 ))
-              )}
-
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 53 * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
               )}
             </TableBody>
           </Table>

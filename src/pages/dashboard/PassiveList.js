@@ -101,8 +101,10 @@ export default function ReferralList() {
               <TableRow>
                 <TableCell sx={{ minWidth: 120 }}>No.</TableCell>
                 <TableCell sx={{ minWidth: 120 }}>Date</TableCell>
-                <TableCell sx={{ minWidth: 120 }}>Income</TableCell>
-                <TableCell sx={{ minWidth: 120 }}>Bonus Per</TableCell>
+                <TableCell sx={{ minWidth: 120 }}>Passive Bonus</TableCell>
+                <TableCell sx={{ minWidth: 120 }}>From User</TableCell>
+                <TableCell sx={{ minWidth: 120 }}>Level</TableCell>
+                <TableCell sx={{ minWidth: 120 }}>Percentage ( % ) </TableCell>
               </TableRow>
             </TableHead>
             {filteredRefarr?.length === 0 ? (
@@ -118,12 +120,14 @@ export default function ReferralList() {
                   <TableRow key={index}>
                     <TableCell>
                       <Stack direction="row" alignItems="center" spacing={2}>
-                        <Typography variant="subtitle2">{index + 1 + page * rowsPerPage}</Typography>
+                        <Typography variant="subtitle2">{index + 1}</Typography>
                       </Stack>
                     </TableCell>
                     <TableCell>{formatDate(row?.calculate_date)}</TableCell>
-                    <TableCell>{row?.income_amt}</TableCell>
-                    <TableCell>{row?.Bonus_percent}</TableCell>
+                    <TableCell>{row?.income_amt} $</TableCell>
+                    <TableCell>{row?.Bonus_percent} % </TableCell>
+                    <TableCell>{row?.Bonus_percent} % </TableCell>
+                    <TableCell>{row?.Bonus_percent} % </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

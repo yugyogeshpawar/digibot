@@ -34,7 +34,7 @@ export default function StoneList() {
   const stoneArr = stoneBonus || [];
 
   const filteredData = stoneArr.filter((row) => row.calculate_date.toLowerCase().includes(searchTerm.toLowerCase()));
-
+  console.log(filteredData, 'filteredDatafilteredDatafilteredData');
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -68,8 +68,8 @@ export default function StoneList() {
               <TableRow>
                 <TableCell sx={{ minWidth: 120 }}>No.</TableCell>
                 <TableCell sx={{ minWidth: 160 }}>Date</TableCell>
-                <TableCell sx={{ minWidth: 200 }}>Income Amount</TableCell>
-                <TableCell sx={{ minWidth: 120 }}>Bonus Per</TableCell>
+                <TableCell sx={{ minWidth: 200 }}>Trade Bonus</TableCell>
+                <TableCell sx={{ minWidth: 120 }}>Percentage ( % ) </TableCell>
                 <TableCell sx={{ minWidth: 120 }}>Bot Type</TableCell>
               </TableRow>
             </TableHead>
@@ -88,9 +88,11 @@ export default function StoneList() {
                         <Typography variant="subtitle2">{index + 1}</Typography>
                       </TableCell>
                       <TableCell>{format(new Date(row?.calculate_date), 'dd MMM yyyy')}</TableCell>
-                      <TableCell>{row?.income_amt}</TableCell>
-                      <TableCell>{row?.Bonus_percent}</TableCell>
-                      <TableCell sx={{ textTransform: 'capitalize' }}>{row?.b_type}</TableCell>
+                      <TableCell>{row?.income_amt} $ </TableCell>
+                      <TableCell>{row?.Bonus_percent} % </TableCell>
+                      <TableCell sx={{ textTransform: 'capitalize' }}>
+                        {row?.b_type === null ? 'Not defined ' : row?.b_type}
+                      </TableCell>
                     </TableRow>
                   ))}
                 </>

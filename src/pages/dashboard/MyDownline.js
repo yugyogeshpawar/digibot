@@ -74,7 +74,7 @@ export default function MyDownLine() {
 
   const startIndex = (currentPage - 1) * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
-
+  console.log(filteredData, 'ertyuiodfghjkl;');
   return (
     <Card>
       <CardHeader title="My Downline" sx={{ mb: 3 }} />
@@ -116,7 +116,7 @@ export default function MyDownLine() {
 
                   <TableCell> {row?.member_user_id} </TableCell>
 
-                  <TableCell>{row?.position_parent}</TableCell>
+                  <TableCell>{row?.promoter_id}</TableCell>
 
                   <TableCell sx={{ textTransform: 'capitalize' }}>{row?.position}</TableCell>
                   <TableCell sx={{ textTransform: 'capitalize' }}>{formatDate(row?.registration_date)}</TableCell>

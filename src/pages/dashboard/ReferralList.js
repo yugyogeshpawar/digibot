@@ -66,9 +66,11 @@ export default function ReferralList() {
               <TableRow>
                 <TableCell sx={{ minWidth: 120 }}>No.</TableCell>
                 <TableCell sx={{ minWidth: 160 }}>Date</TableCell>
-                <TableCell sx={{ minWidth: 200 }}>Income Amount</TableCell>
-                <TableCell sx={{ minWidth: 120 }}>Bonus Per</TableCell>
-                <TableCell sx={{ minWidth: 120 }}>Income Type</TableCell>
+                <TableCell sx={{ minWidth: 200 }}>Direct Bonus</TableCell>
+                <TableCell sx={{ minWidth: 200 }}>From User</TableCell>
+                <TableCell sx={{ minWidth: 200 }}>Level</TableCell>
+                <TableCell sx={{ minWidth: 120 }}>Percentage ( % )</TableCell>
+
                 <TableCell />
               </TableRow>
             </TableHead>
@@ -91,9 +93,10 @@ export default function ReferralList() {
                           <Typography variant="subtitle2">{(currentPage - 1) * rowsPerPage + index + 1}</Typography>
                         </TableCell>
                         <TableCell>{format(new Date(row?.calculate_date), 'dd MMM yyyy')}</TableCell>
-                        <TableCell>{row?.income_amt}</TableCell>
-                        <TableCell>{row?.Bonus_percent}</TableCell>
-                        <TableCell sx={{ textTransform: 'capitalize' }}>{row?.income_type}</TableCell>
+                        <TableCell>{row?.income_amt} $ </TableCell>
+                        <TableCell>{row?.Bonus_percent} % </TableCell>
+                        <TableCell>{row?.Bonus_percent} % </TableCell>
+                        <TableCell>{row?.Bonus_percent} % </TableCell>
                       </TableRow>
                     ))}
                 </>
