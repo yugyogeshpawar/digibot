@@ -153,7 +153,7 @@ export default function Dashboard() {
             <WithoutUSD teamBusiness={user?.withdrawal_amt} title="Withdraw Amount" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={user?.daily_profit} title="Pool Wallet" />
+            <MyRank teamBusiness={user?.pool_amount} title="Pool Wallet" />
           </Grid>
 
           <Grid item xs={12}>
