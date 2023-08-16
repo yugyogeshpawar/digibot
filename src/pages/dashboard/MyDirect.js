@@ -112,7 +112,7 @@ export default function MyDirect() {
                       <TableCell>{row?.member_user_id}</TableCell>
                       <TableCell sx={{ textTransform: 'capitalize' }}>{formatDate(row?.registration_date)}</TableCell>
                       <TableCell sx={{ textTransform: 'capitalize' }}>{row?.position}</TableCell>
-                      <TableCell sx={{ textTransform: 'capitalize' }}>{row?.investment_busd}</TableCell>
+                      <TableCell sx={{ textTransform: 'capitalize' }}>{row?.investment_busd} $</TableCell>
                       <TableCell sx={{ textTransform: 'capitalize' }}>
                         {row?.status === 1 ? <Box color="green"> Active </Box> : <Box color="red"> Inactive </Box>}
                       </TableCell>

@@ -28,7 +28,7 @@ export default function ReferralList() {
 
   useEffect(() => {
     const values = {
-      incomeType: 'REWARD BONUS'
+      incomeType: 'MATCHING BUSINESS'
     };
     dispatch(getCapitalBonus(values));
   }, [dispatch]);
@@ -37,7 +37,7 @@ export default function ReferralList() {
     setSearchTerm(event.target.value);
     setPage(1); // Reset the page to the first page when searching
   };
-
+  console.log(capitalBonus, 'capitalBonuscapitalBonuscapitalBonuscapitalBonus');
   const checkDataArr = capitalBonus?.filter((row) => {
     if (!searchTerm) return true;
     return (
@@ -68,8 +68,8 @@ export default function ReferralList() {
                 <TableCell sx={{ minWidth: 120 }}>No.</TableCell>
                 <TableCell sx={{ minWidth: 160 }}>Date</TableCell>
                 <TableCell sx={{ minWidth: 200 }}>Reward Amount</TableCell>
+                <TableCell sx={{ minWidth: 200 }}>Matching Bussiness</TableCell>
 
-                <TableCell sx={{ minWidth: 120 }}>Income Type</TableCell>
                 <TableCell />
               </TableRow>
             </TableHead>
@@ -91,8 +91,8 @@ export default function ReferralList() {
                       </TableCell>
                       <TableCell>{format(new Date(row?.calculate_date), 'dd MMM yyyy')}</TableCell>
                       <TableCell>{row?.income_amt} $</TableCell>
-                      <TableCell>{row?.Bonus_percent} % </TableCell>
-                      <TableCell sx={{ textTransform: 'capitalize' }}>{row?.income_type}</TableCell>
+
+                      <TableCell sx={{ textTransform: 'capitalize' }}>{row?.investment_amt} $ </TableCell>
                     </TableRow>
                   ))}
                 </>

@@ -69,7 +69,7 @@ export default function ReferralList() {
                 <TableCell sx={{ minWidth: 160 }}>Date</TableCell>
                 <TableCell sx={{ minWidth: 200 }}>Income Amount</TableCell>
                 <TableCell sx={{ minWidth: 120 }}>Percentage ( % ) </TableCell>
-                <TableCell sx={{ minWidth: 120 }}>Income Type</TableCell>
+                <TableCell sx={{ minWidth: 120 }}>Matching Amount</TableCell>
                 <TableCell />
               </TableRow>
             </TableHead>
@@ -92,7 +92,7 @@ export default function ReferralList() {
                       <TableCell>{format(new Date(row?.calculate_date), 'dd MMM yyyy')}</TableCell>
                       <TableCell>{row?.income_amt} $</TableCell>
                       <TableCell>{row?.Bonus_percent} % </TableCell>
-                      <TableCell sx={{ textTransform: 'capitalize' }}>{row?.income_type}</TableCell>
+                      <TableCell sx={{ textTransform: 'capitalize' }}>{row?.investment_amt}</TableCell>
                     </TableRow>
                   ))}
                 </>

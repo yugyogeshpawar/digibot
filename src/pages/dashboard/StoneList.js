@@ -70,7 +70,7 @@ export default function StoneList() {
                 <TableCell sx={{ minWidth: 160 }}>Date</TableCell>
                 <TableCell sx={{ minWidth: 200 }}>Trade Bonus</TableCell>
                 <TableCell sx={{ minWidth: 120 }}>Percentage ( % ) </TableCell>
-                <TableCell sx={{ minWidth: 120 }}>Bot Type</TableCell>
+                <TableCell sx={{ minWidth: 120 }}>Trading</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -91,7 +91,7 @@ export default function StoneList() {
                       <TableCell>{row?.income_amt} $ </TableCell>
                       <TableCell>{row?.Bonus_percent} % </TableCell>
                       <TableCell sx={{ textTransform: 'capitalize' }}>
-                        {row?.b_type === null ? 'Not defined ' : row?.b_type}
+                        {row?.investment_amt === null ? 'Not defined ' : `${row?.investment_amt} $`}
                       </TableCell>
                     </TableRow>
                   ))}

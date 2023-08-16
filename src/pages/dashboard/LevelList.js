@@ -101,10 +101,11 @@ export default function LevelList() {
                       <Typography variant="subtitle2">{page * rowsPerPage + ind + 1}</Typography>
                     </TableCell>
                     <TableCell>{format(new Date(row?.calculate_date), 'dd MMM yyyy')}</TableCell>
-                    <TableCell>{row?.income_level}</TableCell>
-                    <TableCell>{row?.Bonus_percent} % </TableCell>
+                    <TableCell>{row?.income_amt} $</TableCell>
+                    <TableCell>{row?.income_member_id} </TableCell>
+                    <TableCell>{row?.income_level} </TableCell>
 
-                    <TableCell>{row?.investment_amt}</TableCell>
+                    <TableCell>{row?.Bonus_percent} %</TableCell>
                   </TableRow>
                 ))
               )}

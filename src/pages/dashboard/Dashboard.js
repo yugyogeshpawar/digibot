@@ -41,16 +41,26 @@ export default function Dashboard() {
   }, [dispatch]);
   // user?.status === 0 ? <TimerAndMarquee /> : ''
   const totalBonusData =
-    incomeDash?.stake +
-    incomeDash?.roi +
-    incomeDash?.direct +
-    incomeDash?.withdraw +
-    incomeDash?.match +
-    incomeDash?.business +
-    incomeDash?.monthly +
-    incomeDash?.bonus;
-  console.log(user, '++++++++++++++++++++++++++++++++++++++++++++++++');
-  console.log(incomeDash, 'KKKKK');
+    // incomeDash?.stake +
+    // incomeDash?.roi +
+    // incomeDash?.direct +
+    // incomeDash?.withdraw +
+    // incomeDash?.business +
+    // incomeDash?.level +
+    // incomeDash?.monthly +
+    // incomeDash?.stake +
+    incomeDash?.trade_Bonus +
+    incomeDash?.passive_Bonus +
+    incomeDash?.direct_Bonus +
+    incomeDash?.withdraw_Level_Bonus +
+    incomeDash?.reward_Bonus +
+    incomeDash?.monthly_Bonus +
+    incomeDash?.binary_Bonus +
+    incomeDash?.level_Bonus +
+    incomeDash?.pool_Bonus;
+
+  const dd = incomeDash?.bonus;
+  console.log(totalBonusData, 'KKKKK');
   return (
     <Page title="General: App | Digibot">
       <Container maxWidth={themeStretch ? false : 'xl'}>
@@ -95,41 +105,46 @@ export default function Dashboard() {
             <NoLevelOpen teamBusiness={user?.qualify_level} title=" Level Open" />
           </Grid>
           <Grid item xs={12} md={4}>
+            <WithoutUSD teamBusiness={0} title="Currunt Pool " />
+          </Grid>
+          <Grid item xs={12} md={4}>
             <WithoutUSD teamBusiness={`${user?.left_pair} : ${user?.right_pair}`} title=" First Pair" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={incomeDash?.stake} title="Trade Bonus" />
+            <MyRank teamBusiness={incomeDash?.trade_Bonus} title="Trade Bonus" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={incomeDash?.roi} title=" Trade Passive Bonus" />
+            <MyRank teamBusiness={incomeDash?.passive_Bonus} title=" Trade Passive Bonus" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={incomeDash?.direct} title="Direct Bonus" />
+            <MyRank teamBusiness={incomeDash?.direct_Bonus} title="Direct Bonus" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={incomeDash?.level} title="Level Bonus" />
-          </Grid>
-
-          <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={incomeDash?.bonus} title="Matching Bonus" />
+            <MyRank teamBusiness={incomeDash?.level_Bonus} title="Level Bonus" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={incomeDash?.business} title="Reward Bonus" />
+            <MyRank teamBusiness={incomeDash?.withdraw_Level_Bonus} title="Withdraw Level Bonus" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={incomeDash?.monthly} title="Monthly Performance Bonus" />
+            <MyRank teamBusiness={incomeDash?.binary_Bonus} title="Matching Bonus" />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <MyRank teamBusiness={incomeDash?.reward_Bonus} title="Reward Bonus" />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <MyRank teamBusiness={incomeDash?.monthly_Bonus} title="Monthly Performance Bonus" />
           </Grid>
           <Grid item xs={12} md={4}>
             <MyRank teamBusiness={incomeDash?.monthly} title="Global Community Pool" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={incomeDash?.monthly} title="Global Leadership Pool" />
+            <MyRank teamBusiness={incomeDash?.pool_Bonus} title="Global Leadership Pool" />
           </Grid>
           <Grid item xs={12} md={4}>
             <MyRank teamBusiness={user?.daily_profit} title="Daily Trade Profit" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <WithoutUSD teamBusiness={totalBonusData.toFixed(2)} title="Total Bonus" />
+            <WithoutUSD teamBusiness={totalBonusData?.toFixed(2)} title="Total Bonus" />
           </Grid>
           <Grid item xs={12} md={4}>
             <WithoutUSD teamBusiness={user?.wallet_amount} title="My Wallet " />

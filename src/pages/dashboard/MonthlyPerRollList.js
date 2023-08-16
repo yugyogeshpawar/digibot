@@ -50,7 +50,7 @@ export default function MonthlyPayrollBonus() {
   const indexOfLastRow = page * rowsPerPage;
   const indexOfFirstRow = indexOfLastRow - rowsPerPage;
   const currentRows = filteredData?.slice(indexOfFirstRow, indexOfLastRow);
-
+  console.log(currentRows, '7777777777');
   return (
     <Card>
       <CardHeader title="Monthly Bonus List" sx={{ mb: 3 }} />
@@ -73,10 +73,12 @@ export default function MonthlyPayrollBonus() {
             <TableHead>
               <TableRow>
                 <TableCell sx={{ minWidth: 120 }}>No.</TableCell>
-                <TableCell sx={{ minWidth: 160 }}>Date</TableCell>
+                <TableCell sx={{ minWidth: 160 }}>Payment Date</TableCell>
+                <TableCell sx={{ minWidth: 160 }}>Bussiness Month</TableCell>
+
                 <TableCell sx={{ minWidth: 200 }}>Income Amount</TableCell>
-                <TableCell sx={{ minWidth: 120 }}>Persentage ( % ) </TableCell>
-                <TableCell sx={{ minWidth: 120 }}>Income Type</TableCell>
+
+                <TableCell sx={{ minWidth: 120 }}>Monthly Bussiness</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -96,9 +98,11 @@ export default function MonthlyPayrollBonus() {
                         <Typography variant="subtitle2">{ind + 1 + indexOfFirstRow}</Typography>
                       </TableCell>
                       <TableCell>{format(new Date(row?.calculate_date), 'dd MMM yyyy')}</TableCell>
+                      <TableCell>{format(new Date(row?.calculate_date), 'dd MMM yyyy')}</TableCell>
+
                       <TableCell>{row?.income_amt}</TableCell>
-                      <TableCell>{row?.Bonus_percent} % </TableCell>
-                      <TableCell sx={{ textTransform: 'capitalize' }}>{row?.income_type}</TableCell>
+
+                      <TableCell sx={{ textTransform: 'capitalize' }}>{row?.investment_amt}</TableCell>
                     </TableRow>
                   ))}
                 </>
