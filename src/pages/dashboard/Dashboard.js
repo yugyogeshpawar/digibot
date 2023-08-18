@@ -38,6 +38,10 @@ export default function Dashboard() {
 
   const { incomeDash } = useSelector((state) => state.user);
 
+  // useEffect(() => {
+  // console.log(incomeDash?.pool_Bonus);
+  // }, [incomeDash]);
+
   useEffect(() => {
     dispatch(getIncomeDashRoute());
   }, [dispatch]);

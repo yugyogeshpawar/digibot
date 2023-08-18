@@ -135,6 +135,7 @@ export const PATH_DASHBOARD = {
   payout: {
     root: path(ROOTS_DASHBOARD, '/payout/shop'),
     minting: path(ROOTS_DASHBOARD, '/payout/minting'),
+    poolwithdraw: path(ROOTS_DASHBOARD, '/payout/poolwithdraw'),
     referral: path(ROOTS_DASHBOARD, '/payout/referral'),
     capital: path(ROOTS_DASHBOARD, '/payout/capital'),
     month_pay: path(ROOTS_DASHBOARD, '/payout/month_pay'),

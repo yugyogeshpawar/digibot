@@ -115,8 +115,6 @@ const mockNotificationData = [
 ];
 
 // Example of how to use the mockNotificationData
-console.log(mockNotificationData);
-
 function renderContent(notification) {
   const title = (
     <Typography variant="subtitle2">

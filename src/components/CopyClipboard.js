@@ -37,6 +37,7 @@ export default function CopyClipboard({ value, ...other }) {
       value={state.value}
       onChange={handleChange}
       InputProps={{
+        readOnly: true,
         endAdornment: (
           <InputAdornment position="end">
             <CopyToClipboard text={state.value} onCopy={onCopy}>

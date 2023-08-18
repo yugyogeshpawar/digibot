@@ -95,7 +95,6 @@ DashboardSidebar.propTypes = {
 export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
   const { pathname } = useLocation();
   const { user } = useAuth();
-  console.log('user ==++==+++==+++==+++===+++>>> : ', user);
   const [memberName, setMemberName] = useState(user?.curentRank === null ? 'Member' : user?.curentRank);
   const { isCollapse, collapseClick, collapseHover, onToggleCollapse, onHoverEnter, onHoverLeave } =
     useCollapseDrawer();
@@ -110,7 +109,6 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
   const styleColor = user?.kyc_status === 1 ? 'green' : 'red';
-  console.log(styleColor, '++++++++++++++++++++++');
   const renderContent = (
     <Scrollbar
       sx={{

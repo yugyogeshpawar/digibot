@@ -113,16 +113,19 @@ const sidebarConfig = [
   // Payout
   // ----------------------------------------------------------------------
   {
-    subheader: 'personal',
+    subheader: 'withdraw',
     items: [
       {
         title: 'payouts',
         path: PATH_DASHBOARD.personal.root,
         icon: ICONS.withdraw,
-        children: [{ title: 'Withdraw', path: PATH_DASHBOARD.payout.minting }]
+        children: [
+          { title: 'Withdraw', path: PATH_DASHBOARD.payout.minting },
+          { title: 'Pool Withdraw', path: PATH_DASHBOARD.payout.poolwithdraw }
+        ]
       },
-      { title: 'transactions', path: PATH_DASHBOARD.personal.transactions, icon: ICONS.calendar },
-      { title: 'activation', path: PATH_DASHBOARD.personal.activation, icon: ICONS.calendar }
+      { title: 'withdraw summary', path: PATH_DASHBOARD.personal.transactions, icon: ICONS.calendar }
+      // { title: 'activation', path: PATH_DASHBOARD.personal.activation, icon: ICONS.calendar }
     ]
   },
   {

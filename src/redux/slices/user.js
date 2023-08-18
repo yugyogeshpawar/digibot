@@ -851,7 +851,6 @@ export function getDailyIncome() {
       const response = await axios.get(urlApi, {
         headers
       });
-      console.log(response);
 
       dispatch(slice.actions.getDailyincomeSuccess(response.data));
     } catch (error) {

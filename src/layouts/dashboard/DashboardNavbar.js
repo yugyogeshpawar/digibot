@@ -261,7 +261,6 @@ const ToolbarStyle = styled(Toolbar)(({ theme }) => ({
 // ----------------------------------------------------------------------
 const currentDate = new Date();
 const currentISOTime = currentDate.toISOString();
-console.log(currentISOTime, 'currentISOTime ====>>>>>');
 export default function DashboardNavbar({ onOpenSidebar }) {
   const { isCollapse } = useCollapseDrawer();
   const { user } = useAuth();
