@@ -26,7 +26,8 @@ const ICONS = {
   withdraw: getIcon('ic_withdraw'),
   bonus: getIcon('ic_bonus'),
   robot: getIcon('ic_robot'),
-  teams: getIcon('ic_team')
+  teams: getIcon('ic_team'),
+  teamss: getIcon('ic_teams')
 };
 
 const sidebarConfig = [
@@ -71,7 +72,7 @@ const sidebarConfig = [
       {
         title: 'My Team',
         path: PATH_DASHBOARD.personal.root,
-        icon: ICONS.cart,
+        icon: ICONS.teamss,
         children: [
           { title: 'my genealogy', path: PATH_DASHBOARD.myteam.mygenealogy },
           { title: 'my direct', path: PATH_DASHBOARD.myteam.mydirect },

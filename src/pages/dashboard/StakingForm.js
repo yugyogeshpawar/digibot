@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Icon } from '@iconify/react';
 import { useSnackbar } from 'notistack5';
 import { Grid, Button, Autocomplete, TextField, Box, Select, MenuItem } from '@material-ui/core';
-import { closeFill } from '@iconify/icons-eva/close-fill';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 // eslint-disable-next-line import/no-unresolved
 import useAuth from 'src/hooks/useAuth';
@@ -46,6 +45,12 @@ export default function StakingForm() {
     }
   };
 
+  const botChargeZero = () => {
+    console.log(selectedBotData.fee);
+    setSelectedBotData({ ...selectedBotData, fee: 0 });
+    console.log(selectedBotData.fee);
+  };
+
   const postStackingData = async (formData) => {
     try {
       const accessToken = localStorage.getItem('accessToken'); // Replace 'access_token' with the key used to store the access token
@@ -70,6 +75,14 @@ export default function StakingForm() {
         variant: 'error'
       });
     }
+  };
+
+  const changeSelectedBot = (event, newValue) => {
+    if (user.investment_busd <= newValue) {
+      botChargeZero();
+    }
+    setSelectedPackage(newValue);
+    setSelectedBotData(botData.find((bot) => bot.bot_name === selectedBot));
   };
 
   useEffect(() => {
@@ -166,7 +179,8 @@ export default function StakingForm() {
                     ]
                   : []
               }
-              onChange={(event, newValue) => setSelectedPackage(newValue)}
+              // onChange={(event, newValue) => setSelectedPackage(newValue)}
+              onChange={(event, newValue) => changeSelectedBot(event, newValue)}
               renderInput={(params) => <TextField {...params} label="Select Package" />}
             />
             <TextField

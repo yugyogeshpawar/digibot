@@ -1,5 +1,5 @@
 /* eslint-disable import/no-unresolved */
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Container, Grid, Stack } from '@material-ui/core';
 // hooks
 import { getIncomeDashRoute, getProfile } from 'src/redux/slices/user';
@@ -18,10 +18,10 @@ import {
   MyRank,
   WithoutUSD
 } from '../../components/_dashboard/general-app';
-import { BankingInviteFriends } from '../../components/_dashboard/general-banking';
 import { EventsPosts } from '../../components/_dashboard/general-booking';
 import TimerAndMarquee from './TimerAndMarquee';
 import NoLevelOpen from './NoLevelOpen';
+import { getDailyIncome } from '../../redux/slices/user';
 // ----------------------------------------------------------------------
 
 export default function Dashboard() {
@@ -29,9 +29,11 @@ export default function Dashboard() {
   const { user } = useAuth();
 
   const { myProfile } = useSelector((state) => state.user);
+  const { dailyincomeData } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProfile());
+    dispatch(getDailyIncome());
   }, [dispatch]);
 
   const { incomeDash } = useSelector((state) => state.user);
@@ -59,8 +61,6 @@ export default function Dashboard() {
     incomeDash?.level_Bonus +
     incomeDash?.pool_Bonus;
 
-  const dd = incomeDash?.bonus;
-  console.log(totalBonusData, 'KKKKK');
   return (
     <Page title="General: App | Digibot">
       <Container maxWidth={themeStretch ? false : 'xl'}>
@@ -141,7 +141,7 @@ export default function Dashboard() {
             <MyRank teamBusiness={incomeDash?.pool_Bonus} title="Global Leadership Pool" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={user?.daily_profit} title="Daily Trade Profit" />
+            <MyRank teamBusiness={dailyincomeData?.result?.toFixed(2)} title="Daily Trade Profit" />
           </Grid>
           <Grid item xs={12} md={4}>
             <WithoutUSD teamBusiness={totalBonusData?.toFixed(2)} title="Total Bonus" />

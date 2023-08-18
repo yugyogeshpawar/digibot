@@ -214,6 +214,10 @@ const slice = createSlice({
       state.isLoading = false;
       state.downLineData = action.payload;
     },
+    getDailyincomeSuccess(state, action) {
+      state.isLoading = false;
+      state.dailyincomeData = action.payload;
+    },
     getStackingSummarysuccess(state, action) {
       state.isLoading = false;
       state.stackingsummary = action.payload;
@@ -832,6 +836,24 @@ export function getDownline() {
       });
 
       dispatch(slice.actions.getDownlinesucces(response.data.users));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+export function getDailyIncome() {
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const accessToken = window.localStorage.getItem('accessToken');
+      const headers = { Authorization: `Bearer ${accessToken}` };
+      const urlApi = `${baseUrl}/users/dailyProfit`;
+      const response = await axios.get(urlApi, {
+        headers
+      });
+      console.log(response);
+
+      dispatch(slice.actions.getDailyincomeSuccess(response.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }

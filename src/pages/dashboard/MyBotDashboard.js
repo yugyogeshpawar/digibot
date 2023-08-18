@@ -2,7 +2,7 @@
 // material
 import { useEffect } from 'react';
 import { Container, Grid } from '@material-ui/core';
-import { getProfile } from 'src/redux/slices/user';
+import { getProfile, getDailyIncome } from 'src/redux/slices/user';
 import { useDispatch, useSelector } from 'src/redux/store';
 // hooks
 import useSettings from '../../hooks/useSettings';
@@ -23,14 +23,15 @@ import {
 
 export default function MyStone() {
   const { themeStretch, themeMode } = useSettings();
-  console.log('themeStretch', themeMode);
   const { user } = useAuth();
   const { myProfile } = useSelector((state) => state.user);
-  console.log(myProfile, 'vvvvvvvvvvvvvvvvvvvvvvvvv');
+  const { dailyincomeData } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProfile());
+    dispatch(getDailyIncome());
   }, [dispatch]);
+
   return (
     <Page title="General: E-commerce | Digibot">
       <Container maxWidth={themeStretch ? false : 'xl'}>
@@ -47,7 +48,7 @@ export default function MyStone() {
             <NextPosition myProfile={myProfile} />
           </Grid>
           <Grid item xs={12} md={4}>
-            <NextPositionBusiness myProfile={myProfile} />
+            <NextPositionBusiness myProfile={dailyincomeData} />
           </Grid>
           <Grid item xs={12} md={4}>
             <NextPosionReward myProfile={myProfile} />

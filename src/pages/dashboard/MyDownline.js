@@ -22,7 +22,6 @@ import Scrollbar from '../../components/Scrollbar';
 
 export default function MyDownLine() {
   const dispatch = useDispatch();
-  const { refbonus } = useSelector((state) => state.user);
   const { downLineData } = useSelector((state) => state.user);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -61,7 +60,6 @@ export default function MyDownLine() {
     const formattedDate = `${day} ${month} ${year}`;
     return formattedDate;
   }
-  const refarr = refbonus;
   const downlineApisData = downLineData;
 
   const filteredData = downlineApisData?.filter((row) =>

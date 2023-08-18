@@ -1,64 +1,31 @@
 import PropTypes from 'prop-types';
-import { Icon } from '@iconify/react';
-import trendingUpFill from '@iconify/icons-eva/trending-up-fill';
-import trendingDownFill from '@iconify/icons-eva/trending-down-fill';
 // material
-import { alpha, useTheme, styled } from '@material-ui/core/styles';
 import { Box, Card, Typography, Stack } from '@material-ui/core';
 // utils
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 // eslint-disable-next-line import/no-unresolved
 import { getIncomeDashRoute } from 'src/redux/slices/user';
-import { fNumber } from '../../../utils/formatNumber';
-//
-// import { BaseOptionChart } from '../../charts';
 
 // ----------------------------------------------------------------------
-
-const IconWrapperStyle = styled('div')(({ theme }) => ({
-  width: 24,
-  height: 24,
-  display: 'flex',
-  borderRadius: '50%',
-  alignItems: 'center',
-  justifyContent: 'center',
-  marginRight: theme.spacing(1),
-  color: theme.palette.success.main,
-  backgroundColor: alpha(theme.palette.success.main, 0.16)
-}));
-
-// ----------------------------------------------------------------------
-
-const PERCENT = 0.06;
 
 NextPosionReward.propTypes = {
   myProfile: PropTypes.object
 };
 
 export default function NextPosionReward({ myProfile }) {
-  const theme = useTheme();
   const dispatch = useDispatch();
-  const { incomeDash } = useSelector((state) => state.user);
+  console.log(myProfile);
 
   useEffect(() => {
     dispatch(getIncomeDashRoute());
   }, [dispatch]);
-  // user?.status === 0 ? <TimerAndMarquee /> : ''
-  const totalBonusData =
-    incomeDash?.stake +
-    incomeDash?.roi +
-    incomeDash?.direct +
-    incomeDash?.withdraw +
-    incomeDash?.match +
-    incomeDash?.business +
-    incomeDash?.monthly;
   return (
     <Card sx={{ display: 'flex', alignItems: 'center', p: 4 }}>
       <Box sx={{ flexGrow: 1 }}>
         <Typography variant="subtitle2">Total Profit</Typography>
         <Typography variant="h3" gutterBottom>
-          $ {totalBonusData}
+          $ {myProfile?.user?.total_earning?.toFixed(2)}
         </Typography>
 
         <Stack direction="row" alignItems="center" flexWrap="wrap">
