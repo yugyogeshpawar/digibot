@@ -1,0 +1,2 @@
+(this["webpackJsonp@Digibot/Digibot"]=this["webpackJsonp@Digibot/Digibot"]||[]).push([[148],{2492:function(t,i,n){"use strict";n.r(i),n.d(i,"default",(function(){return e}));var o=n(1);function e(){return Object(o.useEffect)((function(){window.location.href="http://app.digibot.trade"}),[]),null}}}]);
+//# sourceMappingURL=148.95e842aa.chunk.js.map

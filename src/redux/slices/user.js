@@ -835,7 +835,9 @@ export function getDownline() {
         headers
       });
 
-      dispatch(slice.actions.getDownlinesucces(response.data.users));
+      console.log(response.data);
+
+      dispatch(slice.actions.getDownlinesucces(response.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }

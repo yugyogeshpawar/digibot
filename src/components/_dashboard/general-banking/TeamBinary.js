@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable prefer-const */
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import { styled } from '@material-ui/core/styles';
 import { Button, Box, Grid, Card, CircularProgress, Alert, Snackbar, Fade, Modal, Backdrop } from '@material-ui/core';
 import Data from './Data.json';
@@ -9,18 +9,23 @@ import Data from './Data.json';
 const TreeCard = ({ binaryTree, onChildClick }) => {
   const { root, children, childrenOfChildren } = binaryTree;
 
-  const makeNode = (user, index) => (
-    <Grid item xs={6} sm={6} md={6} key={index}>
-      <Box className="img" style={styleObject} onClick={() => onChildClick(user.member_user_id)}>
-        <img src="/bot/NanoBot.png" className="App-logo" alt="logo" style={{ maxWidth: '100px' }} />
-        <h6 className="text-center" style={{ textAlign: 'center' }}>
-          {user.member_name}
-          <br />
-          {user.member_user_id}
-        </h6>
-      </Box>
-    </Grid>
-  );
+  const makeNode = (user, index) => {
+    if (user !== null && user !== undefined) {
+      return (
+        <Grid item xs={6} sm={6} md={6} key={index}>
+          <Box className="img" style={styleObject} onClick={() => onChildClick(user.member_user_id)}>
+            <img src="/bot/NanoBot.png" className="App-logo" alt="logo" style={{ maxWidth: '100px' }} />
+            <h6 className="text-center" style={{ textAlign: 'center' }}>
+              {user.member_name}
+              <br />
+              {user.member_user_id}
+            </h6>
+          </Box>
+        </Grid>
+      );
+    }
+    return null;
+  };
 
   const make4Node = (users, index) => {
     const userNodes = users.map((user, userIndex) =>
@@ -110,15 +115,26 @@ const LoadingModal = styled(Modal)({
 });
 
 function convertToBinaryTree(Data, rootUserId) {
+  // Ensure that Data and Data.users are defined
+  if (!Data || !Data.users) {
+    return { root: null, children: [], childrenOfChildren: [] };
+  }
+
   // Find the root node
   const rootNode = Data.users.find((user) => user.member_user_id === rootUserId);
 
+  // Check if rootNode exists
+  if (!rootNode) {
+    return { root: null, children: [], childrenOfChildren: [] };
+  }
+
   // Find users sponsored by the root
   const usersSponceredByRoot = Data.users.filter((user) => user.position_parent === rootUserId);
+
   const usersSponceredByRootChildren = Data.users.filter(
     (user) =>
-      user.position_parent === usersSponceredByRoot[0].member_user_id ||
-      user.position_parent === usersSponceredByRoot[1].member_user_id
+      user.position_parent === usersSponceredByRoot[0]?.member_user_id ||
+      user.position_parent === usersSponceredByRoot[1]?.member_user_id
   );
 
   // Include root node data and its children in the result
@@ -144,32 +160,35 @@ const RootStyle = styled(Card)(({ theme }) => ({
   }
 }));
 
-function TeamBinary() {
-  const initialRootUserId = Data.users[0].member_user_id; // Get the first user as the root
-  const [rootUserId, setRootUserId] = React.useState(initialRootUserId); // Move rootUserId to state
-  const [openSnackbar, setOpenSnackbar] = React.useState(false); // state to handle snackbar visibility
-  const [loading, setLoading] = React.useState(false); // Add loading state
+TeamBinary.propTypes = {
+  data: PropTypes.array
+};
 
-  const binaryTree = convertToBinaryTree(Data, rootUserId);
-  console.log(binaryTree);
+function TeamBinary({ data }) {
+  console.log(data);
+
+  const initialRootUserId = data && data.users && data.users.length > 0 ? data.users[0].member_user_id : null;
+  const [rootUserId, setRootUserId] = React.useState(initialRootUserId);
+  const [openSnackbar, setOpenSnackbar] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+
+  const binaryTree = convertToBinaryTree(data, rootUserId);
 
   const handleChildClick = async (userId) => {
     setLoading(true);
-    const childrenNodes = Data.users.filter((user) => user.position_parent === userId);
+    const childrenNodes = data.users.filter((user) => user.position_parent === userId);
 
     if (!childrenNodes || childrenNodes.length < 2) {
-      // If childrenNodes is not found or less than 2, show the error snackbar
       setOpenSnackbar(true);
     } else {
-      // Set the rootUserId to userId
       setRootUserId(userId);
     }
-    await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for 1 second
-    setLoading(false); // Set loading to false after 1 second
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    setLoading(false);
   };
 
   const handleBackClick = () => {
-    setRootUserId(initialRootUserId); // Set the rootUserId to initialRootUserId when back button is clicked
+    setRootUserId(initialRootUserId);
   };
 
   const handleCloseSnackbar = (event, reason) => {
@@ -179,6 +198,14 @@ function TeamBinary() {
 
     setOpenSnackbar(false);
   };
+
+  if (!data || !data.users || data.users.length === 0) {
+    return (
+      <RootStyle>
+        <Alert severity="warning">No data available</Alert>
+      </RootStyle>
+    );
+  }
 
   return (
     <RootStyle>

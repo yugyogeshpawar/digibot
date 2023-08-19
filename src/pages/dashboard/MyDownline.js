@@ -23,6 +23,7 @@ import Scrollbar from '../../components/Scrollbar';
 export default function MyDownLine() {
   const dispatch = useDispatch();
   const { downLineData } = useSelector((state) => state.user);
+  console.log(downLineData, 'downLineDatadownLineDatadownLineData');
 
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage] = useState(10);

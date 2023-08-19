@@ -1,0 +1,2 @@
+(this["webpackJsonp@Digibot/Digibot"]=this["webpackJsonp@Digibot/Digibot"]||[]).push([[163],{2498:function(i,t,e){"use strict";e.r(t);e(1);var n=e(0);t.default=function(){return Object(n.jsx)(n.Fragment,{children:Object(n.jsxs)("div",{children:[Object(n.jsx)("div",{children:"jhhhj"}),"my genenology"]})})}}}]);
+//# sourceMappingURL=163.840a1f48.chunk.js.map

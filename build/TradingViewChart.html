@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>TradingView Chart</title>
+    <!-- TradingView Widget Script -->
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+</head>
+
+<body>
+    <div id="tradingview-chart" style="height: 450px;"></div>
+
+    <script>
+        // Get the theme and exchanges from the URL query parameters
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const theme = urlParams.get('theme') || 'dark'; // Default to 'dark' if theme is not specified in the URL
+        const exchanges = urlParams.get('exchanges') || 'BINANCE:DGBUSDT'; // Default to 'BINANCE:DGBUSDT' if exchanges are not specified in the URL
+        console.log('exchanges', exchanges);
+        const widgetOptions = {
+            symbol: exchanges,
+            interval: '1',
+            container_id: 'tradingview-chart',
+            library_path: 'https://s3.tradingview.com/charting_library/',
+            fullscreen: false,
+            autosize: true,
+            theme: theme === 'dark' ? 'dark' : 'light', // Set the theme based on the URL parameter
+        };
+
+        const widget = new window.TradingView.widget(widgetOptions);
+    </script>
+
+</body>
+
+</html>

@@ -119,7 +119,10 @@ const sidebarConfig = [
         title: 'payouts',
         path: PATH_DASHBOARD.personal.root,
         icon: ICONS.withdraw,
-        children: [{ title: 'Withdraw', path: PATH_DASHBOARD.payout.minting }]
+        children: [
+          { title: 'Withdraw', path: PATH_DASHBOARD.payout.minting },
+          { title: 'Pool Income Withdraw', path: PATH_DASHBOARD.payout.poolIncome }
+        ]
       },
       { title: 'transactions', path: PATH_DASHBOARD.personal.transactions, icon: ICONS.calendar },
       { title: 'activation', path: PATH_DASHBOARD.personal.activation, icon: ICONS.calendar }

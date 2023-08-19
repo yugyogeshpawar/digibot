@@ -135,7 +135,8 @@ export default function Router() {
           path: 'payout',
           children: [
             { path: '/', element: <Navigate to="/dashboard/payouts/minting" replace /> },
-            { path: 'minting', element: <MintingPayouts /> }
+            { path: 'minting', element: <MintingPayouts /> },
+            { path: 'pool-income', element: <PoolWithdraw /> }
           ]
         },
         {
@@ -320,6 +321,7 @@ const OpenTicket = Loadable(lazy(() => import('../pages/dashboard/OpenTicket')))
 const UserList = Loadable(lazy(() => import('../pages/dashboard/UserList')));
 const Activation = Loadable(lazy(() => import('../pages/dashboard/Activation')));
 const MintingList = Loadable(lazy(() => import('../pages/dashboard/MintingList')));
+const PoolWithdraw = Loadable(lazy(() => import('../pages/dashboard/PoolWithdraw')));
 const UserAccount = Loadable(lazy(() => import('../pages/dashboard/UserAccount')));
 const UserCreate = Loadable(lazy(() => import('../pages/dashboard/UserCreate')));
 const StakingForm = Loadable(lazy(() => import('../pages/dashboard/StakingForm')));
