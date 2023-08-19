@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 export default function LandingPage() {
   useEffect(() => {
-    window.location.href = 'http://app.digibot.trade';
+    window.location.href = 'https://digibot.trade';
   }, []);
 
   return null;
