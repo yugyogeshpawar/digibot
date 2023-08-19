@@ -2,6 +2,7 @@ import { createContext, useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
 // utils
 import axios from 'axios';
+import { useLocation } from 'react-router';
 import { isValidToken, setSession } from '../utils/jwt';
 import { getProfile } from '../redux/slices/user';
 // ----------------------------------------------------------------------
@@ -68,9 +69,9 @@ AuthProvider.propTypes = {
 
 function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const location = useLocation();
 
   useEffect(() => {
-    console.log('WTF');
     const initialize = async () => {
       try {
         const accessToken = window.localStorage.getItem('accessToken');
@@ -112,7 +113,7 @@ function AuthProvider({ children }) {
     };
 
     initialize();
-  }, []);
+  }, [location.pathname]);
 
   const login = async (userId, password) => {
     const response = await axios.post(`${baseUrl}/auth/login`, {

@@ -111,11 +111,11 @@ export default function MintingPayouts() {
     <Page title="Ecommerce: Checkout | Digibot">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading="Pool Income Withdraw"
+          heading="Pool Withdraw"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
             {
-              name: 'Pool Income Withdraw',
+              name: 'Pool Withdraw',
               href: PATH_DASHBOARD.payout.minting
             }
           ]}

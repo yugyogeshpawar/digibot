@@ -141,7 +141,7 @@ export default function PayoutCart({ checkoutType, setWithdrawSummary }) {
             <Grid container spacing={3}>
               <Grid item xs={12} md={8}>
                 <Card sx={{ mb: 3, pb: 2, px: 2 }}>
-                  <CardHeader title={<Typography variant="h6">Pool Income Withdraw</Typography>} sx={{ mb: 3 }} />
+                  <CardHeader title={<Typography variant="h6">Pool Withdraw</Typography>} sx={{ mb: 3 }} />
 
                   <Scrollbar sx={{ pt: 3 }}>
                     <Stack spacing={{ xs: 2, md: 3, mt: 3 }}>
@@ -155,13 +155,7 @@ export default function PayoutCart({ checkoutType, setWithdrawSummary }) {
                         />
                       </Stack>
                       <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
-                        <TextField
-                          fullWidth
-                          disabled
-                          value={user?.total_earning}
-                          aria-readonly
-                          label="Wallet Balance"
-                        />
+                        <TextField fullWidth disabled value={user?.pool_wallet} aria-readonly label="Wallet Balance" />
                       </Stack>
 
                       <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>

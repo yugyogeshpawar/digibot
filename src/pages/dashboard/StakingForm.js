@@ -1,10 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { Icon } from '@iconify/react';
 import { useSnackbar } from 'notistack5';
-import { Grid, Button, Autocomplete, TextField, Box, Select, MenuItem } from '@material-ui/core';
+import {
+  Grid,
+  Button,
+  Autocomplete,
+  TextField,
+  Box,
+  Select,
+  MenuItem,
+  CardContent,
+  Card,
+  Container
+} from '@material-ui/core';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 // eslint-disable-next-line import/no-unresolved
 import useAuth from 'src/hooks/useAuth';
+import CopyClipboard from '../../components/CopyClipboard';
 import { getBotData, getTokenPrice, postStacking } from '../../redux/slices/user';
 import { useDispatch, useSelector } from '../../redux/store';
 import { Block } from '../Block';
@@ -32,13 +44,16 @@ export default function StakingForm() {
     getApisBotData();
   }, [dispatch]);
 
+  useEffect(() => {
+    console.log(botData);
+  }, [botData]);
+
   const getApisBotData = async () => {
     try {
       const response = await getBotData();
-      console.log('RESPONSE FROM St ==> :', response.bots);
       setBotData(response.bots);
     } catch (error) {
-      console.log('ERR FROM  ==> ', error);
+      console.log(error);
       enqueueSnackbar('Form submitted Failed!', {
         variant: 'error'
       });
@@ -98,6 +113,17 @@ export default function StakingForm() {
     return () => clearInterval(interval);
   }, [countdownStarted, remainingTime]);
 
+  const availableOptions = selectedBotData
+    ? [
+        selectedBotData.first_investment,
+        selectedBotData.second_investment,
+        selectedBotData.third_investment,
+        selectedBotData.fourth_investment
+      ]
+    : [];
+
+  const initialSelectedPackage = availableOptions.find((option) => option >= user?.investment_busd) || null;
+
   const handleBotChange = (event, newValue) => {
     const selectedBotData = botData.find((bot) => bot.bot_name === newValue);
     setSelectedBotData(selectedBotData);
@@ -107,6 +133,7 @@ export default function StakingForm() {
   const errors = {};
   const TotalTok = Number(selectedPackage) + Number(selectedBotData?.fee);
   const finalVAl = TotalTok / tokenPrice?.price;
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -147,7 +174,33 @@ export default function StakingForm() {
     };
 
     await postStackingData(formData);
+
+    setSelectedBot('');
+    setHashCode('');
+    setWalletAddress('');
+    setSelectedBot('');
   };
+
+  function botcharge() {
+    if (selectedBot !== '' && initialSelectedPackage === null) {
+      enqueueSnackbar('The package should be greater than current investment', {
+        variant: 'error'
+      });
+      return '';
+    }
+
+    if (user?.investment_busd + selectedPackage > selectedBotData?.fourth_investment) {
+      const index = botData.findIndex((bot) => bot.bot_name === selectedBot);
+      if (index !== -1 && index + 1 < botData.length) {
+        enqueueSnackbar('Limit exceeded. Additional Charges may apply', {
+          variant: 'info'
+        });
+        return botData[index + 1].fee;
+      }
+    }
+    return selectedBotData ? selectedBotData.fee : '';
+  }
+
   return (
     <form autoComplete="off" onSubmit={handleSubmit}>
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
@@ -161,28 +214,24 @@ export default function StakingForm() {
               onChange={(event, newValue) => handleBotChange(event, newValue)}
               inputValue={inputValue}
               onInputChange={(event, newInputValue) => setInputValue(newInputValue)}
-              renderInput={(params) => <TextField {...params} label="Select Bot" />}
+              renderInput={(params) => (
+                <TextField {...params} label="Select Bot" inputProps={{ ...params.inputProps, readOnly: true }} />
+              )}
             />
 
             <Autocomplete
               sx={{ mt: 2 }}
               fullWidth
               disabled={countdownStarted}
-              value={selectedPackage}
-              options={
-                selectedBotData
-                  ? [
-                      selectedBotData.first_investment,
-                      selectedBotData.second_investment,
-                      selectedBotData.third_investment,
-                      selectedBotData.fourth_investment
-                    ]
-                  : []
-              }
-              // onChange={(event, newValue) => setSelectedPackage(newValue)}
+              value={initialSelectedPackage}
+              options={availableOptions}
               onChange={(event, newValue) => changeSelectedBot(event, newValue)}
-              renderInput={(params) => <TextField {...params} label="Select Package" />}
+              renderInput={(params) => (
+                <TextField {...params} inputProps={{ ...params.inputProps, readOnly: true }} label="Select Package" />
+              )}
+              getOptionDisabled={(option) => option < user?.investment_busd}
             />
+
             <TextField
               fullWidth
               sx={{ mt: 2 }}
@@ -194,21 +243,14 @@ export default function StakingForm() {
               disabled={countdownStarted}
             />
             {/* Updated Bot Charge field */}
-            <TextField
-              fullWidth
-              sx={{ mt: 2 }}
-              label="Bot Charge"
-              name="botCharge"
-              value={selectedBotData ? selectedBotData.fee : ''}
-              readOnly
-            />
+            <TextField fullWidth sx={{ mt: 2 }} label="Bot Charge" name="botCharge" value={botcharge()} readOnly />
             {/* Updated Total Token field */}
             <TextField
               fullWidth
               sx={{ mt: 2 }}
               label="Total Token"
               name="totalToken"
-              value={finalVAl ? finalVAl.toFixed(3) : ''}
+              value={initialSelectedPackage !== null ? finalVAl?.toFixed(3) : ''}
               readOnly
               disabled={countdownStarted}
             />
@@ -236,24 +278,36 @@ export default function StakingForm() {
           </Block>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Block title="Qr Code" sx={{ flexDirection: 'column', marginBottom: '8px' }}>
-            <Box m={1}>
+          <Block title="QR Code" sx={{ flexDirection: 'column', marginBottom: '8px' }}>
+            {/* <Box m={1}>
               <Box>
-                <Box mb={1}>
-                  Currunt Investment : <span>{user.investment_busd}</span>
-                </Box>
+                <Box mb={1}></Box>
               </Box>
-            </Box>
-            <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
-              <img src="/qrcode/qr-code.png" alt="qr-code" style={{ maxWidth: '200px', borderRadius: '4px' }} />
-              <Box m={2} ml={3}>
+            </Box> */}
+            <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+              <div>
+                <img src="/qrcode/qr-code.png" alt="qr-code" style={{ maxWidth: '200px', borderRadius: '4px' }} />
+              </div>
+              <Box>
                 <Box m={2}>
-                  <Box mb={1}>Your Selected Bot: {selectedBot}</Box>
-                  <Box mb={1}>Your selected Package: {selectedPackage}</Box>
-                  <Box>Total Token: {finalVAl ? finalVAl.toFixed(3) : ''}</Box>
+                  <Box mb={1}>
+                    Currunt Investment : <span>{user.investment_busd}</span>
+                  </Box>
+                  <Box mb={1}>Selected Bot: {selectedBot}</Box>
+                  <Box mb={1}>selected Package: {selectedPackage}</Box>
+                  <Box>Total Token: {initialSelectedPackage !== null ? finalVAl?.toFixed(3) : ''}</Box>
                 </Box>
               </Box>
             </Box>
+
+            <Container maxWidth="lg" style={{ padding: 0 }}>
+              <Card>
+                <CardContent>
+                  <CopyClipboard value="dgb1qt3nqv6g3esnjtq035hdzy36kuu7jy38zfs278z" />
+                </CardContent>
+              </Card>
+            </Container>
+
             <Box>
               <h1>Important *</h1>
               <ol style={{ marginLeft: '16px' }}>

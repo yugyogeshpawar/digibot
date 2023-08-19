@@ -38,6 +38,10 @@ export default function Dashboard() {
 
   const { incomeDash } = useSelector((state) => state.user);
 
+  // useEffect(() => {
+  // console.log(incomeDash?.pool_Bonus);
+  // }, [incomeDash]);
+
   useEffect(() => {
     dispatch(getIncomeDashRoute());
   }, [dispatch]);
@@ -135,10 +139,10 @@ export default function Dashboard() {
             <MyRank teamBusiness={incomeDash?.monthly_Bonus} title="Monthly Performance Bonus" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={incomeDash?.monthly} title="Global Community Pool" />
+            <MyRank teamBusiness={incomeDash?.pool_Bonus} title="Global Community Pool" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={incomeDash?.pool_Bonus} title="Global Leadership Pool" />
+            <MyRank teamBusiness={incomeDash?.royality_Bonus || 0} title="Global Leadership Pool" />
           </Grid>
           <Grid item xs={12} md={4}>
             <MyRank teamBusiness={dailyincomeData?.result?.toFixed(2)} title="Daily Trade Profit" />
@@ -154,6 +158,12 @@ export default function Dashboard() {
           </Grid>
           <Grid item xs={12} md={4}>
             <MyRank teamBusiness={user?.pool_amount} title="Pool Wallet" />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <MyRank teamBusiness={user?.pool_wallet} title="Pool Wallet Balance" />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <MyRank teamBusiness={user?.pool_withdraw} title="Pool Wallet Withdraw" />
           </Grid>
 
           <Grid item xs={12}>

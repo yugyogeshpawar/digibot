@@ -158,7 +158,7 @@ export default function PayoutCart({ checkoutType, setWithdrawSummary }) {
                         <TextField
                           fullWidth
                           disabled
-                          value={user?.total_earning}
+                          value={user?.wallet_amount}
                           aria-readonly
                           label="Wallet Balance"
                         />
