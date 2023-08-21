@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable prefer-const */
 import PropTypes from 'prop-types';
@@ -8,7 +9,6 @@ import Data from './Data.json';
 
 const TreeCard = ({ binaryTree, onChildClick }) => {
   const { root, children, childrenOfChildren } = binaryTree;
-
   const makeNode = (user, index) => {
     if (user !== null && user !== undefined) {
       return (
@@ -60,7 +60,7 @@ const TreeCard = ({ binaryTree, onChildClick }) => {
   // Map sortedChildren to their respective children, and sort the grandchildren
   const sortedChildrenOfChildren = sortedChildren.map((child) =>
     [...childrenOfChildren]
-      .filter((grandchild) => grandchild.position_parent === child.member_user_id)
+      .filter((grandchild) => grandchild.promoter_id == child.member_user_id)
       .sort((a, b) => a.position.localeCompare(b.position))
   );
 
@@ -68,6 +68,7 @@ const TreeCard = ({ binaryTree, onChildClick }) => {
   const fourNodeGroups = [];
 
   for (const grandchildren of sortedChildrenOfChildren) {
+    console.log(grandchildren);
     for (let i = 0; i < grandchildren.length; i += 2) {
       const group = grandchildren.slice(i, i + 2);
       while (group.length < 2) {
@@ -119,23 +120,38 @@ function convertToBinaryTree(Data, rootUserId) {
   if (!Data || !Data.users) {
     return { root: null, children: [], childrenOfChildren: [] };
   }
-
   // Find the root node
-  const rootNode = Data.users.find((user) => user.member_user_id === rootUserId);
+  const rootNode = Data.users.find((user) => user.member_user_id == rootUserId);
 
   // Check if rootNode exists
   if (!rootNode) {
     return { root: null, children: [], childrenOfChildren: [] };
   }
+  const dummyUser = {
+    assigned_bot_id: 'Alpha',
+    investment_busd: 0,
+    isblock: 0,
+    member_name: '',
+    member_user_id: '0',
+    position: 'LEFT',
+    promoter_id: '',
+    promoter_name: 'DIGIBOT',
+    registration_date: '2023-08-15T06:10:16.000Z',
+    sponcer_id: '',
+    status: 0
+  };
 
   // Find users sponsored by the root
-  const usersSponceredByRoot = Data.users.filter((user) => user.position_parent === rootUserId);
-
+  const usersSponceredByRoot = Data.users.filter((user) => user.promoter_id == rootUserId);
   const usersSponceredByRootChildren = Data.users.filter(
     (user) =>
-      user.position_parent === usersSponceredByRoot[0]?.member_user_id ||
-      user.position_parent === usersSponceredByRoot[1]?.member_user_id
+      user.promoter_id == usersSponceredByRoot[0]?.member_user_id ||
+      user.promoter_id == usersSponceredByRoot[1]?.member_user_id
   );
+
+  while (usersSponceredByRootChildren.length < 4) {
+    usersSponceredByRootChildren.push(dummyUser);
+  }
 
   // Include root node data and its children in the result
   return {
@@ -165,18 +181,19 @@ TeamBinary.propTypes = {
 };
 
 function TeamBinary({ data }) {
-  console.log(data);
-
   const initialRootUserId = data && data.users && data.users.length > 0 ? data.users[0].member_user_id : null;
-  const [rootUserId, setRootUserId] = React.useState(initialRootUserId);
+  const [rootUserId, setRootUserId] = React.useState(
+    data && data.users && data.users.length > 0 ? data.users[0].member_user_id : null
+  );
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
 
-  const binaryTree = convertToBinaryTree(data, rootUserId);
+  const binaryTree = convertToBinaryTree(data, initialRootUserId);
+  console.log(binaryTree);
 
   const handleChildClick = async (userId) => {
     setLoading(true);
-    const childrenNodes = data.users.filter((user) => user.position_parent === userId);
+    const childrenNodes = data.users.filter((user) => user.promoter_id == userId);
 
     if (!childrenNodes || childrenNodes.length < 2) {
       setOpenSnackbar(true);
