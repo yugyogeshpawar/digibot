@@ -25,7 +25,6 @@ import { Block } from '../Block';
 
 export default function StakingForm() {
   const [selectedBot, setSelectedBot] = useState('');
-  const [selectedPackage, setSelectedPackage] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [walletAddress, setWalletAddress] = useState('');
   const [hashCode, setHashCode] = useState('');
@@ -93,11 +92,11 @@ export default function StakingForm() {
   };
 
   const changeSelectedBot = (event, newValue) => {
-    if (user.investment_busd <= newValue) {
-      botChargeZero();
+    const newBotData = botData.find((bot) => bot.bot_name === selectedBot);
+    if (newBotData) {
+      setSelectedPackage(newValue);
+      setSelectedBotData(newBotData);
     }
-    setSelectedPackage(newValue);
-    setSelectedBotData(botData.find((bot) => bot.bot_name === selectedBot));
   };
 
   useEffect(() => {
@@ -123,6 +122,7 @@ export default function StakingForm() {
     : [];
 
   const initialSelectedPackage = availableOptions.find((option) => option >= user?.investment_busd) || null;
+  const [selectedPackage, setSelectedPackage] = useState(initialSelectedPackage);
 
   const handleBotChange = (event, newValue) => {
     const selectedBotData = botData.find((bot) => bot.bot_name === newValue);
@@ -182,6 +182,7 @@ export default function StakingForm() {
   };
 
   function botcharge() {
+    console.log(selectedBot);
     if (selectedBot !== '' && initialSelectedPackage === null) {
       enqueueSnackbar('The package should be greater than current investment', {
         variant: 'error'
@@ -223,7 +224,7 @@ export default function StakingForm() {
               sx={{ mt: 2 }}
               fullWidth
               disabled={countdownStarted}
-              value={initialSelectedPackage}
+              value={selectedPackage}
               options={availableOptions}
               onChange={(event, newValue) => changeSelectedBot(event, newValue)}
               renderInput={(params) => (
