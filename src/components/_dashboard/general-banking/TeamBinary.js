@@ -13,7 +13,7 @@ const TreeCard = ({ binaryTree, onChildClick }) => {
       return (
         <Grid item xs={6} sm={6} md={6} key={index}>
           <Box className="img" style={styleObject} onClick={() => onChildClick(user.member_user_id)}>
-            <img src="/bot/NanoBot.png" className="App-logo" alt="logo" style={{ maxWidth: '100px' }} />
+            <img src="/bot/NanoBot2.png" className="App-logo" alt="logo" style={{ maxWidth: '100px' }} />
             <h6 className="text-center" style={{ textAlign: 'center' }}>
               {user.member_name}
               <br />
