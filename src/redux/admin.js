@@ -60,7 +60,7 @@ const slice = createSlice({
   }
 });
 
-const baseUrl = process.env.PORT || 'http://65.1.114.226:8080/api/admin';
+const baseUrl = process.env.PORT || 'http://52.66.191.12:8080/api/admin';
 
 // Reducer
 export default slice.reducer;
@@ -312,7 +312,7 @@ export async function getSearchDashboard(value) {
 export async function putSetDailyIncome(botId, value) {
   const payload = {
     [botId]: value,
-    daily_profit: value // Adding daily_profit with the provided value to the payload
+    daily_profit: value // Adding daily_profit with the provided value to
   };
 
   const accessToken = window.localStorage.getItem('adminAccessToken');
@@ -324,7 +324,7 @@ export async function putSetDailyIncome(botId, value) {
   };
 
   return axios
-    .put(`${baseUrl}/bots/change-profit/${botId}`, payload, config)
+    .put(`http://52.66.191.12:8080/api/bots/change-profit/${botId}`, payload, config)
     .then((response) => response.data)
     .catch((error) => {
       throw error;

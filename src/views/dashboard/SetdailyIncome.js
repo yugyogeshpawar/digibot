@@ -26,18 +26,18 @@ const SetDailyIncome = () => {
   };
 
   const getMinValue = () => {
-    if (botType === 'flexibleBot') return 0.1;
-    if (botType === 'flexibleProBot') return 0.2;
-    if (botType === 'mediumBot') return 0.3;
-    if (botType === 'premiumBot') return 0.4;
+    if (botType === 'flexibleBot') return 0.05;
+    if (botType === 'flexibleProBot') return 0.05;
+    if (botType === 'mediumBot') return 0.05;
+    if (botType === 'premiumBot') return 0.05;
     return 0;
   };
 
   const getMaxValue = () => {
-    if (botType === 'flexibleBot') return 0.5;
-    if (botType === 'flexibleProBot') return 0.7;
-    if (botType === 'mediumBot') return 0.8;
-    if (botType === 'premiumBot') return 0.9;
+    if (botType === 'flexibleBot') return 0.4;
+    if (botType === 'flexibleProBot') return 0.5;
+    if (botType === 'mediumBot') return 0.6;
+    if (botType === 'premiumBot') return 0.75;
     return 0;
   };
   const getBotIdFromType = (botType) => {
