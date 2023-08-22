@@ -7,8 +7,8 @@ import { isValidToken, setSession } from '../utils/jwt';
 import { getProfile } from '../redux/slices/user';
 // ----------------------------------------------------------------------
 
-const baseUrl = process.env.PORT || 'http://52.66.191.12:8080/api';
-// const baseUrl = process.env.PORT || 'http://localhost:8080/api';
+// const baseUrl = process.env.PORT || 'http://52.66.191.12:8080/api';
+const baseUrl = process.env.PORT || 'http://localhost:8080/api';
 
 const initialState = {
   isAuthenticated: false,
@@ -84,6 +84,7 @@ function AuthProvider({ children }) {
             headers
           });
           const { user } = response.data;
+          console.log(user);
           dispatch({
             type: 'INITIALIZE',
             payload: {

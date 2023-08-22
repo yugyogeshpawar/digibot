@@ -32,10 +32,6 @@ const ChartWrapperStyle = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 // 1st active referrals and second is inactive refferals
-const Refs = [53, 34];
-const Active = (Refs[0] * 100) / (Refs[0] + Refs[1]).toFixed(1);
-const InActive = (Refs[1] * 100) / (Refs[0] + Refs[1]).toFixed(1);
-const CHART_DATA = [Active.toFixed(1), InActive.toFixed(1)];
 
 ActiveVsInactive.propTypes = {
   myProfile: PropTypes.object
@@ -43,6 +39,12 @@ ActiveVsInactive.propTypes = {
 
 export default function ActiveVsInactive({ myProfile }) {
   const theme = useTheme();
+  console.log(myProfile.investment_busd, myProfile.roi_bonus);
+  const Refs = [myProfile.investment_busd, myProfile.roi_bonus];
+  const Active = (myProfile.investment_busd * 100) / (myProfile.topup_amount * 4);
+  const InActive = (myProfile.roi_bonus * 100) / (myProfile.topup_amount * 2);
+  const CHART_DATA = [Active.toFixed(1), InActive.toFixed(1)];
+  console.log(CHART_DATA);
 
   const chartOptions = merge(BaseOptionChart(), {
     labels: ['4X', '2X'],
@@ -80,7 +82,7 @@ export default function ActiveVsInactive({ myProfile }) {
         dataLabels: {
           value: { offsetY: 16 },
           total: {
-            formatter: () => fNumber(Refs[0] + Refs[1])
+            formatter: () => fNumber(Active)
           }
         }
       }

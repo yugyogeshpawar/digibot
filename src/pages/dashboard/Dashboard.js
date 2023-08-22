@@ -180,7 +180,7 @@ export default function Dashboard() {
           */}
 
             <Stack>
-              <ActiveVsInactive />
+              <ActiveVsInactive myProfile={user} />
             </Stack>
           </Grid>
         </Grid>

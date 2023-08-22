@@ -2,10 +2,9 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable prefer-const */
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React from 'react';
 import { styled } from '@material-ui/core/styles';
 import { Button, Box, Grid, Card, CircularProgress, Alert, Snackbar, Fade, Modal, Backdrop } from '@material-ui/core';
-import Data from './Data.json';
 
 const TreeCard = ({ binaryTree, onChildClick }) => {
   const { root, children, childrenOfChildren } = binaryTree;
@@ -32,7 +31,7 @@ const TreeCard = ({ binaryTree, onChildClick }) => {
       user ? (
         <Grid item xs={6} sm={6} md={6} key={`${index}-${userIndex}`}>
           <Box className="img" style={styleObject} onClick={() => onChildClick(user.member_user_id)}>
-            <img src="/bot/NanoBot.png" className="App-logo" alt="logo" style={{ maxWidth: '100px' }} />
+            <img src="/bot/NanoBot2.png" className="App-logo" alt="logo" style={{ maxWidth: '100px' }} />
             <h6 className="text-center" style={{ textAlign: 'center' }}>
               {user.member_name} <br />
               {user.member_user_id}
@@ -42,7 +41,7 @@ const TreeCard = ({ binaryTree, onChildClick }) => {
       ) : (
         <Grid item xs={6} sm={6} md={6} key={`${index}-${userIndex}`}>
           <Box className="img" style={styleObject}>
-            <img src="/bot/NanoBot.png" className="App-logo" alt="logo" style={{ maxWidth: '100px', opacity: 0 }} />
+            <img src="/bot/NanoBot2.png" className="App-logo" alt="logo" style={{ maxWidth: '100px', opacity: 0 }} />
             <h6 className="text-center" style={{ textAlign: 'center' }}>
               No User
             </h6>
