@@ -10,13 +10,13 @@ const Logout = () => {
   const { logout } = useAuth();
   async function logoutNavigate() {
     await logout();
-    navigate('/admin/login');
+    navigate('/');
   }
   useEffect(() => {
     logoutNavigate();
   });
 
-  console.log('working');
+  // console.log('working');
   <MainCard title="Logout"></MainCard>;
 };
 
