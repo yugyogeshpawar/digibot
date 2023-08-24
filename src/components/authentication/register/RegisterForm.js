@@ -43,6 +43,7 @@ import useIsMountedRef from '../../../hooks/useIsMountedRef';
 import { MIconButton } from '../../@material-extend';
 // eslint-disable-next-line import/order, import/no-unresolved
 import { getSponcerNameByUplineID } from 'src/redux/slices/user';
+import CountryCodes from './countryCodes';
 
 // ----------------------------------------------------------------------
 
@@ -63,6 +64,9 @@ export default function RegisterForm() {
   // eslint-disable-next-line new-cap
   const queryParams = new queryString.parse(window.location.search);
   const [selectedPackage, setSelectedPackage] = useState('');
+
+  const sortedCountryCodes = CountryCodes.sort((a, b) => a.name.localeCompare(b.name));
+
   useEffect(() => {
     if (queryParams.UplineId === undefined) {
       enqueueSnackbar('Sponcer ID is required', {
@@ -79,13 +83,6 @@ export default function RegisterForm() {
       getSponcerNameByUplineIDFunc();
     }
   }, []);
-
-  const countryCodes = [
-    { code: '+1', name: 'USA' },
-    { code: '+44', name: 'UK' },
-    { code: '+91', name: 'India' }
-    // ... add more countries as needed
-  ];
 
   const getSponcerNameByUplineIDFunc = async () => {
     try {
@@ -312,7 +309,7 @@ export default function RegisterForm() {
                   {...getFieldProps('countryCode')}
                   error={Boolean(touched.countryCode && errors.countryCode)}
                 >
-                  {countryCodes.map((country) => (
+                  {sortedCountryCodes.map((country) => (
                     <MenuItem key={country.code} value={country.code}>
                       {country.name} ({country.code})
                     </MenuItem>
