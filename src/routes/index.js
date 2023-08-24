@@ -136,7 +136,8 @@ export default function Router() {
           children: [
             { path: '/', element: <Navigate to="/dashboard/payouts/minting" replace /> },
             { path: 'withdraw', element: <MintingPayouts /> },
-            { path: 'pool-withdraw', element: <PoolWithdraw /> }
+            { path: 'pool-withdraw', element: <PoolWithdraw /> },
+            { path: 'performance-withdraw', element: <PerformanceWithdraw /> }
           ]
         },
         {
@@ -327,6 +328,7 @@ const StakingForm = Loadable(lazy(() => import('../pages/dashboard/StakingForm')
 const StackingSummary = Loadable(lazy(() => import('../pages/dashboard/StackingSummary')));
 const MintingPayouts = Loadable(lazy(() => import('../pages/dashboard/MintingPayouts')));
 const PoolWithdraw = Loadable(lazy(() => import('../pages/dashboard/PoolWithdraw')));
+const PerformanceWithdraw = Loadable(lazy(() => import('../pages/dashboard/PerformanceWithdraw')));
 const LandingPage = Loadable(lazy(() => import('../pages/LandingPage')));
 const About = Loadable(lazy(() => import('../pages/About')));
 const Contact = Loadable(lazy(() => import('../pages/Contact')));
