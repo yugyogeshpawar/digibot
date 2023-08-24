@@ -2,7 +2,7 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable prefer-const */
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { styled } from '@material-ui/core/styles';
 import { Button, Box, Grid, Card, CircularProgress, Alert, Snackbar, Fade, Modal, Backdrop } from '@material-ui/core';
 
@@ -181,20 +181,22 @@ TeamBinary.propTypes = {
 
 function TeamBinary({ data }) {
   const initialRootUserId = data && data.users && data.users.length > 0 ? data.users[0].member_user_id : null;
-  const [rootUserId, setRootUserId] = React.useState(
-    data && data.users && data.users.length > 0 ? data.users[0].member_user_id : null
-  );
+  const [rootUserId, setRootUserId] = React.useState(data?.users[0]?.member_user_id);
+  console.log(rootUserId);
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
 
-  const binaryTree = convertToBinaryTree(data, initialRootUserId);
+  const binaryTree = convertToBinaryTree(data, rootUserId);
   console.log(binaryTree);
+
+  useEffect(() => {
+    setRootUserId(data?.users[0]?.member_user_id);
+  }, [data]);
 
   const handleChildClick = async (userId) => {
     setLoading(true);
     const childrenNodes = data.users.filter((user) => user.promoter_id == userId);
-
-    if (!childrenNodes || childrenNodes.length < 2) {
+    if (!childrenNodes) {
       setOpenSnackbar(true);
     } else {
       setRootUserId(userId);

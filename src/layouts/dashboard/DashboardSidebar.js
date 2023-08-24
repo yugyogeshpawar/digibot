@@ -168,10 +168,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
                   {user?.status === 1 ? 'Active' : 'Inactive'}
                 </Typography>
                 <Typography variant="subtitle2" sx={{ color: 'primary.main' }}>
-                  Since{' '}
-                  {user?.status === 1
-                    ? new Date(user?.activation_date).toLocaleDateString('en-GB')
-                    : new Date(user?.registration_date).toLocaleDateString('en-GB')}
+                  Since {user?.status === 1 && new Date(user?.registration_date).toLocaleDateString('en-GB')}
                 </Typography>
               </Box>
             </AccountStyle>
