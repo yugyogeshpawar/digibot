@@ -85,8 +85,14 @@ const CryptoPriceMarquee = () => {
     };
   }, []);
 
+  const marqueeContainerStyle = {
+    marginTop: '20px'
+  };
+
+  const mobileStyle = window.innerWidth <= 768 ? marqueeContainerStyle : {};
+
   return (
-    <div className="marquee-container">
+    <div className="marquee-container" style={mobileStyle}>
       <ul className="marquee" ref={marqueeRef}>
         {cryptoPrices.map(
           (crypto) =>

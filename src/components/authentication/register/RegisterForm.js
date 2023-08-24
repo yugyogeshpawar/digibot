@@ -80,6 +80,13 @@ export default function RegisterForm() {
     }
   }, []);
 
+  const countryCodes = [
+    { code: '+1', name: 'USA' },
+    { code: '+44', name: 'UK' },
+    { code: '+91', name: 'India' }
+    // ... add more countries as needed
+  ];
+
   const getSponcerNameByUplineIDFunc = async () => {
     try {
       const res = await getSponcerNameByUplineID(queryParams.UplineId);
@@ -240,7 +247,7 @@ export default function RegisterForm() {
         <Stack spacing={3}>
           {errors.afterSubmit && <Alert severity="error">{errors.afterSubmit}</Alert>}
           <Grid container>
-            <Grid item sx={{ mr: 1 }}>
+            <Grid item sx={{ paddingLeft: '0px !important', marginTop: '0px !important' }} xs={12} md={6}>
               <TextField
                 fullWidth
                 autoComplete="sponcer_id"
@@ -249,12 +256,21 @@ export default function RegisterForm() {
                   readOnly: true
                 }}
                 label="Sponsor ID"
+                focused
                 {...getFieldProps('sponsorId')}
                 error={Boolean(touched.sponsorId && errors.sponsorId)}
                 helperText={touched.sponsorId && errors.sponsorId}
               />
             </Grid>
-            <Grid item>
+            <Grid
+              item
+              sx={{
+                '@media (min-width:600px)': { paddingLeft: '10px !important' },
+                '@media (max-width:600px)': { marginTop: '10px' }
+              }}
+              xs={12}
+              md={6}
+            >
               <TextField
                 fullWidth
                 autoComplete="sponcer_name"
@@ -262,6 +278,7 @@ export default function RegisterForm() {
                 InputProps={{
                   readOnly: true
                 }}
+                focused
                 label="Sponsor Name"
                 {...getFieldProps('sponsorName')}
                 error={Boolean(touched.sponsorName && errors.sponsorName)}
@@ -285,17 +302,41 @@ export default function RegisterForm() {
             error={Boolean(touched.email && errors.email)}
             helperText={touched.email && errors.email}
           />
-          <TextField
-            fullWidth
-            autoComplete="phone number"
-            type="text"
-            label="Contact No."
-            {...getFieldProps('contactNo')}
-            error={Boolean(touched.contactNo && errors.contactNo)}
-            helperText={touched.contactNo && errors.contactNo}
-          />
+          <Grid container spacing={2}>
+            <Grid item xs={4} sx={{ paddingLeft: '0px !important', paddingTop: '0px !important' }}>
+              <FormControl fullWidth variant="outlined">
+                <InputLabel htmlFor="country-code">Country</InputLabel>
+                <Select
+                  label="Country"
+                  id="country-code"
+                  {...getFieldProps('countryCode')}
+                  error={Boolean(touched.countryCode && errors.countryCode)}
+                >
+                  {countryCodes.map((country) => (
+                    <MenuItem key={country.code} value={country.code}>
+                      {country.name} ({country.code})
+                    </MenuItem>
+                  ))}
+                </Select>
+                {Boolean(touched.countryCode && errors.countryCode) && (
+                  <div style={{ color: 'red', fontSize: '0.75rem', marginTop: '0.25rem' }}>{errors.countryCode}</div>
+                )}
+              </FormControl>
+            </Grid>
+            <Grid item xs={7} sx={{ paddingLeft: '10px !important', paddingTop: '0px !important' }}>
+              <TextField
+                fullWidth
+                autoComplete="phone number"
+                type="text"
+                label="Contact No."
+                {...getFieldProps('contactNo')}
+                error={Boolean(touched.contactNo && errors.contactNo)}
+                helperText={touched.contactNo && errors.contactNo}
+              />
+            </Grid>
+          </Grid>
           <Grid container>
-            <Grid item sx={{ mr: 1 }}>
+            <Grid item sx={{ '@media (min-width:600px)': { paddingRight: '10px' } }} xs={12} md={6}>
               <TextField
                 fullWidth
                 type={showPassword ? 'text' : 'password'}
@@ -314,7 +355,7 @@ export default function RegisterForm() {
                 helperText={touched.password && errors.password}
               />
             </Grid>
-            <Grid item>
+            <Grid item sx={{ '@media (max-width:600px)': { marginTop: '10px' } }} xs={12} md={6}>
               <TextField
                 fullWidth
                 type={showPassword ? 'text' : 'password'}
@@ -379,7 +420,6 @@ export default function RegisterForm() {
           >
             Register
           </LoadingButton>
-
           <Dialog open={open} onClose={handleClose} scroll={scroll}>
             <DialogTitle sx={{ pb: 2 }}>Terms and Conditions for Investment in Digibot Trading Platform</DialogTitle>
             <DialogContent dividers={scroll === 'paper'} onScroll={handleDialogContentScroll}>

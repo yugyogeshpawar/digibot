@@ -72,9 +72,11 @@ export default function Dashboard() {
           <Grid item xs={12}>
             <CryptoPriceMarquee />
           </Grid>
-          <Grid item xs={12} md={8} sx={{ pt: 0 }}>
-            {user?.status === 0 ? <TimerAndMarquee /> : null}
-          </Grid>
+          {user?.status === 0 ? (
+            <Grid item xs={12} md={8} sx={{ pt: 0 }}>
+              <TimerAndMarquee />
+            </Grid>
+          ) : null}
           <Grid item xs={12} md={8} sx={{ pt: 0 }}>
             <AppWelcome displayName={user?.member_name} memberUserId={user?.member_user_id} />
           </Grid>
@@ -164,6 +166,18 @@ export default function Dashboard() {
           </Grid>
           <Grid item xs={12} md={4}>
             <MyRank teamBusiness={user?.pool_withdraw} title="Pool Wallet Withdraw" />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <MyRank
+              teamBusiness={user?.performance_wallet ? user?.performance_wallet : 0}
+              title="Performance Wallet Balance"
+            />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <MyRank
+              teamBusiness={user?.performance_withdraw ? user?.performance_withdraw : 0}
+              title="Performance Wallet Withdraw"
+            />
           </Grid>
 
           <Grid item xs={12}>

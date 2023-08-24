@@ -153,7 +153,13 @@ export default function PayoutCart({ checkoutType, setWithdrawSummary }) {
                         />
                       </Stack>
                       <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
-                        <TextField fullWidth disabled value={user?.pool_wallet} aria-readonly label="Wallet Balance" />
+                        <TextField
+                          fullWidth
+                          disabled
+                          value={user?.performance_wallet}
+                          aria-readonly
+                          label="Wallet Balance"
+                        />
                       </Stack>
 
                       <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
