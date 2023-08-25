@@ -12,6 +12,9 @@ const ActiveUser = Loadable(lazy(() => import('views/user/ActiveUser')));
 const InactiveUser = Loadable(lazy(() => import('views/user/InactiveUser')));
 const BlockUser = Loadable(lazy(() => import('views/user/BlockUser')));
 const SearchUser = Loadable(lazy(() => import('views/user/SearchUser')));
+const Aura = Loadable(lazy(() => import('views/user/AuraUsers')));
+const AusraInvestment = Loadable(lazy(() => import('views/investment/AuraInvestment')));
+
 // const forgotPassword = Loadable(lazy(() => import('views/pages/authentication/auth-forms/ForgotPassword')));
 const Monthly = Loadable(lazy(() => import('views/Rewards/Monthly')));
 const Dailyrewards = Loadable(lazy(() => import('views/Rewards/DailyRewards')));
@@ -27,10 +30,14 @@ const DailyBonuse = Loadable(lazy(() => import('views/dashboard/SetdailyIncome')
 const WithdrawRequest = Loadable(lazy(() => import('views/withdraw/withdrawRequest')));
 const ConfirmWithdrawRequest = Loadable(lazy(() => import('views/withdraw/ConfirmWithRequest')));
 const Withdraw = Loadable(lazy(() => import('views/withdraw/WithdrawHistory')));
+// const AuraWithdraw = Loadable(lazy(() => import('views/withdraw/AuraWithdraw')));
+
 // dashboard routing
 const DashboardDefault = Loadable(lazy(() => import('views/dashboard/Default/AdminDashboard')));
 const SamplePage = Loadable(lazy(() => import('views/sample-page')));
 const Logout = Loadable(lazy(() => import('views/logout/adminLogout')));
+const AddParmoranceBonus = Loadable(lazy(() => import('views/Performances/AddParmoranceBonus')));
+
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
@@ -75,6 +82,10 @@ const MainRoutes = {
         {
           path: 'search-user',
           element: <SearchUser />
+        },
+        {
+          path: 'Aura-user',
+          element: <Aura />
         }
       ]
     },
@@ -114,8 +125,16 @@ const MainRoutes = {
         {
           path: 'summary',
           element: <InvestmentSummary />
+        },
+        {
+          path: 'aura-investment',
+          element: <AusraInvestment />
         }
       ]
+    },
+    {
+      path: 'admin/Performance/addPerformance',
+      element: <AddParmoranceBonus />
     },
     {
       path: 'admin/withdraw',

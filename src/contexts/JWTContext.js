@@ -5,7 +5,7 @@ import axios from 'axios';
 import { setSession } from '../utils/jwt';
 // ----------------------------------------------------------------------
 
-const baseUrl = process.env.PORT || 'http://52.66.191.12:8080/api';
+const baseUrl = process.env.PORT || 'http://52.66.191.12:9211/api';
 
 const initialState = {
   isAuthenticated: false,

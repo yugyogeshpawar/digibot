@@ -25,6 +25,13 @@ const investment = {
       type: 'item',
       url: 'admin/invesment/summary',
       breadcrumbs: false
+    },
+    {
+      id: 'aura-Investment',
+      title: 'Aura Investment',
+      type: 'item',
+      url: 'admin/invesment/aura-investment',
+      icon: icons.IconHelp
     }
   ]
 };

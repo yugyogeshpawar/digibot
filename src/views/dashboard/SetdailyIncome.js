@@ -26,7 +26,7 @@ const SetDailyIncome = () => {
 
   const fetchDailyIncome = async (botId, botType) => {
     try {
-      const response = await fetch(`http://52.66.191.12:8080/api/bots/${botId}`);
+      const response = await fetch(`http://52.66.191.12:9211/api/bots/${botId}`);
       const data = await response.json();
 
       // Access the daily_profit value from the data and set it in the state based on botType

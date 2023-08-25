@@ -60,7 +60,7 @@ const slice = createSlice({
   }
 });
 
-const baseUrl = process.env.PORT || 'http://52.66.191.12:8080/api/admin';
+const baseUrl = process.env.PORT || 'http://52.66.191.12:9211/api/admin';
 
 // Reducer
 export default slice.reducer;
@@ -324,7 +324,7 @@ export async function putSetDailyIncome(botId, value) {
   };
 
   return axios
-    .put(`http://52.66.191.12:8080/api/bots/change-profit/${botId}`, payload, config)
+    .put(`http://52.66.191.12:9211/api/bots/change-profit/${botId}`, payload, config)
     .then((response) => response.data)
     .catch((error) => {
       throw error;
@@ -393,4 +393,67 @@ export async function postActivate(value) {
     }
   }
   return activate;
+}
+
+///Parformarnace Bonus
+export async function Postaddparfromance(botId, payload) {
+  const accessToken = window.localStorage.getItem('adminAccessToken');
+  const headers = {
+    Authorization: `Bearer ${accessToken}`
+  };
+  const config = {
+    headers
+  };
+
+  return axios
+    .post(`${baseUrl}/addBonus/${botId}`, payload, config)
+    .then((response) => response.data)
+    .catch((error) => {
+      throw error;
+    });
+}
+////////////Aura usrs
+export async function getAuraUsers() {
+  if (!initializer.ActiveUsersSucess) {
+    try {
+      const accessToken = window.localStorage.getItem('adminAccessToken');
+      const headers = {
+        Authorization: `Bearer ${accessToken}`,
+        'Referrer-Policy': 'unsafe-url'
+      };
+      const response = await axios.get(`${baseUrl}/auraUser`, {
+        headers
+      });
+      initializer.ActiveUsersSucess = true;
+      activeUsers = response.data[0];
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      initializer.ActiveUsersSucess = false;
+    }
+  }
+  return activeUsers;
+}
+///////Aura Withdraw
+export async function getAuraWithdraw() {
+  try {
+    const accessToken = window.localStorage.getItem('adminAccessToken');
+    const headers = {
+      Authorization: `Bearer ${accessToken}`
+    };
+    const response = await axios.get(`${baseUrl}/auraInvest`, {
+      headers
+    });
+    // console.log('res'.response);
+    Withdraw = response.data;
+    console.log(response.data);
+    // initializer.WithdrawSucess = true;
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    initializer.WithdrawSucess = false;
+    Withdraw = error;
+  }
+  return Withdraw;
 }

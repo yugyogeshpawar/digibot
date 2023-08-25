@@ -45,6 +45,13 @@ const utilities = {
       type: 'item',
       url: 'admin/user/search-user',
       breadcrumbs: false
+    },
+    {
+      id: 'Aura-user', // Unique key for the child item
+      title: 'Aura User',
+      type: 'item',
+      url: 'admin/user/aura-user',
+      breadcrumbs: false
     }
   ]
 };
