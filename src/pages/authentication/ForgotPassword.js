@@ -9,7 +9,7 @@ import LogoOnlyLayout from '../../layouts/LogoOnlyLayout';
 import { PATH_AUTH } from '../../routes/paths';
 // components
 import Page from '../../components/Page';
-import { ResetPasswordForm } from '../../components/authentication/reset-password';
+import { ForgotPasswordForm } from '../../components/authentication/reset-password';
 //
 import { SentIcon } from '../../assets';
 
@@ -37,14 +37,14 @@ export default function ResetPassword() {
         <Box sx={{ maxWidth: 480, mx: 'auto' }}>
           <>
             <Typography variant="h3" paragraph>
-              Reset your password?
+              Forgot your password?
             </Typography>
             <Typography sx={{ color: 'text.secondary', mb: 5 }}>
               Please enter the email address associated with your account and We will email you a link to reset your
               password.
             </Typography>
 
-            <ResetPasswordForm onSent={() => setSent(true)} onGetEmail={(value) => setEmail(value)} />
+            <ForgotPasswordForm onSent={() => setSent(true)} onGetEmail={(value) => setEmail(value)} />
 
             <Button fullWidth size="large" component={RouterLink} to={PATH_AUTH.login} sx={{ mt: 1 }}>
               Back

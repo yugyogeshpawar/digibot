@@ -186,7 +186,35 @@ function AuthProvider({ children }) {
     dispatch({ type: 'LOGOUT' });
   };
 
-  const resetPassword = () => {};
+  const resetPassword = async (password, cpassword, token) => {
+    console.log(password, cpassword, token);
+    try {
+      const resetPasswordRes = await axios({
+        method: 'post',
+        url: `${baseUrl}/auth/confirm-with-email-token`,
+        data: { token, newPassword: password, confirmPassword: cpassword }
+      });
+      return resetPasswordRes.data;
+    } catch (error) {
+      console.error(error.response.data);
+      return error.response.data;
+    }
+  };
+
+  const forgotPassword = async (values) => {
+    console.log(values);
+    try {
+      const forgotPasswordRes = await axios({
+        method: 'post',
+        url: `${baseUrl}/auth/forgot-password-email`,
+        data: { email: values }
+      });
+      return forgotPasswordRes.data;
+    } catch (error) {
+      console.error(error.response.data);
+      return error.response.data;
+    }
+  };
 
   const updateProfile = async (values) => {
     const accessToken = window.localStorage.getItem('accessToken');
@@ -200,7 +228,7 @@ function AuthProvider({ children }) {
       return responseUpdateProfile.data;
     } catch (error) {
       console.error(error.response.data); // Log the error response data to the console
-      return error.response.data;
+      // return error.response.data;
     }
   };
 
@@ -232,6 +260,7 @@ function AuthProvider({ children }) {
         resetPassword,
         changePassword,
         deposite,
+        forgotPassword,
         updateProfile
       }}
     >

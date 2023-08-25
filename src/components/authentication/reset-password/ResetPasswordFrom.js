@@ -1,7 +1,8 @@
 import * as Yup from 'yup';
 import * as React from 'react';
+import { useLocation, useNavigate, Link as RouterLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useNavigate, Link as RouterLink } from 'react-router-dom';
+
 import { Form, FormikProvider, useFormik } from 'formik';
 import { useSnackbar } from 'notistack5';
 // material
@@ -12,8 +13,6 @@ import axios from 'axios';
 import useAuth from '../../../hooks/useAuth';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
 
-const baseUrl = process.env.PORT || 'http://52.66.191.12:8080/api';
-
 // ----------------------------------------------------------------------
 
 ChangePasswordForm.propTypes = {
@@ -22,11 +21,14 @@ ChangePasswordForm.propTypes = {
   onGetConfirmPassword: PropTypes.func
 };
 
-export default function ChangePasswordForm({ onSent, onGetPassword, onGetConfirmPassword }) {
+export default function ChangePasswordForm() {
   const { resetPassword } = useAuth();
   const isMountedRef = useIsMountedRef();
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const token = queryParams.get('token');
 
   const getCharacterValidationError = (str) => `Your password must have at least 1 ${str} character`;
 
@@ -34,36 +36,13 @@ export default function ChangePasswordForm({ onSent, onGetPassword, onGetConfirm
     password: Yup.string()
       .required('No password provided.')
       .min(8, 'Password must have at least 8 characters')
-      // different error messages for different requirements
       .matches(/[0-9]/, getCharacterValidationError('digit'))
       .matches(/[a-z]/, getCharacterValidationError('lowercase'))
       .matches(/[A-Z]/, getCharacterValidationError('uppercase')),
     confirmPassword: Yup.string()
       .required('Please re-type your password')
-      // use oneOf to match one of the values inside the array.
-      // use "ref" to get the value of passwrod.
       .oneOf([Yup.ref('password')], 'Passwords does not match')
   });
-
-  const UpdatePassword = async (password, token) => {
-    try {
-      const response = await axios.put(`${baseUrl}/auth/resetPassword`, {
-        token,
-        password
-      });
-      if (response.status === 200) {
-        sessionStorage.removeItem('email');
-        sessionStorage.removeItem('otp');
-        enqueueSnackbar('Password Changed', { variant: 'success' });
-        navigate('/dashboard', { replace: true });
-      } else {
-        enqueueSnackbar(response.data, { variant: 'error' });
-      }
-    } catch (error) {
-      enqueueSnackbar(error, { variant: 'error' });
-      console.log(error);
-    }
-  };
 
   const formik = useFormik({
     initialValues: {
@@ -73,15 +52,17 @@ export default function ChangePasswordForm({ onSent, onGetPassword, onGetConfirm
     validationSchema: ChangePasswordSchema,
     onSubmit: async (values, { setErrors, setSubmitting }) => {
       try {
-        await resetPassword(values.email);
         if (isMountedRef.current) {
-          onGetPassword(formik.values.password);
-          onGetConfirmPassword(formik.values.confirmPassword);
-          const userId = sessionStorage.getItem('email');
-          const token = sessionStorage.getItem('otp');
-          console.log(token);
-          // setSubmitting(false);
-          UpdatePassword(formik.values.password, token);
+          console.log('called onsubmit');
+          setSubmitting(false);
+          const res = await resetPassword(formik.values.password, formik.values.confirmPassword, token);
+          if (res.message === 'Invalid token') {
+            enqueueSnackbar(res.message, { variant: 'error' });
+          }
+          if (res.message === 'Password updated successfully') {
+            enqueueSnackbar('Password updated successfully', { variant: 'success' });
+            navigate('/dashboard/app');
+          }
         }
       } catch (error) {
         console.error(error);

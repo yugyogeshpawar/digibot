@@ -13,8 +13,6 @@ import { PATH_AUTH } from '../../../routes/paths';
 import useAuth from '../../../hooks/useAuth';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
 
-const baseUrl = process.env.PORT || 'https://digibot.co/api/v1/api';
-
 // ----------------------------------------------------------------------
 
 ResetPasswordForm.propTypes = {
@@ -23,7 +21,7 @@ ResetPasswordForm.propTypes = {
 };
 
 export default function ResetPasswordForm({ onSent, onGetEmail }) {
-  const { resetPassword } = useAuth();
+  const { forgotPassword } = useAuth();
   const isMountedRef = useIsMountedRef();
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
@@ -32,39 +30,27 @@ export default function ResetPasswordForm({ onSent, onGetEmail }) {
     email: Yup.string().email('Email must be a valid email address').required('Email is required')
   });
 
-  const verifyEmail = async (email) => {
-    try {
-      const response = await axios.post(`${baseUrl}/auth/forgetPassword`, {
-        userId: email
-      });
-      if (response.status === 200) {
-        enqueueSnackbar('OTP Sent', { variant: 'success' });
-      } else {
-        enqueueSnackbar(response.data, { variant: 'error' });
-      }
-    } catch (error) {
-      enqueueSnackbar(error.message, { variant: 'error' });
-      console.log(error);
-    }
-  };
-
   const formik = useFormik({
     initialValues: {
-      email: 'demo@minimals.cc'
+      email: ''
     },
     validationSchema: ResetPasswordSchema,
     onSubmit: async (values, { setErrors, setSubmitting }) => {
       try {
-        await resetPassword(values.email);
+        // await resetPassword(values.email);
         if (isMountedRef.current) {
-          onGetEmail(formik.values.email);
           sessionStorage.setItem('email', formik.values.email);
-          // setSubmitting(false);
-          verifyEmail(formik.values.email);
-          navigate('/auth/verify');
+          const res = await forgotPassword(formik.values.email);
+          console.log(res);
+          if (res.error === 'User Not Found') {
+            enqueueSnackbar('User Not Found', { variant: 'error' });
+          } else {
+            enqueueSnackbar('OTP Sent', { variant: 'success' });
+          }
         }
       } catch (error) {
         console.error(error);
+        enqueueSnackbar(error.data.message, { variant: 'error' });
         if (isMountedRef.current) {
           setErrors({ afterSubmit: error.message });
           setSubmitting(false);

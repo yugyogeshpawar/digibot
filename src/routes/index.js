@@ -60,6 +60,7 @@ export default function Router() {
         { path: 'login-unprotected', element: <Login /> },
         { path: 'Signup', element: <Register /> },
         { path: 'reset-password', element: <ResetPassword /> },
+        { path: 'forgot-password', element: <ForgotPassword /> },
         { path: 'verify', element: <VerifyCode /> },
         { path: 'DashLogin', element: <DashLogin /> },
         { path: 'changePassword', element: <ChangePassword /> },
@@ -290,6 +291,7 @@ const Login = Loadable(lazy(() => import('../pages/authentication/Login')));
 const DashLogin = Loadable(lazy(() => import('../pages/authentication/DashLogin')));
 const Register = Loadable(lazy(() => import('../pages/authentication/Register')));
 const ResetPassword = Loadable(lazy(() => import('../pages/authentication/ResetPassword')));
+const ForgotPassword = Loadable(lazy(() => import('../pages/authentication/ForgotPassword')));
 const VerifyCode = Loadable(lazy(() => import('../pages/authentication/VerifyCode')));
 const ChangePassword = Loadable(lazy(() => import('../pages/authentication/ChangePassword')));
 const AdminLogin = Loadable(lazy(() => import('../pages/authentication/LoginFromAdmin')));

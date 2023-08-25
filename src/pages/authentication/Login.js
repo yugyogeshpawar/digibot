@@ -88,8 +88,6 @@ export default function Login() {
             </Tooltip>
           </Stack>
 
-          {method === 'firebase' && <AuthFirebaseSocials />}
-
           {method !== 'auth0' ? (
             <LoginForm />
           ) : (
