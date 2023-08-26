@@ -1,31 +1,19 @@
+/* eslint-disable consistent-return */
+/* eslint-disable no-useless-return */
 import React, { useEffect, useState } from 'react';
-import { Icon } from '@iconify/react';
 import { useSnackbar } from 'notistack5';
-import {
-  Grid,
-  Button,
-  Autocomplete,
-  TextField,
-  Box,
-  Select,
-  MenuItem,
-  CardContent,
-  Card,
-  Container
-} from '@material-ui/core';
+import { Grid, Button, Autocomplete, TextField, Box, CardContent, Card, Container } from '@material-ui/core';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 // eslint-disable-next-line import/no-unresolved
 import useAuth from 'src/hooks/useAuth';
 import CopyClipboard from '../../components/CopyClipboard';
-import { getBotData, getTokenPrice, postStacking } from '../../redux/slices/user';
+import { getBotData, getTokenPrice, postStacking, postStackingAura } from '../../redux/slices/user';
 import { useDispatch, useSelector } from '../../redux/store';
 import { Block } from '../Block';
 
-// import { MIconButton } from '../../components/@material-extend';
-
 export default function StakingForm() {
   const [selectedBot, setSelectedBot] = useState('');
-  const [inputValue, setInputValue] = useState('');
+  const [investmentAura, setInvestmentAura] = useState('');
   const [walletAddress, setWalletAddress] = useState('');
   const [hashCode, setHashCode] = useState('');
   const [countdownStarted, setCountdownStarted] = useState(false);
@@ -43,10 +31,6 @@ export default function StakingForm() {
     getApisBotData();
   }, [dispatch]);
 
-  useEffect(() => {
-    console.log(botData);
-  }, [botData]);
-
   const getApisBotData = async () => {
     try {
       const response = await getBotData();
@@ -57,12 +41,6 @@ export default function StakingForm() {
         variant: 'error'
       });
     }
-  };
-
-  const botChargeZero = () => {
-    console.log(selectedBotData.fee);
-    setSelectedBotData({ ...selectedBotData, fee: 0 });
-    console.log(selectedBotData.fee);
   };
 
   const postStackingData = async (formData) => {
@@ -134,8 +112,43 @@ export default function StakingForm() {
   const TotalTok = Number(selectedPackage) + Number(selectedBotData?.fee);
   const finalVAl = TotalTok / tokenPrice?.price;
 
+  const handleAuraSubmit = async () => {
+    if (!investmentAura || Number.isNaN(investmentAura) || Number(investmentAura) <= 0) {
+      enqueueSnackbar('Investment Amount should be a positive number.', {
+        variant: 'error'
+      });
+
+      return;
+    }
+
+    const res = await postStackingAura(investmentAura);
+    if (res.message === "Can't invest more thn one time") {
+      return enqueueSnackbar("Can't invest more thn one time", {
+        variant: 'error'
+      });
+    }
+    if (res.message === 'auraInvest successfully') {
+      enqueueSnackbar('Aura investment Successful.', {
+        variant: 'success'
+      });
+    }
+    if (res.message === 'Already Invested') {
+      enqueueSnackbar('Already Invested.', {
+        variant: 'error'
+      });
+    }
+
+    // ... rest of the code to handle 'Aura' submit ...
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (selectedBot === 'Aura') {
+      // Call another function for 'Aura'
+      await handleAuraSubmit();
+      return;
+    }
 
     if (!walletAddress || walletAddress.trim().length < 30) {
       errors.walletAddress = 'Wallet Address should be at least 30 characters long.';
@@ -158,6 +171,7 @@ export default function StakingForm() {
     }
 
     if (Object.keys(errors).length > 0) {
+      // eslint-disable-next-line consistent-return
       return enqueueSnackbar('Form contains validation errors. Please check the fields.', {
         variant: 'error'
       });
@@ -179,6 +193,10 @@ export default function StakingForm() {
     setHashCode('');
     setWalletAddress('');
     setSelectedBot('');
+  };
+
+  const finalVal = () => {
+    // Calculate final value here
   };
 
   function botcharge() {
@@ -212,67 +230,80 @@ export default function StakingForm() {
               value={selectedBot}
               disabled={countdownStarted}
               options={botData ? botData.map((bot) => bot.bot_name) : []}
-              onChange={(event, newValue) => handleBotChange(event, newValue)}
-              inputValue={inputValue}
-              onInputChange={(event, newInputValue) => setInputValue(newInputValue)}
+              onChange={handleBotChange}
               renderInput={(params) => (
                 <TextField {...params} label="Select Bot" inputProps={{ ...params.inputProps, readOnly: true }} />
               )}
             />
-
-            <Autocomplete
-              sx={{ mt: 2 }}
-              fullWidth
-              disabled={countdownStarted}
-              value={selectedPackage}
-              options={availableOptions}
-              onChange={(event, newValue) => changeSelectedBot(event, newValue)}
-              renderInput={(params) => (
-                <TextField {...params} inputProps={{ ...params.inputProps, readOnly: true }} label="Select Package" />
-              )}
-              getOptionDisabled={(option) => option < user?.investment_busd}
-            />
-
-            <TextField
-              fullWidth
-              sx={{ mt: 2 }}
-              label="Current Price"
-              focused
-              name="currentPrice"
-              value={tokenPrice?.price}
-              readOnly
-              disabled={countdownStarted}
-            />
-            {/* Updated Bot Charge field */}
-            <TextField fullWidth sx={{ mt: 2 }} label="Bot Charge" name="botCharge" value={botcharge()} readOnly />
-            {/* Updated Total Token field */}
-            <TextField
-              fullWidth
-              sx={{ mt: 2 }}
-              label="Total Token"
-              name="totalToken"
-              value={initialSelectedPackage !== null ? finalVAl?.toFixed(3) : ''}
-              readOnly
-              disabled={countdownStarted}
-            />
-            <TextField
-              fullWidth
-              sx={{ mt: 2 }}
-              label="Wallet Address"
-              name="walletAddress"
-              value={walletAddress}
-              disabled={countdownStarted}
-              onChange={(e) => setWalletAddress(e.target.value)}
-            />
-            <TextField
-              fullWidth
-              sx={{ mt: 2 }}
-              label="Hash Code"
-              name="hashCode"
-              value={hashCode}
-              disabled={countdownStarted}
-              onChange={(e) => setHashCode(e.target.value)}
-            />
+            {selectedBot !== 'Aura' && (
+              <>
+                <Autocomplete
+                  sx={{ mt: 2 }}
+                  fullWidth
+                  disabled={countdownStarted}
+                  value={selectedPackage}
+                  options={availableOptions}
+                  onChange={changeSelectedBot}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      inputProps={{ ...params.inputProps, readOnly: true }}
+                      label="Select Package"
+                    />
+                  )}
+                  getOptionDisabled={(option) => option < user?.investment_busd}
+                />
+                <TextField
+                  fullWidth
+                  sx={{ mt: 2 }}
+                  label="Current Price"
+                  focused
+                  name="currentPrice"
+                  value={tokenPrice?.price}
+                  readOnly
+                  disabled={countdownStarted}
+                />
+                <TextField fullWidth sx={{ mt: 2 }} label="Bot Charge" name="botCharge" value={botcharge()} readOnly />
+                <TextField
+                  fullWidth
+                  sx={{ mt: 2 }}
+                  label="Total Token"
+                  name="totalToken"
+                  value={finalVal()?.toFixed(3)}
+                  readOnly
+                  disabled={countdownStarted}
+                />
+                <TextField
+                  fullWidth
+                  sx={{ mt: 2 }}
+                  label="Wallet Address"
+                  name="walletAddress"
+                  value={walletAddress}
+                  disabled={countdownStarted}
+                  onChange={(e) => setWalletAddress(e.target.value)}
+                />
+                <TextField
+                  fullWidth
+                  sx={{ mt: 2 }}
+                  label="Hash Code"
+                  name="hashCode"
+                  value={hashCode}
+                  disabled={countdownStarted}
+                  onChange={(e) => setHashCode(e.target.value)}
+                />
+              </>
+            )}
+            {selectedBot === 'Aura' && (
+              <TextField
+                fullWidth
+                sx={{ mt: 2 }}
+                label="Investment Amount"
+                name="investmentAmnt"
+                value={investmentAura}
+                disabled={countdownStarted}
+                onChange={(e) => setInvestmentAura(e.target.value)}
+              />
+            )}
             <Button fullWidth type="submit" variant="contained" color="primary" style={{ marginTop: '16px' }}>
               Submit
             </Button>

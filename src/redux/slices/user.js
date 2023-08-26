@@ -233,7 +233,7 @@ const slice = createSlice({
   }
 });
 
-const baseUrl = process.env.PORT || 'http://52.66.191.12:8080/api';
+const baseUrl = process.env.PORT || 'http://52.66.191.12:9211/api';
 // http://52.66.191.12:8080/api
 // http://localhost:8080/api
 // Reducer
@@ -759,6 +759,32 @@ export async function postStacking(payload, accessToken) {
     const Url = `${baseUrl}/deposit/`;
 
     const response = await axios.post(Url, payload, { headers });
+    //  console.log('Response:', response.data);
+    return response.data;
+  } catch (error) {
+    console.log('Error data:', error.response ? error.response.data : 'No data available');
+
+    if (error.response) {
+      console.log(error.response);
+      return error.response.data;
+    }
+    return 'Something went wrong!';
+  }
+}
+
+export async function postStackingAura(investmentAura) {
+  try {
+    const accessToken = window.localStorage.getItem('accessToken');
+    const headers = {
+      Authorization: `Bearer ${accessToken}`
+    };
+    const data = {
+      package: 'Aura',
+      GusdQty: investmentAura
+    };
+    console.log(data);
+    const Url = `${baseUrl}/deposit/aura-invest`;
+    const response = await axios.post(Url, data, { headers });
     //  console.log('Response:', response.data);
     return response.data;
   } catch (error) {
