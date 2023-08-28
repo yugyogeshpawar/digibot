@@ -193,7 +193,8 @@ export default function Router() {
             { path: 'annum', element: <AnnumBonusList /> },
             { path: 'monthly', element: <MonthlyPerRollList /> },
             { path: 'globalcommunitypool', element: <GlobalCommunityPool /> },
-            { path: 'globallederpool', element: <GlobalLeaderPool /> }
+            { path: 'globallederpool', element: <GlobalLeaderPool /> },
+            { path: 'aura-bonus', element: <AuraBonus /> }
           ]
         },
         { path: 'stake', element: <StakingForm /> },
@@ -324,6 +325,7 @@ const OpenTicket = Loadable(lazy(() => import('../pages/dashboard/OpenTicket')))
 const UserList = Loadable(lazy(() => import('../pages/dashboard/UserList')));
 const Activation = Loadable(lazy(() => import('../pages/dashboard/Activation')));
 const MintingList = Loadable(lazy(() => import('../pages/dashboard/MintingList')));
+const AuraBonus = Loadable(lazy(() => import('../pages/dashboard/AuraBonus')));
 const UserAccount = Loadable(lazy(() => import('../pages/dashboard/UserAccount')));
 const UserCreate = Loadable(lazy(() => import('../pages/dashboard/UserCreate')));
 const StakingForm = Loadable(lazy(() => import('../pages/dashboard/StakingForm')));

@@ -58,7 +58,7 @@ export default function StakingForm() {
         const snakCheck = response?.message;
 
         enqueueSnackbar(snakCheck, {
-          variant: 'info'
+          variant: 'error'
         });
       }
     } catch (error) {
@@ -132,8 +132,8 @@ export default function StakingForm() {
         variant: 'success'
       });
     }
-    if (res.message === 'Already Invested') {
-      enqueueSnackbar('Already Invested.', {
+    if (res.message === 'Invalid Package:Already invested in Dgb') {
+      enqueueSnackbar(res.message, {
         variant: 'error'
       });
     }
@@ -269,7 +269,7 @@ export default function StakingForm() {
                   sx={{ mt: 2 }}
                   label="Total Token"
                   name="totalToken"
-                  value={finalVal()?.toFixed(3)}
+                  value={initialSelectedPackage !== null ? finalVAl?.toFixed(3) : ''}
                   readOnly
                   disabled={countdownStarted}
                 />

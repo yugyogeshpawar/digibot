@@ -95,9 +95,9 @@ const sidebarConfig = [
         path: PATH_DASHBOARD.bonus.root,
         icon: ICONS.bonus,
         children: [
+          { title: 'Aura Bonus', path: PATH_DASHBOARD.bonus.aura },
           { title: 'Trade Bonus', path: PATH_DASHBOARD.bonus.stacking },
           { title: 'Trade Passive Bonus', path: PATH_DASHBOARD.bonus.passive },
-
           { title: 'Direct Bonus', path: PATH_DASHBOARD.bonus.direct },
           { title: 'Level Bonus', path: PATH_DASHBOARD.bonus.level },
           { title: 'Matching Bonus', path: PATH_DASHBOARD.bonus.matching },

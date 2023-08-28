@@ -89,6 +89,7 @@ export const PATH_DASHBOARD = {
     reward: path(ROOTS_DASHBOARD, '/bonus/reward'),
     annum: path(ROOTS_DASHBOARD, '/bonus/annum'),
     stacking: path(ROOTS_DASHBOARD, '/bonus/stacking'),
+    aura: path(ROOTS_DASHBOARD, '/bonus/aura-bonus'),
     passive: path(ROOTS_DASHBOARD, '/bonus/passive'),
     monthly: path(ROOTS_DASHBOARD, '/bonus/monthly'),
     globalcommunitypool: path(ROOTS_DASHBOARD, '/bonus/globalcommunitypool'),

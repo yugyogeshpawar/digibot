@@ -50,7 +50,7 @@ AppWelcome.propTypes = {
 };
 
 export default function AppWelcome({ displayName, memberUserId }) {
-  const [url] = useState(`https://digibot.co/digibotUApp/Signup?UplineId=${memberUserId}`);
+  const [url] = useState(`http://app.digibot.trade/digibotUApp/Signup?UplineId=${memberUserId}`);
   const ref = useRef(null);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [qrCodeData, setQrCodeData] = useState(null);
@@ -63,7 +63,7 @@ export default function AppWelcome({ displayName, memberUserId }) {
 
   const onCopyClick = () => {
     try {
-      navigator.clipboard.writeText(`https://digibot.co/digibotUApp/Signup?UplineId=${memberUserId}`);
+      navigator.clipboard.writeText(`http://app.digibot.trade/digibotUApp/Signup?UplineId=${memberUserId}`);
       enqueueSnackbar('Copied', {
         variant: 'success',
         action: (key) => (

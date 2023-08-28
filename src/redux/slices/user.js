@@ -137,6 +137,10 @@ const slice = createSlice({
       state.isLoading = false;
       state.minting = action.payload;
     },
+    getAuraBonusSucess(state, action) {
+      state.isLoading = false;
+      state.auraBonus = action.payload;
+    },
     getLevelBonusSucess(state, action) {
       state.isLoading = false;
       state.levelBonus = action.payload;
@@ -233,7 +237,7 @@ const slice = createSlice({
   }
 });
 
-const baseUrl = process.env.PORT || 'http://52.66.191.12:8080/api';
+const baseUrl = process.env.PORT || 'http://52.66.191.12:9211/api';
 // http://52.66.191.12:8080/api
 // http://localhost:8080/api
 // Reducer
@@ -434,6 +438,24 @@ export function getMintingBonus() {
       });
       console.log(response);
       dispatch(slice.actions.getMintingBonusSucess(response.data.output));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
+export function getAuraBonus(values) {
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const accessToken = window.localStorage.getItem('accessToken');
+      const response = await axios({
+        method: 'post',
+        url: `${baseUrl}/users/incomes`,
+        headers: { authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
+        data: values
+      });
+      dispatch(slice.actions.getAuraBonusSucess(response.data.results));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }
