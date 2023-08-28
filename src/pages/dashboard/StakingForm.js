@@ -309,89 +309,92 @@ export default function StakingForm() {
             </Button>
           </Block>
         </Grid>
-        <Grid item xs={12} md={6}>
-          <Block title="QR Code" sx={{ flexDirection: 'column', marginBottom: '8px' }}>
-            {/* <Box m={1}>
+
+        {selectedBot !== 'Aura' && (
+          <Grid item xs={12} md={6}>
+            <Block title="QR Code" sx={{ flexDirection: 'column', marginBottom: '8px' }}>
+              {/* <Box m={1}>
               <Box>
                 <Box mb={1}></Box>
               </Box>
             </Box> */}
-            <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-              <div>
-                <img src="/qrcode/qr-code.png" alt="qr-code" style={{ maxWidth: '200px', borderRadius: '4px' }} />
-              </div>
-              <Box>
-                <Box m={2}>
-                  <Box mb={1}>
-                    Currunt Investment : <span>{user.investment_busd}</span>
+              <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+                <div>
+                  <img src="/qrcode/qr-code.png" alt="qr-code" style={{ maxWidth: '200px', borderRadius: '4px' }} />
+                </div>
+                <Box>
+                  <Box m={2}>
+                    <Box mb={1}>
+                      Currunt Investment : <span>{user.investment_busd}</span>
+                    </Box>
+                    <Box mb={1}>Selected Bot: {selectedBot}</Box>
+                    <Box mb={1}>selected Package: {selectedPackage}</Box>
+                    <Box>Total Token: {initialSelectedPackage !== null ? finalVAl?.toFixed(3) : ''}</Box>
                   </Box>
-                  <Box mb={1}>Selected Bot: {selectedBot}</Box>
-                  <Box mb={1}>selected Package: {selectedPackage}</Box>
-                  <Box>Total Token: {initialSelectedPackage !== null ? finalVAl?.toFixed(3) : ''}</Box>
                 </Box>
               </Box>
-            </Box>
 
-            <Container maxWidth="lg" style={{ padding: 0 }}>
-              <Card>
-                <CardContent>
-                  <CopyClipboard value="dgb1qt3nqv6g3esnjtq035hdzy36kuu7jy38zfs278z" />
-                </CardContent>
-              </Card>
-            </Container>
+              <Container maxWidth="lg" style={{ padding: 0 }}>
+                <Card>
+                  <CardContent>
+                    <CopyClipboard value="dgb1qt3nqv6g3esnjtq035hdzy36kuu7jy38zfs278z" />
+                  </CardContent>
+                </Card>
+              </Container>
 
-            <Box>
-              <h1>Important *</h1>
-              <ol style={{ marginLeft: '16px' }}>
-                <li>Your Investement should be greater then your currunt investment </li>
-                <li>Hash Code should be at least 60 characters long.</li>
-                <li>Sending any other coin or token to this address may result in the loss</li>
-                <li>Deposits will automatically be processed after 3 network confirmations.</li>
-              </ol>
-            </Box>
-            <Box mt={2} mb={1} display="flex">
-              {countdownStarted ? (
-                <>
-                  <svg width="30%">
-                    <defs>
-                      <linearGradient id="your-unique-id" x1="1" y1="0" x2="0" y2="0">
-                        <stop offset="5%" stopColor="gold" />
-                        <stop offset="95%" stopColor="red" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                  <CountdownCircleTimer
-                    isPlaying
-                    duration={Math.ceil(remainingTime)}
-                    colors="url(#your-unique-id)"
-                    onComplete={() => setCountdownStarted(false)}
-                  >
-                    {({ remainingTime }) => (
-                      <div
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          justifyContent: 'center'
-                        }}
-                      >
-                        <div style={{ textAlign: 'center' }}>
-                          {Math.floor(remainingTime / 60)
-                            .toString()
-                            .padStart(2, '0')}
-                          :
-                          {Math.floor(remainingTime % 60)
-                            .toString()
-                            .padStart(2, '0')}
+              <Box>
+                <h1>Important *</h1>
+                <ol style={{ marginLeft: '16px' }}>
+                  <li>Your Investement should be greater then your currunt investment </li>
+                  <li>Hash Code should be at least 60 characters long.</li>
+                  <li>Sending any other coin or token to this address may result in the loss</li>
+                  <li>Deposits will automatically be processed after 3 network confirmations.</li>
+                </ol>
+              </Box>
+              <Box mt={2} mb={1} display="flex">
+                {countdownStarted ? (
+                  <>
+                    <svg width="30%">
+                      <defs>
+                        <linearGradient id="your-unique-id" x1="1" y1="0" x2="0" y2="0">
+                          <stop offset="5%" stopColor="gold" />
+                          <stop offset="95%" stopColor="red" />
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                    <CountdownCircleTimer
+                      isPlaying
+                      duration={Math.ceil(remainingTime)}
+                      colors="url(#your-unique-id)"
+                      onComplete={() => setCountdownStarted(false)}
+                    >
+                      {({ remainingTime }) => (
+                        <div
+                          style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center'
+                          }}
+                        >
+                          <div style={{ textAlign: 'center' }}>
+                            {Math.floor(remainingTime / 60)
+                              .toString()
+                              .padStart(2, '0')}
+                            :
+                            {Math.floor(remainingTime % 60)
+                              .toString()
+                              .padStart(2, '0')}
+                          </div>
+                          <div style={{ textAlign: 'center' }}>Remaining</div>
                         </div>
-                        <div style={{ textAlign: 'center' }}>Remaining</div>
-                      </div>
-                    )}
-                  </CountdownCircleTimer>
-                </>
-              ) : null}
-            </Box>
-          </Block>
-        </Grid>
+                      )}
+                    </CountdownCircleTimer>
+                  </>
+                ) : null}
+              </Box>
+            </Block>
+          </Grid>
+        )}
       </div>
     </form>
   );
