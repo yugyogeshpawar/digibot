@@ -112,8 +112,8 @@ const DashNavHero = () => {
     <Grid container display="flex" justifyContent="center">
       <Grid item>
         <div className={classes.mainDasNavhero}>
-          <Box display="flex" p={2} alignItems="center">
-            <Box display="flex" p={2}>
+          <Box display="flex" p={!isSmallScreen && 2} alignItems="center">
+            <Box display="flex" p={!isSmallScreen && 2}>
               <Box mr={1}>
                 <Typography noWrap color="secondary">
                   Total Investment: <span> {user?.investment_busd} </span>

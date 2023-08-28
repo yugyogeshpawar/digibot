@@ -86,7 +86,7 @@ const CryptoPriceMarquee = () => {
   }, []);
 
   const marqueeContainerStyle = {
-    marginTop: '20px'
+    marginTop: '10px'
   };
 
   const mobileStyle = window.innerWidth <= 768 ? marqueeContainerStyle : {};

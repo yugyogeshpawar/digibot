@@ -1,5 +1,5 @@
 /* eslint-disable import/no-unresolved */
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Container, Grid, Stack } from '@material-ui/core';
 // hooks
 import { getIncomeDashRoute, getProfile } from 'src/redux/slices/user';
@@ -35,6 +35,8 @@ export default function Dashboard() {
     dispatch(getProfile());
     dispatch(getDailyIncome());
   }, [dispatch]);
+
+  console.log(myProfile);
 
   const { incomeDash } = useSelector((state) => state.user);
 
@@ -117,7 +119,10 @@ export default function Dashboard() {
             <WithoutUSD teamBusiness={`${user?.left_pair} : ${user?.right_pair}`} title=" First Pair" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <MyRank teamBusiness={incomeDash?.trade_Bonus} title="Trade Bonus" />
+            <MyRank
+              teamBusiness={incomeDash?.trade_Bonus}
+              title={user?.aura_status === 0 ? 'Trade Bonus' : 'Aura Bonus'}
+            />
           </Grid>
           <Grid item xs={12} md={4}>
             <MyRank teamBusiness={incomeDash?.passive_Bonus} title=" Trade Passive Bonus" />

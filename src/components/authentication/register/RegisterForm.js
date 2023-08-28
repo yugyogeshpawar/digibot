@@ -371,7 +371,7 @@ export default function RegisterForm() {
             </Grid>
           </Grid>
           <FormControl fullWidth variant="outlined">
-            <InputLabel id="package-label">Select Package</InputLabel>
+            <InputLabel id="package-label">Select Position</InputLabel>
             <Select
               labelId="package-label"
               id="package"
