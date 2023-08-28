@@ -7,7 +7,6 @@ import axios from 'axios';
 let stakingHistory = [];
 let activeUsers = [];
 let inactiveUsers = [];
-let blockedUsers = [];
 let Investment = [];
 let Matching = [];
 let Monthly = [];
@@ -71,45 +70,44 @@ export const { onToggleFollow, deleteUser } = slice.actions;
 // ----------------------------------------------------------------------
 
 export async function getActiveUsers() {
-  if (!initializer.ActiveUsersSucess) {
-    try {
-      const accessToken = window.localStorage.getItem('adminAccessToken');
-      const headers = {
-        Authorization: `Bearer ${accessToken}`,
-        'Referrer-Policy': 'unsafe-url'
-      };
-      const response = await axios.get(`${baseUrl}/activeUser`, {
-        headers
-      });
-      initializer.ActiveUsersSucess = true;
-      activeUsers = response.data;
-    } catch (error) {
-      console.log(error);
-      initializer.ActiveUsersSucess = false;
-    }
+  let activeUsers;
+  try {
+    const accessToken = window.localStorage.getItem('adminAccessToken');
+    const headers = {
+      Authorization: `Bearer ${accessToken}`,
+      'Referrer-Policy': 'unsafe-url'
+    };
+    const response = await axios.get(`${baseUrl}/activeUser`, {
+      headers
+    });
+    initializer.ActiveUsersSucess = true;
+    activeUsers = response.data;
+    return activeUsers;
+  } catch (error) {
+    console.log(error);
+    initializer.ActiveUsersSucess = false;
+    return activeUsers;
   }
-  return activeUsers;
 }
 // ----------------------------------------------------------------------
 export async function getBlockedUsers() {
-  if (!initializer.userBlockedSuccess) {
-    try {
-      const accessToken = window.localStorage.getItem('adminAccessToken');
-      const headers = {
-        Authorization: `Bearer ${accessToken}`,
-        'Referrer-Policy': 'unsafe-url'
-      };
-      const response = await axios.get(`${baseUrl}/blockedUser`, {
-        headers
-      });
-      blockedUsers = response.data;
-      initializer.userBlockedSuccess = true;
-    } catch (error) {
-      console.log(error);
-      initializer.userBlockedSuccess = false;
-    }
+  let blockedUsers;
+  try {
+    const accessToken = window.localStorage.getItem('adminAccessToken');
+    const headers = {
+      Authorization: `Bearer ${accessToken}`,
+      'Referrer-Policy': 'unsafe-url'
+    };
+    const response = await axios.get(`${baseUrl}/blockedUser`, {
+      headers
+    });
+    blockedUsers = response.data;
+    return blockedUsers;
+  } catch (error) {
+    console.log(error);
+    initializer.userBlockedSuccess = false;
+    return blockedUsers;
   }
-  return blockedUsers;
 }
 // ----------------------------------------------------------------------
 export async function getInactiveUsers() {
