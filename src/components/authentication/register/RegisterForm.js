@@ -377,7 +377,7 @@ export default function RegisterForm() {
               id="package"
               value={selectedPackage}
               onChange={(e) => setSelectedPackage(e.target.value)}
-              label="Select Package"
+              label="Select Position"
             >
               <MenuItem value="LEFT">LEFT</MenuItem>
               <MenuItem value="RIGHT">RIGHT</MenuItem>
