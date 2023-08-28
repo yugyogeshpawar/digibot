@@ -120,7 +120,7 @@ export default function Dashboard() {
           </Grid>
           <Grid item xs={12} md={4}>
             <MyRank
-              teamBusiness={incomeDash?.trade_Bonus}
+              teamBusiness={user?.aura_status === 0 ? incomeDash?.trade_Bonus : incomeDash?.aura_Bonus}
               title={user?.aura_status === 0 ? 'Trade Bonus' : 'Aura Bonus'}
             />
           </Grid>
