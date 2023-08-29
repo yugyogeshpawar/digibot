@@ -59,7 +59,7 @@ const slice = createSlice({
   }
 });
 
-const baseUrl = process.env.PORT || 'http://52.66.191.12:9211/api/admin';
+const baseUrl = process.env.PORT || 'http://52.66.191.12:8080/api/admin';
 
 // Reducer
 export default slice.reducer;
@@ -465,10 +465,9 @@ export async function postAuraActiveID(value) {
       data: { hashcode: value }
     });
     // console.log('res'.response);
-    Withdraw = response.data;
-    console.log(response.data);
+    Withdraw = response;
     // initializer.WithdrawSucess = true;
-    return response.data;
+    return response;
   } catch (error) {
     console.log(error);
     initializer.WithdrawSucess = false;
