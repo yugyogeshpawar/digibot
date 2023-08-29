@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import {
   Card,
   Table,
@@ -16,22 +17,22 @@ import {
 } from '@material-ui/core';
 
 import { useDispatch, useSelector } from '../../redux/store';
-import { directMember } from '../../redux/slices/user';
+import { myLevel } from '../../redux/slices/user';
 import Scrollbar from '../../components/Scrollbar';
 
-export default function MyLevel() {
+export default function MyLevel({ level }) {
   const dispatch = useDispatch();
-  const { directM } = useSelector((state) => state.user);
+  const { myteams } = useSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(directMember());
+    dispatch(myLevel(level));
   }, [dispatch]);
 
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 10;
 
-  const filteredRefArr = directM?.filter((row) => row.member_user_id.toLowerCase().includes(searchQuery.toLowerCase()));
+  const filteredRefArr = myteams?.filter((row) => row.member_user_id.toLowerCase().includes(searchQuery.toLowerCase()));
 
   const totalPages = Math.ceil(filteredRefArr?.length / rowsPerPage);
 
@@ -66,7 +67,7 @@ export default function MyLevel() {
   }
   return (
     <Card>
-      <CardHeader title="My Level" sx={{ mb: 3 }} />
+      <CardHeader title={`Level ${level}`} sx={{ mb: 3 }} />
 
       <Box p={2} display="flex" justifyContent="flex">
         <TextField
@@ -82,11 +83,11 @@ export default function MyLevel() {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell sx={{ minWidth: 120 }}>No.</TableCell>
-                <TableCell sx={{ minWidth: 160 }}>Member Id</TableCell>
+                <TableCell sx={{ minWidth: 60 }}>No.</TableCell>
+                <TableCell sx={{ minWidth: 120 }}>Member Id</TableCell>
                 <TableCell sx={{ minWidth: 160 }}>Sponser Id </TableCell>
-                <TableCell sx={{ minWidth: 160 }}>Reg. Date</TableCell>
-                <TableCell sx={{ minWidth: 120 }}>Package</TableCell>
+                <TableCell sx={{ minWidth: 120 }}>Reg. Date</TableCell>
+                <TableCell sx={{ minWidth: 100 }}>Package</TableCell>
 
                 <TableCell sx={{ minWidth: 120 }}>Status</TableCell>
               </TableRow>
@@ -135,3 +136,7 @@ export default function MyLevel() {
     </Card>
   );
 }
+
+MyLevel.propTypes = {
+  level: PropTypes.number
+};

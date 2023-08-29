@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from 'src/redux/store';
 import useSettings from '../../hooks/useSettings';
 import useAuth from '../../hooks/useAuth';
 import TradingViewChart from './TradingViewChart';
+// import TradingList from './TradingList';
+
 // components
 import Page from '../../components/Page';
 import {
@@ -15,7 +17,6 @@ import {
   EcommerceNewProducts,
   NextPositionBusiness,
   NextPosionReward,
-  ActiveVsInactive,
   NextPosition
 } from '../../components/_dashboard/general-ecommerce';
 
@@ -56,9 +57,9 @@ export default function MyStone() {
           <Grid item xs={12}>
             <TradingViewChart theme={themeMode} />
           </Grid>
-          <Grid item xs={12} md={6} lg={4}>
-            <ActiveVsInactive myProfile={myProfile} />
-          </Grid>
+          {/* <Grid item xs={12}>
+            <TradingList theme={themeMode} />
+          </Grid> */}
         </Grid>
       </Container>
     </Page>

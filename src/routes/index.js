@@ -166,7 +166,8 @@ export default function Router() {
             { path: 'mygenealogy', element: <MyGenealogy /> },
             { path: 'leftdownLine', element: <LeftDownLine /> },
             { path: 'rightdownline', element: <RightDownLine /> },
-            { path: 'mylevel', element: <MyLevel /> }
+            { path: 'mylevel', element: <MyLevel /> },
+            { path: 'mylevels', element: <MyLevelMem /> }
           ]
         },
         {
@@ -351,6 +352,7 @@ const RightDownLine = Loadable(lazy(() => import('../pages/dashboard/RightDownLi
 const ViewProfile = Loadable(lazy(() => import('../components/_dashboard/user/account/ViewProfile')));
 const UserKYC = Loadable(lazy(() => import('../components/_dashboard/user/account/UserKYC')));
 const MyLevel = Loadable(lazy(() => import('../pages/dashboard/MyLevel')));
+const MyLevelMem = Loadable(lazy(() => import('../pages/dashboard/MyLevelMem')));
 const NotificationLIst = Loadable(lazy(() => import('../pages/dashboard/NotificationLIst')));
 const GlobalCommunityPool = Loadable(lazy(() => import('../pages/dashboard/GlobalCommunityPool')));
 const GlobalLeaderPool = Loadable(lazy(() => import('../pages/dashboard/GlobalLeaderPool')));

@@ -174,6 +174,10 @@ const slice = createSlice({
       state.isLoading = false;
       state.directM = action.payload;
     },
+    getMyLevelsSucess(state, action) {
+      state.isLoading = false;
+      state.myteams = action.payload;
+    },
     getChangePassword(state, action) {
       state.isLoading = false;
       state.changePassStatus = action.payload;
@@ -237,7 +241,7 @@ const slice = createSlice({
   }
 });
 
-const baseUrl = process.env.PORT || 'http://52.66.191.12:9211/api';
+const baseUrl = process.env.PORT || 'http://52.66.191.12:8080/api';
 // http://52.66.191.12:8080/api
 // http://localhost:8080/api
 // Reducer
@@ -524,6 +528,26 @@ export function directMember() {
       console.log(response);
       dispatch(slice.actions.getDirectMemberSucess(response.data.user));
     } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
+export function myLevel(level) {
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const accessToken = window.localStorage.getItem('accessToken');
+      const response = await axios({
+        method: 'post',
+        url: `${baseUrl}/users/teams`,
+        headers: { authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
+        data: { level }
+      });
+      console.log(response);
+      dispatch(slice.actions.getMyLevelsSucess(response.data.userDetail));
+    } catch (error) {
+      dispatch(slice.actions.getMyLevelsSucess([]));
       dispatch(slice.actions.hasError(error));
     }
   };

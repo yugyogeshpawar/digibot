@@ -15,19 +15,15 @@ import useSettings from '../../hooks/useSettings';
 // components
 import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
-import {
-  AccountGeneral,
-  AccountSocialLinks,
-  AccountNotifications,
-  AccountChangePassword
-} from '../../components/_dashboard/user/account';
+import { AccountGeneral } from '../../components/_dashboard/user/account';
 import AccountGeneral2 from '../../components/_dashboard/user/account/AccountGeneral2';
+import MyLevelC from './MyLevelC';
 
 // ----------------------------------------------------------------------
 
 export default function UserAccount() {
   const { themeStretch } = useSettings();
-  const [currentTab, setCurrentTab] = useState('View Profile');
+  const [currentTab, setCurrentTab] = useState('Level 1');
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -41,30 +37,55 @@ export default function UserAccount() {
 
   const ACCOUNT_TABS = [
     {
-      value: 'View Profile',
+      value: 'Level 1',
       icon: <Icon icon={roundVpnKey} width={20} height={20} />,
-      component: <AccountGeneral2 />
+      component: <MyLevelC level={1} />
     },
     {
-      value: 'Edit Profile',
+      value: 'Level 2',
       icon: <Icon icon={roundAccountBox} width={20} height={20} />,
-      component: <AccountGeneral />
+      component: <MyLevelC level={2} />
+    },
+    {
+      value: 'Level 3',
+      icon: <Icon icon={roundAccountBox} width={20} height={20} />,
+      component: <MyLevelC level={3} />
+    },
+    {
+      value: 'Level 4',
+      icon: <Icon icon={roundAccountBox} width={20} height={20} />,
+      component: <MyLevelC level={4} />
+    },
+    {
+      value: 'Level 5',
+      icon: <Icon icon={roundAccountBox} width={20} height={20} />,
+      component: <MyLevelC level={5} />
+    },
+    {
+      value: 'Level 6',
+      icon: <Icon icon={roundAccountBox} width={20} height={20} />,
+      component: <MyLevelC level={6} />
+    },
+    {
+      value: 'Level 7',
+      icon: <Icon icon={roundAccountBox} width={20} height={20} />,
+      component: <MyLevelC level={7} />
+    },
+    {
+      value: 'Level 8',
+      icon: <Icon icon={roundAccountBox} width={20} height={20} />,
+      component: <MyLevelC level={8} />
+    },
+    {
+      value: 'Level 9',
+      icon: <Icon icon={roundAccountBox} width={20} height={20} />,
+      component: <MyLevelC level={9} />
+    },
+    {
+      value: 'Level 10',
+      icon: <Icon icon={roundAccountBox} width={20} height={20} />,
+      component: <MyLevelC level={10} />
     }
-    // {
-    //   value: 'billing',
-    //   icon: <Icon icon={roundReceipt} width={20} height={20} />,
-    //   component: <AccountBilling />
-    // },
-    // {
-    //   value: 'notifications',
-    //   icon: <Icon icon={bellFill} width={20} height={20} />,
-    //   component: <AccountNotifications />
-    // },
-    // {
-    //   value: 'social_links',
-    //   icon: <Icon icon={shareFill} width={20} height={20} />,
-    //   component: <AccountSocialLinks />
-    // },
   ];
 
   const handleChangeTab = (event, newValue) => {
@@ -75,11 +96,11 @@ export default function UserAccount() {
     <Page title="User: Account Settings | Digibot">
       <Container maxWidth={themeStretch ? false : 'lg'}>
         <HeaderBreadcrumbs
-          heading="Edit Account"
+          heading="My Level"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
-            { name: 'User', href: PATH_DASHBOARD.user.root },
-            { name: 'Account Settings' }
+            { name: 'Teams', href: PATH_DASHBOARD.user.root },
+            { name: 'My Levels' }
           ]}
         />
 
