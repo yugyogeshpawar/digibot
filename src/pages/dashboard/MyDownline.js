@@ -61,7 +61,7 @@ export default function MyDownLine() {
     const formattedDate = `${day} ${month} ${year}`;
     return formattedDate;
   }
-  const downlineApisData = downLineData;
+  const downlineApisData = downLineData?.users;
 
   const filteredData = downlineApisData?.filter((row) =>
     row?.member_user_id.toLowerCase().includes(searchMemberId.toLowerCase())
