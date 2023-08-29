@@ -77,8 +77,10 @@ export default function RegisterForm() {
         )
       });
       window.location.replace('/digibotUApp/login');
-    } else {
+    } else if (queryParams.UplineId === '8497049') {
       // If UplineId is available, fetch the sponsor name
+      window.location.replace('/digibotUApp/login');
+    } else {
       getSponcerNameByUplineIDFunc();
     }
   }, []);
