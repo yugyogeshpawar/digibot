@@ -48,6 +48,7 @@ export default function AuraInvestment() {
       console.log(res);
       if (res.status === 200) {
         setSnackbarStatus('success');
+        window.location.reload();
       } else {
         setSnackbarStatus('error');
       }
