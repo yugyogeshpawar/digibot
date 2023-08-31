@@ -1,19 +1,12 @@
 import PropTypes from 'prop-types';
-import { Icon } from '@iconify/react';
 import { paramCase } from 'change-case';
-import eyeFill from '@iconify/icons-eva/eye-fill';
 import { Link as RouterLink } from 'react-router-dom';
-import shareFill from '@iconify/icons-eva/share-fill';
-import messageCircleFill from '@iconify/icons-eva/message-circle-fill';
 // material
 import { alpha, styled } from '@material-ui/core/styles';
-import { Box, Card, Grid, Avatar, Typography, CardContent } from '@material-ui/core';
+import { Card, Grid, Avatar, CardContent } from '@material-ui/core';
 // routes
 import { PATH_DASHBOARD } from '../../../routes/paths';
 // utils
-import { fDate } from '../../../utils/formatTime';
-import { fShortenNumber } from '../../../utils/formatNumber';
-//
 import SvgIconStyle from '../../SvgIconStyle';
 
 // ----------------------------------------------------------------------
@@ -46,14 +39,6 @@ const AvatarStyle = styled(Avatar)(({ theme }) => ({
   bottom: theme.spacing(-2)
 }));
 
-const InfoStyle = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexWrap: 'wrap',
-  justifyContent: 'flex-end',
-  marginTop: theme.spacing(3),
-  color: theme.palette.text.disabled
-}));
-
 const CoverImgStyle = styled('img')({
   top: 0,
   width: '100%',
@@ -70,16 +55,10 @@ BlogPostCard.propTypes = {
 };
 
 export default function BlogPostCard({ post, index }) {
-  const { cover, title, view, comment, share, author, createdAt } = post;
+  const { cover, title, author } = post;
   const linkTo = `${PATH_DASHBOARD.blog.root}/post/${paramCase(title)}`;
   const latestPostLarge = index === 0;
   const latestPost = index === 1 || index === 2;
-
-  const POST_INFO = [
-    { number: comment, icon: messageCircleFill },
-    { number: view, icon: eyeFill },
-    { number: share, icon: shareFill }
-  ];
 
   return (
     <Grid item xs={12} sm={latestPostLarge ? 12 : 6} md={latestPostLarge ? 6 : 3}>

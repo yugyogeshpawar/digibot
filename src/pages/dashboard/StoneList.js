@@ -12,7 +12,6 @@ import {
   TableRow,
   Divider,
   TextField,
-  MenuItem,
   Pagination,
   Box
 } from '@material-ui/core';
@@ -29,7 +28,7 @@ export default function StoneList() {
   }, [dispatch]);
 
   const [page, setPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage] = useState(5);
   const [searchTerm, setSearchTerm] = useState('');
   const stoneArr = stoneBonus || [];
 
@@ -37,11 +36,6 @@ export default function StoneList() {
   console.log(filteredData, 'filteredDatafilteredDatafilteredData');
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(1);
   };
 
   return (

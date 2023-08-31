@@ -85,9 +85,8 @@ export default function MintingPayouts() {
   const dispatch = useDispatch();
   const isMountedRef = useIsMountedRef();
   const { checkout } = useSelector((state) => state.product);
-  const { cart, billing, activeStep } = checkout;
+  const { cart, activeStep } = checkout;
   const isComplete = activeStep === STEPS.length;
-  const { user } = useAuth();
   const [withdrawSummary, setWithdrawSummary] = useState({
     GUSD: 0,
     bal: 0,

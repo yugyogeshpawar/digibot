@@ -52,8 +52,6 @@ export default function ReferralList() {
     setPage(newPage);
   };
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, checkDataArr?.length - (page - 1) * rowsPerPage);
-
   return (
     <Card>
       <CardHeader title="Reward Bonus List" sx={{ mb: 3 }} />

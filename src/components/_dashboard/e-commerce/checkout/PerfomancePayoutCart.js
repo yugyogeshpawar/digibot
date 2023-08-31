@@ -3,7 +3,7 @@ import { Icon } from '@iconify/react';
 import PropTypes from 'prop-types';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useFormik, Form, FormikProvider } from 'formik';
-import * as Yup from 'yup'; // Import Yup for validation
+import * as Yup from 'yup';
 import arrowIosBackFill from '@iconify/icons-eva/arrow-ios-back-fill';
 import { forwardRef, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -19,8 +19,6 @@ import {
   DialogContent,
   Card,
   Button,
-  CardHeader,
-  Typography,
   Stack,
   TextField,
   Box
@@ -33,9 +31,7 @@ import LoadingScreen from 'src/components/LoadingScreen';
 import { PATH_DASHBOARD } from '../../../../routes/paths';
 import useAuth from '../../../../hooks/useAuth';
 import Scrollbar from '../../../Scrollbar';
-import EmptyContent from '../../../EmptyContent';
 import WithdrawSummary from './WithdrawSummary';
-import { MLM_CONTRACT } from './WalletAddress';
 // ----------------------------------------------------------------------
 
 PayoutCart.propTypes = {
@@ -43,7 +39,7 @@ PayoutCart.propTypes = {
   setWithdrawSummary: PropTypes.func
 };
 
-export default function PayoutCart({ checkoutType, setWithdrawSummary }) {
+export default function PayoutCart({ setWithdrawSummary }) {
   const Transition = forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
   const dispatch = useDispatch();
   const { user } = useAuth();

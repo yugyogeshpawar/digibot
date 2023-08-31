@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import { useState } from 'react';
-import { Button, Typography, TextField, Grid, Card, CardContent, CardHeader, Box } from '@material-ui/core';
+import { Button, Typography, TextField, Grid, Card, CardContent, CardHeader } from '@material-ui/core';
 
 // ----------------------------------------------------------------------
 

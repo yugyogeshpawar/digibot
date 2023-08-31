@@ -34,7 +34,7 @@ import Label from '../../components/Label';
 import Scrollbar from '../../components/Scrollbar';
 import SearchNotFound from '../../components/SearchNotFound';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
-import { UserListHead, UserListToolbar, UserMoreMenu } from '../../components/_dashboard/user/list';
+import { UserListHead, UserListToolbar } from '../../components/_dashboard/user/list';
 
 // ----------------------------------------------------------------------
 
@@ -135,10 +135,6 @@ export default function UserList() {
 
   const handleFilterByName = (event) => {
     setFilterName(event.target.value);
-  };
-
-  const handleDeleteUser = (userId) => {
-    dispatch(deleteUser(userId));
   };
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - userList.length) : 0;

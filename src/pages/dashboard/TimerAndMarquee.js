@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-distracting-elements */
 // /* eslint-disable jsx-a11y/no-distracting-elements */
 
-import React, { useState, useEffect, forwardRef } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Link, useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack5';
@@ -13,16 +13,11 @@ import {
   Button,
   Card,
   CardContent,
-  Grid,
-  Slide,
   Dialog,
   DialogTitle,
   DialogActions,
   DialogContentText,
-  DialogContent,
-  CardHeader,
-  Stack,
-  TextField
+  DialogContent
 } from '@material-ui/core';
 
 // eslint-disable-next-line import/no-unresolved
@@ -42,26 +37,6 @@ const RootStyle = styled(Card)(({ theme }) => ({
     justifyContent: 'space-between'
   }
 }));
-const TimerContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  border: `1px solid ${theme.palette.primary.main}`,
-  borderRadius: theme.spacing(1),
-  padding: theme.spacing(1),
-  background: theme.palette.secondary.success,
-  color: theme.palette.primary.contrastText,
-  fontSize: 20,
-  '& > *': {
-    margin: theme.spacing(0, 1)
-  }
-}));
-
-const TimerDigit = styled(Box)({
-  color: 'grey.800',
-  fontWeight: 500,
-  animation: '$fadeIn 1s ease-in-out forwards'
-});
 
 export default function AppWelcome() {
   // const Transition = forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
@@ -72,7 +47,6 @@ export default function AppWelcome() {
   const [timerMinutes, setTimerMinutes] = useState(null);
   const [timerHour, setTimerHour] = useState(null);
   const [open, setOpen] = useState(false);
-  const [timeRemaining, setTimeRemaining] = useState(null);
   // const registrationDateAndTime = '2023-08-04T05:29:12.548Z';
   const [sawNotification, setSawNotification] = useState(false);
   const registrationDateAndTime = user?.registration_date;
@@ -102,10 +76,6 @@ export default function AppWelcome() {
           setTimerSecond(seconds);
           setTimerHour(hours);
           setTimerMinutes(minutes);
-          const formattedTime = `${hours.toString().padStart(2, '0')} : ${minutes
-            .toString()
-            .padStart(2, '0')} : ${seconds.toString().padStart(2, '0')}`;
-          setTimeRemaining(formattedTime);
 
           if (diff - 5400000 >= 0 && diff - 5400000 <= 10) {
             setOpen(true);
@@ -118,7 +88,6 @@ export default function AppWelcome() {
             console.log('ASAS');
           }
         } else {
-          setTimeRemaining('Time Expired');
           clearInterval(timerInterval);
           clearInterval(notificationInterval);
         }
@@ -151,9 +120,6 @@ export default function AppWelcome() {
     setOpen(false);
   };
 
-  const formatedHour = timerHour < 10 ? `0${timerHour}` : timerHour;
-  const formatedMinutes = timerMinutes < 10 ? `0${timerMinutes}` : timerMinutes;
-  const formatedSecond = timerSecond < 10 ? `0${timerSecond}` : timerSecond;
   const handleNavigate = () => {
     setOpen(true);
   };

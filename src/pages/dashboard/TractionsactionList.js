@@ -1,5 +1,5 @@
 /* eslint-disable prefer-const */
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import {
   Card,
   Table,

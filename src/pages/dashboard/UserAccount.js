@@ -15,12 +15,7 @@ import useSettings from '../../hooks/useSettings';
 // components
 import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
-import {
-  AccountGeneral,
-  AccountSocialLinks,
-  AccountNotifications,
-  AccountChangePassword
-} from '../../components/_dashboard/user/account';
+import { AccountGeneral } from '../../components/_dashboard/user/account';
 import AccountGeneral2 from '../../components/_dashboard/user/account/AccountGeneral2';
 
 // ----------------------------------------------------------------------

@@ -324,7 +324,6 @@ const Tractionsac = Loadable(lazy(() => import('../pages/dashboard/Tractionsacti
 const CreateTicket = Loadable(lazy(() => import('../pages/dashboard/CreateTicket')));
 const OpenTicket = Loadable(lazy(() => import('../pages/dashboard/OpenTicket')));
 const UserList = Loadable(lazy(() => import('../pages/dashboard/UserList')));
-const Activation = Loadable(lazy(() => import('../pages/dashboard/Activation')));
 const MintingList = Loadable(lazy(() => import('../pages/dashboard/MintingList')));
 const AuraBonus = Loadable(lazy(() => import('../pages/dashboard/AuraBonus')));
 const UserAccount = Loadable(lazy(() => import('../pages/dashboard/UserAccount')));

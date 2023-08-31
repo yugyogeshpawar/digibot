@@ -79,7 +79,6 @@ const sidebarConfig = [
           { title: 'my downline', path: PATH_DASHBOARD.myteam.mydownline },
           { title: 'left downlines ', path: PATH_DASHBOARD.myteam.leftdownLine },
           { title: 'right downlines', path: PATH_DASHBOARD.myteam.rightdownline },
-          { title: 'my level', path: PATH_DASHBOARD.myteam.mylevel },
           { title: 'my levels', path: PATH_DASHBOARD.myteam.mylevels }
           // { title: 'invoice', path: PATH_DASHBOARD.eCommerce.invoice }
         ]

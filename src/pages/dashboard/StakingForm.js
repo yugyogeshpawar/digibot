@@ -201,10 +201,6 @@ export default function StakingForm() {
     setSelectedBot('');
   };
 
-  const finalVal = () => {
-    // Calculate final value here
-  };
-
   function botcharge() {
     console.log(selectedBot);
     if (selectedBot !== '' && initialSelectedPackage === null) {
