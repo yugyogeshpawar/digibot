@@ -13,8 +13,8 @@ export default function TradingList() {
           value: '0.5000000'
         },
         {
-          icon: '/logo/digibot.png',
-          name: 'DGB',
+          icon: '/logo/bitcoin-btc-logo.svg',
+          name: 'BTC',
           value: '0.5000000'
         }
         // Add more items here
