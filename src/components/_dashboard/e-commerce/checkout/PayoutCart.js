@@ -6,7 +6,7 @@ import { useFormik, Form, FormikProvider } from 'formik';
 import * as Yup from 'yup'; // Import Yup for validation
 import arrowIosBackFill from '@iconify/icons-eva/arrow-ios-back-fill';
 import { forwardRef, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import BigNumber from 'bignumber.js';
 // material
 import {
@@ -33,9 +33,7 @@ import LoadingScreen from 'src/components/LoadingScreen';
 import { PATH_DASHBOARD } from '../../../../routes/paths';
 import useAuth from '../../../../hooks/useAuth';
 import Scrollbar from '../../../Scrollbar';
-import EmptyContent from '../../../EmptyContent';
 import WithdrawSummary from './WithdrawSummary';
-import { MLM_CONTRACT } from './WalletAddress';
 // ----------------------------------------------------------------------
 
 PayoutCart.propTypes = {
@@ -228,7 +226,7 @@ export default function PayoutCart({ checkoutType, setWithdrawSummary }) {
         </FormikProvider>
       )}
       <Dialog
-        open={open}
+        open={false}
         TransitionComponent={Transition}
         keepMounted
         onClose={handleClose}

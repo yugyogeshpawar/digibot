@@ -127,6 +127,7 @@ const sidebarConfig = [
         icon: ICONS.withdraw,
         children: [
           { title: 'Withdraw', path: PATH_DASHBOARD.payout.minting },
+          { title: 'Aura Withdraw', path: PATH_DASHBOARD.payout.aura },
           { title: 'Pool Withdraw', path: PATH_DASHBOARD.payout.poolIncome },
           { title: 'Performance Withdraw', path: PATH_DASHBOARD.payout.performance }
         ]

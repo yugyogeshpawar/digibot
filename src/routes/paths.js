@@ -139,6 +139,7 @@ export const PATH_DASHBOARD = {
   payout: {
     root: path(ROOTS_DASHBOARD, '/payout/shop'),
     minting: path(ROOTS_DASHBOARD, '/payout/withdraw'),
+    aura: path(ROOTS_DASHBOARD, '/payout/aura-withdraw'),
     poolIncome: path(ROOTS_DASHBOARD, '/payout/pool-withdraw'),
     performance: path(ROOTS_DASHBOARD, '/payout/performance-withdraw'),
     referral: path(ROOTS_DASHBOARD, '/payout/referral'),

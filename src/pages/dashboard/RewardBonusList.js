@@ -66,7 +66,7 @@ export default function ReferralList() {
                 <TableCell sx={{ minWidth: 120 }}>No.</TableCell>
                 <TableCell sx={{ minWidth: 160 }}>Date</TableCell>
                 <TableCell sx={{ minWidth: 200 }}>Reward Amount</TableCell>
-                <TableCell sx={{ minWidth: 200 }}>Matching Bussiness</TableCell>
+                <TableCell sx={{ minWidth: 200 }}>Matching Business</TableCell>
 
                 <TableCell />
               </TableRow>

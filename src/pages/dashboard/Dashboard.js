@@ -113,7 +113,7 @@ export default function Dashboard() {
             <NoLevelOpen teamBusiness={user?.qualify_level} title=" Level Open" />
           </Grid>
           <Grid item xs={12} md={4}>
-            <WithoutUSD teamBusiness={0} title="Currunt Pool " />
+            <WithoutUSD teamBusiness={0} title="Current Pool " />
           </Grid>
           <Grid item xs={12} md={4}>
             <WithoutUSD teamBusiness={`${user?.left_pair} : ${user?.right_pair}`} title=" First Pair" />
