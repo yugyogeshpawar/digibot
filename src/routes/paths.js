@@ -44,6 +44,7 @@ export const PATH_DASHBOARD = {
     booking: path(ROOTS_DASHBOARD, '/booking'),
     mystone: path(ROOTS_DASHBOARD, '/mystone'),
     mybot: path(ROOTS_DASHBOARD, '/mybot'),
+    swap: path(ROOTS_DASHBOARD, '/swap'),
     events: path(ROOTS_DASHBOARD, '/events')
   },
   mail: {

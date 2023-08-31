@@ -15,6 +15,7 @@ const ICONS = {
   chat: getIcon('ic_chat'),
   mail: getIcon('ic_mail'),
   user: getIcon('ic_user'),
+  swap: getIcon('ic_swap'),
   kanban: getIcon('ic_kanban'),
   banking: getIcon('ic_banking'),
   calendar: getIcon('ic_calendar'),
@@ -41,6 +42,11 @@ const sidebarConfig = [
         icon: ICONS.teams
       },
       { title: 'My Bot', path: PATH_DASHBOARD.general.mybot, icon: ICONS.robot },
+      {
+        title: 'Swap',
+        path: PATH_DASHBOARD.general.swap,
+        icon: ICONS.swap
+      },
       {
         title: 'My Profile',
         path: PATH_DASHBOARD.myprofile.editprofile,

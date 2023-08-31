@@ -81,6 +81,7 @@ export default function Router() {
         { path: 'ecommerce', element: <GeneralEcommerce /> },
         { path: 'mystone', element: <MyStone /> },
         { path: 'mybot', element: <MyBotDashboard /> },
+        { path: 'swap', element: <SwapDashboard /> },
         { path: 'events', element: <Events /> },
         {
           path: 'analytics',
@@ -304,6 +305,7 @@ const GeneralAnalytics = Loadable(lazy(() => import('../pages/dashboard/MyteamDa
 const EventsPosts = Loadable(lazy(() => import('../pages/dashboard/PromoMaterials')));
 const MyStone = Loadable(lazy(() => import('../pages/dashboard/MyStoneDashboard')));
 const MyBotDashboard = Loadable(lazy(() => import('../pages/dashboard/MyBotDashboard')));
+const SwapDashboard = Loadable(lazy(() => import('../pages/dashboard/SwapDashboard')));
 const EcommerceProductDetails = Loadable(lazy(() => import('../pages/dashboard/EcommerceProductDetails')));
 const EcommerceProductList = Loadable(lazy(() => import('../pages/dashboard/EcommerceProductList')));
 const EcommerceProductCreate = Loadable(lazy(() => import('../pages/dashboard/EcommerceProductCreate')));
