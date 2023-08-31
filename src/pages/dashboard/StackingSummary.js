@@ -21,7 +21,7 @@ import {
 
 import format from 'date-fns/format';
 import { useDispatch, useSelector } from '../../redux/store';
-import { getStackingSummary, mintingSummaryapi } from '../../redux/slices/user';
+import { getStackingSummary } from '../../redux/slices/user';
 import Scrollbar from '../../components/Scrollbar';
 
 export default function StackingSummary() {

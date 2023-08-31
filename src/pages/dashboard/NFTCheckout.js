@@ -19,7 +19,6 @@ import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import {
   CheckoutNFTCart,
   CheckoutOrderComplete,
-  NFTCheckoutBillingAddress,
   NFTCheckoutPayment
 } from '../../components/_dashboard/e-commerce/checkout';
 // ----------------------------------------------------------------------
@@ -80,10 +79,6 @@ function QontoStepIcon({ active, completed }) {
 }
 
 export default function NFTCheckout() {
-  const [checkoutD, setCheckoutD] = useState({
-    activeStep: 0,
-    billing: null
-  });
   const { themeStretch } = useSettings();
   const dispatch = useDispatch();
   const isMountedRef = useIsMountedRef();

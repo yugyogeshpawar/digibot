@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from '../../redux/store';
 import { getCart, createBilling } from '../../redux/slices/product';
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
-import useAuth from '../../hooks/useAuth';
 // hooks
 import useIsMountedRef from '../../hooks/useIsMountedRef';
 import useSettings from '../../hooks/useSettings';

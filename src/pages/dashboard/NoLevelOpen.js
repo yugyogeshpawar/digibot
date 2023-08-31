@@ -1,6 +1,4 @@
 /* eslint-disable import/no-unresolved */
-import PropTypes from 'prop-types';
-
 import { Box, Card, Typography } from '@material-ui/core';
 
 // ----------------------------------------------------------------------

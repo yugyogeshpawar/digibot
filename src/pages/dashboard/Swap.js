@@ -81,7 +81,7 @@ export default function TradingList() {
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <img src="/logo/bitcoin-btc-logo.svg" alt="Icon 2" style={{ height: '24px' }} />
+                        <img src="/logo/tether.svg" alt="Icon 2" style={{ height: '24px' }} />
                       </InputAdornment>
                     )
                   }}

@@ -9,12 +9,22 @@ export default function TradingList() {
       items: [
         {
           icon: '/logo/digibot.png',
-          name: 'DGB',
+          name: 'LTC',
           value: '0.5000000'
         },
         {
           icon: '/logo/bitcoin-btc-logo.svg',
           name: 'BTC',
+          value: '0.5000000'
+        },
+        {
+          icon: '/logo/eth.png',
+          name: 'ETH',
+          value: '0.5000000'
+        },
+        {
+          icon: '/logo/digibot.png',
+          name: 'LTC',
           value: '0.5000000'
         }
         // Add more items here
@@ -26,7 +36,22 @@ export default function TradingList() {
       items: [
         {
           icon: '/logo/digibot.png',
-          name: 'DGB',
+          name: 'LTC',
+          value: '0.5000000'
+        },
+        {
+          icon: '/logo/bitcoin-btc-logo.svg',
+          name: 'BTC',
+          value: '0.5000000'
+        },
+        {
+          icon: '/logo/eth.png',
+          name: 'ETH',
+          value: '0.5000000'
+        },
+        {
+          icon: '/logo/digibot.png',
+          name: 'LTC',
           value: '0.5000000'
         }
         // Add more items here

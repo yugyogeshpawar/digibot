@@ -12,6 +12,7 @@ export { default as CheckoutWalletConfirm } from './CheckoutWalletConfirm';
 export { default as CheckoutPoolConfirm } from './CheckoutWalletConfirm';
 export { default as NFTWalletConfirm } from './NFTWalletConfirm';
 export { default as PayoutCart } from './PayoutCart';
+export { default as AuraPayoutCart } from './AuraPayoutCart';
 export { default as PerfomancePayoutCart } from './PerfomancePayoutCart';
 export { default as PoolPayoutCart } from './PoolPayoutCart';
 export { default as CheckoutNFTCart } from './CheckoutNFTCart';

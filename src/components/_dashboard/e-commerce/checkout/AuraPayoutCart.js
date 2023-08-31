@@ -226,7 +226,7 @@ export default function PayoutCart({ checkoutType, setWithdrawSummary }) {
         </FormikProvider>
       )}
       <Dialog
-        open={open}
+        open={false}
         TransitionComponent={Transition}
         keepMounted
         onClose={handleClose}

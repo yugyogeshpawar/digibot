@@ -46,7 +46,7 @@ export default function TractionsactionList() {
 
   return (
     <Card>
-      <CardHeader title="Withdaw Summary" sx={{ mb: 3 }} />
+      <CardHeader title="Withdraw Summary" sx={{ mb: 3 }} />
       <Scrollbar>
         <TableContainer sx={{ minWidth: 720 }}>
           <Table>

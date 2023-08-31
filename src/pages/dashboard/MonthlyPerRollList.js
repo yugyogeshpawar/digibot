@@ -74,11 +74,11 @@ export default function MonthlyPayrollBonus() {
               <TableRow>
                 <TableCell sx={{ minWidth: 120 }}>No.</TableCell>
                 <TableCell sx={{ minWidth: 160 }}>Payment Date</TableCell>
-                <TableCell sx={{ minWidth: 160 }}>Bussiness Month</TableCell>
+                <TableCell sx={{ minWidth: 160 }}>Business Month</TableCell>
 
                 <TableCell sx={{ minWidth: 200 }}>Income Amount</TableCell>
 
-                <TableCell sx={{ minWidth: 120 }}>Monthly Bussiness</TableCell>
+                <TableCell sx={{ minWidth: 120 }}>Monthly Business</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

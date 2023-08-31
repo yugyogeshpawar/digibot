@@ -12,14 +12,11 @@ import {
   Divider,
   Box,
   TextField,
-  Button,
   TablePagination
 } from '@material-ui/core';
 
-import format from 'date-fns/format';
-
 import { useDispatch, useSelector } from '../../redux/store';
-import { getMyDownLineData, getRefBonus } from '../../redux/slices/user';
+import { getMyDownLineData } from '../../redux/slices/user';
 import Scrollbar from '../../components/Scrollbar';
 
 export default function LeftDownLine() {

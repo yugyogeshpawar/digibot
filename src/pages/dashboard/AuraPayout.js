@@ -18,7 +18,7 @@ import useSettings from '../../hooks/useSettings';
 import Page from '../../components/Page';
 import HeaderBreadcrumbs from '../../components/HeaderBreadcrumbs';
 import {
-  PayoutCart,
+  AuraPayoutCart,
   CheckoutOrderComplete,
   CheckoutWalletConfirm
 } from '../../components/_dashboard/e-commerce/checkout';
@@ -79,7 +79,7 @@ function QontoStepIcon({ active, completed }) {
     </Box>
   );
 }
-  
+
 export default function MintingPayouts() {
   const { themeStretch } = useSettings();
   const dispatch = useDispatch();
@@ -145,7 +145,7 @@ export default function MintingPayouts() {
 
         {!isComplete ? (
           <>
-            {activeStep === 0 && <PayoutCart setWithdrawSummary={setWithdrawSummary} checkoutType="minting" />}
+            {activeStep === 0 && <AuraPayoutCart setWithdrawSummary={setWithdrawSummary} checkoutType="minting" />}
             {activeStep === 1 && <CheckoutWalletConfirm withdrawSummary={withdrawSummary} checkoutType="minting" />}
           </>
         ) : (
