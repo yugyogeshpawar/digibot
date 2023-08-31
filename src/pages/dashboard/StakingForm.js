@@ -138,6 +138,12 @@ export default function StakingForm() {
       });
     }
 
+    if (res.message === 'Already Invested') {
+      enqueueSnackbar(res.message, {
+        variant: 'error'
+      });
+    }
+
     // ... rest of the code to handle 'Aura' submit ...
   };
 

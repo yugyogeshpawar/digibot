@@ -56,7 +56,7 @@ export default function TractionsactionList() {
                 <TableCell sx={{ minWidth: 120 }}>Withdraw Ref</TableCell>
                 <TableCell sx={{ minWidth: 120 }}>Date</TableCell>
                 <TableCell sx={{ minWidth: 120 }}>Withdaw Amount</TableCell>
-                <TableCell sx={{ minWidth: 120 }}>Withdraw GUSD</TableCell>
+                <TableCell sx={{ minWidth: 120 }}>Withdraw</TableCell>
                 <TableCell sx={{ minWidth: 120 }}>Wallet Address</TableCell>
                 <TableCell sx={{ minWidth: 200 }}>Transaction Id</TableCell>
                 <TableCell />
