@@ -115,9 +115,6 @@ const sidebarConfig = [
       }
     ]
   },
-
-  // Payout
-  // ----------------------------------------------------------------------
   {
     subheader: 'withdraw',
     items: [

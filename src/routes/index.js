@@ -334,7 +334,7 @@ const UserCreate = Loadable(lazy(() => import('../pages/dashboard/UserCreate')))
 const StakingForm = Loadable(lazy(() => import('../pages/dashboard/StakingForm')));
 const StackingSummary = Loadable(lazy(() => import('../pages/dashboard/StackingSummary')));
 const MintingPayouts = Loadable(lazy(() => import('../pages/dashboard/MintingPayouts')));
-const AuraPayout = Loadable(lazy(() => import('../pages/dashboard/MintingPayouts')));
+const AuraPayout = Loadable(lazy(() => import('../pages/dashboard/AuraPayout')));
 const PoolWithdraw = Loadable(lazy(() => import('../pages/dashboard/PoolWithdraw')));
 const PerformanceWithdraw = Loadable(lazy(() => import('../pages/dashboard/PerformanceWithdraw')));
 const LandingPage = Loadable(lazy(() => import('../pages/LandingPage')));

@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'src/redux/store';
 // hooks
 import useSettings from '../../hooks/useSettings';
 import useAuth from '../../hooks/useAuth';
-import Swap from './Swap';
+import Swap from './Swap/index';
 
 // components
 import Page from '../../components/Page';

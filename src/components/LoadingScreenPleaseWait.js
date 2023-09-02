@@ -119,7 +119,7 @@ export default function LoadingScreenPleaseWait({ ...other }) {
         }}
       />
       <Box sx={{ position: 'absolute' }}>
-        <Box sx={{ position: 'relative', top: '100px' }}>Transaction in Progress Please Wait</Box>
+        <Box sx={{ position: 'relative', top: '100px', color: 'blue' }}>Transaction in Progress Please Wait</Box>
       </Box>
     </RootStyle>
   );

@@ -59,6 +59,8 @@ export default function TradingList() {
     }
   ];
 
+  console.log(Data[0].logo);
+
   return (
     <Grid container spacing={2}>
       {Data.map((item, index) => (

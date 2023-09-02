@@ -36,18 +36,18 @@ import Scrollbar from '../../../Scrollbar';
 import WithdrawSummary from './WithdrawSummary';
 // ----------------------------------------------------------------------
 
-PayoutCart.propTypes = {
+AuraPayoutCart.propTypes = {
   checkoutType: PropTypes.string,
   setWithdrawSummary: PropTypes.func
 };
 
-export default function PayoutCart({ checkoutType, setWithdrawSummary }) {
+export default function AuraPayoutCart({ checkoutType, setWithdrawSummary }) {
   const Transition = forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
   const dispatch = useDispatch();
   const { user } = useAuth();
+  console.log(user);
   const [isLoading, setIsLoading] = useState(true);
-  // const { cart } = checkout;
-
+  const [isSubmitting2, setIsSubmitting2] = useState(false);
   const [open, setOpen] = useState(false);
 
   const handleClose = () => {
@@ -55,34 +55,35 @@ export default function PayoutCart({ checkoutType, setWithdrawSummary }) {
     navigate('/dashboard/myprofile/UserKYC');
   };
   const navigate = useNavigate();
-  const { enqueueSnackbar } = useSnackbar(); // Initialize notistack
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleNextStep = async (values) => {
     try {
-      // Assuming 'dispatch' is a function that makes an API call
+      setIsSubmitting2(true);
+      enqueueSnackbar('Withdraw Requesting please with', { variant: 'info' });
       const response = await dispatch(postWithdraw(values));
       console.log('API Response:', response);
-      // Log the actual API response
       const isErr = response?.status === 200 ? 'success' : 'error';
-      console.log(isErr, 'isErrisErr');
       enqueueSnackbar(response.data.message, { variant: isErr });
-      // Handle any other actions or success scenarios
       if (response?.status === 200) {
         setTimeout(() => {
-          window.location.reload(); // Reload the page after 3 seconds (3000 milliseconds)
+          window.location.reload();
         }, 3000);
       }
+      setIsSubmitting2(false);
     } catch (error) {
+      enqueueSnackbar("You can't do withdraw request", { variant: 'info' });
       console.error('API Error:', error.message);
       enqueueSnackbar('Withdrawal failed', { variant: 'error' }); // Show error notification
-      // Handle any other error scenarios
+      setIsSubmitting2(false);
     }
   };
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      amount: ''
+      amount: '',
+      withdrawType: 'AURA INCOME'
     },
     validationSchema: Yup.object().shape({
       amount: Yup.number()
@@ -95,6 +96,7 @@ export default function PayoutCart({ checkoutType, setWithdrawSummary }) {
     }),
     onSubmit: async (values, { setErrors, setSubmitting }) => {
       try {
+        console.log(values);
         setSubmitting(true);
 
         if (!formik.isValid) {
@@ -132,7 +134,7 @@ export default function PayoutCart({ checkoutType, setWithdrawSummary }) {
   return (
     <div>
       {isLoading ? (
-        <LoadingScreen /> // Show the LoadingScreen component while isLoading is true
+        <LoadingScreen />
       ) : (
         <FormikProvider value={formik}>
           <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
@@ -153,13 +155,7 @@ export default function PayoutCart({ checkoutType, setWithdrawSummary }) {
                         />
                       </Stack>
                       <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
-                        <TextField
-                          fullWidth
-                          disabled
-                          value={user?.wallet_amount}
-                          aria-readonly
-                          label="Wallet Balance"
-                        />
+                        <TextField fullWidth disabled value={user?.aura_income} aria-readonly label="Wallet Balance" />
                       </Stack>
 
                       <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
@@ -178,9 +174,12 @@ export default function PayoutCart({ checkoutType, setWithdrawSummary }) {
                           <Button
                             type="submit"
                             variant="contained"
+                            fullWidth
                             disabled={
+                              user?.aura_status !== 2 ||
                               !hasWalletAddress ||
                               isSubmitting ||
+                              isSubmitting2 ||
                               new BigNumber(values.amount).isGreaterThan(user?.total_earning)
                             }
                           >

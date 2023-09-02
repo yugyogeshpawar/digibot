@@ -46,6 +46,8 @@ export default function PayoutCart({ checkoutType, setWithdrawSummary }) {
   const dispatch = useDispatch();
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
+  const [isSubmitting2, setIsSubmitting2] = useState(false);
+
   // const { cart } = checkout;
 
   const [open, setOpen] = useState(false);
@@ -59,6 +61,8 @@ export default function PayoutCart({ checkoutType, setWithdrawSummary }) {
 
   const handleNextStep = async (values) => {
     try {
+      setIsSubmitting2(true);
+      enqueueSnackbar('Withdraw Requesting please with', { variant: 'info' });
       // Assuming 'dispatch' is a function that makes an API call
       const response = await dispatch(postWithdraw(values));
       console.log('API Response:', response);
@@ -67,12 +71,14 @@ export default function PayoutCart({ checkoutType, setWithdrawSummary }) {
       console.log(isErr, 'isErrisErr');
       enqueueSnackbar(response.data.message, { variant: isErr });
       // Handle any other actions or success scenarios
+      setIsSubmitting2(false);
       if (response?.status === 200) {
         setTimeout(() => {
           window.location.reload(); // Reload the page after 3 seconds (3000 milliseconds)
         }, 3000);
       }
     } catch (error) {
+      setIsSubmitting2(false);
       console.error('API Error:', error.message);
       enqueueSnackbar('Withdrawal failed', { variant: 'error' }); // Show error notification
       // Handle any other error scenarios
@@ -178,9 +184,10 @@ export default function PayoutCart({ checkoutType, setWithdrawSummary }) {
                           <Button
                             type="submit"
                             variant="contained"
+                            fullWidth
                             disabled={
                               !hasWalletAddress ||
-                              isSubmitting ||
+                              isSubmitting2 ||
                               new BigNumber(values.amount).isGreaterThan(user?.total_earning)
                             }
                           >
