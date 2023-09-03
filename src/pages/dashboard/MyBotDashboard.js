@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'src/redux/store';
 import useSettings from '../../hooks/useSettings';
 import useAuth from '../../hooks/useAuth';
 import TradingViewChart from './TradingViewChart';
-import TradingList from './TradingList';
+// import TradingList from './TradingList';
 
 // components
 import Page from '../../components/Page';
@@ -57,9 +57,9 @@ export default function MyStone() {
           <Grid item xs={12}>
             <TradingViewChart theme={themeMode} />
           </Grid>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <TradingList theme={themeMode} />
-          </Grid>
+          </Grid> */}
         </Grid>
       </Container>
     </Page>
