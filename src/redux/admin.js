@@ -475,3 +475,24 @@ export async function postAuraActiveID(value) {
   }
   return Withdraw;
 }
+///////Aura Withdraw
+export async function postAuraActiveIDamt(value, amt) {
+  try {
+    const accessToken = window.localStorage.getItem('adminAccessToken');
+    const response = await axios({
+      method: 'post',
+      url: `${baseUrl}/activate-id`,
+      headers: { authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
+      data: { hashcode: value, newAmount: amt }
+    });
+    // console.log('res'.response);
+    Withdraw = response;
+    // initializer.WithdrawSucess = true;
+    return response;
+  } catch (error) {
+    console.log(error);
+    initializer.WithdrawSucess = false;
+    Withdraw = error;
+  }
+  return Withdraw;
+}
