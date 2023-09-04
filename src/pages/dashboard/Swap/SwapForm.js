@@ -79,8 +79,9 @@ export default function Swap({ dgbBalance, usdtBalance, web3, fromWalletAddress,
               id="to-coin"
               variant="filled"
               fullWidth
-              value={toCoinAmount}
-              onChange={(e) => setToCoinAmount(e.target.value)}
+              value={fromCoinAmount}
+              disabled
+              // onChange={(e) => setToCoinAmount(e.target.value)}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
