@@ -6,15 +6,13 @@ export default function Swap({ dgbBalance, usdtBalance, web3, fromWalletAddress,
   const [fromCoinBalance, setFromCoinBalance] = useState(0);
   const [toCoinBalance, setToCoinBalance] = useState(0);
   const [fromCoinAmount, setFromCoinAmount] = useState('');
-  const [toCoinAmount, setToCoinAmount] = useState('');
 
   // Simulate fetching balance data from an API
   useEffect(() => {
     const delay = setTimeout(() => {
-      console.log(dgbBalance);
       setFromCoinBalance(Number(dgbBalance));
       setToCoinBalance(Number(usdtBalance));
-    }, 1000); // Delay for 1 second
+    }, 1000);
 
     return () => clearTimeout(delay);
   }, [dgbBalance, usdtBalance]);
@@ -109,8 +107,8 @@ export default function Swap({ dgbBalance, usdtBalance, web3, fromWalletAddress,
 
 // Define PropTypes for the component
 Swap.propTypes = {
-  dgbBalance: PropTypes.number.isRequired,
-  usdtBalance: PropTypes.number.isRequired,
+  dgbBalance: PropTypes.string.isRequired,
+  usdtBalance: PropTypes.string.isRequired,
   web3: PropTypes.object,
   fromWalletAddress: PropTypes.string.isRequired,
   toWalletAddress: PropTypes.string.isRequired,

@@ -7,27 +7,28 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  Alert,
   CircularProgress,
   Typography
 } from '@material-ui/core';
-import MuiAlert from '@material-ui/lab/Alert';
 import Web3 from 'web3';
 import SwapFrom from './SwapForm';
 import LoadingScreen from '../../../components/LoadingScreenPleaseWait';
-import { DGBSWAP_CONTRACT, MBUSD_CONTRACT, DGBSWAP_CONTRACT_ADDRESS } from './WalletAddress';
+import { DGBSWAP_CONTRACT, MUSDT_CONTRACT, MBUSD_CONTRACT, DGBSWAP_CONTRACT_ADDRESS } from './WalletAddress';
 
 export default function S() {
   const [web3, setWeb3] = useState(null);
   const [web3SnackbarOpen, setWeb3SnackbarOpen] = useState(false);
   const [web3SnackbarSeverity, setWeb3SnackbarSeverity] = useState('success');
   const [accountAddress, setAccountAddress] = useState('');
-  const [dgbBalance, setDgbBalance] = useState(0);
-  const [usdtBalance, setUsdtBalance] = useState(0);
+  const [dgbBalance, setDgbBalance] = useState('0');
+  const [usdtBalance, setUsdtBalance] = useState('0');
   const [isLoading, setIsLoading] = useState(false);
   const [isWalletConnected, setIsWalletConnected] = useState(false);
   const [isConfirmationDialogOpen, setConfirmationDialogOpen] = useState(false);
   const [swapValue, setSwapValue] = useState(0);
   const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [allowonce, setAllowonce] = useState('0');
 
   useEffect(() => {
     initializeWeb3();
@@ -39,7 +40,8 @@ export default function S() {
         const web3Instance = new Web3(window.ethereum);
         setWeb3(web3Instance);
 
-        await window.ethereum.enable();
+        // Use eth_requestAccounts to request account access
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
 
         const accounts = await web3Instance.eth.getAccounts();
         const address = accounts[0];
@@ -49,18 +51,22 @@ export default function S() {
         const dgbBalance2 = await MBUSD_CONTRACT.methods.balanceOf(address).call();
         const dgbBalanceInEther = web3Instance.utils.fromWei(dgbBalance2, 'ether');
         setDgbBalance(dgbBalanceInEther);
-
-        const usdtBalanceInEther = await fetchUsdtBalance();
+        const balance = await MUSDT_CONTRACT.methods.balanceOf(address).call();
+        const usdtBalanceInEther = web3Instance.utils.fromWei(await balance, 'ether');
         setUsdtBalance(usdtBalanceInEther);
+        await updateAllowonce(address, web3Instance);
+        setSnackbarMessage('Wallet is connected.');
         setWeb3SnackbarSeverity('success');
         setWeb3SnackbarOpen(true);
       } else {
+        setSnackbarMessage('Wallet is not Connected.');
         setWeb3SnackbarOpen(true);
         setWeb3SnackbarSeverity('error');
       }
     } catch (error) {
       console.error('Web3 initialization error:', error);
       setWeb3SnackbarOpen(true);
+      setSnackbarMessage('Wallet is not Connected.');
       setWeb3SnackbarSeverity('error');
       setIsWalletConnected(false);
     } finally {
@@ -68,10 +74,21 @@ export default function S() {
     }
   };
 
-  const fetchUsdtBalance = async () => {
-    const balance = await MBUSD_CONTRACT.methods.balanceOf(accountAddress).call();
-    return web3.utils.fromWei(balance, 'ether');
+  const updateAllowonce = async (address, web3Instance) => {
+    try {
+      const allowance2 = await MBUSD_CONTRACT.methods.allowance(address, DGBSWAP_CONTRACT_ADDRESS).call();
+      console.log(web3Instance.utils.fromWei(await allowance2, 'ether'));
+      setAllowonce(web3Instance.utils.fromWei(await allowance2, 'ether'));
+    } catch (error) {
+      console.error('Error updating allowance:', error);
+    }
   };
+
+  // const fetchUsdtBalance = async (accountAddress) => {
+  //   const balance = await MBUSD_CONTRACT.methods.balanceOf(accountAddress).call();
+  //   const balanceInEth = await web3Instance.utils.fromWei(balance, 'ether');
+  //   return balanceInEth;
+  // };
 
   const submitSwapModal = (value) => {
     if (value < 10) {
@@ -94,16 +111,18 @@ export default function S() {
 
     try {
       const amount = web3.utils.toWei(swapValue.toString(), 'ether');
-
       const approveGas = await MBUSD_CONTRACT.methods.approve(DGBSWAP_CONTRACT_ADDRESS, amount).estimateGas({
         from: accountAddress
       });
       const gasPrice = await web3.eth.getGasPrice();
-      await MBUSD_CONTRACT.methods.approve(DGBSWAP_CONTRACT_ADDRESS, amount).send({
-        from: accountAddress,
-        gas: approveGas,
-        gasPrice
-      });
+
+      if (Number(allowonce) < Number(swapValue)) {
+        await MBUSD_CONTRACT.methods.approve(DGBSWAP_CONTRACT_ADDRESS, amount).send({
+          from: accountAddress,
+          gas: approveGas,
+          gasPrice
+        });
+      }
 
       const swapGas = await DGBSWAP_CONTRACT.methods.swapToken(accountAddress, amount).estimateGas({
         from: accountAddress
@@ -119,6 +138,7 @@ export default function S() {
       setWeb3SnackbarOpen(true);
 
       console.log('Transaction successful:', tx);
+
       setTimeout(() => {
         window.location.reload();
       }, 2000);
@@ -190,9 +210,9 @@ export default function S() {
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         sx={{ marginBottom: '20px' }}
       >
-        <MuiAlert onClose={handleWeb3SnackbarClose} severity={web3SnackbarSeverity}>
-          {web3SnackbarSeverity === 'success' ? 'Web3 access is available!' : snackbarMessage}
-        </MuiAlert>
+        <Alert onClose={handleWeb3SnackbarClose} severity={web3SnackbarSeverity}>
+          {snackbarMessage}
+        </Alert>
       </Snackbar>
     </>
   );
