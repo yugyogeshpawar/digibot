@@ -7,7 +7,6 @@ import axios from 'axios';
 let stakingHistory = [];
 let activeUsers = [];
 let inactiveUsers = [];
-let blockedUsers = [];
 let Investment = [];
 let Matching = [];
 let Monthly = [];
@@ -60,7 +59,7 @@ const slice = createSlice({
   }
 });
 
-const baseUrl = process.env.PORT || 'http://52.66.191.12:9211/api/admin';
+const baseUrl = process.env.PORT || 'http://52.66.191.12:8080/api/admin';
 
 // Reducer
 export default slice.reducer;
@@ -71,45 +70,44 @@ export const { onToggleFollow, deleteUser } = slice.actions;
 // ----------------------------------------------------------------------
 
 export async function getActiveUsers() {
-  if (!initializer.ActiveUsersSucess) {
-    try {
-      const accessToken = window.localStorage.getItem('adminAccessToken');
-      const headers = {
-        Authorization: `Bearer ${accessToken}`,
-        'Referrer-Policy': 'unsafe-url'
-      };
-      const response = await axios.get(`${baseUrl}/activeUser`, {
-        headers
-      });
-      initializer.ActiveUsersSucess = true;
-      activeUsers = response.data;
-    } catch (error) {
-      console.log(error);
-      initializer.ActiveUsersSucess = false;
-    }
+  let activeUsers;
+  try {
+    const accessToken = window.localStorage.getItem('adminAccessToken');
+    const headers = {
+      Authorization: `Bearer ${accessToken}`,
+      'Referrer-Policy': 'unsafe-url'
+    };
+    const response = await axios.get(`${baseUrl}/activeUser`, {
+      headers
+    });
+    initializer.ActiveUsersSucess = true;
+    activeUsers = response.data;
+    return activeUsers;
+  } catch (error) {
+    console.log(error);
+    initializer.ActiveUsersSucess = false;
+    return activeUsers;
   }
-  return activeUsers;
 }
 // ----------------------------------------------------------------------
 export async function getBlockedUsers() {
-  if (!initializer.userBlockedSuccess) {
-    try {
-      const accessToken = window.localStorage.getItem('adminAccessToken');
-      const headers = {
-        Authorization: `Bearer ${accessToken}`,
-        'Referrer-Policy': 'unsafe-url'
-      };
-      const response = await axios.get(`${baseUrl}/blockedUser`, {
-        headers
-      });
-      blockedUsers = response.data;
-      initializer.userBlockedSuccess = true;
-    } catch (error) {
-      console.log(error);
-      initializer.userBlockedSuccess = false;
-    }
+  let blockedUsers;
+  try {
+    const accessToken = window.localStorage.getItem('adminAccessToken');
+    const headers = {
+      Authorization: `Bearer ${accessToken}`,
+      'Referrer-Policy': 'unsafe-url'
+    };
+    const response = await axios.get(`${baseUrl}/blockedUser`, {
+      headers
+    });
+    blockedUsers = response.data;
+    return blockedUsers;
+  } catch (error) {
+    console.log(error);
+    initializer.userBlockedSuccess = false;
+    return blockedUsers;
   }
-  return blockedUsers;
 }
 // ----------------------------------------------------------------------
 export async function getInactiveUsers() {
@@ -375,23 +373,22 @@ export async function postUnBlockUser(value) {
 }
 // ----------------------------------------------------------------------
 export async function postActivate(value) {
-  if (!initializer.activate) {
-    try {
-      const accessToken = window.localStorage.getItem('adminAccessToken');
-      const response = await axios({
-        method: 'post',
-        url: `${baseUrl}/postActivateUser`,
-        headers: { authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
-        data: { userID: value }
-      });
-      activate = response.data;
-      initializer.activate = true;
-    } catch (error) {
-      console.log(error);
-      initializer.activate = false;
-      activate = error;
-    }
+  try {
+    const accessToken = window.localStorage.getItem('adminAccessToken');
+    const response = await axios({
+      method: 'post',
+      url: `${baseUrl}/postActivateUser`,
+      headers: { authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
+      data: { hashcode: value }
+    });
+    activate = response.data;
+    initializer.activate = true;
+  } catch (error) {
+    console.log(error);
+    initializer.activate = false;
+    activate = error;
   }
+
   return activate;
 }
 
@@ -450,6 +447,48 @@ export async function getAuraWithdraw() {
     console.log(response.data);
     // initializer.WithdrawSucess = true;
     return response.data;
+  } catch (error) {
+    console.log(error);
+    initializer.WithdrawSucess = false;
+    Withdraw = error;
+  }
+  return Withdraw;
+}
+///////Aura Withdraw
+export async function postAuraActiveID(value) {
+  try {
+    const accessToken = window.localStorage.getItem('adminAccessToken');
+    const response = await axios({
+      method: 'post',
+      url: `${baseUrl}/activate-id`,
+      headers: { authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
+      data: { hashcode: value }
+    });
+    // console.log('res'.response);
+    Withdraw = response;
+    // initializer.WithdrawSucess = true;
+    return response;
+  } catch (error) {
+    console.log(error);
+    initializer.WithdrawSucess = false;
+    Withdraw = error;
+  }
+  return Withdraw;
+}
+///////Aura Withdraw
+export async function postAuraActiveIDamt(value, amt) {
+  try {
+    const accessToken = window.localStorage.getItem('adminAccessToken');
+    const response = await axios({
+      method: 'post',
+      url: `${baseUrl}/activate-id`,
+      headers: { authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
+      data: { hashcode: value, newAmount: amt }
+    });
+    // console.log('res'.response);
+    Withdraw = response;
+    // initializer.WithdrawSucess = true;
+    return response;
   } catch (error) {
     console.log(error);
     initializer.WithdrawSucess = false;

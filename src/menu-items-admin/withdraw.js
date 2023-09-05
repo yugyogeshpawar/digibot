@@ -24,6 +24,13 @@ const withdraw = {
       type: 'item',
       url: 'admin/withdraw/confirm',
       icon: icons.IconHelp
+    },
+    {
+      id: 'withdraw-request-aura',
+      title: 'Withdraw Aura Request',
+      type: 'item',
+      url: 'admin/withdraw/request-aura',
+      icon: icons.IconCashBanknote
     }
   ]
 };
