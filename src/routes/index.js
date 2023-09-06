@@ -64,7 +64,8 @@ export default function Router() {
         { path: 'verify', element: <VerifyCode /> },
         { path: 'DashLogin', element: <DashLogin /> },
         { path: 'changePassword', element: <ChangePassword /> },
-        { path: 'adminLogin', element: <AdminLogin /> }
+        { path: 'adminLogin', element: <AdminLogin /> },
+        { path: 'logout', element: <Logout /> }
       ]
     },
     // Dashboard Routes
@@ -299,6 +300,7 @@ const ForgotPassword = Loadable(lazy(() => import('../pages/authentication/Forgo
 const VerifyCode = Loadable(lazy(() => import('../pages/authentication/VerifyCode')));
 const ChangePassword = Loadable(lazy(() => import('../pages/authentication/ChangePassword')));
 const AdminLogin = Loadable(lazy(() => import('../pages/authentication/LoginFromAdmin')));
+const Logout = Loadable(lazy(() => import('../pages/authentication/Logout')));
 // Dashboard
 const GeneralApp = Loadable(lazy(() => import('../pages/dashboard/Dashboard')));
 const GeneralEcommerce = Loadable(lazy(() => import('../pages/dashboard/GeneralEcommerce')));

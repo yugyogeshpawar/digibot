@@ -1,5 +1,5 @@
 // routes
-import { PATH_DASHBOARD } from '../../routes/paths';
+import { PATH_DASHBOARD, PATH_AUTH } from '../../routes/paths';
 // components
 import SvgIconStyle from '../../components/SvgIconStyle';
 
@@ -28,7 +28,8 @@ const ICONS = {
   bonus: getIcon('ic_bonus'),
   robot: getIcon('ic_robot'),
   teams: getIcon('ic_team'),
-  teamss: getIcon('ic_teams')
+  teamss: getIcon('ic_teams'),
+  logout: getIcon('ic_logout')
 };
 
 const sidebarConfig = [
@@ -139,6 +140,9 @@ const sidebarConfig = [
       { title: 'create ticket', path: PATH_DASHBOARD.ticket.createTicket, icon: ICONS.calendar },
       { title: 'open ticket', path: PATH_DASHBOARD.ticket.openTicket, icon: ICONS.calendar }
     ]
+  },
+  {
+    items: [{ title: 'Logout', path: PATH_AUTH.logout, icon: ICONS.logout }]
   }
 ];
 
