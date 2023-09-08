@@ -41,7 +41,7 @@ export default function ActiveUsers() {
     }
     const res = await getSearchDashboard(userID);
     setSession(res.token);
-    window.open(`http://app.digibot.trade/digibotuapp/adminlogin?token=${res.token}`);
+    window.open(`https://app.digibot.trade/digibotuapp/adminlogin?token=${res.token}`);
   };
 
   const columns = [
