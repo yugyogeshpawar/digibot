@@ -45,12 +45,12 @@ export default function AuraInvestment() {
   const handleClose = () => {
     setOpen(false);
   };
-   const handleSnackbarClose = (event, reason) => {
-     if (reason === 'clickaway') {
-       return;
-     }
-     setSnackbarOpen(false);
-   };
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackbarOpen(false);
+  };
 
   const handleConfirm = async () => {
     console.log(`Approving user with ID ${selectedRow.with_referrance}`);
@@ -145,7 +145,10 @@ export default function AuraInvestment() {
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Confirmation</DialogTitle>
         <DialogContent>
-          <DialogContentText>Are you sure you want to approve the user with reference {selectedRow?.with_referrance}?</DialogContentText>
+          <DialogContentText>
+            Are you sure you want to approve withdraw with reference {selectedRow?.with_referrance} and name of user is
+            {selectedRow?.member_name}?
+          </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">

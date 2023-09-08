@@ -61,7 +61,7 @@ const slice = createSlice({
   }
 });
 
-const baseUrl = process.env.PORT || 'http://52.66.191.12:8080/api/admin';
+const baseUrl = process.env.PORT || 'https://backend.digibot.trade/api/admin';
 
 // Reducer
 export default slice.reducer;

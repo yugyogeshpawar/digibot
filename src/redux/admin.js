@@ -59,7 +59,7 @@ const slice = createSlice({
   }
 });
 
-const baseUrl = process.env.PORT || 'http://52.66.191.12:8080/api/admin';
+const baseUrl = process.env.PORT || 'https://backend.digibot.trade/api/admin';
 
 // Reducer
 export default slice.reducer;
@@ -322,7 +322,7 @@ export async function putSetDailyIncome(botId, value) {
   };
 
   return axios
-    .put(`http://52.66.191.12:9211/api/bots/change-profit/${botId}`, payload, config)
+    .put(`https://backend.digibot.trade/api/bots/change-profit/${botId}`, payload, config)
     .then((response) => response.data)
     .catch((error) => {
       throw error;
@@ -421,13 +421,13 @@ export async function getAuraUsers() {
       const response = await axios.get(`${baseUrl}/auraUser`, {
         headers
       });
-      initializer.ActiveUsersSucess = true;
-      activeUsers = response.data[0];
-      console.log(response.data);
+      // initializer.ActiveUsersSucess = true;
+      activeUsers = response.data;
+      // console.log(response.data);
       return response.data;
     } catch (error) {
       console.log(error);
-      initializer.ActiveUsersSucess = false;
+      // initializer.ActiveUsersSucess = false;
     }
   }
   return activeUsers;
