@@ -50,7 +50,7 @@ AppWelcome.propTypes = {
 };
 
 export default function AppWelcome({ displayName, memberUserId }) {
-  const [url] = useState(`http://app.digibot.trade/digibotUApp/Signup?UplineId=${memberUserId}`);
+  const [url] = useState(`https://app.digibot.trade/digibotUApp/Signup?UplineId=${memberUserId}`);
   const ref = useRef(null);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [qrCodeData, setQrCodeData] = useState(null);
@@ -63,7 +63,7 @@ export default function AppWelcome({ displayName, memberUserId }) {
 
   const onCopyClick = () => {
     try {
-      navigator.clipboard.writeText(`http://app.digibot.trade/digibotUApp/Signup?UplineId=${memberUserId}`);
+      navigator.clipboard.writeText(`https://app.digibot.trade/digibotUApp/Signup?UplineId=${memberUserId}`);
       enqueueSnackbar('Copied', {
         variant: 'success',
         action: (key) => (
@@ -76,7 +76,7 @@ export default function AppWelcome({ displayName, memberUserId }) {
       const tempItem = document.createElement('input');
       tempItem.setAttribute('type', 'text');
       tempItem.setAttribute('display', 'none');
-      const content = `http://app.digibot.trade/digibotUApp/Signup?UplineId=${memberUserId}`;
+      const content = `https://app.digibot.trade/digibotUApp/Signup?UplineId=${memberUserId}`;
       tempItem.setAttribute('value', content);
       document.body.appendChild(tempItem);
 
@@ -123,7 +123,7 @@ export default function AppWelcome({ displayName, memberUserId }) {
             ml: { xs: 'auto', md: '0' }
           }}
         >
-          Referral link <br /> http://app.digibot.trade/digibotUApp/Signup?UplineId={memberUserId}
+          Referral link <br /> https://app.digibot.trade/digibotUApp/Signup?UplineId={memberUserId}
         </Typography>
         <Button variant="contained" to="#" component={RouterLink} sx={{ mt: 1 }} onClick={() => onCopyClick()}>
           Copy
