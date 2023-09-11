@@ -40,7 +40,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 // ==============================|| DASHBOARD - TOTAL INCOME LIGHT CARD ||============================== //
 
-const NanoBot = ({ isLoading, title, teams }) => {
+const NanoBot = ({ isLoading, title, totalUser }) => {
   const theme = useTheme();
 
   return (
@@ -73,7 +73,7 @@ const NanoBot = ({ isLoading, title, teams }) => {
                   }}
                   primary={
                     <Typography variant="h4" sx={{ color: '#fff' }}>
-                      {teams} {title} USER
+                      {totalUser} {title}
                     </Typography>
                   }
                 />
@@ -89,7 +89,7 @@ const NanoBot = ({ isLoading, title, teams }) => {
 NanoBot.propTypes = {
   isLoading: PropTypes.bool,
   title: PropTypes.string,
-  teams: PropTypes.number
+  totalUser: PropTypes.number
 };
 
 export default NanoBot;

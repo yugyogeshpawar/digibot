@@ -78,7 +78,7 @@ const Dashboard = () => {
                 <TotalIncomeDarkCard isLoading={isLoading} title={'Today Stacking'} totalUser={`${user?.todaystaking}`} />
               </Grid>
               <Grid item sm={6} xs={12} md={6} lg={12}>
-                <PendingCard isLoading={isLoading} title={'Total Income'} />
+                <PendingCard isLoading={isLoading} title={'Aura User'} stackingBonus={`${user?.auraUser}`} />
               </Grid>
             </Grid>
           </Grid>
@@ -88,7 +88,7 @@ const Dashboard = () => {
                 <TotalIncomeDarkCard isLoading={isLoading} title={'Total Wallet Bal'} totalUser={`${user?.walletAmount}`} />
               </Grid>
               <Grid item sm={6} xs={12} md={6} lg={12}>
-                <NanoBot isLoading={isLoading} title={'NANO BOT'} />
+                <AlphaBot isLoading={isLoading} title={'Aura Inactive User '} totalUser={`${user?.auraInactiveUser}`} />
               </Grid>
             </Grid>
           </Grid>
@@ -97,13 +97,20 @@ const Dashboard = () => {
       <Grid item xs={12}>
         <Grid container spacing={gridSpacing}>
           <Grid item xs={12} md={4}>
-            <AlphaBot isLoading={isLoading} title={'ALPHA BOT '} />
+            <AlphaBot isLoading={isLoading} title={'ALPHA BOT '} totalUser={`${user?.aplhaUser}`} />
           </Grid>
           <Grid item xs={12} md={4}>
-            <BetaBot isLoading={isLoading} title={'BETA  BOT '} />
+            <BetaBot isLoading={isLoading} title={'BETA  BOT '} totalUser={`${user?.betaUser}`} />
           </Grid>
           <Grid item xs={12} md={4}>
-            <DeltaBot isLoading={isLoading} title={'DELTA BOT '} />
+            <DeltaBot isLoading={isLoading} title={'DELTA BOT '} totalUser={`${user?.deltaUser}`} />
+          </Grid>
+        </Grid>
+      </Grid>
+      <Grid item xs={12}>
+        <Grid container spacing={gridSpacing}>
+          <Grid item xs={12} md={4}>
+            <NanoBot isLoading={isLoading} title={'NANO BOT'} totalUser={`${user?.nanoUser}`} />
           </Grid>
         </Grid>
       </Grid>

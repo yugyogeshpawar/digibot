@@ -40,7 +40,7 @@ const CardWrapper = styled(MainCard)(({ theme }) => ({
 
 // ==============================|| DASHBOARD - TOTAL INCOME LIGHT CARD ||============================== //
 
-const BetaBot = ({ isLoading, title, teams }) => {
+const BetaBot = ({ isLoading, title, totalUser }) => {
   const theme = useTheme();
 
   return (
@@ -73,7 +73,7 @@ const BetaBot = ({ isLoading, title, teams }) => {
                   }}
                   primary={
                     <Typography variant="h4" sx={{ color: '#fff' }}>
-                      {teams} {title} USER
+                      {totalUser} {title} USER
                     </Typography>
                   }
                 />
@@ -89,7 +89,7 @@ const BetaBot = ({ isLoading, title, teams }) => {
 BetaBot.propTypes = {
   isLoading: PropTypes.bool,
   title: PropTypes.string,
-  teams: PropTypes.number
+  totalUser: PropTypes.number
 };
 
 export default BetaBot;

@@ -133,7 +133,9 @@ import { useEffect, useState } from 'react';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { getAuraUsers } from '../../redux/admin';
 import { format } from 'date-fns';
-
+import { FormControl, NativeSelect } from '@mui/material';
+import { setSession } from '../../utils/jwt';
+import { getSearchDashboard } from '../../redux/admin';
 export default function ActiveUsers() {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -189,7 +191,39 @@ export default function ActiveUsers() {
     };
   }, [loading]); // Add loading as a dependency
 
+  const handleDashboard = async (userID) => {
+    if (!userID) {
+      console.error('User ID is empty or undefined.');
+      return;
+    }
+    const res = await getSearchDashboard(userID);
+    setSession(res.token);
+    window.open(`https://app.digibot.trade/digibotuapp/adminlogin?token=${res.token}`);
+  };
+
   const columns = [
+    {
+      field: 'action',
+      headerName: 'Action',
+      sortable: false,
+      width: 120,
+      renderCell: (params) => (
+        <FormControl fullWidth>
+          <NativeSelect
+            id={`dashboard-select-${params.row.id}`}
+            onChange={(event) => {
+              const selectedValue = event.target.value;
+              if (selectedValue === 'dashboard') {
+                handleDashboard(params.row.member_user_id);
+              }
+            }}
+          >
+            <option value="">Action</option>
+            <option value="dashboard">Dashboard</option>
+          </NativeSelect>
+        </FormControl>
+      )
+    },
     { field: 'id', headerName: 'No.', width: 90 },
 
     {
