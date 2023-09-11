@@ -496,3 +496,26 @@ export async function postAuraActiveIDamt(value, amt) {
   }
   return Withdraw;
 }
+
+//
+export async function getAuraInvest() {
+  try {
+    const accessToken = window.localStorage.getItem('adminAccessToken');
+    const headers = {
+      Authorization: `Bearer ${accessToken}`
+    };
+    const response = await axios.get(`${baseUrl}/aura-withdrawRequest`, {
+      headers
+    });
+    // console.log('res'.response);
+    Withdraw = response.data;
+    console.log(response.data);
+    // initializer.WithdrawSucess = true;
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    initializer.WithdrawSucess = false;
+    Withdraw = error;
+  }
+  return Withdraw;
+}

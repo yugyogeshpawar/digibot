@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import { getAuraWithdraw, postAuraActiveIDamt } from '../../redux/admin';
+import { getAuraInvest, postAuraActiveIDamt } from '../../redux/admin';
 import { format } from 'date-fns';
 import { Alert, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Snackbar } from '@mui/material';
 
-export default function AuraInvestment() {
+export default function WithdrawRequestAura() {
   const [rows, setRows] = useState([]);
   const [open, setOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
@@ -16,7 +16,7 @@ export default function AuraInvestment() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await getAuraWithdraw();
+        const res = await getAuraInvest();
         if (Array.isArray(res)) {
           const mappedData = res.map((item, index) => ({
             id: index + 1,
