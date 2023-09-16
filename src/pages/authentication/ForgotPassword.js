@@ -11,7 +11,6 @@ import { PATH_AUTH } from '../../routes/paths';
 import Page from '../../components/Page';
 import { ForgotPasswordForm } from '../../components/authentication/reset-password';
 //
-import { SentIcon } from '../../assets';
 
 // ----------------------------------------------------------------------
 
@@ -40,8 +39,7 @@ export default function ResetPassword() {
               Forgot your password?
             </Typography>
             <Typography sx={{ color: 'text.secondary', mb: 5 }}>
-              Please enter the email address associated with your account and We will email you a link to reset your
-              password.
+              Please enter the userid associated with your account and We will email you a link to reset your password.
             </Typography>
 
             <ForgotPasswordForm onSent={() => setSent(true)} onGetEmail={(value) => setEmail(value)} />

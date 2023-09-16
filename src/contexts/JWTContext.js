@@ -204,12 +204,11 @@ function AuthProvider({ children }) {
   };
 
   const forgotPassword = async (values) => {
-    console.log(values);
     try {
       const forgotPasswordRes = await axios({
         method: 'post',
         url: `${baseUrl}/auth/forgot-password-email`,
-        data: { email: values }
+        data: { userId: values }
       });
       return forgotPasswordRes.data;
     } catch (error) {

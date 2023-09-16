@@ -897,6 +897,7 @@ export function getMyDownLineData() {
     }
   };
 }
+
 export function getDownline() {
   return async (dispatch) => {
     dispatch(slice.actions.startLoading());
@@ -916,6 +917,7 @@ export function getDownline() {
     }
   };
 }
+
 export function getDailyIncome() {
   return async (dispatch) => {
     dispatch(slice.actions.startLoading());

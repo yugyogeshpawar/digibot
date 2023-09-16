@@ -1,14 +1,10 @@
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
-import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { Form, FormikProvider, useFormik } from 'formik';
 import { useSnackbar } from 'notistack5';
 // material
 import { TextField, Alert, Stack } from '@material-ui/core';
 import { LoadingButton } from '@material-ui/lab';
-import axios from 'axios';
-// routes
-import { PATH_AUTH } from '../../../routes/paths';
 // hooks
 import useAuth from '../../../hooks/useAuth';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
@@ -20,32 +16,31 @@ ResetPasswordForm.propTypes = {
   onGetEmail: PropTypes.func
 };
 
-export default function ResetPasswordForm({ onSent, onGetEmail }) {
+export default function ResetPasswordForm() {
   const { forgotPassword } = useAuth();
   const isMountedRef = useIsMountedRef();
-  const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
   const ResetPasswordSchema = Yup.object().shape({
-    email: Yup.string().email('Email must be a valid email address').required('Email is required')
+    userid: Yup.string().required('User ID is required')
   });
 
   const formik = useFormik({
     initialValues: {
-      email: ''
+      userid: '' // Change 'email' to 'userid' here
     },
     validationSchema: ResetPasswordSchema,
     onSubmit: async (values, { setErrors, setSubmitting }) => {
       try {
-        // await resetPassword(values.email);
+        // await resetPassword(values.userid);
         if (isMountedRef.current) {
-          sessionStorage.setItem('email', formik.values.email);
-          const res = await forgotPassword(formik.values.email);
+          sessionStorage.setItem('userid', formik.values.userid);
+          const res = await forgotPassword(formik.values.userid);
           console.log(res);
-          if (res.error === 'User Not Found') {
-            enqueueSnackbar('User Not Found', { variant: 'error' });
+          if (res.message) {
+            enqueueSnackbar(res.message, { variant: 'success' });
           } else {
-            enqueueSnackbar('OTP Sent', { variant: 'success' });
+            enqueueSnackbar('Invalid Credentials.', { variant: 'error' });
           }
         }
       } catch (error) {
@@ -69,15 +64,15 @@ export default function ResetPasswordForm({ onSent, onGetEmail }) {
 
           <TextField
             fullWidth
-            {...getFieldProps('email')}
-            type="email"
-            label="Email address"
-            error={Boolean(touched.email && errors.email)}
-            helperText={touched.email && errors.email}
+            {...getFieldProps('userid')}
+            label="User ID"
+            type="Number"
+            error={Boolean(touched.userid && errors.userid)} // Change 'email' to 'userid' here
+            helperText={touched.userid && errors.userid} // Change 'email' to 'userid' here
           />
 
           <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting}>
-            Send OTP
+            Send Mail
           </LoadingButton>
         </Stack>
       </Form>
