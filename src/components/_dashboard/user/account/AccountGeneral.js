@@ -21,30 +21,40 @@ export default function AccountGeneral() {
   const { enqueueSnackbar } = useSnackbar();
   const { user, updateProfile } = useAuth();
   const UpdateUserSchema = Yup.object().shape({
-    displayName: Yup.string().required('Name is required')
+    fullName: Yup.string().required('Name is required')
   });
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      displayName: user.member_name == null ? '' : user.member_name,
+      fullName: user.full_name == null ? '' : user.full_name,
       email: user.email == null ? '' : user.email,
       photoURL: user.photoURL,
-      phoneNumber: user.phoneNumber == null ? '' : user.phoneNumber,
+      phoneNumber: user.contact == null ? '' : user.contact,
+      countryCode: user.country_code == null ? '' : user.country_code,
       country: user.country == null ? '' : user.country,
       address: user.address == null ? '' : user.address,
       state: user.state == null ? '' : user.state,
       city: user.city == null ? '' : user.city,
-      zipCode: user.zipCode == null ? '' : user.zipCode,
-      about: user.displayName == null ? '' : user.displayName,
+      zip_code: user.zip_code == null ? '' : user.zip_code,
+      about: user.fullName == null ? '' : user.fullName,
       isPublic: user.isPublic
     },
 
     validationSchema: UpdateUserSchema,
     onSubmit: async (values, { setErrors, setSubmitting }) => {
       try {
-        await updateProfile({ ...values });
-        enqueueSnackbar('Update success', { variant: 'success' });
+        const response = await updateProfile({ ...values });
+        if (response.status === 200) {
+          enqueueSnackbar('Update success', { variant: 'success' });
+        }
+        if (response.response.status !== 200) {
+          enqueueSnackbar(response.response.data.error, { variant: 'error' });
+          if (response.response?.data?.message) {
+            enqueueSnackbar(response.response.data.message, { variant: 'error' });
+          }
+        }
+        console.log({ response });
         if (isMountedRef.current) {
           setSubmitting(false);
         }
@@ -110,16 +120,15 @@ export default function AccountGeneral() {
             <Card sx={{ p: 3 }}>
               <Stack spacing={{ xs: 2, md: 3 }}>
                 <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
-                  <TextField fullWidth label="User Name" {...getFieldProps('displayName')} />
+                  <TextField fullWidth label="User Name" {...getFieldProps('fullName')} />
                   <TextField fullWidth disabled label="Email Address" {...getFieldProps('email')} />
                 </Stack>
                 <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
-                  <TextField fullWidth label="Full Name" />
-                  <TextField fullWidth label="Country code" />
+                  <TextField fullWidth label="Country code" type="number" {...getFieldProps('countryCode')} />
+                  <TextField fullWidth label="Mobile Number" type="number" {...getFieldProps('phoneNumber')} />
                 </Stack>
 
                 <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
-                  <TextField fullWidth label="Mobile Number" {...getFieldProps('phoneNumber')} />
                   <TextField fullWidth label="Address" {...getFieldProps('address')} />
                 </Stack>
 
@@ -146,7 +155,7 @@ export default function AccountGeneral() {
 
                 <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
                   <TextField fullWidth label="City" {...getFieldProps('city')} />
-                  <TextField fullWidth label="Zip/Code" {...getFieldProps('zipCode')} />
+                  <TextField fullWidth label="Zip/Code" {...getFieldProps('zip_code')} />
                 </Stack>
               </Stack>
 

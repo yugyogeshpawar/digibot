@@ -226,10 +226,11 @@ function AuthProvider({ children }) {
         headers: { Authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
         data: values
       });
-      return responseUpdateProfile.data;
+      return responseUpdateProfile;
     } catch (error) {
       console.error(error.response.data); // Log the error response data to the console
       // return error.response.data;
+      return error;
     }
   };
 

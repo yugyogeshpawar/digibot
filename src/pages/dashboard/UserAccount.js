@@ -45,21 +45,6 @@ export default function UserAccount() {
       icon: <Icon icon={roundAccountBox} width={20} height={20} />,
       component: <AccountGeneral />
     }
-    // {
-    //   value: 'billing',
-    //   icon: <Icon icon={roundReceipt} width={20} height={20} />,
-    //   component: <AccountBilling />
-    // },
-    // {
-    //   value: 'notifications',
-    //   icon: <Icon icon={bellFill} width={20} height={20} />,
-    //   component: <AccountNotifications />
-    // },
-    // {
-    //   value: 'social_links',
-    //   icon: <Icon icon={shareFill} width={20} height={20} />,
-    //   component: <AccountSocialLinks />
-    // },
   ];
 
   const handleChangeTab = (event, newValue) => {

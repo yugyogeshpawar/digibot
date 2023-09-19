@@ -1,16 +1,8 @@
-import PropTypes from 'prop-types';
 import { Icon } from '@iconify/react';
 import pinFill from '@iconify/icons-eva/pin-fill';
 import emailFill from '@iconify/icons-eva/email-fill';
 import roundBusinessCenter from '@iconify/icons-ic/round-business-center';
-// import userIcon from '@iconify/icons-mdi/user';
 
-// import genderMaleFemale from '@iconify/icons-mdi/gender-male-female';
-
-// import accountBalanceWalletOutline from '@iconify/icons-material-symbols/account-balance-wallet-outline';
-// import birthdayCake from '@iconify/icons-mdi/birthday-cake';
-// import permPhoneMsg from '@iconify/icons-material-symbols/perm-phone-msg';
-// material
 import { styled } from '@material-ui/core/styles';
 import { Link, Card, Typography, CardHeader, Stack } from '@material-ui/core';
 // eslint-disable-next-line import/no-unresolved
@@ -28,14 +20,8 @@ const IconStyle = styled(Icon)(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-ProfileAbout.propTypes = {
-  profile: PropTypes.object
-};
-
-export default function ProfileAbout({ profile }) {
-  const { row } = profile;
+export default function ProfileAbout() {
   const { user } = useAuth();
-  console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>', user);
   const memberName = user?.member_name;
   const memberWalletAddress = user.wallet_address;
   const memberEmail = user.email;
