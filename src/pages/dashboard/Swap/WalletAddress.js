@@ -3,15 +3,15 @@ import Web3 from 'web3';
 
 const web3 = new Web3(Web3.givenProvider);
 
-export const DGBSWAP_CONTRACT_ADDRESS = '0x85EfCE8F8E20eB23704955DB1493e376e20CccE1';
-export const CONTRACT_ADDRESS_MBUSD = '0xDcdB9eB2aCC631001550E246Ea0dd6e697CBEF3c';
-export const CONTRACT_ADDRESS_MUSDT = '0xfF554674C40a2B3f6CD1d825E9D6f07518196605';
+export const DGBSWAP_CONTRACT_ADDRESS = '0x6318BaF8065Fe6c331f6C0D328fd3F2eD694F22F';
+export const CONTRACT_ADDRESS_DGBT = '0x3EAE97527F1AC08B7821dEd9CA8Fb23d8a3702cb';
+export const CONTRACT_ADDRESS_USDT = '0x55d398326f99059fF775485246999027B3197955';
 
 const DGBSWAPAbi = [
   {
     inputs: [
       { internalType: 'address', name: 'addrDGBT', type: 'address' },
-      { internalType: 'address', name: 'addrBUSD', type: 'address' }
+      { internalType: 'address', name: 'addrUSDT', type: 'address' }
     ],
     stateMutability: 'nonpayable',
     type: 'constructor'
@@ -84,13 +84,10 @@ const DGBSWAPAbi = [
   }
 ];
 
-const mBUSDTokenABI = [
+const DGBTTokenABI = [
   {
-    inputs: [
-      { internalType: 'string', name: '_name', type: 'string' },
-      { internalType: 'string', name: '_symbol', type: 'string' },
-      { internalType: 'uint8', name: '_decimals', type: 'uint8' }
-    ],
+    inputs: [{ internalType: 'address payable', name: '_address', type: 'address' }],
+    payable: false,
     stateMutability: 'nonpayable',
     type: 'constructor'
   },
@@ -107,6 +104,15 @@ const mBUSDTokenABI = [
   {
     anonymous: false,
     inputs: [
+      { indexed: true, internalType: 'address', name: 'previousOwner', type: 'address' },
+      { indexed: true, internalType: 'address', name: 'newOwner', type: 'address' }
+    ],
+    name: 'OwnershipTransferred',
+    type: 'event'
+  },
+  {
+    anonymous: false,
+    inputs: [
       { indexed: true, internalType: 'address', name: 'from', type: 'address' },
       { indexed: true, internalType: 'address', name: 'to', type: 'address' },
       { indexed: false, internalType: 'uint256', name: 'value', type: 'uint256' }
@@ -115,130 +121,214 @@ const mBUSDTokenABI = [
     type: 'event'
   },
   {
+    constant: true,
+    inputs: [],
+    name: '_decimals',
+    outputs: [{ internalType: 'uint8', name: '', type: 'uint8' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: '_name',
+    outputs: [{ internalType: 'string', name: '', type: 'string' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: '_symbol',
+    outputs: [{ internalType: 'string', name: '', type: 'string' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    constant: true,
     inputs: [
       { internalType: 'address', name: 'owner', type: 'address' },
       { internalType: 'address', name: 'spender', type: 'address' }
     ],
     name: 'allowance',
     outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    payable: false,
     stateMutability: 'view',
     type: 'function'
   },
   {
+    constant: false,
     inputs: [
       { internalType: 'address', name: 'spender', type: 'address' },
       { internalType: 'uint256', name: 'amount', type: 'uint256' }
     ],
     name: 'approve',
     outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    payable: false,
     stateMutability: 'nonpayable',
     type: 'function'
   },
   {
+    constant: true,
     inputs: [{ internalType: 'address', name: 'account', type: 'address' }],
     name: 'balanceOf',
     outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    payable: false,
     stateMutability: 'view',
     type: 'function'
   },
   {
+    constant: false,
+    inputs: [
+      { internalType: 'address', name: 'from', type: 'address' },
+      { internalType: 'uint256', name: 'amount', type: 'uint256' }
+    ],
+    name: 'burn',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    payable: false,
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    constant: true,
     inputs: [],
     name: 'decimals',
     outputs: [{ internalType: 'uint8', name: '', type: 'uint8' }],
+    payable: false,
     stateMutability: 'view',
     type: 'function'
   },
   {
+    constant: false,
     inputs: [
       { internalType: 'address', name: 'spender', type: 'address' },
       { internalType: 'uint256', name: 'subtractedValue', type: 'uint256' }
     ],
     name: 'decreaseAllowance',
     outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    payable: false,
     stateMutability: 'nonpayable',
     type: 'function'
   },
   {
+    constant: true,
+    inputs: [],
+    name: 'getOwner',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    constant: false,
     inputs: [
       { internalType: 'address', name: 'spender', type: 'address' },
       { internalType: 'uint256', name: 'addedValue', type: 'uint256' }
     ],
     name: 'increaseAllowance',
     outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    payable: false,
     stateMutability: 'nonpayable',
     type: 'function'
   },
   {
-    inputs: [{ internalType: 'uint256', name: '_amount', type: 'uint256' }],
-    name: 'mint',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function'
-  },
-  {
+    constant: false,
     inputs: [
-      { internalType: 'uint256', name: '_amount', type: 'uint256' },
-      { internalType: 'address', name: '_to', type: 'address' }
+      { internalType: 'address', name: 'to', type: 'address' },
+      { internalType: 'uint256', name: 'amount', type: 'uint256' }
     ],
-    name: 'mintTo',
-    outputs: [],
+    name: 'mint',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    payable: false,
     stateMutability: 'nonpayable',
     type: 'function'
   },
   {
+    constant: true,
     inputs: [],
     name: 'name',
     outputs: [{ internalType: 'string', name: '', type: 'string' }],
+    payable: false,
     stateMutability: 'view',
     type: 'function'
   },
   {
+    constant: true,
+    inputs: [],
+    name: 'owner',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    constant: false,
+    inputs: [],
+    name: 'renounceOwnership',
+    outputs: [],
+    payable: false,
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    constant: true,
     inputs: [],
     name: 'symbol',
     outputs: [{ internalType: 'string', name: '', type: 'string' }],
+    payable: false,
     stateMutability: 'view',
     type: 'function'
   },
   {
+    constant: true,
     inputs: [],
     name: 'totalSupply',
     outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    payable: false,
     stateMutability: 'view',
     type: 'function'
   },
   {
+    constant: false,
     inputs: [
-      { internalType: 'address', name: 'to', type: 'address' },
+      { internalType: 'address', name: 'recipient', type: 'address' },
       { internalType: 'uint256', name: 'amount', type: 'uint256' }
     ],
     name: 'transfer',
     outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    payable: false,
     stateMutability: 'nonpayable',
     type: 'function'
   },
   {
+    constant: false,
     inputs: [
-      { internalType: 'address', name: 'from', type: 'address' },
-      { internalType: 'address', name: 'to', type: 'address' },
+      { internalType: 'address', name: 'sender', type: 'address' },
+      { internalType: 'address', name: 'recipient', type: 'address' },
       { internalType: 'uint256', name: 'amount', type: 'uint256' }
     ],
     name: 'transferFrom',
     outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    payable: false,
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    constant: false,
+    inputs: [{ internalType: 'address', name: 'newOwner', type: 'address' }],
+    name: 'transferOwnership',
+    outputs: [],
+    payable: false,
     stateMutability: 'nonpayable',
     type: 'function'
   }
 ];
 
-const mUSDTTokenABI = [
-  {
-    inputs: [
-      { internalType: 'string', name: '_name', type: 'string' },
-      { internalType: 'string', name: '_symbol', type: 'string' },
-      { internalType: 'uint8', name: '_decimals', type: 'uint8' }
-    ],
-    stateMutability: 'nonpayable',
-    type: 'constructor'
-  },
+const USDTTokenABI = [
+  { inputs: [], payable: false, stateMutability: 'nonpayable', type: 'constructor' },
   {
     anonymous: false,
     inputs: [
@@ -252,6 +342,15 @@ const mUSDTTokenABI = [
   {
     anonymous: false,
     inputs: [
+      { indexed: true, internalType: 'address', name: 'previousOwner', type: 'address' },
+      { indexed: true, internalType: 'address', name: 'newOwner', type: 'address' }
+    ],
+    name: 'OwnershipTransferred',
+    type: 'event'
+  },
+  {
+    anonymous: false,
+    inputs: [
       { indexed: true, internalType: 'address', name: 'from', type: 'address' },
       { indexed: true, internalType: 'address', name: 'to', type: 'address' },
       { indexed: false, internalType: 'uint256', name: 'value', type: 'uint256' }
@@ -260,120 +359,207 @@ const mUSDTTokenABI = [
     type: 'event'
   },
   {
+    constant: true,
+    inputs: [],
+    name: '_decimals',
+    outputs: [{ internalType: 'uint8', name: '', type: 'uint8' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: '_name',
+    outputs: [{ internalType: 'string', name: '', type: 'string' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: '_symbol',
+    outputs: [{ internalType: 'string', name: '', type: 'string' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    constant: true,
     inputs: [
       { internalType: 'address', name: 'owner', type: 'address' },
       { internalType: 'address', name: 'spender', type: 'address' }
     ],
     name: 'allowance',
     outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    payable: false,
     stateMutability: 'view',
     type: 'function'
   },
   {
+    constant: false,
     inputs: [
       { internalType: 'address', name: 'spender', type: 'address' },
       { internalType: 'uint256', name: 'amount', type: 'uint256' }
     ],
     name: 'approve',
     outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    payable: false,
     stateMutability: 'nonpayable',
     type: 'function'
   },
   {
+    constant: true,
     inputs: [{ internalType: 'address', name: 'account', type: 'address' }],
     name: 'balanceOf',
     outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    payable: false,
     stateMutability: 'view',
     type: 'function'
   },
   {
+    constant: false,
+    inputs: [{ internalType: 'uint256', name: 'amount', type: 'uint256' }],
+    name: 'burn',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    payable: false,
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    constant: true,
     inputs: [],
     name: 'decimals',
     outputs: [{ internalType: 'uint8', name: '', type: 'uint8' }],
+    payable: false,
     stateMutability: 'view',
     type: 'function'
   },
   {
+    constant: false,
     inputs: [
       { internalType: 'address', name: 'spender', type: 'address' },
       { internalType: 'uint256', name: 'subtractedValue', type: 'uint256' }
     ],
     name: 'decreaseAllowance',
     outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    payable: false,
     stateMutability: 'nonpayable',
     type: 'function'
   },
   {
+    constant: true,
+    inputs: [],
+    name: 'getOwner',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    constant: false,
     inputs: [
       { internalType: 'address', name: 'spender', type: 'address' },
       { internalType: 'uint256', name: 'addedValue', type: 'uint256' }
     ],
     name: 'increaseAllowance',
     outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    payable: false,
     stateMutability: 'nonpayable',
     type: 'function'
   },
   {
-    inputs: [{ internalType: 'uint256', name: '_amount', type: 'uint256' }],
+    constant: false,
+    inputs: [{ internalType: 'uint256', name: 'amount', type: 'uint256' }],
     name: 'mint',
-    outputs: [],
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    payable: false,
     stateMutability: 'nonpayable',
     type: 'function'
   },
   {
-    inputs: [
-      { internalType: 'uint256', name: '_amount', type: 'uint256' },
-      { internalType: 'address', name: '_to', type: 'address' }
-    ],
-    name: 'mintTo',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function'
-  },
-  {
+    constant: true,
     inputs: [],
     name: 'name',
     outputs: [{ internalType: 'string', name: '', type: 'string' }],
+    payable: false,
     stateMutability: 'view',
     type: 'function'
   },
   {
+    constant: true,
+    inputs: [],
+    name: 'owner',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    payable: false,
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    constant: false,
+    inputs: [],
+    name: 'renounceOwnership',
+    outputs: [],
+    payable: false,
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    constant: true,
     inputs: [],
     name: 'symbol',
     outputs: [{ internalType: 'string', name: '', type: 'string' }],
+    payable: false,
     stateMutability: 'view',
     type: 'function'
   },
   {
+    constant: true,
     inputs: [],
     name: 'totalSupply',
     outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    payable: false,
     stateMutability: 'view',
     type: 'function'
   },
   {
+    constant: false,
     inputs: [
-      { internalType: 'address', name: 'to', type: 'address' },
+      { internalType: 'address', name: 'recipient', type: 'address' },
       { internalType: 'uint256', name: 'amount', type: 'uint256' }
     ],
     name: 'transfer',
     outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    payable: false,
     stateMutability: 'nonpayable',
     type: 'function'
   },
   {
+    constant: false,
     inputs: [
-      { internalType: 'address', name: 'from', type: 'address' },
-      { internalType: 'address', name: 'to', type: 'address' },
+      { internalType: 'address', name: 'sender', type: 'address' },
+      { internalType: 'address', name: 'recipient', type: 'address' },
       { internalType: 'uint256', name: 'amount', type: 'uint256' }
     ],
     name: 'transferFrom',
     outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    payable: false,
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    constant: false,
+    inputs: [{ internalType: 'address', name: 'newOwner', type: 'address' }],
+    name: 'transferOwnership',
+    outputs: [],
+    payable: false,
     stateMutability: 'nonpayable',
     type: 'function'
   }
 ];
 
 export const DGBSWAP_CONTRACT = new web3.eth.Contract(DGBSWAPAbi, DGBSWAP_CONTRACT_ADDRESS);
-export const MBUSD_CONTRACT = new web3.eth.Contract(mBUSDTokenABI, CONTRACT_ADDRESS_MBUSD);
-export const MUSDT_CONTRACT = new web3.eth.Contract(mUSDTTokenABI, CONTRACT_ADDRESS_MUSDT);
+export const DGBT_CONTRACT = new web3.eth.Contract(DGBTTokenABI, CONTRACT_ADDRESS_DGBT);
+export const USDT_CONTRACT = new web3.eth.Contract(USDTTokenABI, CONTRACT_ADDRESS_USDT);
+

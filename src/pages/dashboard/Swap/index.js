@@ -14,7 +14,7 @@ import {
 import Web3 from 'web3';
 import SwapFrom from './SwapForm';
 import LoadingScreen from '../../../components/LoadingScreenPleaseWait';
-import { DGBSWAP_CONTRACT, MUSDT_CONTRACT, MBUSD_CONTRACT, DGBSWAP_CONTRACT_ADDRESS } from './WalletAddress';
+import { DGBSWAP_CONTRACT, USDT_CONTRACT, DGBT_CONTRACT, DGBSWAP_CONTRACT_ADDRESS } from './WalletAddress';
 
 export default function S() {
   const [web3, setWeb3] = useState(null);
@@ -48,10 +48,10 @@ export default function S() {
         setAccountAddress(address);
         setIsWalletConnected(true);
 
-        const dgbBalance2 = await MBUSD_CONTRACT.methods.balanceOf(address).call();
+        const dgbBalance2 = await DGBT_CONTRACT.methods.balanceOf(address).call();
         const dgbBalanceInEther = web3Instance.utils.fromWei(dgbBalance2, 'ether');
         setDgbBalance(dgbBalanceInEther);
-        const balance = await MUSDT_CONTRACT.methods.balanceOf(address).call();
+        const balance = await USDT_CONTRACT.methods.balanceOf(address).call();
         const usdtBalanceInEther = web3Instance.utils.fromWei(await balance, 'ether');
         setUsdtBalance(usdtBalanceInEther);
         await updateAllowonce(address, web3Instance);
@@ -76,7 +76,7 @@ export default function S() {
 
   const updateAllowonce = async (address, web3Instance) => {
     try {
-      const allowance2 = await MBUSD_CONTRACT.methods.allowance(address, DGBSWAP_CONTRACT_ADDRESS).call();
+      const allowance2 = await DGBT_CONTRACT.methods.allowance(address, DGBSWAP_CONTRACT_ADDRESS).call();
       console.log(web3Instance.utils.fromWei(await allowance2, 'ether'));
       setAllowonce(web3Instance.utils.fromWei(await allowance2, 'ether'));
     } catch (error) {
@@ -85,7 +85,7 @@ export default function S() {
   };
 
   // const fetchUsdtBalance = async (accountAddress) => {
-  //   const balance = await MBUSD_CONTRACT.methods.balanceOf(accountAddress).call();
+  //   const balance = await DGBT_CONTRACT.methods.balanceOf(accountAddress).call();
   //   const balanceInEth = await web3Instance.utils.fromWei(balance, 'ether');
   //   return balanceInEth;
   // };
@@ -111,13 +111,13 @@ export default function S() {
 
     try {
       const amount = web3.utils.toWei(swapValue.toString(), 'ether');
-      const approveGas = await MBUSD_CONTRACT.methods.approve(DGBSWAP_CONTRACT_ADDRESS, amount).estimateGas({
+      const approveGas = await DGBT_CONTRACT.methods.approve(DGBSWAP_CONTRACT_ADDRESS, amount).estimateGas({
         from: accountAddress
       });
       const gasPrice = await web3.eth.getGasPrice();
 
       if (Number(allowonce) < Number(swapValue)) {
-        await MBUSD_CONTRACT.methods.approve(DGBSWAP_CONTRACT_ADDRESS, amount).send({
+        await DGBT_CONTRACT.methods.approve(DGBSWAP_CONTRACT_ADDRESS, amount).send({
           from: accountAddress,
           gas: approveGas,
           gasPrice
