@@ -1,10 +1,14 @@
+/* eslint-disable prefer-template */
+/* eslint-disable import/no-unresolved */
 import PropTypes from 'prop-types';
-
+import { useState, useEffect } from 'react';
+import { getBotRate } from 'src/redux/slices/user';
 // material
-import { styled } from '@material-ui/core/styles';
 import { Box, Typography, Card, CardContent } from '@material-ui/core';
-//
+import { styled } from '@material-ui/core/styles';
 import { BotIllustration } from '../../../assets';
+//
+
 // ----------------------------------------------------------------------
 
 const RootStyle = styled(Card)(({ theme }) => ({
@@ -24,10 +28,27 @@ const RootStyle = styled(Card)(({ theme }) => ({
 
 MybotWelcome.propTypes = {
   displayTitle: PropTypes.string,
-  totalBusiness: PropTypes.string
+  totalBusiness: PropTypes.string,
+  auraUser: PropTypes.bool
 };
 
-export default function MybotWelcome({ displayTitle, totalBusiness }) {
+export default function MybotWelcome({ displayTitle, totalBusiness, auraUser }) {
+  const [rate, setRate] = useState(0);
+
+  const fetchRate = async () => {
+    const response = await getBotRate();
+    console.log(response);
+    if (response?.status === 200) {
+      setRate(response?.data?.result);
+    }
+  };
+
+  useEffect(() => {
+    if (rate === 0) {
+      fetchRate();
+    }
+  }, []);
+
   return (
     <RootStyle>
       <CardContent
@@ -55,7 +76,7 @@ export default function MybotWelcome({ displayTitle, totalBusiness }) {
         </Typography>
         {/* for aura   3% to 5% permonth 3% to 5% permonth */}
         <Typography variant="h4" underline="always" sx={{ maxWidth: 480, mx: 'auto' }}>
-          3% to 5% permonth 3% to 5% permonth
+          {auraUser ? '3% to 5% permonth' : rate + '%'}
         </Typography>
       </CardContent>
 

@@ -1066,3 +1066,17 @@ export const updateProfile = async (values) => {
     return error;
   }
 };
+export const getBotRate = async () => {
+  try {
+    const accessToken = window.localStorage.getItem('accessToken');
+    const headers = { Authorization: `Bearer ${accessToken}` };
+    const urlApi = `${baseUrl}/users/previousBotRate`;
+    const response = await axios.get(urlApi, {
+      headers
+    });
+    return response;
+  } catch (error) {
+    console.error(error.response.data); // Log the error response data to the console
+    return error;
+  }
+};

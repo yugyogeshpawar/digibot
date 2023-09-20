@@ -38,7 +38,11 @@ export default function MyStone() {
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <Grid container spacing={3} sx={{ marginTop: '-48px ' }}>
           <Grid item xs={12} md={8}>
-            <MybotWelcome displayTitle={user?.assigned_bot_id} totalBusiness={user?.team_business} />
+            <MybotWelcome
+              displayTitle={user?.assigned_bot_id}
+              totalBusiness={user?.team_business}
+              auraUser={user?.aura_status === 2}
+            />
           </Grid>
 
           <Grid item xs={12} md={4}>
