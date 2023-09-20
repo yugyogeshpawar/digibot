@@ -1049,3 +1049,20 @@ export function patchUpdateWalletAddress(values) {
     }
   };
 }
+
+export const updateProfile = async (values) => {
+  const accessToken = window.localStorage.getItem('accessToken');
+  try {
+    const responseUpdateProfile = await axios({
+      method: 'put',
+      url: `${baseUrl}/Account/EditProfile`,
+      headers: { Authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
+      data: values
+    });
+    return responseUpdateProfile;
+  } catch (error) {
+    console.error(error.response.data); // Log the error response data to the console
+    // return error.response.data;
+    return error;
+  }
+};

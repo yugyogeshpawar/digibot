@@ -71,7 +71,6 @@ export default function ProfileAbout() {
         </Stack>
 
         <Stack direction="row">
-          {/* <IconStyle icon={accountBalanceWalletOutline} width="28" /> */}
           <Typography variant="body2">
             wallet address :
             <Link component="span" variant="subtitle2" color="text.primary">

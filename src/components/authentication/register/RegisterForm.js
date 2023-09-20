@@ -55,7 +55,6 @@ export default function RegisterForm() {
   const [succefullyRegisterdUserId, setRegisterdUserId] = useState('');
   // const [value, setValue] = useState(options[0]);
   // const [inputValue, setInputValue] = useState('');
-  const [sponcerName, setSponcerName] = useState(null);
   const isMountedRef = useIsMountedRef();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [showPassword, setShowPassword] = useState(false);
@@ -80,36 +79,12 @@ export default function RegisterForm() {
     } else if (queryParams.UplineId === '8497049') {
       // If UplineId is available, fetch the sponsor name
       window.location.replace('/digibotUApp/login');
-    } else {
-      getSponcerNameByUplineIDFunc();
     }
   }, []);
 
-  const getSponcerNameByUplineIDFunc = async () => {
-    try {
-      const res = await getSponcerNameByUplineID(queryParams.UplineId);
-
-      if (res.sponcer_name === undefined) {
-        window.location.replace('/digibotUApp/login');
-      } else {
-        formik.setValues((values) => ({
-          ...values,
-          sponsorName: res.sponcer_name
-        }));
-      }
-    } catch (error) {
-      setSponcerName(null); // Clear the sponsor name on error
-    }
-  };
-
-  useEffect(() => {
-    getSponcerNameByUplineIDFunc();
-  }, []);
   const RegisterSchema = Yup.object().shape({
-    memberName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Full name required'),
-    contactNo: Yup.string().min(10, 'Short!').max(11, 'Too Long!').required('Contact Number required'),
+    memberName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('User Name required'),
     sponsorId: Yup.string().min(6, 'Too Short!').max(50, 'Too Long!').required('Sponcer id is required'),
-    sponsorName: Yup.string().min(1, 'Too Short!').max(50, 'Too Long!').required('Sponcer Name is required'),
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
     password: Yup.string().min(6, 'Too Short!').max(20, 'Too Long!').required('Password id is required'),
     // .matches(
@@ -130,10 +105,8 @@ export default function RegisterForm() {
   const formik = useFormik({
     initialValues: {
       sponsorId: queryParams.UplineId,
-      sponsorName: sponcerName,
       memberName: '',
       email: '',
-      contactNo: '',
       password: '',
       cpassword: '',
       // eslint-disable-next-line object-shorthand
@@ -245,7 +218,7 @@ export default function RegisterForm() {
         <Stack spacing={3}>
           {errors.afterSubmit && <Alert severity="error">{errors.afterSubmit}</Alert>}
           <Grid container>
-            <Grid item sx={{ paddingLeft: '0px !important', marginTop: '0px !important' }} xs={12} md={6}>
+            <Grid item sx={{ paddingLeft: '0px !important', marginTop: '0px !important' }} xs={12}>
               <TextField
                 fullWidth
                 autoComplete="sponcer_id"
@@ -260,33 +233,10 @@ export default function RegisterForm() {
                 helperText={touched.sponsorId && errors.sponsorId}
               />
             </Grid>
-            <Grid
-              item
-              sx={{
-                '@media (min-width:600px)': { paddingLeft: '10px !important' },
-                '@media (max-width:600px)': { marginTop: '10px' }
-              }}
-              xs={12}
-              md={6}
-            >
-              <TextField
-                fullWidth
-                autoComplete="sponcer_name"
-                type="text"
-                InputProps={{
-                  readOnly: true
-                }}
-                focused
-                label="Sponsor Name"
-                {...getFieldProps('sponsorName')}
-                error={Boolean(touched.sponsorName && errors.sponsorName)}
-                helperText={touched.sponsorName && errors.sponsorName}
-              />
-            </Grid>
           </Grid>
           <TextField
             fullWidth
-            label="Full name"
+            label="Username"
             {...getFieldProps('memberName')}
             error={Boolean(touched.memberName && errors.memberName)}
             helperText={touched.memberName && errors.memberName}
@@ -300,7 +250,7 @@ export default function RegisterForm() {
             error={Boolean(touched.email && errors.email)}
             helperText={touched.email && errors.email}
           />
-          <Grid container spacing={2}>
+          {/* <Grid container spacing={2}>
             <Grid item xs={4} sx={{ paddingLeft: '0px !important', paddingTop: '0px !important' }}>
               <FormControl fullWidth variant="outlined">
                 <InputLabel htmlFor="country-code">Country</InputLabel>
@@ -332,7 +282,7 @@ export default function RegisterForm() {
                 helperText={touched.contactNo && errors.contactNo}
               />
             </Grid>
-          </Grid>
+          </Grid> */}
           <Grid container>
             <Grid item sx={{ '@media (min-width:600px)': { paddingRight: '10px' } }} xs={12} md={6}>
               <TextField

@@ -1,7 +1,10 @@
+/* eslint-disable import/no-unresolved */
 import * as Yup from 'yup';
 import { useSnackbar } from 'notistack5';
 import { useCallback } from 'react';
 import { Form, FormikProvider, useFormik } from 'formik';
+
+import { updateProfile } from 'src/redux/slices/user';
 // material
 import { Box, Grid, Card, Stack, TextField, Typography, FormHelperText } from '@material-ui/core';
 import { LoadingButton } from '@material-ui/lab';
@@ -19,7 +22,7 @@ import countries from '../countries';
 export default function AccountGeneral() {
   const isMountedRef = useIsMountedRef();
   const { enqueueSnackbar } = useSnackbar();
-  const { user, updateProfile } = useAuth();
+  const { user } = useAuth();
   const UpdateUserSchema = Yup.object().shape({
     fullName: Yup.string().required('Name is required')
   });
@@ -43,6 +46,7 @@ export default function AccountGeneral() {
 
     validationSchema: UpdateUserSchema,
     onSubmit: async (values, { setErrors, setSubmitting }) => {
+      console.log('calling form');
       try {
         const response = await updateProfile({ ...values });
         if (response.status === 200) {

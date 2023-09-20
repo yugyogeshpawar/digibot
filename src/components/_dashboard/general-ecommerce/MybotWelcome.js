@@ -19,12 +19,6 @@ const RootStyle = styled(Card)(({ theme }) => ({
     justifyContent: 'space-between'
   }
 }));
-const URL = [
-  '/static/mock-images/products/NanoBot.png',
-  '/static/mock-images/products/NanoBot.png',
-  '/static/mock-images/products/NanoBot.png',
-  '/static/mock-images/products/NanoBot.png'
-];
 
 // ----------------------------------------------------------------------
 
@@ -59,8 +53,9 @@ export default function MybotWelcome({ displayTitle, totalBusiness }) {
         >
           Yesterday's Trading Profit
         </Typography>
+        {/* for aura   3% to 5% permonth 3% to 5% permonth */}
         <Typography variant="h4" underline="always" sx={{ maxWidth: 480, mx: 'auto' }}>
-          0.4%
+          3% to 5% permonth 3% to 5% permonth
         </Typography>
       </CardContent>
 
