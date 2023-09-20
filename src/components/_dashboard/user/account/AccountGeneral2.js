@@ -1,51 +1,70 @@
+/* eslint-disable import/no-unresolved */
 import * as Yup from 'yup';
 import { useSnackbar } from 'notistack5';
 import { useCallback } from 'react';
 import { Form, FormikProvider, useFormik } from 'formik';
+
+import { updateProfile } from 'src/redux/slices/user';
 // material
 import { Box, Grid, Card, Stack, TextField, Typography, FormHelperText } from '@material-ui/core';
 import { LoadingButton } from '@material-ui/lab';
-import MyAvatar from '../../../MyAvatar';
 // hooks
 import useAuth from '../../../../hooks/useAuth';
 import useIsMountedRef from '../../../../hooks/useIsMountedRef';
-import { UploadAvatar } from '../../../upload';
+import MyAvatar from '../../../MyAvatar';
+import CountryCodes from './countryCodes';
+
 // utils
-import { fData } from '../../../../utils/formatNumber';
 //
 import countries from '../countries';
 
 // ----------------------------------------------------------------------
 
-export default function AccountGeneral2() {
+export default function AccountGeneral() {
   const isMountedRef = useIsMountedRef();
   const { enqueueSnackbar } = useSnackbar();
-  const { user, updateProfile } = useAuth();
+  const { user } = useAuth();
+
   const UpdateUserSchema = Yup.object().shape({
-    displayName: Yup.string().required('Name is required')
+    fullName: Yup.string().required('Name is required'),
+    email: Yup.string().email('Invalid email address').required('Email is required'),
+    countryCode: Yup.string().required('Country code is required'),
+    phoneNumber: Yup.string().required('Phone number is required'),
+    country: Yup.string().required('Country is required'),
+    address: Yup.string().required('Address is required'),
+    state: Yup.string().required('State/Region is required'),
+    city: Yup.string().required('City is required'),
+    zip_code: Yup.string().required('Zip/Code is required')
   });
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      displayName: user.member_name == null ? '' : user.member_name,
+      fullName: user.full_name == null ? '' : user.full_name,
       email: user.email == null ? '' : user.email,
       photoURL: user.photoURL,
-      phoneNumber: user.phoneNumber == null ? '' : user.phoneNumber,
+      phoneNumber: user.contact == null ? '' : user.contact,
+      countryCode: user.country_code == null ? '' : user.country_code,
       country: user.country == null ? '' : user.country,
       address: user.address == null ? '' : user.address,
       state: user.state == null ? '' : user.state,
       city: user.city == null ? '' : user.city,
-      zipCode: user.zipCode == null ? '' : user.zipCode,
-      about: user.displayName == null ? '' : user.displayName,
+      zip_code: user.zip_code == null ? '' : user.zip_code,
+      about: user.fullName == null ? '' : user.fullName,
       isPublic: user.isPublic
     },
 
     validationSchema: UpdateUserSchema,
     onSubmit: async (values, { setErrors, setSubmitting }) => {
+      console.log('calling form');
       try {
-        await updateProfile({ ...values });
-        enqueueSnackbar('Update success', { variant: 'success' });
+        const response = await updateProfile({ ...values });
+        if (response.status === 200) {
+          enqueueSnackbar('Update success', { variant: 'success' });
+        } else {
+          enqueueSnackbar(response.data.error || 'Update failed', { variant: 'error' });
+        }
+        console.log({ response });
         if (isMountedRef.current) {
           setSubmitting(false);
         }
@@ -57,6 +76,8 @@ export default function AccountGeneral2() {
       }
     }
   });
+
+  const sortedCountryCodes = CountryCodes.sort((a, b) => a.name.localeCompare(b.name));
 
   const { values, errors, touched, isSubmitting, handleSubmit, getFieldProps, setFieldValue } = formik;
 
@@ -72,6 +93,7 @@ export default function AccountGeneral2() {
     },
     [setFieldValue]
   );
+
   return (
     <FormikProvider value={formik}>
       <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
@@ -82,29 +104,6 @@ export default function AccountGeneral2() {
               sx={{ py: 10, px: 3, textAlign: 'center' }}
             >
               <MyAvatar style={{ scale: '1.5' }} />
-              {/* <UploadAvatar
-                accept="image/*"
-                file={values.photoURL}
-                disabled
-                maxSize={1000000}
-                onDrop={handleDrop}
-                error={Boolean(touched.photoURL && errors.photoURL)}
-                caption={
-                  <Typography
-                    variant="caption"
-                    sx={{
-                      mt: 2,
-                      mx: 'auto',
-                      display: 'block',
-                      textAlign: 'center',
-                      color: 'text.secondary'
-                    }}
-                  >
-                    Allowed *.jpg, *.png,
-                    <br /> max size of {fData(1000000)}
-                  </Typography>
-                }
-              /> */}
 
               <FormHelperText error sx={{ px: 2, textAlign: 'center' }}>
                 {touched.photoURL && errors.photoURL}
@@ -117,34 +116,81 @@ export default function AccountGeneral2() {
               <Stack spacing={{ xs: 2, md: 3 }}>
                 <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
                   <TextField
-                    style={{ cursor: 'no-drop' }}
-                    disabled
                     fullWidth
+                    InputProps={{
+                      readOnly: true
+                    }}
                     label="User Name"
-                    {...getFieldProps('displayName')}
+                    {...getFieldProps('fullName')}
+                    error={touched.fullName && !!errors.fullName}
+                    helperText={touched.fullName && errors.fullName}
                   />
-                  <TextField disabled fullWidth label="Email Address" {...getFieldProps('email')} />
+                  <TextField
+                    fullWidth
+                    InputProps={{
+                      readOnly: true
+                    }}
+                    label="Email Address"
+                    {...getFieldProps('email')}
+                    error={touched.email && !!errors.email}
+                    helperText={touched.email && errors.email}
+                  />
                 </Stack>
                 <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
-                  <TextField disabled fullWidth label="Full Name" />
-                  <TextField disabled fullWidth label="Country code" />
+                  {/* <TextField fullWidth label="Country code" type="number" {...getFieldProps('countryCode')} /> */}
+                  <TextField
+                    select
+                    InputProps={{
+                      readOnly: true
+                    }}
+                    fullWidth
+                    label="Country code"
+                    placeholder="Select Country Code"
+                    {...getFieldProps('countryCode')}
+                    SelectProps={{ native: true }}
+                    error={Boolean(touched.countryCode && errors.countryCode)}
+                    helperText={touched.countryCode && errors.countryCode}
+                  >
+                    {sortedCountryCodes.map((country) => (
+                      <option key={country.name} value={country.code} readOnly>
+                        {country.name} ({country.code})
+                      </option>
+                    ))}
+                  </TextField>
+                  <TextField
+                    fullWidth
+                    InputProps={{
+                      readOnly: true
+                    }}
+                    label="Mobile Number"
+                    type="number"
+                    {...getFieldProps('phoneNumber')}
+                  />
                 </Stack>
 
                 <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
-                  <TextField disabled fullWidth label="Mobile Number" {...getFieldProps('phoneNumber')} />
-                  <TextField disabled fullWidth label="Address" {...getFieldProps('address')} />
+                  <TextField
+                    fullWidth
+                    InputProps={{
+                      readOnly: true
+                    }}
+                    label="Address"
+                    {...getFieldProps('address')}
+                  />
                 </Stack>
 
                 <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
                   <TextField
                     select
+                    InputProps={{
+                      readOnly: true
+                    }}
                     fullWidth
-                    disabled
                     label="Country"
                     placeholder="undefined"
                     {...getFieldProps('country')}
                     SelectProps={{ native: true }}
-                    error={Boolean(touched.country && errors.country)}
+                    error={touched.country && !!errors.country}
                     helperText={touched.country && errors.country}
                   >
                     <option value="" />
@@ -154,12 +200,33 @@ export default function AccountGeneral2() {
                       </option>
                     ))}
                   </TextField>
-                  <TextField disabled fullWidth label="State/Region" {...getFieldProps('state')} />
+                  <TextField
+                    fullWidth
+                    InputProps={{
+                      readOnly: true
+                    }}
+                    label="State/Region"
+                    {...getFieldProps('state')}
+                  />
                 </Stack>
 
                 <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
-                  <TextField disabled fullWidth label="City" {...getFieldProps('city')} />
-                  <TextField disabled fullWidth label="Zip/Code" {...getFieldProps('zipCode')} />
+                  <TextField
+                    fullWidth
+                    InputProps={{
+                      readOnly: true
+                    }}
+                    label="City"
+                    {...getFieldProps('city')}
+                  />
+                  <TextField
+                    fullWidth
+                    InputProps={{
+                      readOnly: true
+                    }}
+                    label="Zip/Code"
+                    {...getFieldProps('zip_code')}
+                  />
                 </Stack>
               </Stack>
             </Card>
