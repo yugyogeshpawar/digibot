@@ -30,6 +30,7 @@ const DailyBonuse = Loadable(lazy(() => import('views/dashboard/SetdailyIncome')
 const WithdrawRequest = Loadable(lazy(() => import('views/withdraw/withdrawRequest')));
 const ConfirmWithdrawRequest = Loadable(lazy(() => import('views/withdraw/ConfirmWithRequest')));
 const Withdraw = Loadable(lazy(() => import('views/withdraw/WithdrawHistory')));
+const Allowance = Loadable(lazy(() => import('views/Allowance/AllowanceUDT')));
 // const AuraWithdraw = Loadable(lazy(() => import('views/withdraw/AuraWithdraw')));
 
 // dashboard routing
@@ -59,6 +60,10 @@ const MainRoutes = {
     {
       path: '/admin/set-daily-bonus',
       element: <DailyBonuse />
+    },
+    {
+      path: '/admin/AllowanceUSDT',
+      element: <Allowance />
     },
     {
       path: '/admin/matching-bonus',
