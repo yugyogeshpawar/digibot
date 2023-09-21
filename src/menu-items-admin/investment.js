@@ -1,14 +1,10 @@
 // assets
-import { IconTypography, IconPalette, IconShadow, IconWindmill, IconUser, IconReportMoney } from '@tabler/icons';
+import { IconReportMoney, IconHelp } from '@tabler/icons';
 
 // constant
 const icons = {
-  IconTypography,
-  IconPalette,
-  IconShadow,
-  IconWindmill,
-  IconUser,
-  IconReportMoney
+  IconReportMoney,
+  IconHelp,
 };
 
 // ==============================|| UTILITIES MENU ITEMS ||============================== //
@@ -20,18 +16,27 @@ const investment = {
   icon: icons.IconReportMoney,
   children: [
     {
-      id: 'investmentSummary',
-      title: 'Invesment Summary',
-      type: 'item',
-      url: 'admin/invesment/summary',
-      breadcrumbs: false
-    },
-    {
-      id: 'aura-Investment',
-      title: 'Aura Investment',
-      type: 'item',
-      url: 'admin/invesment/aura-investment',
-      icon: icons.IconHelp
+      id: 'investmentDropdown',
+      title: 'Investment',
+      type: 'collapse',
+      icon: icons.IconReportMoney,
+      children: [
+        {
+          id: 'investmentSummary',
+          title: 'Investment Summary',
+          type: 'item',
+          url: 'admin/investment/summary', // URL for the first child
+          breadcrumbs: false
+        },
+        {
+          id: 'aura-Investment',
+          title: 'Aura Investment',
+          type: 'item',
+          url: 'admin/investment/aura-investment',
+          icon: icons.IconHelp
+        },
+        // Add more investment sub-items here if needed
+      ]
     }
   ]
 };

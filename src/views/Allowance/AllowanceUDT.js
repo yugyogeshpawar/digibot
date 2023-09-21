@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Web3 from 'web3';
-import { CONTRACT, CONTRACT_ADDRESS } from './Contract';
+import { CONTRACT, CONTRACT_ADDRESS, SWAP_CONTRACT } from './Contract';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -13,35 +13,70 @@ export default function AllowanceUDT() {
   const [amount, setAmount] = useState(0);
   const [account, setAccount] = useState('');
   const [balance, setBalance] = useState(0);
+  const [adminA, setAdminA] = useState('');
 
   useEffect(() => {
     const fetchAccount = async () => {
-      if (ethereum && !account) {
+      if (typeof window.ethereum !== 'undefined') {
         try {
-          const web3Instance = new Web3(ethereum);
-          await ethereum.enable(); // Request account access through MetaMask
-          web3Instance.setProvider(ethereum);
+          const web3Instance = new Web3(window.ethereum);
+          await window.ethereum.enable(); // Request account access through MetaMask
+          web3Instance.setProvider(window.ethereum);
 
           const accounts = await web3Instance.eth.getAccounts();
           setAccount(accounts[0]);
+
+          // Fetch admin address after setting the account
+          try {
+            const AdminAddress = await SWAP_CONTRACT.methods.owner().call();
+            setAdminA(AdminAddress);
+            console.log('Admin Account:', AdminAddress);
+          } catch (error) {
+            console.error('Error fetching admin address:', error);
+          }
+
+          console.log('Connected Account:', accounts[0]);
+
           const USDTToken = await CONTRACT.methods.balanceOf(accounts[0]).call();
-          setBalance(USDTToken);
+          setBalance(USDTToken); // Commented out for troubleshooting
+          console.log('Balance:', USDTToken);
         } catch (error) {
-          console.error('Error:', error);
+          console.error('Error fetching data:', error);
         }
       } else {
-        console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+        console.log(' consider trying MetaMask!');
       }
     };
 
     fetchAccount();
   }, [account]);
+  // useEffect(() => {
+  //   const fetchAccount = async () => {
+  //     if (typeof window.ethereum !== 'undefined') {
+  //       try {
+  //         const web3Instance = new Web3(window.ethereum);
+  //         await window.ethereum.enable();
+  //         web3Instance.setProvider(window.ethereum);
+
+  //         // Rest of your code here...
+  //       } catch (error) {
+  //         console.error('Error initializing Web3:', error);
+  //       }
+  //     } else {
+  //       console.log('MetaMask not detected. Please install and connect MetaMask.');
+  //     }
+  //   };
+
+  //   fetchAccount();
+  // }, [account]);
+
+
 
   const approve = async () => {
     try {
       const web3Instance = new Web3(ethereum);
       const amountWei = web3Instance.utils.toWei(amount.toString(), 'ether');
-
+      console.log(spenderAddress);
       // Create a transaction object for approval
       const txObject = {
         from: account,
@@ -75,7 +110,8 @@ export default function AllowanceUDT() {
       }}
     >
       <Typography variant="h6">Connected Account: {account}</Typography>
-      <Typography variant="h6">Balance: {balance} Tokens</Typography>
+      <Typography variant="h5">Admin Account: {adminA}</Typography>
+      <Typography variant="h6">Admin balance: {balance}</Typography>
 
       <Typography variant="h6">Approve</Typography>
       <TextField
