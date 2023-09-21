@@ -176,7 +176,7 @@ export default function AuraPayoutCart({ checkoutType, setWithdrawSummary }) {
                             variant="contained"
                             fullWidth
                             disabled={
-                              user?.aura_status !== 2 ||
+                              user?.aura_status !== 1 ||
                               !hasWalletAddress ||
                               isSubmitting ||
                               isSubmitting2 ||
@@ -215,6 +215,9 @@ export default function AuraPayoutCart({ checkoutType, setWithdrawSummary }) {
                       </li>
                       <li>
                         <Box>Your entered amount should be less than your wallet balance</Box>
+                      </li>
+                      <li>
+                        <Box>Please fill only Binanace Chain address (Metamask or TrustWallet Address Only)</Box>
                       </li>
                     </ul>
                   </Box>

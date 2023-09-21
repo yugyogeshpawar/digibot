@@ -190,7 +190,7 @@ export default function StakingForm() {
       hashcode: hashCode,
       currentPrice: tokenPrice?.price,
       GusdQty: TotalTok,
-      tokenQty: finalVAl.toFixed(3)
+      tokenQty: Math.floor(finalVAl.toFixed(3))
     };
 
     await postStackingData(formData);
@@ -202,7 +202,6 @@ export default function StakingForm() {
   };
 
   function botcharge() {
-    console.log(selectedBot);
     if (selectedBot !== '' && initialSelectedPackage === null) {
       enqueueSnackbar('The package should be greater than current investment', {
         variant: 'error'
@@ -271,7 +270,7 @@ export default function StakingForm() {
                   sx={{ mt: 2 }}
                   label="Total Token"
                   name="totalToken"
-                  value={initialSelectedPackage !== null ? finalVAl?.toFixed(3) : ''}
+                  value={initialSelectedPackage !== null ? Math.floor(finalVAl?.toFixed(3)) : ''}
                   readOnly
                   disabled={countdownStarted}
                 />

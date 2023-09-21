@@ -41,7 +41,7 @@ export default function MyStone() {
             <MybotWelcome
               displayTitle={user?.assigned_bot_id}
               totalBusiness={user?.team_business}
-              auraUser={user?.aura_status === 2}
+              auraUser={user?.aura_status === 1}
             />
           </Grid>
 

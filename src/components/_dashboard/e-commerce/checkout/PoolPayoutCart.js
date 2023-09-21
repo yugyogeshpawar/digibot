@@ -213,6 +213,9 @@ export default function PayoutCart({ checkoutType, setWithdrawSummary }) {
                       <li>
                         <Box>Your entered amount should be less than your wallet balance</Box>
                       </li>
+                      <li>
+                        <Box>Please fill only Binanace Chain address (Metamask or TrustWallet Address Only)</Box>
+                      </li>
                     </ul>
                   </Box>
                 </Box>
