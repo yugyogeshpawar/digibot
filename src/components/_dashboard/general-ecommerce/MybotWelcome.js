@@ -72,7 +72,7 @@ export default function MybotWelcome({ displayTitle, totalBusiness, auraUser }) 
             ml: { xs: 'auto', md: '0' }
           }}
         >
-          Yesterday's Trading Profit
+          {auraUser ? '' : "Yesterday's Trading Profit"}
         </Typography>
         {/* for aura   3% to 5% permonth 3% to 5% permonth */}
         <Typography variant="h4" underline="always" sx={{ maxWidth: 480, mx: 'auto' }}>
