@@ -27,7 +27,7 @@ import {
 } from '@material-ui/core';
 // redux
 // eslint-disable-next-line import/no-unresolved
-import { postWithdraw } from 'src/redux/slices/user';
+import { otherPostWithdraw } from 'src/redux/slices/user';
 import { useSnackbar } from 'notistack5';
 import LoadingScreen from 'src/components/LoadingScreen';
 import { PATH_DASHBOARD } from '../../../../routes/paths';
@@ -45,7 +45,7 @@ export default function AuraPayoutCart({ checkoutType, setWithdrawSummary }) {
   const Transition = forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
   const dispatch = useDispatch();
   const { user } = useAuth();
-  console.log(user);
+
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting2, setIsSubmitting2] = useState(false);
   const [open, setOpen] = useState(false);
@@ -61,8 +61,7 @@ export default function AuraPayoutCart({ checkoutType, setWithdrawSummary }) {
     try {
       setIsSubmitting2(true);
       enqueueSnackbar('Withdraw Requesting please with', { variant: 'info' });
-      const response = await dispatch(postWithdraw(values));
-      console.log('API Response:', response);
+      const response = await dispatch(otherPostWithdraw(values));
       const isErr = response?.status === 200 ? 'success' : 'error';
       enqueueSnackbar(response.data.message, { variant: isErr });
       if (response?.status === 200) {
@@ -89,7 +88,7 @@ export default function AuraPayoutCart({ checkoutType, setWithdrawSummary }) {
       amount: Yup.number()
         .typeError('Withdrawal amount must be a number')
         .required('Withdrawal amount is required')
-        .test('is-positive', 'Withdrawal amount must be greater than zero', (value) => value > 0)
+        .test('is-positive', 'Withdrawal amount must be greater than 10', (value) => value > 9)
         .test('is-less-than-balance', 'Withdrawal amount cannot be greater than your total earnings', (value) =>
           new BigNumber(value).isLessThanOrEqualTo(user?.total_earning || 0)
         )
@@ -127,7 +126,6 @@ export default function AuraPayoutCart({ checkoutType, setWithdrawSummary }) {
     // window.location.reload();
   }, [navigate]);
 
-  console.log('user +++++++ :', user);
   const hasWalletAddress = user?.wallet_address !== null;
   const isKycSuccesUser = user?.wallet_address !== null;
 
@@ -155,7 +153,7 @@ export default function AuraPayoutCart({ checkoutType, setWithdrawSummary }) {
                         />
                       </Stack>
                       <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
-                        <TextField fullWidth disabled value={user?.aura_income} aria-readonly label="Wallet Balance" />
+                        <TextField fullWidth disabled value={user?.roi_bonus} aria-readonly label="Wallet Balance" />
                       </Stack>
 
                       <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>

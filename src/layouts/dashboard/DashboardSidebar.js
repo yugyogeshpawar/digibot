@@ -162,7 +162,9 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
               </Box>
               <Box sx={{ mt: 1, textAlign: 'center' }}>
                 <Lable variant="filled">
-                  <Box color={styleColor}>{user?.kyc_status === 1 ? '(Verified)' : '(Not Verified)'}</Box>
+                  <Box color={styleColor}>
+                    {user?.kyc_status === 1 || user?.aura_status === 1 ? '(Verified)' : '(Not Verified)'}
+                  </Box>
                 </Lable>
                 <Typography variant="body2" sx={{ color: 'text.secondary', mt: 2 }}>
                   {user?.status === 1 ? 'Active' : 'Inactive'}

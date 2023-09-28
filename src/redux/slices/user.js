@@ -963,7 +963,7 @@ export function otherPostWithdraw(value) {
       }
 
       const headers = { Authorization: `Bearer ${accessToken}` };
-      const urlApi = `${baseUrl}/otherWithdrawRequest`;
+      const urlApi = `${baseUrl}/withdraw/otherWithdrawRequest`;
       const response = await axios.post(urlApi, value, { headers });
 
       if (response.status === 200) {
