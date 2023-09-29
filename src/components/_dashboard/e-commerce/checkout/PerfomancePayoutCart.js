@@ -25,7 +25,7 @@ import {
 } from '@material-ui/core';
 // redux
 // eslint-disable-next-line import/no-unresolved
-import { postWithdraw } from 'src/redux/slices/user';
+import { otherPostWithdraw } from 'src/redux/slices/user';
 import { useSnackbar } from 'notistack5';
 import LoadingScreen from 'src/components/LoadingScreen';
 import { PATH_DASHBOARD } from '../../../../routes/paths';
@@ -58,7 +58,7 @@ export default function PayoutCart({ setWithdrawSummary }) {
   const handleNextStep = async (values) => {
     try {
       // Assuming 'dispatch' is a function that makes an API call
-      const response = await dispatch(postWithdraw(values));
+      const response = await dispatch(otherPostWithdraw(values));
       console.log('API Response:', response);
       // Log the actual API response
       const isErr = response?.status === 200 ? 'success' : 'error';
@@ -80,13 +80,14 @@ export default function PayoutCart({ setWithdrawSummary }) {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
-      amount: ''
+      amount: '',
+      withdrawType: 'PERFORMANCE INCOME'
     },
     validationSchema: Yup.object().shape({
       amount: Yup.number()
         .typeError('Withdrawal amount must be a number')
         .required('Withdrawal amount is required')
-        .test('is-positive', 'Withdrawal amount must be greater than zero', (value) => value > 0)
+        .test('is-positive', 'Withdrawal amount must be greater than 10', (value) => value > 9)
         .test('is-less-than-balance', 'Withdrawal amount cannot be greater than your total earnings', (value) =>
           new BigNumber(value).isLessThanOrEqualTo(user?.total_earning || 0)
         )
@@ -123,7 +124,6 @@ export default function PayoutCart({ setWithdrawSummary }) {
     // window.location.reload();
   }, [navigate]);
 
-  console.log('user +++++++ :', user);
   const hasWalletAddress = user?.wallet_address !== null;
   const isKycSuccesUser = user?.wallet_address !== 1234;
 

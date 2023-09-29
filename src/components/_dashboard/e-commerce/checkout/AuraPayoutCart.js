@@ -82,7 +82,7 @@ export default function AuraPayoutCart({ checkoutType, setWithdrawSummary }) {
     enableReinitialize: true,
     initialValues: {
       amount: '',
-      withdrawType: 'AURA INCOME'
+      withdrawType: 'PERFORMANCE INCOME'
     },
     validationSchema: Yup.object().shape({
       amount: Yup.number()
@@ -95,7 +95,6 @@ export default function AuraPayoutCart({ checkoutType, setWithdrawSummary }) {
     }),
     onSubmit: async (values, { setErrors, setSubmitting }) => {
       try {
-        console.log(values);
         setSubmitting(true);
 
         if (!formik.isValid) {
