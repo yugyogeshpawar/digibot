@@ -167,7 +167,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
                   </Box>
                 </Lable>
                 <Typography variant="body2" sx={{ color: 'text.secondary', mt: 2 }}>
-                  {user?.status === 1 ? 'Active' : 'Inactive'}
+                  {user?.kyc_status === 1 || user?.aura_status === 1 ? 'Active' : 'Inactive'}
                 </Typography>
                 <Typography variant="subtitle2" sx={{ color: 'primary.main' }}>
                   Since {user?.status === 1 && new Date(user?.registration_date).toLocaleDateString('en-GB')}
