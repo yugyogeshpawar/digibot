@@ -170,7 +170,9 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
                   {user?.kyc_status === 1 || user?.aura_status === 1 ? 'Active' : 'Inactive'}
                 </Typography>
                 <Typography variant="subtitle2" sx={{ color: 'primary.main' }}>
-                  Since {user?.status === 1 && new Date(user?.registration_date).toLocaleDateString('en-GB')}
+                  Since{' '}
+                  {user?.kyc_status === 1 ||
+                    (user?.aura_status === 1 && new Date(user?.registration_date).toLocaleDateString('en-GB'))}
                 </Typography>
               </Box>
             </AccountStyle>
