@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import { getAuraInvest, postwithdraw } from '../../redux/admin';
-// import { format } from 'date-fns';
+import { getAuraInvest, postwithdrawaura } from '../../redux/admin';
+import { format } from 'date-fns';
 import { Alert, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Snackbar } from '@mui/material';
 
 export default function WithdrawRequestAura() {
@@ -13,7 +13,7 @@ export default function WithdrawRequestAura() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const payload = {
-    "refId": 'AURA INCOME'
+    refId: 'AURA INCOME'
   };
   useEffect(() => {
     const fetchData = async () => {
@@ -26,8 +26,8 @@ export default function WithdrawRequestAura() {
             member_name: item.member_name,
             with_referrance: item.with_referrance,
             with_amt: item.with_amt,
-            wallet_address: item.wallet_address
-            // with_date: format(new Date(item.tr_date), 'dd-MM-yyyy')
+            wallet_address: item.wallet_address,
+            with_date: format(new Date(item.with_date), 'dd-MM-yyyy')
           }));
           setRows(mappedData);
         }
@@ -58,7 +58,7 @@ export default function WithdrawRequestAura() {
   const handleConfirm = async () => {
     console.log(`Approving user with ID ${selectedRow.with_referrance}`);
     try {
-      const res = await postwithdraw(selectedRow.with_referrance);
+      const res = await postwithdrawaura(selectedRow.with_referrance);
       console.log(res);
       if (res.status === 200) {
         setSnackbarStatus('success');
@@ -75,22 +75,21 @@ export default function WithdrawRequestAura() {
     setOpen(false);
     setSnackbarOpen(true);
   };
-const handleCopy = (textToCopy) => {
-  if (!navigator.clipboard) {
-    console.error('Clipboard API not supported by your browser');
-    return;
-  }
+  const handleCopy = (textToCopy) => {
+    if (!navigator.clipboard) {
+      console.error('Clipboard API not supported by your browser');
+      return;
+    }
 
-  navigator.clipboard
-    .writeText(textToCopy)
-    .then(() => {
-      console.log('Text successfully copied to clipboard');
-    })
-    .catch((error) => {
-      console.error('Unable to copy text to clipboard:', error);
-    });
-};
-
+    navigator.clipboard
+      .writeText(textToCopy)
+      .then(() => {
+        console.log('Text successfully copied to clipboard');
+      })
+      .catch((error) => {
+        console.error('Unable to copy text to clipboard:', error);
+      });
+  };
 
   const columns = [
     { field: 'id', headerName: 'No.', width: 50 },
@@ -118,12 +117,12 @@ const handleCopy = (textToCopy) => {
       sortable: false,
       width: 160
     },
-    // {
-    //   field: 'with_date',
-    //   headerName: 'Withdraw Date',
-    //   sortable: false,
-    //   width: 160
-    // },
+    {
+      field: 'with_date',
+      headerName: 'Withdraw Date',
+      sortable: false,
+      width: 160
+    },
     {
       field: 'approve',
       headerName: 'Approve ',
@@ -131,7 +130,7 @@ const handleCopy = (textToCopy) => {
       width: 120,
       renderCell: (params) => (
         <Button variant="contained" color="primary" onClick={() => handleOpen(params.row)}>
-          Confirm 
+          Confirm
         </Button>
       )
     }
@@ -181,9 +180,7 @@ const handleCopy = (textToCopy) => {
             </div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '4px' }}>
               <strong style={{ flex: '1' }}>Amount: {selectedRow?.with_amt}</strong>
-              <Button variant="contained" color="primary" onClick={() => handleCopy(selectedRow?.with_amt)} style={{ borderRadius: '0' }}>
-                Copy
-              </Button>
+              
             </div>
           </DialogContentText>
         </DialogContent>

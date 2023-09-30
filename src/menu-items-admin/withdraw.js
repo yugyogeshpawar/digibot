@@ -34,7 +34,7 @@ const withdraw = {
     },
     {
       id: 'withdraw-request-parf',
-      title: 'Withdraw Parformance',
+      title: 'Withdraw Performance',
       type: 'item',
       url: 'admin/withdraw/parformance',
       icon: icons.IconCashBanknote

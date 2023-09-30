@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { getAuraInvest, postwithdraw } from '../../redux/admin';
-// import { format } from 'date-fns';
+import { format } from 'date-fns';
 import { Alert, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Snackbar } from '@mui/material';
 
 export default function WithdrawParformance() {
@@ -13,7 +13,7 @@ export default function WithdrawParformance() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const payload = {
-    refId: 'AURA INCOME'
+    refId: 'PERFORMANCE INCOME'
   };
   useEffect(() => {
     const fetchData = async () => {
@@ -26,8 +26,8 @@ export default function WithdrawParformance() {
             member_name: item.member_name,
             with_referrance: item.with_referrance,
             with_amt: item.with_amt,
-            wallet_address: item.wallet_address
-            // with_date: format(new Date(item.tr_date), 'dd-MM-yyyy')
+            wallet_address: item.wallet_address,
+            with_date: format(new Date(item.with_date), 'dd-MM-yyyy')
           }));
           setRows(mappedData);
         }
@@ -117,12 +117,12 @@ export default function WithdrawParformance() {
       sortable: false,
       width: 160
     },
-    // {
-    //   field: 'with_date',
-    //   headerName: 'Withdraw Date',
-    //   sortable: false,
-    //   width: 160
-    // },
+    {
+      field: 'with_date',
+      headerName: 'Withdraw Date',
+      sortable: false,
+      width: 160
+    },
     {
       field: 'approve',
       headerName: 'Approve ',
@@ -180,9 +180,7 @@ export default function WithdrawParformance() {
             </div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '4px' }}>
               <strong style={{ flex: '1' }}>Amount: {selectedRow?.with_amt}</strong>
-              <Button variant="contained" color="primary" onClick={() => handleCopy(selectedRow?.with_amt)} style={{ borderRadius: '0' }}>
-                Copy
-              </Button>
+              
             </div>
           </DialogContentText>
         </DialogContent>

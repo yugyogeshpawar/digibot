@@ -523,16 +523,35 @@ export async function getAuraInvest(payload) {
 export async function postwithdraw(value) {
   try {
     const accessToken = window.localStorage.getItem('adminAccessToken');
-    console.log(accessToken); 
+    console.log(accessToken);
     const response = await axios({
       method: 'post',
-      url: `${baseUrl}/aura-withdraw`,
+      url: `${baseUrl}/PerformancePay`,
       headers: { authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
-      data: { reference: value,}
+      data: { reference: value }
     });
     // console.log('res'.response);
     Withdraw = response;
     // initializer.WithdrawSucess = true;
+    return response;
+  } catch (error) {
+    console.log(error);
+    initializer.WithdrawSucess = false;
+    Withdraw = error;
+  }
+  return Withdraw;
+}
+////aura withdraw
+export async function postwithdrawaura(value) {
+  try {
+    const accessToken = window.localStorage.getItem('adminAccessToken');
+    console.log(accessToken);
+    const response = await axios({
+      method: 'post',
+      url: `${baseUrl}/auraPay`,
+      headers: { authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
+      data: { reference: value }
+    });
     return response;
   } catch (error) {
     console.log(error);
