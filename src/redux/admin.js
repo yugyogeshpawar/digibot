@@ -498,13 +498,13 @@ export async function postAuraActiveIDamt(value, amt) {
 }
 
 //
-export async function getAuraInvest() {
+export async function getAuraInvest(payload) {
   try {
     const accessToken = window.localStorage.getItem('adminAccessToken');
     const headers = {
       Authorization: `Bearer ${accessToken}`
     };
-    const response = await axios.get(`${baseUrl}/aura-withdrawRequest`, {
+    const response = await axios.post(`${baseUrl}/other-withdrawRequest`, payload, {
       headers
     });
     // console.log('res'.response);
@@ -512,6 +512,28 @@ export async function getAuraInvest() {
     console.log(response.data);
     // initializer.WithdrawSucess = true;
     return response.data;
+  } catch (error) {
+    console.log(error);
+    initializer.WithdrawSucess = false;
+    Withdraw = error;
+  }
+  return Withdraw;
+}
+///
+export async function postwithdraw(value) {
+  try {
+    const accessToken = window.localStorage.getItem('adminAccessToken');
+    console.log(accessToken); 
+    const response = await axios({
+      method: 'post',
+      url: `${baseUrl}/aura-withdraw`,
+      headers: { authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
+      data: { reference: value,}
+    });
+    // console.log('res'.response);
+    Withdraw = response;
+    // initializer.WithdrawSucess = true;
+    return response;
   } catch (error) {
     console.log(error);
     initializer.WithdrawSucess = false;

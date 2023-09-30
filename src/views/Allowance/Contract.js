@@ -5,6 +5,7 @@ const web3 = new Web3(Web3.givenProvider);
 
 export const CONTRACT_ADDRESS = '0x55d398326f99059fF775485246999027B3197955';
 export const SWAP_ADDRESS = '0x6318BaF8065Fe6c331f6C0D328fd3F2eD694F22F';
+
 const Abi = [
   { inputs: [], payable: false, stateMutability: 'nonpayable', type: 'constructor' },
   {

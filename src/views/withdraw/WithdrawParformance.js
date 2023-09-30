@@ -4,7 +4,7 @@ import { getAuraInvest, postwithdraw } from '../../redux/admin';
 // import { format } from 'date-fns';
 import { Alert, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Snackbar } from '@mui/material';
 
-export default function WithdrawRequestAura() {
+export default function WithdrawParformance() {
   const [rows, setRows] = useState([]);
   const [open, setOpen] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
@@ -13,7 +13,7 @@ export default function WithdrawRequestAura() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const payload = {
-    "refId": 'AURA INCOME'
+    refId: 'AURA INCOME'
   };
   useEffect(() => {
     const fetchData = async () => {
@@ -75,22 +75,21 @@ export default function WithdrawRequestAura() {
     setOpen(false);
     setSnackbarOpen(true);
   };
-const handleCopy = (textToCopy) => {
-  if (!navigator.clipboard) {
-    console.error('Clipboard API not supported by your browser');
-    return;
-  }
+  const handleCopy = (textToCopy) => {
+    if (!navigator.clipboard) {
+      console.error('Clipboard API not supported by your browser');
+      return;
+    }
 
-  navigator.clipboard
-    .writeText(textToCopy)
-    .then(() => {
-      console.log('Text successfully copied to clipboard');
-    })
-    .catch((error) => {
-      console.error('Unable to copy text to clipboard:', error);
-    });
-};
-
+    navigator.clipboard
+      .writeText(textToCopy)
+      .then(() => {
+        console.log('Text successfully copied to clipboard');
+      })
+      .catch((error) => {
+        console.error('Unable to copy text to clipboard:', error);
+      });
+  };
 
   const columns = [
     { field: 'id', headerName: 'No.', width: 50 },
@@ -131,7 +130,7 @@ const handleCopy = (textToCopy) => {
       width: 120,
       renderCell: (params) => (
         <Button variant="contained" color="primary" onClick={() => handleOpen(params.row)}>
-          Confirm 
+          Confirm
         </Button>
       )
     }

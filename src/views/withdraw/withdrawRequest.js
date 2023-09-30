@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import { getWithdrawReqSummary } from '../../redux/admin';
 import { format } from 'date-fns';
+import FileCopyIcon from '@mui/icons-material/FileCopy'; // Import the copy icon
+
 export default function InvestmentSummary() {
   const [rows, setRows] = useState([]);
 
@@ -15,9 +17,11 @@ export default function InvestmentSummary() {
           id: index + 1,
           member_user_id: item.member_user_id,
           member_name: item.member_name,
-          contact: item.contact,
           wallet_address: item.wallet_address,
-          with_referrance: item.with_referrance,
+          wallet_address_partial: `${item.wallet_address.substring(0, 6)}...${item.wallet_address.substring(
+            item.wallet_address.length - 6
+          )}`,
+          with_referrance: item.with_type,
           with_amt: item.with_amt,
           with_date: format(new Date(item.with_date), 'dd-MM-yyyy')
         }));
@@ -27,6 +31,7 @@ export default function InvestmentSummary() {
 
     fetchData();
   }, []);
+
   const columns = [
     { field: 'id', headerName: 'No.', width: 50 },
     {
@@ -42,17 +47,23 @@ export default function InvestmentSummary() {
       editable: true
     },
     {
-      field: 'wallet_address',
+      field: 'wallet_address_partial',
       headerName: 'Wallet Address',
       sortable: false,
-      width: 250
+      width: 200,
+      renderCell: (params) => (
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          {params.value}
+          <button
+            onClick={() => copyToClipboard(params.row.wallet_address)}
+            style={{ marginLeft: '10px', background: 'transparent', border: 'none', cursor: 'pointer' }}
+          >
+            <FileCopyIcon color="primary" /> {/* Use the copy icon */}
+          </button>
+        </div>
+      )
     },
-    {
-      field: 'with_referrance',
-      headerName: 'With Referrance',
-      sortable: false,
-      width: 160
-    },
+
     {
       field: 'with_amt',
       headerName: 'Withdraw Amount',
@@ -66,6 +77,26 @@ export default function InvestmentSummary() {
       width: 160
     }
   ];
+
+  function copyToClipboard(text) {
+    // Create a temporary input element to copy the text
+    const input = document.createElement('input');
+    input.value = text;
+    document.body.appendChild(input);
+
+    // Select the text in the input element
+    input.select();
+    input.setSelectionRange(0, 99999); // For mobile devices
+
+    // Copy the text to the clipboard
+    document.execCommand('copy');
+
+    // Remove the temporary input element
+    document.body.removeChild(input);
+
+    // Optionally, provide some feedback to the user
+    alert('Wallet Address copied to clipboard: ' + text);
+  }
 
   return (
     <div style={{ height: '80vh', width: '100%' }}>

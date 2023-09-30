@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Web3 from 'web3';
-import { CONTRACT, CONTRACT_ADDRESS, SWAP_CONTRACT } from './Contract';
+import { CONTRACT, CONTRACT_ADDRESS } from './Contract';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -13,87 +13,56 @@ export default function AllowanceUDT() {
   const [amount, setAmount] = useState(0);
   const [account, setAccount] = useState('');
   const [balance, setBalance] = useState(0);
-  const [adminA, setAdminA] = useState('');
 
   useEffect(() => {
     const fetchAccount = async () => {
       if (typeof window.ethereum !== 'undefined') {
         try {
           const web3Instance = new Web3(window.ethereum);
-          await window.ethereum.enable(); // Request account access through MetaMask
+          await window.ethereum.enable();
           web3Instance.setProvider(window.ethereum);
 
           const accounts = await web3Instance.eth.getAccounts();
           setAccount(accounts[0]);
 
-          // Fetch admin address after setting the account
-          try {
-            const AdminAddress = await SWAP_CONTRACT.methods.owner().call();
-            setAdminA(AdminAddress);
-            console.log('Admin Account:', AdminAddress);
-          } catch (error) {
-            console.error('Error fetching admin address:', error);
-          }
-
-          console.log('Connected Account:', accounts[0]);
-
           const USDTToken = await CONTRACT.methods.balanceOf(accounts[0]).call();
-          setBalance(USDTToken); // Commented out for troubleshooting
-          console.log('Balance:', USDTToken);
+          setBalance(USDTToken);
         } catch (error) {
           console.error('Error fetching data:', error);
         }
       } else {
-        console.log(' consider trying MetaMask!');
+        console.log('Consider trying MetaMask!');
       }
     };
 
     fetchAccount();
   }, [account]);
-  // useEffect(() => {
-  //   const fetchAccount = async () => {
-  //     if (typeof window.ethereum !== 'undefined') {
-  //       try {
-  //         const web3Instance = new Web3(window.ethereum);
-  //         await window.ethereum.enable();
-  //         web3Instance.setProvider(window.ethereum);
-
-  //         // Rest of your code here...
-  //       } catch (error) {
-  //         console.error('Error initializing Web3:', error);
-  //       }
-  //     } else {
-  //       console.log('MetaMask not detected. Please install and connect MetaMask.');
-  //     }
-  //   };
-
-  //   fetchAccount();
-  // }, [account]);
-
-
 
   const approve = async () => {
     try {
-      const web3Instance = new Web3(ethereum);
-      const amountWei = web3Instance.utils.toWei(amount.toString(), 'ether');
-      console.log(spenderAddress);
-      // Create a transaction object for approval
-      const txObject = {
-        from: account,
-        to: CONTRACT_ADDRESS,
-        data: CONTRACT.methods.approve(spenderAddress, amountWei).encodeABI(),
-        gas: '50000' // Adjust gas limit as needed
-      };
+      if (typeof window.ethereum !== 'undefined') {
+        const web3Instance = new Web3(window.ethereum);
+        const amountWei = web3Instance.utils.toWei(amount.toString(), 'ether');
 
-      // Send the transaction using MetaMask's provider
-      await web3Instance.eth.sendTransaction(txObject);
+        const data = CONTRACT.methods.approve(spenderAddress, amountWei).encodeABI();
 
-      // Show a success toast message
-      toast.success('Tokens approved successfully', {
-        position: toast.POSITION.TOP_RIGHT
-      });
+        await window.ethereum.request({
+          method: 'eth_sendTransaction',
+          params: [
+            {
+              from: account,
+              to: CONTRACT_ADDRESS,
+              data: data
+            }
+          ]
+        });
 
-      console.log('Approval transaction sent.');
+        toast.success('Tokens approved successfully', {
+          position: toast.POSITION.TOP_RIGHT
+        });
+      } else {
+        console.error('MetaMask not detected. Please install and connect MetaMask.');
+      }
     } catch (error) {
       console.error('Error approving tokens:', error);
     }
@@ -110,7 +79,6 @@ export default function AllowanceUDT() {
       }}
     >
       <Typography variant="h6">Connected Account: {account}</Typography>
-      <Typography variant="h5">Admin Account: {adminA}</Typography>
       <Typography variant="h6">Admin balance: {balance}</Typography>
 
       <Typography variant="h6">Approve</Typography>

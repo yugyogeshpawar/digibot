@@ -20,6 +20,7 @@
     "apexcharts": "^3.35.3",
     "axios": "^1.4.0",
     "date-fns": "^2.30.0",
+    "ethers": "^6.7.1",
     "formik": "^2.2.9",
     "framer-motion": "^6.3.16",
     "material-ui-popup-state": "^4.0.1",

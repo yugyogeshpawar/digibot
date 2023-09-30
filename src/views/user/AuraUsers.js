@@ -156,7 +156,8 @@ export default function ActiveUsers() {
           r_date: format(new Date(item.registration_date), 'dd-MM-yyyy hh-mm-ss'),
           topup_amount: item.topup_amount,
           email: item.email,
-          contact: item.contact
+          contact: item.contact,
+          roi_bonus: item.roi_bonus
         }));
         setRows(mappedData);
         setLoading(false); // Set loading to false when data is loaded
@@ -260,6 +261,12 @@ export default function ActiveUsers() {
     {
       field: 'topup_amount',
       headerName: 'Topup Amount',
+      sortable: false,
+      width: 160
+    },
+    {
+      field: 'roi_bonus',
+      headerName: 'Roi Bonus',
       sortable: false,
       width: 160
     },

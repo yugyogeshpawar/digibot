@@ -15,6 +15,7 @@ const SearchUser = Loadable(lazy(() => import('views/user/SearchUser')));
 const Aura = Loadable(lazy(() => import('views/user/AuraUsers')));
 const AusraInvestment = Loadable(lazy(() => import('views/investment/AuraInvestment')));
 const WithdrawRequestAura = Loadable(lazy(() => import('views/withdraw/WithdrawRequestAura')));
+const WithdrawParformance = Loadable(lazy(() => import('views/withdraw/WithdrawParformance')));
 // const forgotPassword = Loadable(lazy(() => import('views/pages/authentication/auth-forms/ForgotPassword')));
 const Monthly = Loadable(lazy(() => import('views/Rewards/Monthly')));
 const Dailyrewards = Loadable(lazy(() => import('views/Rewards/DailyRewards')));
@@ -159,6 +160,10 @@ const MainRoutes = {
         {
           path: 'request-aura',
           element: <WithdrawRequestAura />
+        },
+        {
+          path: 'parformance',
+          element: <WithdrawParformance />
         }
       ]
     },
